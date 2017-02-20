@@ -5,7 +5,8 @@
 @import "variables"; //$body-bg: #F5F2F0;
 $body-color: #383838;
 $color-primary: #d75959;
-$color-secondary: #3f639e; // Social icons
+$color-secondary: #3f639e;
+$input-border-radius: 0.15rem; // Social icons
 @font-face {
     font-family: 'Social';
     src: url('../../font/social.eot?40467418');
@@ -74,10 +75,9 @@ section {
 
 .btn {
     background-color: $color-primary;
-    font-weight: 800;
-    color: #fff;
-    padding: 15px 45px;
-    border-radius: 50px;
+    color: $white;
+    border-color: $color-primary;
+    @extend .font-weight-bold;
 
     &:hover {
         color: #fff;
@@ -130,7 +130,7 @@ section {
     .navbar-toggler-icon {
         cursor: pointer;
         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHMAAABkCAMAAACCTv/3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////5ubmueBsSwAAAAJ0Uk5T/wDltzBKAAAAPklEQVR42uzYQQ0AAAgDseHfNC4IyVoD912WAACUm3uampqampqamq+aAAD+IVtTU1NTU1NT0z8EAFBsBRgAX+kR+Qam138AAAAASUVORK5CYII=");
-        height: .8em;
+        height: 0.8em;
         width: 1em;
     }
 
@@ -144,6 +144,7 @@ section {
             font-size: 1.8rem;
         }
     }
+
     .brand-name {
         font-size: 1.2rem;
         font-weight: normal;
@@ -207,73 +208,134 @@ section {
 CV
 *******************************************/
 .education {
-    margin-top: 20px;
-    position: relative;
-    padding: 1em 0;
-    list-style: none;
+    @extend .w-100;
+}
 
-    &:before {
-        width: 5px;
-        height: 100%;
-        position: absolute;
-        left: 25px;
-        top: 0;
-        content: ' ';
-        display: block;
-        background: #ec7263;
-        background: linear-gradient(to bottom, $white 0%,#ec7263 7%,#ec7263 89%,$white 100%);
-    }
-
-    li {
-        width: 100%;
-        z-index: 2;
+    .resume-item {
         position: relative;
-        float: left;
-    }
+        margin-bottom: 20px;
 
-    .year {
-        width: 15%;
-        background: $white;
-        padding: 10px;
-        font-size: 1.2em;
-        font-weight: 700;
-        display: inline-block;
-    }
+        &:before {
+                position: absolute;
+                content: '';
+                width: 1px;
+                height: calc(100% + 20px);
+                top: 0;
+                left: 160px;
+                border-left: 1px dotted $black;
 
-    .description {
-        width: 80%;
-        display: inline-block;
-        background: #eee;
-        margin-bottom: 10px;
-        position: relative;
-        padding: 10px 10px 0;
-        border-bottom: 1px solid #ddd;
 
-        &:after {
-            content: '';
+            }
+
+        &:last-child {
+            margin-bottom: 0;
+            &:before {
+                display: none;
+            }
+        }
+
+            .resume-year {
+                //background-color: $color-secondary;
+                display: block;
+                //color: $white;
+                border: 1px solid $black;
+                position: relative;
+                text-align: center;
+                width: 110px;
+                height: 40px;
+                margin-bottom: 20px;
+                line-height: 37px;
+                text-transform: uppercase;
+                    @include media-breakpoint-up(sm) {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    margin: 0;
+                }
+        }
+
+        .resume-btn {
             position: absolute;
-            top: 15px;
-            right: 0;
-            left: -16px;
-            height: 0;
-            width: 0;
-            border: solid transparent;
-            border-right-color: #eee;
-            border-width: 8px;
-            pointer-events: none;
-        }
+            z-index: 5;
+            top: 0;
+            left: 140px;
+            width: 40px;
+            height: 40px;
+            background-color: $white;
+            border-radius: 0;
+            border: 1px solid $black;
 
-        h3 {
-            font-size: 1rem;
-            margin: 0;
-            padding: 0;
-            font-weight: 700;
+            & > a {
+                &:before {
+                    display: block;
+                    position: absolute;
+                    z-index: 15;
+                    content: '-';
+                    top: 0;
+                    left: 0;
+                    width: 40px;
+                    height: 40px;
+                    line-height: 34px;
+                    color: $black;
+                    font-size: 30px;
+                    font-weight: 700;
+                    text-align: center;
+                }
+                &.collapsed {
+                    &:before {
+                      content: '+';
+                    }
+                }
+            }
+            @include media-breakpoint-down(md) {
+                display: none;
+            }
         }
+        .card {
+            @include media-breakpoint-up(sm) {
+                width: calc(100% - 140px);
+                margin-left: 140px;
+            }
+            @include media-breakpoint-up(md) {
+                width: calc(100% - 205px);
+                margin-left: 205px;
+            }
+            width: 100%;
+            border-radius: 0;
 
-        p {
-            margin-top: 5px;
-            padding: 0;
+            .card-header {
+                padding-bottom: 5px;
+                position: relative;
+                .resume-title {
+                    float: left;
+                    font-size: 1.2rem;
+                    line-height: 40px;
+                    margin-right: 10px;
+                    text-transform: uppercase;
+                }
+            }
+            .card-block {
+                p {
+                    margin-bottom: 20px;
+                }
+            }
         }
+    }
+
+.card-columns {
+    @include media-breakpoint-only(sm) {
+        column-count: 2;
+    }
+    @include media-breakpoint-only(lg) {
+        column-count: 3;
+    }
+
+    .card-header:first-child {
+        border-radius: calc($input-border-radius - 1px) calc($input-border-radius - 1px) 0 0;
+    }
+
+    .card-footer:last-child {
+        border-radius: 0 0 calc($input-border-radius - 1px) calc($input-border-radius - 1px);
     }
 }
 /* ==================================================
@@ -290,6 +352,11 @@ CV
 
     p {
         opacity: 0.75;
+    }
+
+    .form-control {
+        background-color: lighten($color-secondary, 30%);
+        border-radius: $input-border-radius;
     }
 
     .btn,
@@ -341,11 +408,11 @@ CV
 /* ==================================================
   Responsive Styling
   ================================================== */
-
 @include media-breakpoint-up(md) {
     body {
-        font-size: .85rem;
+        font-size: 0.85rem;
     }
+
     .description {
         width: 90%!important;
     }

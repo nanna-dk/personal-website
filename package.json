@@ -18,8 +18,8 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/nanna-dk/personal-website.git"
   },
   "author": "Nanna Ellegaard",
-  "license": "Free"
+  "license": "MIT"
 }

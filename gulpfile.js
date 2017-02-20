@@ -2,7 +2,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
-var nunjucksRender = require('gulp-nunjucks-render');
 var uglify = require('gulp-uglify');
 var input = './scss/bootstrap.scss';
 var output = './dist/css';
@@ -48,18 +47,6 @@ gulp.task('scripts', function () {
         .pipe(concat('bootstrap.min.js'))
         .pipe(gulp.dest('./dist/js'));
 });
-
-// gulp.task('nunjucks', function () {
-//     // Gets .html and .nunjucks files in pages
-//     return gulp.src('pages/**/*.+(html|nunjucks)')
-//         // Renders template with nunjucks
-//         .pipe(nunjucksRender({
-//             path: ['templates/'],
-//             ext: '.php'
-//         }))
-//         // output files in main folder
-//         .pipe(gulp.dest('./'));
-// });
 
 // Create watch task
 gulp.task('watch', function () {
