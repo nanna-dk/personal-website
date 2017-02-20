@@ -1,0 +1,25 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "Nannas website",
+  "main": "index.html",
+  "dependencies": {
+    "minimatch": "^3.0.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^2.0.1"
+  },
+  "scripts": {
+    "test": "test",
+    "sass": "node-sass -w sass/ -o css/"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Nanna Ellegaard",
+  "license": "Free"
+}
