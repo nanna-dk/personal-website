@@ -2,14 +2,14 @@
 //
 // Copy variables from `_variables.scss` to this file to override default values
 // without modifying source files.
-@import "variables";
-//$body-bg: #F5F2F0;
+@import "variables"; //$body-bg: #F5F2F0;
 $body-color: #383838;
 $color-primary: #d75959;
 $color-secondary: #3f639e;
-$font-size-h3: 1.5rem;
-$input-border-radius: 0.15rem;
-// Social icons
+$font-size-h3: 1.3rem;
+$input-border-radius: 0.15rem; // *******************************************
+//   Social icons
+// *******************************************
 @font-face {
     font-family: 'Social';
     src: url('../../font/social.eot?40467418');
@@ -60,9 +60,10 @@ $input-border-radius: 0.15rem;
 .icon-skype:before {
     content: '\f17e';
 }
-/* ==================================================
-  Elements
-  ================================================== */
+// *******************************************
+//   Elements
+// *******************************************
+
 body {
     color: $body-color;
 }
@@ -80,10 +81,9 @@ section {
     background-color: $color-primary;
     color: $white;
     border-color: $color-primary;
-    @extend .font-weight-bold;
 
     &:hover {
-        color: #fff;
+        color: $white;
         cursor: pointer;
     }
 }
@@ -96,7 +96,7 @@ section {
     height: 42px;
     border-radius: 50%;
     background: $color-primary;
-    color: #fff;
+    color: $white;
     text-align: center;
     font-size: 24px;
     z-index: $zindex-fixed;
@@ -104,13 +104,14 @@ section {
     &:active,
     &:focus,
     &:hover {
-        color: #fff !important;
+        color: $white !important;
         opacity: 0.75;
     }
 }
-/* ==================================================
-  Header Styling
-  ================================================== */
+// *******************************************
+//  Header Styling
+// *******************************************
+
 .affix {
     position: fixed!important;
     top: 0;
@@ -207,19 +208,22 @@ section {
         }
     }
 }
-/*******************************************
-CV
-*******************************************/
+// *******************************************
+// CV
+// *******************************************
+
 #pro-experience {
-  h3 {
-    font-size: $font-size-h3;
-  }
+    h3 {
+        font-size: $font-size-h3;
+        margin-bottom: 15px;
+    }
+
     .experience {
         overflow: visible;
         position: relative;
         padding-left: 24px;
         margin-left: 7px;
-        border-left: 1px solid rgba($body-color, .4);
+        border-left: 1px solid lighten($body-color, 25%);
 
         ul {
             margin-bottom: 23px;
@@ -228,6 +232,8 @@ CV
     }
 
     li {
+        @extend .list-unstyled;
+
         &.date {
             font-size: 0.9rem;
             margin-bottom: 0;
@@ -235,7 +241,7 @@ CV
             display: block;
             font-weight: 400;
             line-height: 1.2em;
-            transition: all 0.35s ease-in-out;
+            transition: all 0.25s ease-in-out;
         }
 
         &.company {
@@ -247,7 +253,7 @@ CV
                 position: relative;
                 font-size: 16px;
                 font-weight: 600;
-                transition: all 0.35s ease-in-out;
+                transition: all 0.25s ease-in-out;
 
                 &:before {
                     position: absolute;
@@ -257,31 +263,31 @@ CV
                     top: 7px;
                     left: -29px;
                     content: '';
-                    background: $body-color;
+                    background: lighten($body-color, 30%);
                 }
 
                 &:hover {
-                    opacity: 0.5;
+                    color: lighten($gray-light, 10%);
+                    text-decoration: none;
+                }
+
+                &:hover {
+                    &:before {
+                        background: $color-primary;
+                    }
+                }
+
+                &.no-event {
+                    color: $body-color;
                 }
             }
         }
-
-        &.position {
-            margin: 0;
-            display: block;
-            line-height: 12px;
-        }
     }
 }
-
-.card-columns {
-    @include media-breakpoint-only(sm) {
-        column-count: 2;
-    }
-    @include media-breakpoint-only(lg) {
-        column-count: 3;
-    }
-
+.assignments {
+  .card {
+    margin-bottom: 1rem;
+  }
     .card-header:first-child {
         border-radius: calc($input-border-radius - 1px) calc($input-border-radius - 1px) 0 0;
     }
@@ -290,9 +296,10 @@ CV
         border-radius: 0 0 calc($input-border-radius - 1px) calc($input-border-radius - 1px);
     }
 }
-/* ==================================================
-  Footer Styling
-  ================================================== */
+// *******************************************
+//  Footer Styling
+// *******************************************
+
 .site-footer {
     background-color: $color-secondary;
     padding: 50px 0 0;
@@ -357,9 +364,9 @@ CV
         overflow: hidden;
     }
 }
-/* ==================================================
-  Responsive Styling
-  ================================================== */
+// *******************************************
+//  Responsive Styling
+// *******************************************
 @include media-breakpoint-down(md) {
     .navbar {
         padding: 10px 0 !important;
