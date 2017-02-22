@@ -39,40 +39,38 @@
     <section class="cv" id="cv">
       <div class="container">
         <h2>CV</h2>
-        <article class="resume-item">
-          <div class="resume-year">2015 -</div>
-          <div class="resume-btn">
-            <a href="#ex1" data-toggle="collapse" data-parent="#cv" aria-expanded="true" aria-controls="ex1"></a>
-          </div>
-          <div class="card">
-              <div class="card-header">
-                <h4 class="resume-title">Københavns Universitet</h4>
-                <p class="text-secondary"> // Frontend-udvikler</p>
-              </div>
-            <div id="ex1" class="card-block collapse show">
-                <p>
-                  Ansat som front-end developer hos Københavns Universitet, Fællesadministrationen.
-                </p>
-            </div>
-          </div>
-        </article>
-        <article class="resume-item">
-          <div class="resume-year">2012 - 2015</div>
-          <div class="resume-btn">
-            <a href="#ex2" data-toggle="collapse" data-parent="#cv" aria-expanded="true" aria-controls="ex2"></a>
-          </div>
-          <div class="card">
-              <div class="card-header">
-                <h4 class="resume-title">Telenor A/S</h4>
-                <p class="text-secondary"> // Frontend-udvikler</p>
-              </div>
-            <div id="ex2" class="card-block collapse show">
-                <p>
-                  Frontend-udvikler/webmaster hos Telenor, København.
-                </p>
-            </div>
-          </div>
-        </article>
+        <div id="pro-experience">
+               <h3>Employment</h3>
+               <div class="experience">
+                  <ul class="">
+                     <li class="date">02/2008 - 04/2010</li>
+                     <li class="company">
+                        <a href="#">
+                           ABC Brodcast Inc. New York.
+                        </a>
+                     </li>
+                     <li class="position">Junior Designer</li>
+                  </ul>
+                  <ul class="">
+                     <li class="date">04/2010 - 06/2012</li>
+                     <li class="company">
+                        <a href="#">
+                           Leo Burnett London Office
+                        </a>
+                     </li>
+                     <li class="position">Senior Designer</li>
+                  </ul>
+                  <ul class="">
+                     <li class="date">06/2012 - present</li>
+                     <li class="company">
+                        <a href="#">
+                           Google Inc. Dublin.
+                        </a>
+                     </li>
+                     <li class="position">UI/UX Designer</li>
+                  </ul>
+               </div>
+         </div>
       </div>
     </section>
     <!-- /Cv -->
