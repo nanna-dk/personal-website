@@ -120,7 +120,7 @@
                       <li class="company">
                           <a class="no-event">Cand.it i multimedier ved IT-Vest, Aarhus Universitet</a>
                       </li>
-                      <li class="position">Speciale: Samarbejde, CSCW, artikulationsarbejde og awareness</li>
+                      <li class="position"><a href="includes/clicks/click.php?id=10" target="_blank"><?php displayTitle(10) ?></a>.<br >Oprettet: <?php displayDate(10) ?>. Downloads: <?php displayHits(10) ?></li>
                   </ul>
                   <ul>
                       <li class="date">1998 - 2001</li>
@@ -290,7 +290,7 @@
                         <?php include( 'includes/menus/bottommenuitems.php'); ?>
                     </div>
                     <div class="col-md-4 col-xs-12 text-lg-right text-xs-center pt-3 pt-sm-0">
-                        <p class="copyright-text"> Copyright © 2017 Nanna Ellegaard </p>
+                        <p class="copyright-text">Sidst opdateret: <?php echo strftime( "%d. %m %Y", getlastmod() ); ?> Copyright © 2017 Nanna Ellegaard</p>
                     </div>
                 </div>
             </div>

@@ -35,3 +35,5 @@ docs/.jekyll-metadata
 
 # Folders to ignore
 node_modules
+opgaver
+includes/db.php
