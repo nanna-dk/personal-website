@@ -38,13 +38,14 @@ var custom = function($) {
         });
 
         // Smooth scrolling from anchors
-        $('a[href*="#"]:not([href="#"])').click(function() {
+        $('a[href*="#"]').click(function() {
             if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
                 var target = $(this.hash);
                 target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
                 if (target.length) {
                     $('html, body').animate({
-                        scrollTop: target.offset().top
+                        //50px are added due to the sticky topmenu
+                        scrollTop: target.offset().top - 50
                     }, 500);
                     return false;
                 }

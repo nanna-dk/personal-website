@@ -2,12 +2,15 @@
 //
 // Copy variables from `_variables.scss` to this file to override default values
 // without modifying source files.
-@import "variables"; //$body-bg: #F5F2F0;
+@import "variables";
+$body-bg: #F5F2F0;
 $body-color: #383838;
 $color-primary: #d75959;
 $color-secondary: #3f639e;
-$font-size-h3: 1.3rem;
-$input-border-radius: 0.15rem; // *******************************************
+$font-size-h1: 2rem !default;
+$font-size-h2: 1.75rem !default;
+$font-size-h4: 1.25rem !default;
+// *******************************************
 //   Social icons
 // *******************************************
 @font-face {
@@ -18,58 +21,13 @@ $input-border-radius: 0.15rem; // *******************************************
     font-style: normal;
 }
 
-[class*=" icon-"]:before,
-[class^="icon-"]:before {
-    font-family: "Social";
-    speak: none;
-    text-transform: none;
-    font-style: normal;
-    display: inline-block;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-facebook:before {
-    content: '\f09a';
-}
-
-.icon-github:before {
-    content: '\f09b';
-}
-
-.icon-gplus:before {
-    content: '\f0d5';
-}
-
-.icon-mail:before {
-    content: '\f0e0';
-}
-
-.icon-linkedin:before {
-    content: '\f0e1';
-}
-
-.icon-angle-up:before {
-    content: '\f106';
-}
-
-.icon-code:before {
-    content: '\f121';
-}
-
-.icon-skype:before {
-    content: '\f17e';
-}
-// *******************************************
-//   Elements
-// *******************************************
-
 body {
     color: $body-color;
+    background-color: $body-bg;
 }
 
 section {
-    padding: 30px 0;
+    padding: 25px 0;
 
     h2 {
         color: $color-primary;
@@ -213,8 +171,8 @@ section {
 // *******************************************
 
 #pro-experience {
-    h3 {
-        font-size: $font-size-h3;
+    h4 {
+        font-size: $font-size-h4;
         margin-bottom: 15px;
     }
 
@@ -284,16 +242,26 @@ section {
         }
     }
 }
+
 .assignments {
-  .card {
-    margin-bottom: 1rem;
-  }
-    .card-header:first-child {
-        border-radius: calc($input-border-radius - 1px) calc($input-border-radius - 1px) 0 0;
+    .card {
+        margin-bottom: 1rem;
     }
 
-    .card-footer:last-child {
-        border-radius: 0 0 calc($input-border-radius - 1px) calc($input-border-radius - 1px);
+    .card-header {
+        font-size: 1.25rem;
+
+        &:first-child {
+            border-radius: calc(.15rem - 1px) calc(.15rem - 1px) 0 0;
+        }
+    }
+
+    .card-footer {
+        &:last-child {
+            border-radius: 0 0 calc(.15rem - 1px) calc(.15rem - 1px);
+        }
+        @extend .clearfix;
+        @extend .text-muted;
     }
 }
 // *******************************************
@@ -310,12 +278,12 @@ section {
     }
 
     p {
-        opacity: 0.75;
+        opacity: .75;
     }
 
     .form-control {
         background-color: lighten($color-secondary, 30%);
-        border-radius: $input-border-radius;
+        border-radius: 0.15rem;
     }
 
     .btn,
@@ -326,7 +294,7 @@ section {
     .social-nav {
         a {
             color: $white;
-            opacity: 0.25;
+            opacity: .25;
 
             &:hover {
                 opacity: 1;
@@ -350,7 +318,7 @@ section {
 
             a {
                 color: $white;
-                opacity: 0.25;
+                opacity: .25;
                 margin-right: 15px;
 
                 &:hover {
@@ -363,6 +331,52 @@ section {
     .captcha-box {
         overflow: hidden;
     }
+}
+// *******************************************
+//   Icons
+// *******************************************
+
+[class*=" icon-"]:before,
+[class^="icon-"]:before {
+    font-family: "Social";
+    speak: none;
+    text-transform: none;
+    font-style: normal;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-facebook:before {
+    content: '\f09a';
+}
+
+.icon-github:before {
+    content: '\f09b';
+}
+
+.icon-gplus:before {
+    content: '\f0d5';
+}
+
+.icon-mail:before {
+    content: '\f0e0';
+}
+
+.icon-linkedin:before {
+    content: '\f0e1';
+}
+
+.icon-angle-up:before {
+    content: '\f106';
+}
+
+.icon-code:before {
+    content: '\f121';
+}
+
+.icon-skype:before {
+    content: '\f17e';
 }
 // *******************************************
 //  Responsive Styling

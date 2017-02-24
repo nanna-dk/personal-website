@@ -10,13 +10,13 @@ echo
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto mt-2 mt-md-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Start <span class="sr-only">home</span></a>
+                    <a class="nav-link" href="#about">Start <span class="sr-only">home</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#cv">CV</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#portfolio">Portfolio</a>
+                    <a class="nav-link" href="#assignments">Opgaver</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#contact">Kontakt</a>
