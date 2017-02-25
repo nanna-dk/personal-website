@@ -3,7 +3,7 @@
 // Copy variables from `_variables.scss` to this file to override default values
 // without modifying source files.
 @import "variables";
-$body-bg: #F5F2F0;
+$body-bg: #f5f2f0;
 $body-color: #383838;
 $color-primary: #d75959;
 $color-secondary: #3f639e;
@@ -14,9 +14,9 @@ $font-size-h4: 1.25rem !default;
 //   Social icons
 // *******************************************
 @font-face {
-    font-family: 'Social';
-    src: url('../../font/social.eot?40467418');
-    src: url('../../font/social.eot?40467418#iefix') format('embedded-opentype'), url('../../font/social.woff2?40467418') format('woff2'), url('../font/social.woff?40467418') format('woff'), url('../../font/social.ttf?40467418') format('truetype'), url('../../font/social.svg?40467418#Social') format('svg');
+    font-family: "Social";
+    src: url("../../font/social.eot?40467418");
+    src: url("../../font/social.eot?40467418#iefix") format("embedded-opentype"), url("../../font/social.woff2?40467418") format("woff2"), url("../font/social.woff?40467418") format("woff"), url("../../font/social.ttf?40467418") format("truetype"), url("../../font/social.svg?40467418#Social") format("svg");
     font-weight: normal;
     font-style: normal;
 }
@@ -63,7 +63,7 @@ section {
     &:focus,
     &:hover {
         color: $white !important;
-        opacity: 0.75;
+        opacity: .75;
     }
 }
 // *******************************************
@@ -71,11 +71,11 @@ section {
 // *******************************************
 
 .affix {
-    position: fixed!important;
+    position: fixed !important;
     top: 0;
     right: 0;
     left: 0;
-    z-index: $zindex-fixed!important;
+    z-index: $zindex-fixed !important;
 }
 
 .navbar {
@@ -92,7 +92,7 @@ section {
     .navbar-toggler-icon {
         cursor: pointer;
         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHMAAABkCAMAAACCTv/3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////5ubmueBsSwAAAAJ0Uk5T/wDltzBKAAAAPklEQVR42uzYQQ0AAAgDseHfNC4IyVoD912WAACUm3uampqampqamq+aAAD+IVtTU1NTU1NT0z8EAFBsBRgAX+kR+Qam138AAAAASUVORK5CYII=");
-        height: 0.8em;
+        height: .8em;
         width: 1em;
     }
 
@@ -124,8 +124,8 @@ section {
             margin-right: 15px;
             position: relative;
 
-            &:before {
-                content: '';
+            &::before {
+                content: "";
                 position: absolute;
                 background-color: $white;
                 width: 100%;
@@ -139,7 +139,7 @@ section {
                 color: rgba(255, 255, 255, .75);
             }
 
-            &:hover:before {
+            &:hover::before {
                 opacity: 1;
                 visibility: visible;
             }
@@ -153,13 +153,13 @@ section {
     a {
         font-size: 1.5rem;
         margin-left: 15px;
-        opacity: 0.75;
+        opacity: .75;
 
         &:hover {
             opacity: 1;
         }
 
-        &:before {
+        &::before {
             position: relative;
             top: 50%;
             transform: translateY(-50%);
@@ -193,13 +193,13 @@ section {
         @extend .list-unstyled;
 
         &.date {
-            font-size: 0.9rem;
+            font-size: .9rem;
             margin-bottom: 0;
             position: relative;
             display: block;
             font-weight: 400;
             line-height: 1.2em;
-            transition: all 0.25s ease-in-out;
+            transition: all .25s ease-in-out;
         }
 
         &.company {
@@ -211,16 +211,16 @@ section {
                 position: relative;
                 font-size: 16px;
                 font-weight: 600;
-                transition: all 0.25s ease-in-out;
+                transition: all .25s ease-in-out;
 
-                &:before {
+                &::before {
                     position: absolute;
                     width: 9px;
                     height: 9px;
                     border-radius: 4px;
                     top: 7px;
                     left: -29px;
-                    content: '';
+                    content: "";
                     background: lighten($body-color, 30%);
                 }
 
@@ -230,7 +230,7 @@ section {
                 }
 
                 &:hover {
-                    &:before {
+                    &::before {
                         background: $color-primary;
                     }
                 }
@@ -283,7 +283,7 @@ section {
 
     .form-control {
         background-color: lighten($color-secondary, 30%);
-        border-radius: 0.15rem;
+        border-radius: .15rem;
     }
 
     .btn,
@@ -336,8 +336,8 @@ section {
 //   Icons
 // *******************************************
 
-[class*=" icon-"]:before,
-[class^="icon-"]:before {
+[class*="icon-"]::before,
+[class^="icon-"]::before {
     font-family: "Social";
     speak: none;
     text-transform: none;
@@ -347,36 +347,36 @@ section {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-facebook:before {
-    content: '\f09a';
+.icon-facebook::before {
+    content: "\f09a";
 }
 
-.icon-github:before {
-    content: '\f09b';
+.icon-github::before {
+    content: "\f09b";
 }
 
-.icon-gplus:before {
-    content: '\f0d5';
+.icon-gplus::before {
+    content: "\f0d5";
 }
 
-.icon-mail:before {
-    content: '\f0e0';
+.icon-mail::before {
+    content: "\f0e0";
 }
 
-.icon-linkedin:before {
-    content: '\f0e1';
+.icon-linkedin::before {
+    content: "\f0e1";
 }
 
-.icon-angle-up:before {
-    content: '\f106';
+.icon-angle-up::before {
+    content: "\f106";
 }
 
-.icon-code:before {
-    content: '\f121';
+.icon-code::before {
+    content: "\f121";
 }
 
-.icon-skype:before {
-    content: '\f17e';
+.icon-skype::before {
+    content: "\f17e";
 }
 // *******************************************
 //  Responsive Styling

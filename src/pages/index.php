@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <meta content="Nanna Ellegaard, frontend-udvikler" name="description">
+    <meta content="Nanna Ellegaard, frontend-udvikler, cand.it i multimedier, cv" name="description">
     <meta name="theme-color" content="#c14343">
     <meta name="google-site-verification" content="MV2MazdIeTTrYsADXu2ARdwg44eWp_co_c7P2LZ7oyc">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">

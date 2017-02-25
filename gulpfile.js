@@ -9,10 +9,11 @@ var htmlmin = require('gulp-htmlmin');
 // project paths
 var paths = {
     webroot: "./",
-    scss: "./scss/bootstrap.scss",
+    src: "./src",
+    scss: "./src/scss/bootstrap.scss",
     minCss: "./dist/css",
     minJs: "./dist/js",
-    templates: "./pages",
+    templates: "./src/pages",
 };
 
 // List of .js files to concatenate
@@ -61,7 +62,7 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest(paths.minJs));
 });
 gulp.task('minifyHTML', function() {
-    return gulp.src(paths.templates + '/index.php')
+    return gulp.src(paths.templates + '/*.+(php|html)')
         .pipe(htmlmin({
             removeComments: true,
             collapseWhitespace: true
@@ -71,7 +72,7 @@ gulp.task('minifyHTML', function() {
 
 // Create watch task
 gulp.task('watch', function() {
-    gulp.watch('./scss/**/*.scss', ['sass']);
-    gulp.watch('./js/**/*.js', ['scripts']);
-    gulp.watch('pages/**/*.+(php|html)', ['minifyHTML']);
+    gulp.watch(paths.src +'/scss/**/*.scss', ['sass']);
+    gulp.watch(paths.src + '/js/**/*.js', ['scripts']);
+    gulp.watch(paths.templates + '/**/*.+(php|html)', ['minifyHTML']);
 });
