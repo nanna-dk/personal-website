@@ -5,8 +5,7 @@ echo
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-        <a class="navbar-brand" href="/"><span class="icon-code"></span> <span class="brand-name hidden-sm-up">Nannas website</span></a>
-
+        <a class="navbar-brand" href="/"><span class="icon-code"></span> <span class="brand-name hidden-md-up">Nannas website</span></a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto mt-2 mt-md-0">
                 <li class="nav-item">

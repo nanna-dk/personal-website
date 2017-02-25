@@ -27,9 +27,10 @@ body {
 }
 
 section {
-    padding: 25px 0;
+    padding: 20px 0 10px 0;
 
     h2 {
+        font-size: 1.5rem;
         color: $color-primary;
         margin-bottom: 25px;
     }
@@ -38,34 +39,9 @@ section {
 .btn {
     background-color: $color-primary;
     color: $white;
-    border-color: $color-primary;
-
-    &:hover {
-        color: $white;
-        cursor: pointer;
-    }
+    border-color: inherit;
 }
 
-.scrolltop {
-    position: fixed;
-    bottom: 4%;
-    right: 3%;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: $color-primary;
-    color: $white;
-    text-align: center;
-    font-size: 24px;
-    z-index: $zindex-fixed;
-
-    &:active,
-    &:focus,
-    &:hover {
-        color: $white !important;
-        opacity: .75;
-    }
-}
 // *******************************************
 //  Header Styling
 // *******************************************
@@ -85,7 +61,7 @@ section {
     .navbar-toggler {
         outline: none !important;
         color: $white;
-        font-size: 30px;
+        font-size: 1.6rem;
         padding: 0;
     }
 
@@ -166,14 +142,25 @@ section {
         }
     }
 }
+
 // *******************************************
 // CV
 // *******************************************
 
-#pro-experience {
+.cv {
     h4 {
-        font-size: $font-size-h4;
+        font-size: 1.25rem;
         margin-bottom: 15px;
+    }
+    .card {
+        .card {
+            border: 0;
+            @include media-breakpoint-down(xs) {
+                .card-block {
+                    padding: 0;
+                }
+            }
+        }
     }
 
     .experience {
@@ -215,11 +202,11 @@ section {
 
                 &::before {
                     position: absolute;
-                    width: 9px;
-                    height: 9px;
+                    width: 13px;
+                    height: 13px;
                     border-radius: 4px;
-                    top: 7px;
-                    left: -29px;
+                    top: 6px;
+                    left: -31px;
                     content: "";
                     background: lighten($body-color, 30%);
                 }
@@ -330,6 +317,26 @@ section {
 
     .captcha-box {
         overflow: hidden;
+    }
+}
+.scrolltop {
+    position: fixed;
+    bottom: 4%;
+    right: 3%;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: $color-primary;
+    color: $white;
+    text-align: center;
+    font-size: 1.5rem;
+    z-index: $zindex-fixed;
+
+    &:active,
+    &:focus,
+    &:hover {
+        color: $white !important;
+        opacity: .75;
     }
 }
 // *******************************************

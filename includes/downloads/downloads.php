@@ -25,4 +25,3 @@ if (mysql_num_rows($sql_result) > 0) {
     echo "Item is missing.";
 }
 mysql_close($connection);
-?>
