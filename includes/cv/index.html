@@ -1,0 +1,33 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Resume</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+
+    <div id="resume"></div>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $.getJSON('resume.json', function(data) {
+                console.log(data);
+                $.each(data, function(i, item) {
+                    console.log(item.name);
+                    console.log(item.label);
+                });
+            });
+        });
+        document.getElementById("resume").innerHTML=data.education[0].institution;
+    </script>
+</body>
+
+</html>
