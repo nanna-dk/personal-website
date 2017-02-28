@@ -30,6 +30,7 @@ var js = {
         //"./js/tab.js",
         //"./js/scrollspy.js",
         "./js/util.js",
+        "./js/customcv.js",
         "./js/custom.js"
     ]
 };

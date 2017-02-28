@@ -19,14 +19,62 @@
     <script>
         $(document).ready(function() {
             $.getJSON('resume.json', function(data) {
+                // basics
                 console.log(data);
                 $.each(data, function(i, item) {
-                    console.log(item.name);
-                    console.log(item.label);
+                    // Basics
+                    if (i === "basics") {
+                        basicnName = item.name;
+                        basicLabel = item.label;
+                        Basicsummary = item.summary;
+                        console.log(basicnName);
+                        console.log(basicLabel);
+                        console.log(Basicsummary);
+                        // Loope one level deeper
+                        //   $.each(item, function(j, value) {
+                        //       console.log(value);
+                        //   })
+                    }
                 });
+
+                // Work
+                data.work.forEach(function(w) {
+                    company = w.company;
+                    position = w.position;
+                    summary = w.summary;
+                    website = w.website;
+                    startDate = w.startDate;
+                    endDate = w.endDate;
+                    console.log(company);
+                    console.log(position);
+                    console.log(summary);
+                    workTemplate = '<ul><li class="date">' + startDate + ' -</li><li class="company"> <a href="'+website+'">'+company+'</a> </li>  <li class="position">'+position+'</li></ul>';
+                });
+
+                // Education
+                data.education.forEach(function(e) {
+                    institution = e.institution;
+                    studyType = e.studyType;
+                    eduStartDate = e.startDate;
+                    eduEndDate = e.endDate;
+                    console.log(institution);
+                });
+
+                // Skills
+                data.skills.forEach(function(s) {
+                    skillName = s.name;
+                    console.log(skillName);
+                });
+
+                // References
+                data.references.forEach(function(r) {
+                    refName = r.name;
+                    ref = r.reference;
+                    console.log(refName);
+                });
+                $('#resume').append(workTemplate);
             });
         });
-        document.getElementById("resume").innerHTML=data.education[0].institution;
     </script>
 </body>
 
