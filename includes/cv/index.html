@@ -49,6 +49,7 @@
                     console.log(position);
                     console.log(summary);
                     workTemplate = '<ul><li class="date">' + startDate + ' -</li><li class="company"> <a href="'+website+'">'+company+'</a> </li>  <li class="position">'+position+'</li></ul>';
+                    $('#resume').append(workTemplate);
                 });
 
                 // Education
@@ -72,7 +73,6 @@
                     ref = r.reference;
                     console.log(refName);
                 });
-                $('#resume').append(workTemplate);
             });
         });
     </script>

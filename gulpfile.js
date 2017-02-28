@@ -20,18 +20,18 @@ var paths = {
 var js = {
     jsSrc: [
         //"./js/alert.js",
-        "./js/button.js",
+        paths.src + "/js/button.js",
         //"./js/carousel.js",
-        "./js/collapse.js",
+        paths.src + "/js/collapse.js",
         //"./js/dropdown.js",
-        "./js/modal.js",
+        paths.src + "/js/modal.js",
         //"./js/tooltip.js",
         //"./js/popover.js",
         //"./js/tab.js",
         //"./js/scrollspy.js",
-        "./js/util.js",
-        "./js/customcv.js",
-        "./js/custom.js"
+        paths.src + "/js/util.js",
+        //paths.src + "/js/customcv.js"
+        paths.src + "/js/custom.js"
     ]
 };
 
