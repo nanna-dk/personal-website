@@ -5,6 +5,9 @@ var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var htmlmin = require('gulp-htmlmin');
+var nunjucksRender = require('gulp-nunjucks-render');
+var remove = require('gulp-remove-files');
+var rename = require('gulp-rename');
 
 // project paths
 var paths = {
@@ -13,7 +16,8 @@ var paths = {
     scss: "./src/scss/bootstrap.scss",
     minCss: "./dist/css",
     minJs: "./dist/js",
-    templates: "./src/pages",
+    pages: "./src/pages",
+    templates: './src/templates'
 };
 
 // List of .js files to concatenate
@@ -42,10 +46,9 @@ var sassOptions = {
 };
 
 var autoprefixerOptions = {
-    browsers: ['last 4 versions', '> 5%']
+    browsers: ['last 3 versions', '> 3%']
 };
 
-// Make sass compile and save to css folder
 gulp.task('sass', function() {
     return gulp
         .src(paths.scss)
@@ -55,15 +58,28 @@ gulp.task('sass', function() {
         .pipe(gulp.dest(paths.minCss));
 });
 
-
 gulp.task('scripts', function() {
     return gulp.src(js.jsSrc)
         .pipe(uglify())
         .pipe(concat('bootstrap.min.js'))
         .pipe(gulp.dest(paths.minJs));
 });
-gulp.task('minifyHTML', function() {
-    return gulp.src(paths.templates + '/*.+(php|html)')
+
+gulp.task('clearHtml', ['rename'], function() {
+    return gulp.src(paths.webroot + '/*.html')
+        .pipe(remove());
+});
+
+gulp.task('nunjucks', function() {
+    return gulp.src(paths.pages + '/**/*.+(html|nunjucks)')
+        .pipe(nunjucksRender({
+            path: [paths.templates]
+        }))
+        .pipe(gulp.dest(paths.webroot));
+});
+
+gulp.task('minifyHTML', ['nunjucks'], function() {
+    return gulp.src(paths.pages + '/*.+(php|html)')
         .pipe(htmlmin({
             removeComments: true,
             collapseWhitespace: true
@@ -71,9 +87,17 @@ gulp.task('minifyHTML', function() {
         .pipe(gulp.dest(paths.webroot));
 });
 
+gulp.task('rename', ['minifyHTML'], function() {
+    return gulp.src(paths.webroot + '/*.html')
+        .pipe(rename({
+            extname: ".php"
+        }))
+        .pipe(gulp.dest(paths.webroot));
+});
+
 // Create watch task
 gulp.task('watch', function() {
-    gulp.watch(paths.src +'/scss/**/*.scss', ['sass']);
+    gulp.watch(paths.src + '/scss/**/*.scss', ['sass']);
     gulp.watch(paths.src + '/js/**/*.js', ['scripts']);
-    gulp.watch(paths.templates + '/**/*.+(php|html)', ['minifyHTML']);
+    gulp.watch('./src/pages/**', ['nunjucks', 'minifyHTML', 'rename', 'clearHtml']);
 });

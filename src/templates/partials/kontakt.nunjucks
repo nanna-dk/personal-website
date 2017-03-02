@@ -1,0 +1,46 @@
+<h2>Kontakt</h2>
+<!-- Form -->
+<form action="#send-message" method="POST" class="row" id="send-message">
+    <div class="col-md-4 mb-3">
+        <input type="text" class="form-control" value="<?php echo !empty($contact_name)?$contact_name:''; ?>" placeholder="Navn" name="contact_name" required>
+    </div>
+    <div class="col-md-4 mb-3">
+        <input type="email" class="form-control" value="<?php echo !empty($email)?$email:''; ?>" placeholder="E-mailadresse" name="email" required>
+    </div>
+    <div class="col-md-4 mb-3">
+        <input type="phone" class="form-control" value="<?php echo !empty($email)?$email:''; ?>" placeholder="Evt. telefon" name="phone">
+    </div>
+    <div class="col-md-12 my-3 mt-md-0">
+        <textarea type="text" class="form-control" rows="7" placeholder="Besked..." required name="message"><?php echo !empty($message)?$message: ''; ?></textarea>
+    </div>
+    <div class="col-sm-10 col-sm-offset-2 captcha-box">
+        <div class="g-recaptcha" data-theme="dark" data-sitekey="6LdqpBIUAAAAAAq17acWDx1oHuJsrQOdVQFb88rh"> </div>
+    </div>
+    <div class="col-sm-10 col-sm-offset-2 mt-3">
+        <button class="btn btn-default" type="submit" name="submit">Send</button>
+    </div>
+</form>
+<!-- Modal -->
+<div class="modal fade" id="response" tabindex="-1" role="dialog" aria-labelledby="responseLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="responseLabel">Beskeden er sendt</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+            </div>
+            <div class="modal-body">
+                <?php if(!empty($succMsg)): ?>
+                <?php echo $succMsg; ?>
+                <?php endif; ?> </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Luk</button>
+            </div>
+        </div>
+    </div>
+</div>
+<?php if(!empty($errMsg)): ?>
+<div class="alert alert-danger" role="alert">
+    <?php echo $errMsg; ?>
+</div>
+<?php endif; ?>
+<!-- Form end -->

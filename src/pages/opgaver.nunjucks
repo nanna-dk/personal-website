@@ -1,0 +1,5 @@
+{% extends "master.nunjucks" %}
+
+{% block content %}
+{% include "partials/opgaver.nunjucks" %}
+{% endblock %}

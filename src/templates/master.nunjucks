@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html class="no-js" lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="Nanna Ellegaard, frontend-udvikler, cand.it i multimedier, cv" name="description">
+    <meta name="theme-color" content="#c14343">
+    <meta name="google-site-verification" content="MV2MazdIeTTrYsADXu2ARdwg44eWp_co_c7P2LZ7oyc">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" href="favicon.ico">
+    <title>Nannas website</title>
+    <link href="dist/css/style.css" rel="stylesheet">
+    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+  </head>
+<body>
+  <?php
+    include('includes/mail/sendmail.php');
+    include_once('includes/analyticstracking.php');
+  ?>
+  {% include "partials/menus/topmenuitems.nunjucks" %}
+  {% block content %} {% endblock %}
+  <footer class="site-footer" id="contact">
+      <div class="container">
+          <div class="row">
+              <div class="col-xs-12 col-lg-7">
+                  {% include "partials/kontakt.nunjucks" %}
+              </div>
+              <div class="col-xs-12 col-lg-5">
+                <nav class="nav social-nav footer-social-nav">
+                    {% include "partials/menus/socialitems.nunjucks" %}
+                </nav>
+              </div>
+          </div>
+      </div>
+      <div class="bottom">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-8 col-xs-12">
+                      {% include "partials/menus/bottommenuitems.nunjucks" %}
+                  </div>
+                  <div class="col-md-4 col-xs-12 text-lg-right text-xs-center pt-3 pt-sm-0">
+                      <p class="copyright-text">Sidst opdateret: <?php echo strftime( "%d. %m %Y", getlastmod() ); ?> Copyright © 2017 Nanna Ellegaard</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <!-- Scroll to top -->
+  <a class="scrolltop" href="#about"><span class="icon-angle-up"></span></a>
+  <!-- /Scroll to top -->
+</body>
+</html>
