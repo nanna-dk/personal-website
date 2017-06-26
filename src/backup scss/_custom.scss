@@ -1,0 +1,415 @@
+// Bootstrap overrides
+//
+// Copy variables from `_variables.scss` to this file to override default values
+// without modifying source files.
+@import "variables";
+$body-bg: #f5f2f0;
+$body-color: #383838;
+$color-primary: #d75959;
+$color-secondary: #3f639e;
+$font-size-h1: 2rem !default;
+$font-size-h2: 1.75rem !default;
+$font-size-h4: 1.25rem !default;
+// *******************************************
+//   Social icons
+// *******************************************
+@font-face {
+    font-family: "Social";
+    src: url("../../font/social.eot?40467418");
+    src: url("../../font/social.eot?40467418#iefix") format("embedded-opentype"), url("../../font/social.woff2?40467418") format("woff2"), url("../font/social.woff?40467418") format("woff"), url("../../font/social.ttf?40467418") format("truetype"), url("../../font/social.svg?40467418#Social") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    color: $body-color;
+    background-color: $body-bg;
+}
+
+section {
+    padding: 20px 0 10px 0;
+
+    h2 {
+        font-size: 1.5rem;
+        color: $color-primary;
+        margin-bottom: 25px;
+    }
+}
+
+.btn {
+    background-color: $color-primary;
+    color: $white;
+    border-color: inherit;
+}
+
+// *******************************************
+//  Header Styling
+// *******************************************
+
+.affix {
+    position: fixed !important;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: $zindex-fixed !important;
+}
+
+.navbar {
+    background-color: $color-primary;
+    padding: 0;
+
+    .navbar-toggler {
+        outline: none !important;
+        color: $white;
+        font-size: 1.6rem;
+        padding: 0;
+    }
+
+    .navbar-toggler-icon {
+        cursor: pointer;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHMAAABkCAMAAACCTv/3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////5ubmueBsSwAAAAJ0Uk5T/wDltzBKAAAAPklEQVR42uzYQQ0AAAgDseHfNC4IyVoD912WAACUm3uampqampqamq+aAAD+IVtTU1NTU1NT0z8EAFBsBRgAX+kR+Qam138AAAAASUVORK5CYII=");
+        height: .8em;
+        width: 1em;
+    }
+
+    .navbar-brand {
+        margin-right: 30px !important;
+        margin-top: -8px !important;
+        font-weight: 700;
+        padding: 0;
+        font-size: 2rem;
+        @include media-breakpoint-down(sm) {
+            font-size: 1.8rem;
+        }
+    }
+
+    .brand-name {
+        font-size: 1.2rem;
+        font-weight: normal;
+        @include media-breakpoint-down(sm) {
+            margin-left: 10px;
+        }
+    }
+
+    a {
+        color: $white;
+
+        &.nav-link {
+            font-size: 1rem;
+            padding: 20px 0;
+            margin-right: 15px;
+            position: relative;
+
+            &::before {
+                content: "";
+                position: absolute;
+                background-color: $white;
+                width: 100%;
+                height: 3px;
+                bottom: 0;
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            &:hover {
+                color: rgba(255, 255, 255, .75);
+            }
+
+            &:hover::before {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+}
+
+.social-nav {
+    color: $white;
+
+    a {
+        font-size: 1.5rem;
+        margin-left: 15px;
+        opacity: .75;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &::before {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+}
+
+// *******************************************
+// CV
+// *******************************************
+
+.cv {
+    h4 {
+        font-size: 1.25rem;
+        margin-bottom: 15px;
+    }
+    .card {
+        .card {
+            border: 0;
+            @include media-breakpoint-down(xs) {
+                .card-block {
+                    padding: 0;
+                }
+            }
+        }
+    }
+
+    .experience {
+        overflow: visible;
+        position: relative;
+        padding-left: 24px;
+        margin-left: 7px;
+        border-left: 1px solid lighten($body-color, 25%);
+
+        ul {
+            margin-bottom: 23px;
+            padding-left: 0;
+        }
+    }
+
+    li {
+        @extend .list-unstyled;
+
+        &.date {
+            font-size: .9rem;
+            margin-bottom: 0;
+            position: relative;
+            display: block;
+            font-weight: 400;
+            line-height: 1.2em;
+            transition: all .25s ease-in-out;
+        }
+
+        &.company {
+            display: block;
+            text-transform: uppercase;
+
+            a {
+                color: $body-color;
+                position: relative;
+                font-size: 16px;
+                font-weight: 600;
+                transition: all .25s ease-in-out;
+
+                &::before {
+                    position: absolute;
+                    width: 13px;
+                    height: 13px;
+                    border-radius: 4px;
+                    top: 6px;
+                    left: -31px;
+                    content: "";
+                    background: lighten($body-color, 30%);
+                }
+
+                &:hover {
+                    color: lighten($gray-light, 10%);
+                    text-decoration: none;
+                }
+
+                &:hover {
+                    &::before {
+                        background: $color-primary;
+                    }
+                }
+
+                &.no-event {
+                    color: $body-color;
+                }
+            }
+        }
+    }
+}
+
+.assignments {
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .card-header {
+        font-size: 1.25rem;
+
+        &:first-child {
+            border-radius: calc(.15rem - 1px) calc(.15rem - 1px) 0 0;
+        }
+    }
+
+    .card-footer {
+        &:last-child {
+            border-radius: 0 0 calc(.15rem - 1px) calc(.15rem - 1px);
+        }
+        @extend .clearfix;
+        @extend .text-muted;
+    }
+}
+// *******************************************
+//  Footer Styling
+// *******************************************
+
+.site-footer {
+    background-color: $color-secondary;
+    padding: 50px 0 0;
+
+    h2,
+    p {
+        color: $white;
+    }
+
+    p {
+        opacity: .75;
+    }
+
+    .form-control {
+        background-color: lighten($color-secondary, 30%);
+        border-radius: .15rem;
+    }
+
+    .btn,
+    h2 {
+        margin-bottom: 25px;
+    }
+
+    .social-nav {
+        a {
+            color: $white;
+            opacity: .25;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+
+    .bottom {
+        margin-top: 65px;
+        background-color: #0b1b32;
+        padding: 20px 0;
+
+        .list-inline,
+        p {
+            margin: 0;
+        }
+
+        .list-inline {
+            position: relative;
+            top: 5px;
+
+            a {
+                color: $white;
+                opacity: .25;
+                margin-right: 15px;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .captcha-box {
+        overflow: hidden;
+    }
+}
+.scrolltop {
+    position: fixed;
+    bottom: 4%;
+    right: 3%;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: $color-primary;
+    color: $white;
+    text-align: center;
+    font-size: 1.5rem;
+    z-index: $zindex-fixed;
+
+    &:active,
+    &:focus,
+    &:hover {
+        color: $white !important;
+        opacity: .75;
+    }
+}
+// *******************************************
+//   Icons
+// *******************************************
+
+[class*="icon-"]::before,
+[class^="icon-"]::before {
+    font-family: "Social";
+    speak: none;
+    text-transform: none;
+    font-style: normal;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-facebook::before {
+    content: "\f09a";
+}
+
+.icon-github::before {
+    content: "\f09b";
+}
+
+.icon-gplus::before {
+    content: "\f0d5";
+}
+
+.icon-mail::before {
+    content: "\f0e0";
+}
+
+.icon-linkedin::before {
+    content: "\f0e1";
+}
+
+.icon-angle-up::before {
+    content: "\f106";
+}
+
+.icon-code::before {
+    content: "\f121";
+}
+
+.icon-skype::before {
+    content: "\f17e";
+}
+// *******************************************
+//  Responsive Styling
+// *******************************************
+@include media-breakpoint-down(md) {
+    .navbar {
+        padding: 10px 0 !important;
+
+        .navbar-brand {
+            margin: 0;
+        }
+
+        #navbar-collapse {
+            padding-top: 10px;
+            float: left;
+            width: 100%;
+        }
+
+        .nav-item {
+            width: 100%;
+            margin: 0 !important;
+
+            a {
+                display: block;
+                padding: 10px 0;
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
 <section class="assignments" id="assignments">
     <?php
-  include('includes/downloads/displayInfo.php');
-?>
+      include('includes/downloads/displayInfo.php');
+    ?>
     <div class="container">
         <div class="card">
             <div class="card-block">

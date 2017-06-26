@@ -38,7 +38,7 @@ if (isset($_POST['submit'])):
                 $headers .= 'Reply-To:'  . $contact_name . ' <' . $email . '>' . "\r\n";
                 //send email
                 @mail($to, $subject, $htmlContent, $headers);
-                $succMsg      = 'Tak for din besked. Jeg svarer altid hurtigt.';
+                $succMsg      = 'Tak for din besked. Jeg svarer hurtigst muligt.';
                 $contact_name = '';
                 $phone        = '';
                 $email        = '';
@@ -47,7 +47,7 @@ if (isset($_POST['submit'])):
                           $('#response').modal('show');
                       });</script>";
             else:
-                $errMsg = 'Robot verification ikke godkendt. Prøv igen.';
+                $errMsg = 'Verifikation ikke godkendt. Prøv igen.';
             endif;
         else:
             $errMsg = 'Ugyldig e-mailadresse';
