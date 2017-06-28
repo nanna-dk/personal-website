@@ -5,8 +5,6 @@ var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var htmlmin = require('gulp-htmlmin');
-var nunjucksRender = require('gulp-nunjucks-render');
-var remove = require('gulp-remove-files');
 var rename = require('gulp-rename');
 
 // project paths
@@ -65,32 +63,20 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest(paths.minJs));
 });
 
-gulp.task('clearHtml', ['rename'], function() {
+gulp.task('rename', function() {
     return gulp.src(paths.webroot + '/*.html')
-        .pipe(remove());
-});
-
-gulp.task('nunjucks', function() {
-    return gulp.src(paths.pages + '/**/*.+(html|nunjucks)')
-        .pipe(nunjucksRender({
-            path: [paths.templates]
+        .pipe(rename({
+          basename: "index",
+          extname: ".php"
         }))
         .pipe(gulp.dest(paths.webroot));
 });
 
-gulp.task('minifyHTML', ['nunjucks'], function() {
-    return gulp.src(paths.pages + '/*.+(php|html)')
+gulp.task('minifyHTML', ['rename'], function() {
+    return gulp.src(paths.webroot + '/*.php')
         .pipe(htmlmin({
             removeComments: true,
             collapseWhitespace: true
-        }))
-        .pipe(gulp.dest(paths.webroot));
-});
-
-gulp.task('rename', ['minifyHTML'], function() {
-    return gulp.src(paths.webroot + '/*.html')
-        .pipe(rename({
-            extname: ".php"
         }))
         .pipe(gulp.dest(paths.webroot));
 });
@@ -99,5 +85,5 @@ gulp.task('rename', ['minifyHTML'], function() {
 gulp.task('watch', function() {
     gulp.watch(paths.src + '/scss/**/*.scss', ['sass']);
     gulp.watch(paths.src + '/js/**/*.js', ['scripts']);
-    gulp.watch('./src/pages/**', ['nunjucks', 'minifyHTML', 'rename', 'clearHtml']);
+    gulp.watch(paths.webroot + '/*.html', ['rename', 'minifyHTML']);
 });

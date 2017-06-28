@@ -33,3 +33,4 @@ sitemap.xml
 node_modules
 opgaver
 includes/db.php
+includes/analyticstracking.php
