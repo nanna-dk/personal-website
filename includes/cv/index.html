@@ -14,7 +14,7 @@
 <body>
 
 
-    <div id="resume"></div>
+    <div id="resume"><ul></ul></div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
@@ -48,8 +48,8 @@
                     console.log(company);
                     console.log(position);
                     console.log(summary);
-                    workTemplate = '<ul><li class="date">' + startDate + ' -</li><li class="company"> <a href="'+website+'">'+company+'</a> </li>  <li class="position">'+position+'</li></ul>';
-                    $('#resume').append(workTemplate);
+                    workTemplate = '<li class="date">' + startDate + ' -</li><li class="company"><a href="'+website+'">'+company+'</a> </li>  <li class="position">'+position+'</li>';
+                    $('#resume ul').append(workTemplate);
                 });
 
                 // Education

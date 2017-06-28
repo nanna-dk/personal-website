@@ -10,7 +10,7 @@ $color-secondary: #3f639e;
 $font-size-h1: 2rem !default;
 $font-size-h2: 1.75rem !default;
 $font-size-h4: 1.25rem !default;
-// *******************************************
+$badge-color: #e4e4e4; // *******************************************
 //   Social icons
 // *******************************************
 @font-face {
@@ -25,6 +25,11 @@ body {
   color: $body-color;
   background-color: $body-bg;
 }
+@include media-breakpoint-up(md) {
+  .container {
+    width: 768px;
+  }
+}
 
 section {
   padding: 20px 0 10px;
@@ -32,7 +37,6 @@ section {
   h2 {
     font-size: 1.5rem;
     color: $color-primary;
-    margin-bottom: 25px;
   }
 }
 
@@ -40,6 +44,7 @@ section {
   background-color: $color-primary;
   color: $white;
   border-color: inherit;
+
   &:focus {
     color: $white;
     border: 0;
@@ -177,12 +182,30 @@ section {
     ul {
       margin-bottom: 23px;
       padding-left: 0;
+
+      li {
+        @extend .list-unstyled;
+
+        .icon-angle-up {
+          cursor: pointer;
+
+          &:not(.collapsed) {
+            &:before {
+              transform: rotate(180deg);
+            }
+          }
+
+          &.collapsed {
+            &:before {
+              transform: rotate(0deg);
+            }
+          }
+        }
+      }
     }
   }
 
   li {
-    @extend .list-unstyled;
-
     &.date {
       font-size: 0.9rem;
       margin-bottom: 0;
@@ -231,6 +254,24 @@ section {
         }
       }
     }
+  }
+
+  .tags {
+    margin-bottom: 0!important;
+
+    li {
+      margin-right: 10px;
+
+      &.badge {
+        padding: 0.25em 0.4em 0.4em;
+        color: rgba(0,0,0,0.6);
+        background-color: $badge-color;
+      }
+    }
+  }
+
+  .general {
+    margin-bottom: 23px;
   }
 }
 
@@ -354,6 +395,7 @@ section {
   speak: none;
   text-transform: none;
   font-style: normal;
+  line-height: inherit;
   display: inline-block;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
