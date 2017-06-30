@@ -127,6 +127,9 @@ section {
         opacity: 1;
         visibility: visible;
       }
+      &:focus {
+        outline: none;
+      }
     }
   }
 }
@@ -223,7 +226,7 @@ section {
       a {
         color: $body-color;
         position: relative;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 600;
         transition: all 0.25s ease-in-out;
 
@@ -257,9 +260,10 @@ section {
   }
 
   .tags {
-    margin-bottom: 0!important;
+    @extend .list-unstyled;
 
     li {
+      margin-bottom: 5px;
       margin-right: 10px;
 
       &.badge {
@@ -270,7 +274,7 @@ section {
     }
   }
 
-  .general {
+  .tech {
     margin-bottom: 23px;
   }
 }
@@ -314,7 +318,6 @@ section {
   }
 
   .form-control {
-    background-color: lighten($color-secondary, 30%);
     border-radius: 0.15rem;
   }
 
@@ -335,7 +338,6 @@ section {
   }
 
   .bottom {
-    margin-top: 65px;
     background-color: #0b1b32;
     padding: 20px 0;
 
@@ -364,7 +366,9 @@ section {
     overflow: hidden;
   }
 }
-
+.modal-footer {
+  display: block; // override flex
+}
 .scrolltop {
   position: fixed;
   bottom: 4%;

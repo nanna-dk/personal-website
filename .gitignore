@@ -32,5 +32,6 @@ sitemap.xml
 # Folders to ignore
 node_modules
 opgaver
+includes/mail
 includes/db.php
 includes/analyticstracking.php

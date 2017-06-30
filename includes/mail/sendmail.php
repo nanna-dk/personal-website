@@ -15,7 +15,7 @@ if (isset($_POST['submit'])):
         $contact_name   = test_input($contact_name);
         $email          = !empty($_POST['email']) ? $_POST['email'] : '';
         $email          = test_input($email);
-        $phone   = !empty($_POST['phone']) ? $_POST['phone'] : '';
+        $phone          = !empty($_POST['phone']) ? $_POST['phone'] : '';
         $phone          = test_input($phone);
         $message        = !empty($_POST['message']) ? $_POST['message'] : '';
         if (preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $email)): //make sure the email address is valid
@@ -43,9 +43,9 @@ if (isset($_POST['submit'])):
                 $phone        = '';
                 $email        = '';
                 $message      = '';
-                echo "<script>$(function(){
-                          $('#response').modal('show');
-                      });</script>";
+                //echo "<script>$(function(){
+                //          $('#response').modal('show');
+                  //    });</script>";
             else:
                 $errMsg = 'Verifikation ikke godkendt. Prøv igen.';
             endif;
