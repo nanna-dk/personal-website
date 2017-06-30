@@ -127,6 +127,7 @@ section {
         opacity: 1;
         visibility: visible;
       }
+
       &:focus {
         outline: none;
       }
@@ -366,9 +367,11 @@ section {
     overflow: hidden;
   }
 }
+
 .modal-footer {
   display: block; // override flex
 }
+
 .scrolltop {
   position: fixed;
   bottom: 4%;
