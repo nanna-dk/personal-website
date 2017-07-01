@@ -21,13 +21,19 @@ $badge-color: #e4e4e4; // *******************************************
   font-style: normal;
 }
 
+body,
+html {
+  height: 100%;
+}
+
 body {
   color: $body-color;
   background-color: $body-bg;
 }
-@include media-breakpoint-up(md) {
+@include media-breakpoint-down(md) {
   .container {
-    width: 768px;
+    width: 600px;
+    max-width: 100%;
   }
 }
 
@@ -127,6 +133,7 @@ section {
         opacity: 1;
         visibility: visible;
       }
+
       &:focus {
         outline: none;
       }
@@ -285,7 +292,10 @@ section {
   }
 
   .card-header {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
+    @include media-breakpoint-up(sm) {
+      font-size: 1.25rem;
+    }
 
     &:first-child {
       border-radius: calc(.15rem - 1px) calc(.15rem - 1px) 0 0;
@@ -366,9 +376,11 @@ section {
     overflow: hidden;
   }
 }
+
 .modal-footer {
   display: block; // override flex
 }
+
 .scrolltop {
   position: fixed;
   bottom: 4%;

@@ -1,17 +1,14 @@
 <?php
-###########################################################
 /*
 Script to host urls, and display the item based on its ID:
-Usage: /click.php?id=x
+Usage: /downloads.php?id=x
 */
-###########################################################
 
-error_reporting(0);
 include (realpath(__DIR__ . '/../db.php'));
 
 // Select by id
 $sql = "SELECT * FROM " . $DBtable . " WHERE id='" . intval($_REQUEST["id"]) . "'";
-$rs=$conn->query($sql);
+$rs = $conn->query($sql);
 
 // Iterate over recordset
 if($rs === false) {

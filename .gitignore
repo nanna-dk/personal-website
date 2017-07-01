@@ -33,5 +33,6 @@ sitemap.xml
 node_modules
 opgaver
 includes/mail
+includes/search
 includes/db.php
 includes/analyticstracking.php
