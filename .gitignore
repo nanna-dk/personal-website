@@ -34,5 +34,6 @@ node_modules
 opgaver
 includes/cv
 includes/mail
+includes/search
 includes/db.php
 includes/analyticstracking.php

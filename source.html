@@ -19,7 +19,6 @@
 
 <body>
   <?php
-  include('includes/downloads/downloads.php');
   include('includes/downloads/displayInfo.php');
   include_once('includes/analyticstracking.php');
   ?>
@@ -61,7 +60,7 @@
           <div class="card-block">
             <h2>Nannas website</h2>
             <p>Website tilhørende Nanna Ellegaard. Her findes mit <a href="#cv">CV</a> og diverse <a href="#assignments">Opgaver</a> fra min tid på Aarhus Universitet.</p>
-            <p>Jeg kan kontaktes via de sociale medier eller <a href="" data-toggle="modal" data-target="#response">kontaktformularen</a>.</p>
+            <p>Kontakt mig via de sociale medier eller <a href="" data-toggle="modal" data-target="#response">kontaktformularen</a>.</p>
           </div>
         </div>
       </div>
@@ -146,8 +145,8 @@
                     </li>
                     <li class="position">
                       <ul>
-                        <li>Spansk og engelsk på højniveau</li>
-                        <li>Billedkunst på mellemniveau</li>
+                        <li>Spansk og engelsk på højniveau.</li>
+                        <li>Billedkunst på mellemniveau.</li>
                       </ul>
                     </li>
                   </ul>
@@ -157,33 +156,33 @@
                   <ul>
                     <li class="date">2015</li>
                     <li class="company"> <a href="http://www.superusers.dk/kursus/su0093/">jQuery - Det samlede client web-udviklingsforløb</a> </li>
-                    <li class="position">3 dage</li>
+                    <li class="position">3 dage.</li>
                   </ul>
                   <ul>
                     <li class="date">2014</li>
                     <li class="company"> <a href="http://www.episerver.com/Training/available-courses/developers/episerver-cms-development-fundamentals/">EPiServer 7 CMS - Development Fundamentals</a> </li>
-                    <li class="position">3 dage</li>
+                    <li class="position">3 dage.</li>
                   </ul>
                   <ul>
                     <li class="date">2008</li>
                     <li class="company">
                       <a class="no-event">grundlæggende XML</a>
                     </li>
-                    <li class="position">2 dage</li>
+                    <li class="position">2 dage.</li>
                   </ul>
                   <ul>
                     <li class="date">2006</li>
                     <li class="company">
                       <a class="no-event">Digital billedbehandling med Adobe Photoshop CS2</a>
                     </li>
-                    <li class="position">2 dage</li>
+                    <li class="position">2 dage.</li>
                   </ul>
                   <ul>
                     <li class="date">2005</li>
                     <li class="company">
                       <a class="no-event">It-supporter med MCP-certificering: MCP (Microsoft Certified Professional) Exam 70-270</a>
                     </li>
-                    <li class="position">6 uger</li>
+                    <li class="position">6 uger.</li>
                   </ul>
                 </div>
               </div>
@@ -198,10 +197,28 @@
             <h2>Opgaver</h2>
             <p>Opgaverne er ment som inspiration - ikke til copy/paste. :-)</p>
             <div class="card">
+              <h4 class="card-header"><?php displayTitle(10) ?></h4>
+              <div class="card-block">
+                <p class="card-text">
+                  <?php displayDesc(10) ?>
+                </p>
+                <a href="includes/downloads/downloads.php?id=10" target="_blank" class="btn btn-primary">Download</a>
+              </div>
+              <div class="card-footer">
+                <div class="float-left">Oprettet:
+                  <?php displayDate(10) ?>
+                </div>
+                <div class="float-right">Downloads:
+                  <?php displayHits(10) ?>
+                </div>
+              </div>
+            </div>
+            <div class="card">
               <h4 class="card-header"><?php displayTitle(1) ?></h4>
               <div class="card-block">
-                <p class="card-text">Informationsvidenskab og nye opfattelser af teknologi. Analyse af de begreber, indsigter og problemstillinger som bl.a. CSCW-feltet har bragt på banen. Herunder vurderes forskellige perspektiver på menneskelig handling, og hvad disse betyder
-                  for opfattelser af arbejde, teknologianvendelse og design.</p>
+                <p class="card-text">
+                  <?php displayDesc(1) ?>
+                </p>
                 <a href="includes/downloads/downloads.php?id=1" target="_blank" class="btn btn-primary">Download</a>
               </div>
               <div class="card-footer">
@@ -216,7 +233,9 @@
             <div class="card">
               <h4 class="card-header"><?php displayTitle(2) ?></h4>
               <div class="card-block">
-                <p class="card-text">Arbejdsrapport tilhørende 3D-animation Return of the Mac.</p>
+                <p class="card-text">
+                  <?php displayDesc(2) ?>
+                </p>
                 <a href="includes/downloads/downloads.php?id=2" target="_blank" class="btn btn-primary">Download</a>
               </div>
               <div class="card-footer">
@@ -231,7 +250,9 @@
             <div class="card">
               <h4 class="card-header"><?php displayTitle(3) ?></h4>
               <div class="card-block">
-                <p class="card-text">3D-animation lavet i Maya™ 4.0.2 fra Alias|Wavefront. 1:44 min. DivX. Arbejdsrapport herover.</p>
+                <p class="card-text">
+                  <?php displayDesc(3) ?>
+                </p>
                 <a href="includes/downloads/downloads.php?id=3" target="_blank" class="btn btn-primary">Download</a>
               </div>
               <div class="card-footer">
@@ -244,24 +265,11 @@
               </div>
             </div>
             <div class="card">
-              <h4 class="card-header"><?php displayTitle(4) ?></h4>
-              <div class="card-block">
-                <p class="card-text">Opgave om HCI-interfaces vs. kulturelle interfaces. Komparativ analyse af browserne Internet Explorer og Web Stalker. Er desktop-metaforen som kompleksitetsreducerende begreb stadig gyldig?</p>
-                <a href="includes/downloads/downloads.php?id=4" target="_blank" class="btn btn-primary">Download</a>
-              </div>
-              <div class="card-footer">
-                <div class="float-left">Oprettet:
-                  <?php displayDate(4) ?>
-                </div>
-                <div class="float-right">Downloads:
-                  <?php displayHits(4) ?>
-                </div>
-              </div>
-            </div>
-            <div class="card">
               <h4 class="card-header"><?php displayTitle(5) ?></h4>
               <div class="card-block">
-                <p class="card-text">Uddybende opgave om ovenstående evaluering af MS PowerPoint 2000.</p>
+                <p class="card-text">
+                  <?php displayDesc(5) ?>
+                </p>
                 <a href="includes/downloads/downloads.php?id=5" target="_blank" class="btn btn-primary">Download</a>
               </div>
               <div class="card-footer">
@@ -276,7 +284,9 @@
             <div class="card">
               <h4 class="card-header"><?php displayTitle(6) ?></h4>
               <div class="card-block">
-                <p class="card-text">Evaluering af MS PowerPoint 2000 på baggrund af teorier om interface og usability. Inkl. transkriptioner og screenshots.</p>
+                <p class="card-text">
+                  <?php displayDesc(6) ?>
+                </p>
                 <a href="includes/downloads/downloads.php?id=6" target="_blank" class="btn btn-primary">Download</a>
               </div>
               <div class="card-footer">
@@ -291,8 +301,9 @@
             <div class="card">
               <h4 class="card-header"><?php displayTitle(7) ?></h4>
               <div class="card-block">
-                <p class="card-text">Multimediedesign. Cd-image af it-lærings-cd-rom for seniorer. Med dansk tale og tilhørende
-                  <a href="" data-toggle="modal" data-target="#cd-cover">cd-cover</a>. Arbejdsrapport tilgængelig herunder.</p>
+                <p class="card-text">
+                  <?php displayDesc(7) ?>
+                </p>
                 <a href="includes/downloads/downloads.php?id=7" target="_blank" class="btn btn-primary">Download</a>
               </div>
               <div class="card-footer">
@@ -307,7 +318,9 @@
             <div class="card">
               <h4 class="card-header"><?php displayTitle(8) ?></h4>
               <div class="card-block">
-                <p class="card-text">Arbejdsrapport om designforløb, brugerscenarier og user-centered design i forbindelse med udviklingen af en prototypisk it-lærings-CD-rom for seniorer. Herunder gøres rede for teorier og metoder anvendt i processen.</p>
+                <p class="card-text">
+                  <?php displayDesc(8) ?>
+                </p>
                 <a href="includes/downloads/downloads.php?id=8" target="_blank" class="btn btn-primary">Download</a>
               </div>
               <div class="card-footer">
@@ -316,6 +329,57 @@
                 </div>
                 <div class="float-right">Downloads:
                   <?php displayHits(8) ?>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <h4 class="card-header"><?php displayTitle(4) ?></h4>
+              <div class="card-block">
+                <p class="card-text">
+                  <?php displayDesc(4) ?>
+                </p>
+                <a href="includes/downloads/downloads.php?id=4" target="_blank" class="btn btn-primary">Download</a>
+              </div>
+              <div class="card-footer">
+                <div class="float-left">Oprettet:
+                  <?php displayDate(4) ?>
+                </div>
+                <div class="float-right">Downloads:
+                  <?php displayHits(4) ?>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <h4 class="card-header"><?php displayTitle(11) ?></h4>
+              <div class="card-block">
+                <p class="card-text">
+                  <?php displayDesc(11) ?>
+                </p>
+                <a href="includes/downloads/downloads.php?id=11" target="_blank" class="btn btn-primary">Download</a>
+              </div>
+              <div class="card-footer">
+                <div class="float-left">Oprettet:
+                  <?php displayDate(11) ?>
+                </div>
+                <div class="float-right">Downloads:
+                  <?php displayHits(11) ?>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <h4 class="card-header"><?php displayTitle(9) ?></h4>
+              <div class="card-block">
+                <p class="card-text">
+                  <?php displayDesc(9) ?>
+                </p>
+                <a href="includes/downloads/downloads.php?id=9" target="_blank" class="btn btn-primary">Download</a>
+              </div>
+              <div class="card-footer">
+                <div class="float-left">Oprettet:
+                  <?php displayDate(9) ?>
+                </div>
+                <div class="float-right">Downloads:
+                  <?php displayHits(9) ?>
                 </div>
               </div>
             </div>
@@ -336,7 +400,7 @@
               <img src="img/it-cover.jpg" alt="Cover til CD-rom" class="img-fluid">
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Luk</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Luk</button>
             </div>
           </div>
         </div>
@@ -417,8 +481,7 @@
         var form = $('#contactform');
         var formMessages = $('.feedback');
 
-        $('#buttonid').click(function(e) {
-          //e.preventDefault();
+        $('#buttonid').click(function() {
           // Serialize the form data.
           var formData = $(form).serialize();
           $.ajax({
@@ -432,12 +495,7 @@
 
               // Set the message text.
               $(formMessages).text(response);
-
-              // Clear the form.
-              $('#inputName').val('');
-              $('#inputEmail').val('');
-              $('#inputMessage').val('');
-              grecaptcha.reset();
+              clearInput()
             })
             .fail(function(data) {
               $(formMessages).removeClass('alert alert-success');
@@ -451,8 +509,18 @@
               }
             });
         });
-        $('#modalForm').on('hidden.bs.modal', function(e) {
-          $('.feedback').text('').removeClass("alert alert-danger alert-success");;
+
+        function clearInput() {
+          // Clear the form fields
+          $('#inputName').val('');
+          $('#inputEmail').val('');
+          $('#inputMessage').val('');
+          grecaptcha.reset();
+        }
+
+        $('#modalForm').on('hidden.bs.modal', function() {
+          $('.feedback').text('').removeClass("alert alert-danger alert-success");
+          clearInput();
         })
       });
     </script>
