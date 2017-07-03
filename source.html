@@ -22,14 +22,28 @@
   include('includes/downloads/displayInfo.php');
   include_once('includes/analyticstracking.php');
   ?>
+    <script>
+      $(document).ready(function() {
+        var menuItems = $("#menuItems").children().clone();
+        $("#navbarSide").prepend(menuItems);
+        $('#navbarSideButton').click(function() {
+          $('#navbarSide').addClass('reveal');
+          $('.overlay').show();
+        });
+        $('.overlay, #navbarSide').click(function() {
+          $('#navbarSide').removeClass('reveal');
+          $('.overlay').hide();
+        });
+      });
+    </script>
     <nav class="navbar navbar-toggleable-sm" data-toggle="affix">
       <div class="container pl-3 pl-sm-0">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-toggler-right" id="navbarSideButton" type="button" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="/"><span class="icon-code"></span> <span class="brand-name hidden-md-up">Nannas website</span></a>
         <div class="collapse navbar-collapse">
-          <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+          <ul id="menuItems" class="navbar-nav mr-auto mt-2 mt-md-0">
             <li class="nav-item">
               <a class="nav-link" href="#about">Start <span class="sr-only">home</span></a>
             </li>
@@ -53,6 +67,10 @@
           </nav>
         </div>
       </div>
+
+      <ul class="navbar-side" id="navbarSide">
+      </ul>
+      <div class="overlay"></div>
     </nav>
     <section class="about" id="about">
       <div class="container">
@@ -192,197 +210,213 @@
     </section>
     <section class="assignments" id="assignments">
       <div class="container">
+
         <div class="card">
           <div class="card-block">
-            <h2>Opgaver</h2>
+            <div class="row">
+              <div class="col-xs-12 col-md-5">
+                <h2>Opgaver</h2>
+              </div>
+              <div class="col-xs-12 col-md-7 mt-2 mb-3 mt-md-0">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="search" placeholder="Søg efter opgaver...">
+                  <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="button" id="go">Søg</button>
+                    </span>
+                </div>
+              </div>
+            </div>
             <p>Opgaverne er ment som inspiration - ikke til copy/paste. :-)</p>
-            <div class="card">
-              <h4 class="card-header"><?php displayTitle(10) ?></h4>
-              <div class="card-block">
-                <p class="card-text">
-                  <?php displayDesc(10) ?>
-                </p>
-                <a href="includes/downloads/downloads.php?id=10" target="_blank" class="btn btn-primary">Download</a>
-              </div>
-              <div class="card-footer">
-                <div class="float-left">Oprettet:
-                  <?php displayDate(10) ?>
+            <div id="defaultAssignments">
+              <div class="card">
+                <h4 class="card-header"><?php displayTitle(10) ?></h4>
+                <div class="card-block">
+                  <p class="card-text">
+                    <?php displayDesc(10) ?>
+                  </p>
+                  <a href="includes/downloads/downloads.php?id=10" target="_blank" class="btn btn-primary">Download</a>
                 </div>
-                <div class="float-right">Downloads:
-                  <?php displayHits(10) ?>
+                <div class="card-footer">
+                  <div class="float-left">Oprettet:
+                    <?php displayDate(10) ?>
+                  </div>
+                  <div class="float-right">Downloads:
+                    <?php displayHits(10) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <h4 class="card-header"><?php displayTitle(1) ?></h4>
+                <div class="card-block">
+                  <p class="card-text">
+                    <?php displayDesc(1) ?>
+                  </p>
+                  <a href="includes/downloads/downloads.php?id=1" target="_blank" class="btn btn-primary">Download</a>
+                </div>
+                <div class="card-footer">
+                  <div class="float-left">Oprettet:
+                    <?php displayDate(1) ?>
+                  </div>
+                  <div class="float-right">Downloads:
+                    <?php displayHits(1) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <h4 class="card-header"><?php displayTitle(2) ?></h4>
+                <div class="card-block">
+                  <p class="card-text">
+                    <?php displayDesc(2) ?>
+                  </p>
+                  <a href="includes/downloads/downloads.php?id=2" target="_blank" class="btn btn-primary">Download</a>
+                </div>
+                <div class="card-footer">
+                  <div class="float-left">Oprettet:
+                    <?php displayDate(2) ?>
+                  </div>
+                  <div class="float-right">Downloads:
+                    <?php displayHits(2) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <h4 class="card-header"><?php displayTitle(3) ?></h4>
+                <div class="card-block">
+                  <p class="card-text">
+                    <?php displayDesc(3) ?>
+                  </p>
+                  <a href="includes/downloads/downloads.php?id=3" target="_blank" class="btn btn-primary">Download</a>
+                </div>
+                <div class="card-footer">
+                  <div class="float-left">Oprettet:
+                    <?php displayDate(3) ?>
+                  </div>
+                  <div class="float-right">Downloads:
+                    <?php displayHits(3) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <h4 class="card-header"><?php displayTitle(5) ?></h4>
+                <div class="card-block">
+                  <p class="card-text">
+                    <?php displayDesc(5) ?>
+                  </p>
+                  <a href="includes/downloads/downloads.php?id=5" target="_blank" class="btn btn-primary">Download</a>
+                </div>
+                <div class="card-footer">
+                  <div class="float-left">Oprettet:
+                    <?php displayDate(5) ?>
+                  </div>
+                  <div class="float-right">Downloads:
+                    <?php displayHits(5) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <h4 class="card-header"><?php displayTitle(6) ?></h4>
+                <div class="card-block">
+                  <p class="card-text">
+                    <?php displayDesc(6) ?>
+                  </p>
+                  <a href="includes/downloads/downloads.php?id=6" target="_blank" class="btn btn-primary">Download</a>
+                </div>
+                <div class="card-footer">
+                  <div class="float-left">Oprettet:
+                    <?php displayDate(6) ?>
+                  </div>
+                  <div class="float-right">Downloads:
+                    <?php displayHits(6) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <h4 class="card-header"><?php displayTitle(7) ?></h4>
+                <div class="card-block">
+                  <p class="card-text">
+                    <?php displayDesc(7) ?>
+                  </p>
+                  <a href="includes/downloads/downloads.php?id=7" target="_blank" class="btn btn-primary">Download</a>
+                </div>
+                <div class="card-footer">
+                  <div class="float-left">Oprettet:
+                    <?php displayDate(7) ?>
+                  </div>
+                  <div class="float-right">Downloads:
+                    <?php displayHits(7) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <h4 class="card-header"><?php displayTitle(8) ?></h4>
+                <div class="card-block">
+                  <p class="card-text">
+                    <?php displayDesc(8) ?>
+                  </p>
+                  <a href="includes/downloads/downloads.php?id=8" target="_blank" class="btn btn-primary">Download</a>
+                </div>
+                <div class="card-footer">
+                  <div class="float-left">Oprettet:
+                    <?php displayDate(8) ?>
+                  </div>
+                  <div class="float-right">Downloads:
+                    <?php displayHits(8) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <h4 class="card-header"><?php displayTitle(4) ?></h4>
+                <div class="card-block">
+                  <p class="card-text">
+                    <?php displayDesc(4) ?>
+                  </p>
+                  <a href="includes/downloads/downloads.php?id=4" target="_blank" class="btn btn-primary">Download</a>
+                </div>
+                <div class="card-footer">
+                  <div class="float-left">Oprettet:
+                    <?php displayDate(4) ?>
+                  </div>
+                  <div class="float-right">Downloads:
+                    <?php displayHits(4) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <h4 class="card-header"><?php displayTitle(11) ?></h4>
+                <div class="card-block">
+                  <p class="card-text">
+                    <?php displayDesc(11) ?>
+                  </p>
+                  <a href="includes/downloads/downloads.php?id=11" target="_blank" class="btn btn-primary">Download</a>
+                </div>
+                <div class="card-footer">
+                  <div class="float-left">Oprettet:
+                    <?php displayDate(11) ?>
+                  </div>
+                  <div class="float-right">Downloads:
+                    <?php displayHits(11) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <h4 class="card-header"><?php displayTitle(9) ?></h4>
+                <div class="card-block">
+                  <p class="card-text">
+                    <?php displayDesc(9) ?>
+                  </p>
+                  <a href="includes/downloads/downloads.php?id=9" target="_blank" class="btn btn-primary">Download</a>
+                </div>
+                <div class="card-footer">
+                  <div class="float-left">Oprettet:
+                    <?php displayDate(9) ?>
+                  </div>
+                  <div class="float-right">Downloads:
+                    <?php displayHits(9) ?>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="card">
-              <h4 class="card-header"><?php displayTitle(1) ?></h4>
-              <div class="card-block">
-                <p class="card-text">
-                  <?php displayDesc(1) ?>
-                </p>
-                <a href="includes/downloads/downloads.php?id=1" target="_blank" class="btn btn-primary">Download</a>
-              </div>
-              <div class="card-footer">
-                <div class="float-left">Oprettet:
-                  <?php displayDate(1) ?>
-                </div>
-                <div class="float-right">Downloads:
-                  <?php displayHits(1) ?>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <h4 class="card-header"><?php displayTitle(2) ?></h4>
-              <div class="card-block">
-                <p class="card-text">
-                  <?php displayDesc(2) ?>
-                </p>
-                <a href="includes/downloads/downloads.php?id=2" target="_blank" class="btn btn-primary">Download</a>
-              </div>
-              <div class="card-footer">
-                <div class="float-left">Oprettet:
-                  <?php displayDate(2) ?>
-                </div>
-                <div class="float-right">Downloads:
-                  <?php displayHits(2) ?>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <h4 class="card-header"><?php displayTitle(3) ?></h4>
-              <div class="card-block">
-                <p class="card-text">
-                  <?php displayDesc(3) ?>
-                </p>
-                <a href="includes/downloads/downloads.php?id=3" target="_blank" class="btn btn-primary">Download</a>
-              </div>
-              <div class="card-footer">
-                <div class="float-left">Oprettet:
-                  <?php displayDate(3) ?>
-                </div>
-                <div class="float-right">Downloads:
-                  <?php displayHits(3) ?>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <h4 class="card-header"><?php displayTitle(5) ?></h4>
-              <div class="card-block">
-                <p class="card-text">
-                  <?php displayDesc(5) ?>
-                </p>
-                <a href="includes/downloads/downloads.php?id=5" target="_blank" class="btn btn-primary">Download</a>
-              </div>
-              <div class="card-footer">
-                <div class="float-left">Oprettet:
-                  <?php displayDate(5) ?>
-                </div>
-                <div class="float-right">Downloads:
-                  <?php displayHits(5) ?>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <h4 class="card-header"><?php displayTitle(6) ?></h4>
-              <div class="card-block">
-                <p class="card-text">
-                  <?php displayDesc(6) ?>
-                </p>
-                <a href="includes/downloads/downloads.php?id=6" target="_blank" class="btn btn-primary">Download</a>
-              </div>
-              <div class="card-footer">
-                <div class="float-left">Oprettet:
-                  <?php displayDate(6) ?>
-                </div>
-                <div class="float-right">Downloads:
-                  <?php displayHits(6) ?>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <h4 class="card-header"><?php displayTitle(7) ?></h4>
-              <div class="card-block">
-                <p class="card-text">
-                  <?php displayDesc(7) ?>
-                </p>
-                <a href="includes/downloads/downloads.php?id=7" target="_blank" class="btn btn-primary">Download</a>
-              </div>
-              <div class="card-footer">
-                <div class="float-left">Oprettet:
-                  <?php displayDate(7) ?>
-                </div>
-                <div class="float-right">Downloads:
-                  <?php displayHits(7) ?>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <h4 class="card-header"><?php displayTitle(8) ?></h4>
-              <div class="card-block">
-                <p class="card-text">
-                  <?php displayDesc(8) ?>
-                </p>
-                <a href="includes/downloads/downloads.php?id=8" target="_blank" class="btn btn-primary">Download</a>
-              </div>
-              <div class="card-footer">
-                <div class="float-left">Oprettet:
-                  <?php displayDate(8) ?>
-                </div>
-                <div class="float-right">Downloads:
-                  <?php displayHits(8) ?>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <h4 class="card-header"><?php displayTitle(4) ?></h4>
-              <div class="card-block">
-                <p class="card-text">
-                  <?php displayDesc(4) ?>
-                </p>
-                <a href="includes/downloads/downloads.php?id=4" target="_blank" class="btn btn-primary">Download</a>
-              </div>
-              <div class="card-footer">
-                <div class="float-left">Oprettet:
-                  <?php displayDate(4) ?>
-                </div>
-                <div class="float-right">Downloads:
-                  <?php displayHits(4) ?>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <h4 class="card-header"><?php displayTitle(11) ?></h4>
-              <div class="card-block">
-                <p class="card-text">
-                  <?php displayDesc(11) ?>
-                </p>
-                <a href="includes/downloads/downloads.php?id=11" target="_blank" class="btn btn-primary">Download</a>
-              </div>
-              <div class="card-footer">
-                <div class="float-left">Oprettet:
-                  <?php displayDate(11) ?>
-                </div>
-                <div class="float-right">Downloads:
-                  <?php displayHits(11) ?>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <h4 class="card-header"><?php displayTitle(9) ?></h4>
-              <div class="card-block">
-                <p class="card-text">
-                  <?php displayDesc(9) ?>
-                </p>
-                <a href="includes/downloads/downloads.php?id=9" target="_blank" class="btn btn-primary">Download</a>
-              </div>
-              <div class="card-footer">
-                <div class="float-left">Oprettet:
-                  <?php displayDate(9) ?>
-                </div>
-                <div class="float-right">Downloads:
-                  <?php displayHits(9) ?>
-                </div>
-              </div>
-            </div>
+            <div id="searchAssignments"></div>
           </div>
         </div>
       </div>
@@ -420,7 +454,7 @@
               </div>
               <!-- Modal Body -->
               <div class="modal-body">
-                <form id="contactform" action="includes/mail/mail_ajax.php" method="POST">
+                <form id="contactform" action="" method="POST">
                   <div class="form-group">
                     <input type="text" name="name" class="form-control" id="inputName" placeholder="Navn" />
                   </div>
@@ -476,54 +510,6 @@
     <!-- Scroll to top -->
     <a class="scrolltop" href="#about"><span class="icon-angle-up"></span></a>
     <!-- /Scroll to top -->
-    <script>
-      $(function() {
-        var form = $('#contactform');
-        var formMessages = $('.feedback');
-
-        $('#buttonid').click(function() {
-          // Serialize the form data.
-          var formData = $(form).serialize();
-          $.ajax({
-              type: 'POST',
-              url: $(form).attr('action'),
-              data: formData
-            })
-            .done(function(response) {
-              $(formMessages).removeClass('alert alert-danger');
-              $(formMessages).addClass('alert alert-success');
-
-              // Set the message text.
-              $(formMessages).text(response);
-              clearInput()
-            })
-            .fail(function(data) {
-              $(formMessages).removeClass('alert alert-success');
-              $(formMessages).addClass('alert alert-danger');
-
-              // Set the message text.
-              if (data.responseText !== '') {
-                $(formMessages).text(data.responseText);
-              } else {
-                $(formMessages).text('Der er sket en fejl. Beskeden er ikke blevet sendt.');
-              }
-            });
-        });
-
-        function clearInput() {
-          // Clear the form fields
-          $('#inputName').val('');
-          $('#inputEmail').val('');
-          $('#inputMessage').val('');
-          grecaptcha.reset();
-        }
-
-        $('#modalForm').on('hidden.bs.modal', function() {
-          $('.feedback').text('').removeClass("alert alert-danger alert-success");
-          clearInput();
-        })
-      });
-    </script>
 </body>
 
 </html>

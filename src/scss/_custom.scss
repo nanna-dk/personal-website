@@ -77,6 +77,7 @@ section {
     color: $white;
     font-size: 1.6rem;
     padding: 0;
+    margin-top: 3px;
   }
 
   .navbar-toggler-icon {
@@ -126,7 +127,7 @@ section {
       }
 
       &:hover {
-        color: rgba(255, 255, 255, .75);
+        color: rgba($white, .75);
       }
 
       &:hover::before {
@@ -310,6 +311,10 @@ section {
     @extend .text-muted;
   }
 }
+
+.form-control::placeholder {
+  color: #bbb;
+}
 // *******************************************
 //  Footer Styling
 // *******************************************
@@ -453,8 +458,6 @@ section {
 // *******************************************
 @include media-breakpoint-down(md) {
   .navbar {
-    padding: 10px 0 !important;
-
     .navbar-brand {
       margin: 0;
     }
@@ -474,5 +477,65 @@ section {
         padding: 10px 0;
       }
     }
+  }
+}
+
+.navbar-side {
+  @extend .list-unstyled;
+  height: 100%;
+  width: 75%;
+  @include media-breakpoint-up(sm) {
+    width: 50%;
+  }
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 0;
+  border-left: 1px solid #ccc;
+  background-color: #f3f3f3;
+  overflow-y: auto;
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: 300ms ease;
+
+  li {
+    padding-left: 2rem;
+
+    a,
+    a:focus,
+    a:hover,
+    a:visited {
+      color: rgba($body-color, 1)!important;
+      tap-highlight-color: rgba(255,255,255,.5);
+
+      &::before {
+        background-color: lighten($body-color, 30%);
+        height: 2px;
+      }
+    }
+  }
+}
+
+.reveal {
+  transform: translateX(0);
+  transition: 300ms ease;
+}
+
+.overlay {
+  display: none;
+  @extend .fixed-top;
+  bottom: 0;
+  cursor: pointer;
+  background: $black;
+  opacity: 0.3;
+  transition: opacity 0.4s ease 0.4s;
+  z-index: 990;
+}
+@include media-breakpoint-up(md) {
+  .overlay {
+    display: none!important;
   }
 }
