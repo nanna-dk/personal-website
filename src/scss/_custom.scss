@@ -29,10 +29,13 @@ html {
 body {
   color: $body-color;
   background-color: $body-bg;
+  @include media-breakpoint-up(sm) {
+    font-size: 0.98rem;
+  }
 }
 @include media-breakpoint-down(md) {
   .container {
-    width: 600px;
+    width: 620px;
     max-width: 100%;
   }
 }
@@ -61,10 +64,7 @@ section {
 // *******************************************
 
 .affix {
-  position: fixed !important;
-  top: 0;
-  right: 0;
-  left: 0;
+  @extend .fixed-top;
   z-index: $zindex-fixed !important;
 }
 
@@ -168,7 +168,7 @@ section {
 
 .cv {
   h4 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     margin-bottom: 15px;
   }
 
@@ -295,7 +295,7 @@ section {
   .card-header {
     font-size: 1.15rem;
     @include media-breakpoint-up(sm) {
-      font-size: 1.25rem;
+      font-size: 1.08rem;
     }
 
     &:first-child {
