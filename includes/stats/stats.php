@@ -1,0 +1,35 @@
+<?php
+// Database statistics
+include (realpath(__DIR__ . '/../db.php'));
+
+// Most clicked items
+$sql = "SELECT * FROM " . $DBtable . " ORDER BY clicks DESC LIMIT 5";
+$rs = $conn->query($sql);
+if ($rs === false) {
+    trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+}
+else {
+    $arr = $rs->fetch_all(MYSQLI_ASSOC);
+}
+if ($arr) {
+    foreach($arr as $row) {
+        $id = $row['id'];
+        $title = $row['title'];
+        $clicks = $row['clicks'];
+        $hits = number_format($clicks, 0, '', '.');
+        $valuenow = round($clicks / 10);
+        $percentage = round($clicks / 100);
+        echo '<p class="card-text">' . $title . '</p>';
+        echo '<div class="progress" title="' . $title . '">';
+        echo '<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:' . $percentage . '%" aria-valuenow="' . $valuenow . '" aria-valuemin="0" aria-valuemax="100">' . $hits . '</div>';
+        echo '</div><br />';
+    }
+}
+else {
+    echo 'Ingen resultater fundet.';
+}
+// Free memory
+$rs->free();
+// Close connection
+$conn->close();
+?>

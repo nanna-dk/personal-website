@@ -315,6 +315,23 @@ section {
 .form-control::placeholder {
   color: #bbb;
 }
+
+.stats {
+  .card-header {
+    border-bottom: 0;
+    a {
+      color: $body-color;
+      display: block;
+      &.collapsed {
+
+      }
+    }
+  }
+  .card-text {
+    margin-bottom: .5rem;
+  }
+}
+
 // *******************************************
 //  Footer Styling
 // *******************************************

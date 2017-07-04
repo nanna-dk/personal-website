@@ -4,6 +4,18 @@
 
 var custom = function($) {
   $(document).ready(function() {
+    //Mobile navigation
+    var menuItems = $('#menuItems').children().clone();
+    $('#navbarSide').prepend(menuItems);
+    $('#navbarSideButton').click(function() {
+      $('#navbarSide').addClass('reveal');
+      $('.overlay').show();
+    });
+    $('.overlay, #navbarSide').click(function() {
+      $('#navbarSide').removeClass('reveal');
+      $('.overlay').hide();
+    });
+
     var toggleAffix = function(affixElement, scrollElement, wrapper) {
       var height = affixElement.outerHeight(),
         top = wrapper.offset().top;
@@ -15,6 +27,7 @@ var custom = function($) {
         wrapper.height('auto');
       }
     };
+
     //Sticky navbar
     $('[data-toggle="affix"]').each(function() {
       var ele = $(this),
@@ -28,7 +41,7 @@ var custom = function($) {
     });
 
     // Smooth scrolling from anchors
-    $('a[href*="#"]').click(function() {
+    $('a[href*="#"]').not('.accordion').click(function() {
       if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
         var target = $(this.hash);
         target = target.length
@@ -115,5 +128,13 @@ var custom = function($) {
         return false;
       }
     });
+
+    // Accordion border fixed
+    $('#stats').on('hide.bs.collapse', function () {
+      $(this).find('.card-header').css('border-bottom','0');
+    })
+    $('#stats').on('show.bs.collapse', function () {
+      $(this).find('.card-header').css('border-bottom','1px solid rgba(0,0,0,0.125)');
+    })
   });
 }(jQuery);
