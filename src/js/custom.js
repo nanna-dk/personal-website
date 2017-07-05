@@ -6,14 +6,18 @@ var custom = function($) {
   $(document).ready(function() {
     //Mobile navigation
     var menuItems = $('#menuItems').children().clone();
-    $('#navbarSide').prepend(menuItems);
+    var navBarSide = $('#navbarSide');
+    var overlay = $('.overlay');
+    navBarSide.prepend(menuItems);
+
     $('#navbarSideButton').click(function() {
-      $('#navbarSide').addClass('reveal');
-      $('.overlay').show();
+      navBarSide.addClass('reveal');
+      overlay.show();
     });
-    $('.overlay, #navbarSide').click(function() {
-      $('#navbarSide').removeClass('reveal');
-      $('.overlay').hide();
+
+    $('#navbarSide, .overlay, .nav-link').click(function() {
+      navBarSide.removeClass('reveal');
+      overlay.hide();
     });
 
     var toggleAffix = function(affixElement, scrollElement, wrapper) {
@@ -59,28 +63,35 @@ var custom = function($) {
 
     // Send e-mail functions
     var form = $('#contactform');
-    var formMessages = $('.feedback');
+    var messages = $('.feedback');
 
-    $('#buttonid').click(function() {
+    $('#sendMail').click(function() {
       // Serialize the form data.
       var formData = $(form).serialize();
       var url = '../includes/mail/mail_ajax.php';
-      $.ajax({type: 'POST', url: url, data: formData}).done(function(response) {
-        $(formMessages).removeClass('alert alert-danger');
-        $(formMessages).addClass('alert alert-success');
+      $.ajax({
+        type: 'POST',
+        url: url,
+        beforeSend: function() {
+          $(messages).html('<div class="progress mb-4"><div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div></div>');
+        },
+        data: formData
+      }).done(function(response) {
+        $(messages).removeClass('alert alert-danger');
+        $(messages).addClass('alert alert-success');
 
         // Set the message text.
-        $(formMessages).text(response);
+        $(messages).text(response);
         clearInput()
       }).fail(function(data) {
-        $(formMessages).removeClass('alert alert-success');
-        $(formMessages).addClass('alert alert-danger');
+        $(messages).removeClass('alert alert-success');
+        $(messages).addClass('alert alert-danger');
 
         // Set the message text.
         if (data.responseText !== '') {
-          $(formMessages).text(data.responseText);
+          $(messages).text(data.responseText);
         } else {
-          $(formMessages).text('Der er sket en fejl. Beskeden er ikke blevet sendt.');
+          $(messages).text('Der er sket en fejl. Beskeden er ikke blevet sendt.');
         }
       });
     });
@@ -93,14 +104,14 @@ var custom = function($) {
       grecaptcha.reset();
     }
 
-    $('#modalForm').on('hidden.bs.modal', function() {
-      // Clear feedback messages when modal is closed
+    $('#contactForm').on('hidden.bs.modal', function() {
+      // Clear feedback mmessages when modal is closed
       $('.feedback').text('').removeClass('alert alert-danger alert-success');
       clearInput();
     })
 
     // Search assignments
-    $('#go').click(function(e) {
+    $('#goSearch').click(function(e) {
       e.preventDefault();
       var allAssignments = $('#defaultAssignments');
       var searchedAsssignments = $('#searchAssignments');
@@ -117,24 +128,31 @@ var custom = function($) {
           data: {
             search: q
           },
-          success: function(html) {
+          success: function(response) {
             allAssignments.hide();
-            searchedAsssignments.html(html).show();
+            searchedAsssignments.html(response).show();
           },
           error: function() {
-            searchedAsssignments.html('Søgning kunne ikke foretages - prøv igen senere.').show();
+            searchedAsssignments.html('Søgning kunne ikke udføres - prøv igen senere.').show();
           }
         });
         return false;
       }
     });
 
+    // Trigger search by Enter key
+    $('#search').keypress(function(e) {
+      if (e.which === 13) {
+        $('#goSearch').click();
+      }
+    });
+
     // Accordion border fixed
-    $('#stats').on('hide.bs.collapse', function () {
-      $(this).find('.card-header').css('border-bottom','0');
+    $('#stats').on('hide.bs.collapse', function() {
+      $(this).find('.card-header').css('border-bottom', '0');
     })
-    $('#stats').on('show.bs.collapse', function () {
-      $(this).find('.card-header').css('border-bottom','1px solid rgba(0,0,0,0.125)');
+    $('#stats').on('show.bs.collapse', function() {
+      $(this).find('.card-header').css('border-bottom', '1px solid rgba(0,0,0,0.125)');
     })
   });
 }(jQuery);
