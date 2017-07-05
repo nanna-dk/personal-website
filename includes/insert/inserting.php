@@ -2,20 +2,20 @@
 /*
 * Function to insert info into db: thisfile.php?id=x
 */
+include (realpath(__DIR__ . '/../db.php'));
 
-    include (realpath(__DIR__ . '/../db.php'));
-    $content = mysqli_real_escape_string($conn, "String containing 'quotes'");
-    $id = mysqli_real_escape_string($conn, intval($_REQUEST["id"]));
-    $sql = "UPDATE " . $DBtable . " SET content = '$content' WHERE id = '$id'";
-    $rs=$conn->query($sql);
+$content = mysqli_real_escape_string($conn, "String containing 'quotes'");
+$id = mysqli_real_escape_string($conn, intval($_REQUEST["id"]));
 
-    if ($rs === TRUE) {
-      echo "Record updated successfully";
-    } else {
-        echo "Error updating record: " . $conn->error;
-    }
+$sql = "UPDATE " . $DBtable . " SET content = '$content' WHERE id = '$id'";
+$rs = $conn->query($sql);
 
-    // Close connection
-    $conn->close();
-
+if ($rs === false) {
+  trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+}
+else {
+  echo "Record updated successfully";
+}
+// Close connection
+$conn->close();
 ?>
