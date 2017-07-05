@@ -20,12 +20,15 @@ if (isset($_POST['search'])) {
     foreach($arr as $row) {
         $id = $row['id'];
         $title = $row['title'];
+        $title = preg_replace("/($search)/i",'<mark>$1</mark>', $title);
         $desc = $row['description'];
+        $desc = preg_replace("/($search)/i",'<mark>$1</mark>', $desc);
         $url = $row['url'];
         $clicks = $row['clicks'];
         $clicks = number_format($clicks, 0, '', '.');
         $dates = $row['dates'];
         $dates = (date('d.m.Y', strtotime($dates)));
+
         echo '<div class="card">';
         echo '<h4 class="card-header">' . $title . '</h4>';
         echo '<div class="card-block"><p class="card-text">' . $desc . '</p><a href="includes/downloads/downloads.php?id=' . $id . '" target="_blank" class="btn btn-primary">Download</a></div>';
