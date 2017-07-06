@@ -4,13 +4,22 @@
 
 var custom = function($) {
   $(document).ready(function() {
+    // Search
+    var btnSearch = $('#goSearch');
+    var search = $('#search');
+    var clearSearch = $('#clearSearch')
+    // Send e-mail
+    var sendMsg = $('#sendMail');
+    var contactform = $('#contactform');
+    var messages = $('.feedback');
     //Mobile navigation
-    var menuItems = $('#menuItems').children().clone();
+    var mobileNavIcon = $('#navbarSideButton');
     var navBarSide = $('#navbarSide');
     var overlay = $('.overlay');
+    var menuItems = $('#menuItems').children().clone();
     navBarSide.prepend(menuItems);
 
-    $('#navbarSideButton').click(function() {
+    mobileNavIcon.click(function() {
       navBarSide.addClass('reveal');
       overlay.show();
     });
@@ -61,13 +70,9 @@ var custom = function($) {
       }
     });
 
-    // Send e-mail functions
-    var form = $('#contactform');
-    var messages = $('.feedback');
-
-    $('#sendMail').click(function() {
+    sendMsg.click(function() {
       // Serialize the form data.
-      var formData = $(form).serialize();
+      var formData = $(contactform).serialize();
       var url = '../includes/mail/mail_ajax.php';
       $.ajax({
         type: 'POST',
@@ -79,15 +84,11 @@ var custom = function($) {
       }).done(function(response) {
         $(messages).removeClass('alert alert-danger');
         $(messages).addClass('alert alert-success');
-
-        // Set the message text.
         $(messages).text(response);
         clearInput()
       }).fail(function(data) {
         $(messages).removeClass('alert alert-success');
         $(messages).addClass('alert alert-danger');
-
-        // Set the message text.
         if (data.responseText !== '') {
           $(messages).text(data.responseText);
         } else {
@@ -104,19 +105,19 @@ var custom = function($) {
       grecaptcha.reset();
     }
 
-    $('#contactForm').on('hidden.bs.modal', function() {
+    contactform.on('hidden.bs.modal', function() {
       // Clear feedback mmessages when modal is closed
-      $('.feedback').text('').removeClass('alert alert-danger alert-success');
+      messages.text('').removeClass('alert alert-danger alert-success');
       clearInput();
     })
 
     // Search assignments
-    $('#goSearch').click(function(e) {
+    btnSearch.click(function(e) {
       e.preventDefault();
       var allAssignments = $('#defaultAssignments');
       var searchedAsssignments = $('#searchAssignments');
       var url = '../includes/search/searchAssignments.php';
-      var q = $('#search').val();
+      var q = search.val();
 
       if (q == '') {
         searchedAsssignments.html('');
@@ -141,10 +142,18 @@ var custom = function($) {
     });
 
     // Trigger search by Enter key
-    $('#search').keypress(function(e) {
-      if (e.which === 13) {
-        $('#goSearch').click();
+    search.keypress(function(e) {
+      var code = (e.keyCode
+        ? e.keyCode
+        : e.which);
+      if ((code == 13) || (code == 10)) {
+        btnSearch.click();
       }
+    });
+
+    // Clear search field
+    clearSearch.click(function() {
+      search.val('');
     });
 
     // Accordion border fixed

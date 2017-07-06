@@ -10,17 +10,20 @@
   <meta name="google-site-verification" content="MV2MazdIeTTrYsADXu2ARdwg44eWp_co_c7P2LZ7oyc">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="icon" href="favicon.ico">
-  <title>Nannas website</title>
-  <link href="dist/css/style.css" rel="stylesheet">
-  <script src='https://www.google.com/recaptcha/api.js' async defer></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="dist/js/bootstrap.min.js"></script>
+  <?php
+  include_once('includes/tracking/googleTagManager.php');
+  ?>
+    <title>Nannas website</title>
+    <link href="dist/css/style.css" rel="stylesheet">
+    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
 </head>
 
 <body>
   <?php
   include('includes/downloads/displayInfo.php');
-  include_once('includes/analyticstracking.php');
+  include_once('includes/tracking/analyticsTracking.php');
   ?>
     <nav class="navbar navbar-toggleable-sm" data-toggle="affix">
       <div class="container pl-3 pl-sm-0">
@@ -64,7 +67,7 @@
           <div class="card-block">
             <h2>Nannas website</h2>
             <p>Website tilhørende Nanna Ellegaard. Her findes mit <a href="#cv">CV</a> og diverse <a href="#assignments">Opgaver</a> fra min tid på Aarhus Universitet.</p>
-            <p>Kontakt mig via de sociale medier eller <a href="" data-toggle="modal" data-target="#response">kontaktformularen</a>.</p>
+            <p>Kontakt mig via de sociale medier eller <a href="" data-toggle="modal" data-target="#contactForm">kontaktformularen</a>.</p>
           </div>
         </div>
       </div>
@@ -122,7 +125,9 @@
                       <a class="no-event">Cand.it i multimedier ved IT-Vest, Aarhus Universitet</a>
                     </li>
                     <li class="position">
-                      <a href="includes/downloads/downloads.php?id=10" target="_blank"><?php displayTitle(10) ?></a>.<br>Oprettet:
+                      <a href="includes/downloads/downloads.php?id=10" target="_blank">
+                        <?php displayTitle(10) ?>
+                      </a>.<br>Oprettet:
                       <?php displayDate(10) ?>.<br> Downloads:
                       <?php displayHits(10) ?>
                     </li>
@@ -133,7 +138,9 @@
                       <a class="no-event">Bachelor i Spansk og Europastudier, Aarhus Universitet</a>
                     </li>
                     <li class="position">Bachelorprojekt:
-                      <a href="includes/downloads/downloads.php?id=9" target="_blank"><?php displayTitle(9) ?></a>.<br>Oprettet:
+                      <a href="includes/downloads/downloads.php?id=9" target="_blank">
+                        <?php displayTitle(9) ?>
+                      </a>.<br>Oprettet:
                       <?php displayDate(9) ?>.<br> Downloads:
                       <?php displayHits(9) ?>.
                     </li>
@@ -200,8 +207,9 @@
               </div>
               <div class="col-xs-12 col-md-7 mt-2 mb-3 mt-md-0">
                 <div class="input-group">
-                  <input type="text" class="form-control" id="search" placeholder="Søg efter opgaver...">
-                  <span class="input-group-btn">
+                    <input type="text" class="form-control" id="search" placeholder="Søg efter opgaver...">
+                    <span class="input-group-btn btn-groups">
+                      <button class="btn btn-secondary" type="button" id="clearSearch">Ryd</button>
                       <button class="btn btn-secondary" type="button" id="goSearch">Søg</button>
                     </span>
                 </div>
@@ -209,7 +217,7 @@
             </div>
             <p>Opgaverne er ment som inspiration - ikke til copy/paste. :-)</p>
             <div id="defaultAssignments">
-            <?php
+              <?php
               include('includes/downloads/displayAllAssignments.php');
             ?>
             </div>
@@ -312,7 +320,8 @@
             </div>
             <div class="col-xs-12 col-md-6 text-lg-right text-xs-center pt-3 pt-sm-0">
               <p class="copyright-text">Sidst opdateret:
-                <?php echo strftime( "%d.%m.%Y", getlastmod() ); ?> Copyright © <?php echo date("Y"); ?> Nanna Ellegaard</p>
+                <?php echo strftime( "%d.%m.%Y", getlastmod() ); ?> Copyright ©
+                <?php echo date("Y"); ?> Nanna Ellegaard</p>
             </div>
           </div>
         </div>

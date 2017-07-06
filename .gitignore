@@ -37,4 +37,4 @@ includes/mail
 includes/insert
 includes/PdfToText
 includes/db.php
-includes/analyticstracking.php
+includes/tracking
