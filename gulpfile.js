@@ -44,7 +44,7 @@ var sassOptions = {
 };
 
 var autoprefixerOptions = {
-    browsers: ['last 3 versions', '> 3%']
+    browsers: ['last 3 versions', '> 2%']
 };
 
 gulp.task('sass', function() {

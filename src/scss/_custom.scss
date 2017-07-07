@@ -11,6 +11,7 @@ $color3: #fcfcfc;
 $color4: #5f5f5f;
 $color5: #df696e;
 $color6: #ee6e73;
+$color8: #7b8c94;
 $font-size-h1: 2rem !default;
 $font-size-h2: 1.75rem !default;
 $font-size-h4: 1.25rem !default;
@@ -49,14 +50,18 @@ section {
 
   h2 {
     font-size: 1.5rem;
-    color: $color-primary;
+    color: $color5;
   }
 }
 
 .btn-primary {
-  background-color: $color-primary;
+  background-color: $color8;
   color: $white;
-  border-color: inherit;
+  border: 0;
+
+  &:hover {
+    background-color: $color5;
+  }
 
   &:focus {
     color: $white;
@@ -69,7 +74,6 @@ section {
 
 .affix {
   @extend .fixed-top;
-  z-index: $zindex-fixed !important;
 }
 
 .navbar {
@@ -81,15 +85,36 @@ section {
     color: $white;
     font-size: 1.6rem;
     padding: 0;
-    margin-top: 3px;
-  }
 
-  .navbar-toggler-icon {
-    cursor: pointer;
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHMAAABkCAMAAACCTv/3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////5ubmueBsSwAAAAJ0Uk5T/wDltzBKAAAAPklEQVR42uzYQQ0AAAgDseHfNC4IyVoD912WAACUm3uampqampqamq+aAAD+IVtTU1NTU1NT0z8EAFBsBRgAX+kR+Qam138AAAAASUVORK5CYII=");
-    height: 0.8em;
-    width: 1em;
+    &:hover {
+      cursor: pointer;
+    }
+
+    span {
+      width: 40px;
+      height: 5px;
+      background-color: $white;
+      display: block;
+      margin: 5px auto;
+      transition: all 0.3s ease-in-out;
+    }
+
+    &.open {
+      span {
+        &:nth-child(1),
+        &:nth-child(3) {
+          opacity: 0;
+          transform: translateX(-100%);
+        }
+      }
+    }
   }
+  // .navbar-toggler-icon {
+  //   cursor: pointer;
+  //   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHMAAABkCAMAAACCTv/3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////5ubmueBsSwAAAAJ0Uk5T/wDltzBKAAAAPklEQVR42uzYQQ0AAAgDseHfNC4IyVoD912WAACUm3uampqampqamq+aAAD+IVtTU1NTU1NT0z8EAFBsBRgAX+kR+Qam138AAAAASUVORK5CYII=");
+  //   height: 0.8em;
+  //   width: 1em;
+  // }
 
   .navbar-brand {
     margin-right: 30px !important;
@@ -358,19 +383,6 @@ section {
     color: $white;
   }
 
-  p {
-    opacity: 0.75;
-  }
-
-  .form-control {
-    border-radius: 0.15rem;
-  }
-
-  .btn,
-  h2 {
-    margin-bottom: 25px;
-  }
-
   .social-nav {
     a {
       color: $white;
@@ -397,18 +409,9 @@ section {
 
       a {
         color: $white;
-        opacity: .6;
         margin-right: 15px;
-
-        &:hover {
-          opacity: 1;
-        }
       }
     }
-  }
-
-  .captcha-box {
-    overflow: hidden;
   }
 }
 
@@ -521,7 +524,7 @@ section {
     display: none;
   }
   position: fixed;
-  top: 0;
+  top: 37px; // Same as nav height
   right: 0;
   padding: 0;
   border-left: 1px solid #ccc;
@@ -534,22 +537,41 @@ section {
   li {
     padding-left: 2rem;
 
-    a,
-    a:focus,
-    a:hover,
-    a:visited {
-      color: rgba($body-color, 1)!important;
+    a {
+      color: $body-color;
       tap-highlight-color: rgba(255,255,255,.5);
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #ddd;
 
-      &::before {
-        border-left: 5px solid $color-primary;
-        background-color: transparent;
-        height: 60%;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: -15px;
+      &:active,
+      &:focus,
+      &:hover {
+        color: rgba($body-color, 1)!important;
+
+        &::before {
+          border-left: 5px solid $color-primary;
+          background-color: transparent;
+          height: 68%;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: -15px;
+        }
+      }
+    }
+
+    & + li {
+      a {
+        border-top: 1px solid $white;
+      }
+    }
+
+    &:last-child {
+      &:after {
+        content: '';
+        background-color: $white;
+        height: 1px;
+        width: calc(100% - 15px);
+        display: block;
       }
     }
   }
@@ -562,12 +584,11 @@ section {
 
 .overlay {
   display: none;
-  @extend .fixed-top;
+  @extend .modal-backdrop;
   bottom: 0;
   cursor: pointer;
-  background: $black;
-  opacity: 0.4;
-  transition: opacity 0.4s ease 0.4s;
+  opacity: 0.5;
+  transition: opacity 0.15s linear;
   z-index: 990;
 }
 @include media-breakpoint-up(md) {

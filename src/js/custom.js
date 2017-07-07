@@ -20,12 +20,14 @@ var custom = function($) {
     navBarSide.prepend(menuItems);
 
     mobileNavIcon.click(function() {
+      $(this).toggleClass("open");
       navBarSide.addClass('reveal');
       overlay.show();
     });
 
     $('#navbarSide, .overlay, .nav-link').click(function() {
       navBarSide.removeClass('reveal');
+      mobileNavIcon.toggleClass("open");
       overlay.hide();
     });
 
@@ -153,7 +155,7 @@ var custom = function($) {
 
     // Clear search field
     clearSearch.click(function() {
-      search.val('');
+      search.val('').focus();
     });
 
     // Accordion border fixed
