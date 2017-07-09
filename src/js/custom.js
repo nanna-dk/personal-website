@@ -19,16 +19,10 @@ var custom = function($) {
     var menuItems = $('#menuItems').children().clone();
     navBarSide.prepend(menuItems);
 
-    mobileNavIcon.click(function() {
-      $(this).toggleClass("open");
-      navBarSide.addClass('reveal');
-      overlay.show();
-    });
-
-    $('#navbarSide, .overlay, .nav-link').click(function() {
-      navBarSide.removeClass('reveal');
+    $('#navbarSideButton, #navbarSide, .overlay, .nav-link').click(function() {
       mobileNavIcon.toggleClass("open");
-      overlay.hide();
+      navBarSide.toggleClass('reveal');
+      overlay.toggle();
     });
 
     var toggleAffix = function(affixElement, scrollElement, wrapper) {

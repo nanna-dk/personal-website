@@ -55,12 +55,12 @@ section {
 }
 
 .btn-primary {
-  background-color: $color8;
+  background-color: $color5;
   color: $white;
   border: 0;
 
   &:hover {
-    background-color: $color5;
+    background-color: $color-secondary;
   }
 
   &:focus {
@@ -80,41 +80,57 @@ section {
   background-color: $color-primary;
   padding: 0;
 
-  .navbar-toggler {
-    outline: none !important;
-    color: $white;
-    font-size: 1.6rem;
-    padding: 0;
+  .navbar-toggler span,
+  .navbar-toggler span:after,
+  .navbar-toggler span:before {
+    cursor: pointer;
+    border-radius: 1px;
+    height: 5px;
+    width: 100%;
+    background: $white;
+    position: absolute;
+    display: block;
+    content: '';
+  }
 
-    &:hover {
-      cursor: pointer;
-    }
+  .navbar-toggler {
+    width: 35px;
+    height: 90%;
+    outline: none !important;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
 
     span {
-      width: 40px;
-      height: 5px;
-      background-color: $white;
-      display: block;
-      margin: 5px auto;
-      transition: all 0.3s ease-in-out;
+      transition: all 400ms ease-in-out;
+
+      &:before {
+        top: -10px;
+        transition: all 400ms ease-in-out;
+      }
+
+      &:after {
+        bottom: -10px;
+        transition: all 400ms ease-in-out;
+      }
     }
 
     &.open {
       span {
-        &:nth-child(1),
-        &:nth-child(3) {
-          opacity: 0;
-          transform: translateX(-100%);
+        background-color: transparent;
+
+        &:before {
+          top: 0;
+          transform: rotate(45deg);
+        }
+
+        &:after {
+          top: 0;
+          transform: rotate(-45deg);
         }
       }
     }
   }
-  // .navbar-toggler-icon {
-  //   cursor: pointer;
-  //   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHMAAABkCAMAAACCTv/3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////5ubmueBsSwAAAAJ0Uk5T/wDltzBKAAAAPklEQVR42uzYQQ0AAAgDseHfNC4IyVoD912WAACUm3uampqampqamq+aAAD+IVtTU1NTU1NT0z8EAFBsBRgAX+kR+Qam138AAAAASUVORK5CYII=");
-  //   height: 0.8em;
-  //   width: 1em;
-  // }
 
   .navbar-brand {
     margin-right: 30px !important;
@@ -347,6 +363,12 @@ section {
 
   .btn-groups {
     flex-direction: row;
+
+    .btn {
+      &+ .btn {
+        margin-left: -2px;
+      }
+    }
   }
 }
 
