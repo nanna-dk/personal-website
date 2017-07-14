@@ -23,7 +23,7 @@ if ($arr) {
         echo '<div class="card">';
         echo '<h4 class="card-header">' . $title . '</h4>';
         echo '<div class="card-block"><p class="card-text">' . $desc . '</p><a href="includes/downloads/downloads.php?id=' . $id . '" target="_blank" class="btn btn-primary">Download</a></div>';
-        echo '<div class="card-footer"><div class="float-left">Dato: ' . $dates . '</div><div class="float-right">Downloads: ' . $clicks . '</div></div>';
+        echo '<div class="card-footer"><div class="footer-left">Dato: ' . $dates . '</div><div class="footer-right">Downloads: ' . $clicks . '</div></div>';
         echo '</div>';
     }
 }

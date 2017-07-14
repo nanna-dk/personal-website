@@ -63,9 +63,10 @@
     <section class="about" id="about">
       <div class="container">
         <div class="card">
-          <div class="card-block">
+          <div class="card-block" itemscope itemtype="http://schema.org/Person">
             <h2>Nannas website</h2>
-            <p>Website tilhørende Nanna Ellegaard. Her findes mit <a href="#cv">CV</a> og diverse <a href="#assignments">Opgaver</a> fra min tid på Aarhus Universitet.</p>
+            <p>Website tilhørende <span itemprop="name">Nanna Ellegaard</span> - min interaktive legeplads.<br />
+            Her findes mit <a href="#cv" itemprop="url">CV</a> og diverse <a href="#assignments" itemprop="url">Opgaver</a> fra min tid på Aarhus Universitet.</p>
             <p>Kontakt mig via de sociale medier eller <a href="" data-toggle="modal" data-target="#contactForm">kontaktformularen</a>.</p>
           </div>
         </div>
@@ -82,22 +83,22 @@
                 <div class="experience">
                   <ul>
                     <li class="date">10/2015 -</li>
-                    <li class="company"> <a href="http.//www.ku.dk">Københavns Universitet</a></li>
+                    <li class="company"><a href="http://www.ku.dk">Københavns Universitet</a></li>
                     <li class="position">Front-end developer</li>
                   </ul>
                   <ul>
                     <li class="date">05/2012 - 10/2015</li>
-                    <li class="company"> <a href="http://www.telenor.dk">Telenor A/S</a></li>
+                    <li class="company"><a href="http://www.telenor.dk">Telenor A/S</a></li>
                     <li class="position">Webmaster / front-end developer</li>
                   </ul>
                   <ul>
                     <li class="date">12/2005 - 05/2012</li>
-                    <li class="company"> <a href="http://www.lumesse.dk">Lumesse A/S</a></li>
+                    <li class="company"><a href="http://www.lumesse.dk">Lumesse A/S</a></li>
                     <li class="position">Web consultant / web developer</li>
                   </ul>
                   <ul>
                     <li class="date">12/2003 - &infin;</li>
-                    <li class="company"> <a href="http://www.studenterforum.dk">Studenterforum.dk</a></li>
+                    <li class="company"><a href="http://www.studenterforum.dk">Studenterforum.dk</a></li>
                     <li class="position">Medstifter og webansvarlig</li>
                   </ul>
                 </div>
@@ -274,13 +275,13 @@
               <div class="modal-body">
                 <form id="contactform" action="" method="POST">
                   <div class="form-group">
-                    <input type="text" name="name" class="form-control" id="inputName" placeholder="Navn" />
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Navn" />
                   </div>
                   <div class="form-group">
-                    <input type="email" name="email" class="form-control" id="inputEmail" placeholder="E-mail" />
+                    <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" />
                   </div>
                   <div class="form-group">
-                    <textarea rows="6" name="message" class="form-control" id="inputMessage" placeholder="Besked"></textarea>
+                    <textarea rows="6" name="message" class="form-control" id="msg" placeholder="Besked"></textarea>
                   </div>
                   <div class="feedback" role="alert"></div>
                   <div class="captcha-box">
@@ -317,10 +318,10 @@
                 </li>
               </ul>
             </div>
-            <div class="col-xs-12 col-md-6 text-lg-right text-xs-center pt-3 pt-sm-0">
+            <div class="col-xs-12 col-md-6 text-lg-right text-xs-center mt-3 mt-sm-1">
               <p class="copyright-text">Sidst opdateret:
-                <?php echo strftime( "%d.%m.%Y", getlastmod() ); ?> Copyright ©
-                <?php echo date("Y"); ?> Nanna Ellegaard</p>
+              <time datetime="<?php echo date( "Y-m-d", getlastmod() ); ?>"><?php echo strftime( "%d.%m.%Y", getlastmod() ); ?></time> <br />
+              Copyright © <?php echo date("Y"); ?> Nanna Ellegaard</p>
             </div>
           </div>
         </div>

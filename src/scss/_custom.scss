@@ -85,7 +85,7 @@ section {
   .navbar-toggler span:before {
     cursor: pointer;
     border-radius: 1px;
-    height: 5px;
+    height: 4px;
     width: 100%;
     background: $white;
     position: absolute;
@@ -94,7 +94,7 @@ section {
   }
 
   .navbar-toggler {
-    width: 35px;
+    width: 30px;
     height: 90%;
     outline: none !important;
     padding: 0;
@@ -353,6 +353,14 @@ section {
     &:last-child {
       border-radius: 0 0 calc(.15rem - 1px) calc(.15rem - 1px);
     }
+
+    .footer-left {
+      @include float-left;
+    }
+
+    .footer-right {
+      @include float-right;
+    }
     @extend .clearfix;
     @extend .text-muted;
   }
@@ -363,10 +371,11 @@ section {
 
   .btn-groups {
     flex-direction: row;
-
-    .btn {
-      &+ .btn {
-        margin-left: -2px;
+    @include media-breakpoint-down(sm) {
+      .btn {
+        &+ .btn {
+          margin-left: -2px;
+        }
       }
     }
   }
@@ -374,6 +383,9 @@ section {
 
 .form-control::placeholder {
   color: #bbb;
+  @include media-breakpoint-down(sm) {
+    font-size: 0.85rem;
+  }
 }
 
 .stats {
@@ -383,8 +395,6 @@ section {
     a {
       color: $body-color;
       display: block;
-
-      &.collapsed {}
     }
   }
 
@@ -549,7 +559,7 @@ section {
   top: 37px; // Same as nav height
   right: 0;
   padding: 0;
-  border-left: 1px solid #ccc;
+  box-shadow: inset 10px 0 20px 0 rgba(0,0,0, .1);
   background-color: #f3f3f3;
   overflow-y: auto;
   z-index: 1000;

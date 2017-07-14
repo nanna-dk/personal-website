@@ -1,16 +1,17 @@
-//
+// ******
 // Nanna Ellegaard custom scripts
-//
+// http://www.e-nanna.dk 2017
+// ******
 
 var custom = function($) {
   $(document).ready(function() {
     // Search
-    var btnSearch = $('#goSearch');
     var search = $('#search');
-    var clearSearch = $('#clearSearch')
+    var clearSearch = $('#clearSearch');
+    var btnSearch = $('#goSearch');
     // Send e-mail
-    var sendMsg = $('#sendMail');
     var contactform = $('#contactform');
+    var sendMsg = $('#sendMail');
     var messages = $('.feedback');
     //Mobile navigation
     var mobileNavIcon = $('#navbarSideButton');
@@ -95,9 +96,9 @@ var custom = function($) {
 
     function clearInput() {
       // Clear the form fields
-      $('#inputName').val('');
-      $('#inputEmail').val('');
-      $('#inputMessage').val('');
+      $('#name').val('');
+      $('#email').val('');
+      $('#msg').val('');
       grecaptcha.reset();
     }
 
@@ -149,7 +150,7 @@ var custom = function($) {
 
     // Clear search field
     clearSearch.click(function() {
-      search.val('').focus();
+      search.val('');
     });
 
     // Accordion border fixed
