@@ -134,13 +134,10 @@ section {
 
   .navbar-brand {
     margin-right: 30px !important;
-    margin-top: -8px !important;
+    margin-top: -6px !important;
     font-weight: 700;
     padding: 0;
-    font-size: 2rem;
-    @include media-breakpoint-down(sm) {
-      font-size: 1.8rem;
-    }
+    font-size: 1.8rem;
   }
 
   .brand-name {
@@ -371,11 +368,10 @@ section {
 
   .btn-groups {
     flex-direction: row;
-    @include media-breakpoint-down(sm) {
-      .btn {
-        &+ .btn {
-          margin-left: -2px;
-        }
+
+    .btn {
+      &:first-child {
+        margin-left: -2px;
       }
     }
   }
