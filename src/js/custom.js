@@ -94,14 +94,6 @@ var custom = function($) {
       });
     });
 
-    function clearInput() {
-      // Clear the form fields
-      $('#name').val('');
-      $('#email').val('');
-      $('#msg').val('');
-      grecaptcha.reset();
-    }
-
     contactform.on('hidden.bs.modal', function() {
       // Clear feedback mmessages when modal is closed
       messages.text('').removeClass('alert alert-danger alert-success');
@@ -110,6 +102,8 @@ var custom = function($) {
 
     // Search assignments
     btnSearch.click(function(e) {
+      // Google Analytics event tracking
+      trackSearch();
       e.preventDefault();
       var allAssignments = $('#defaultAssignments');
       var searchedAsssignments = $('#searchAssignments');
@@ -151,6 +145,7 @@ var custom = function($) {
     // Clear search field
     clearSearch.click(function() {
       search.val('');
+      trackClear();
     });
 
     // Accordion border fixed
@@ -159,6 +154,39 @@ var custom = function($) {
     })
     $('#stats').on('show.bs.collapse', function() {
       $(this).find('.card-header').css('border-bottom', '1px solid rgba(0,0,0,0.125)');
+      trackStats();
     })
   });
+
+  function clearInput() {
+    // Clear the form fields
+    $('#name').val('');
+    $('#email').val('');
+    $('#msg').val('');
+    grecaptcha.reset();
+  }
+
+  function trackSearch() {
+    // Google Analytics event tracking
+    ga('send', 'event', {
+      eventCategory: 'Search button',
+      eventAction: 'Click'
+    });
+  }
+
+  function trackClear() {
+    // Google Analytics event tracking
+    ga('send', 'event', {
+      eventCategory: 'Clear button',
+      eventAction: 'Click'
+    });
+  }
+
+  function trackStats() {
+    // Google Analytics event tracking
+    ga('send', 'event', {
+      eventCategory: 'Expanding statistics',
+      eventAction: 'Click'
+    });
+  }
 }(jQuery);
