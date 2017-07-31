@@ -103,7 +103,7 @@ var custom = function($) {
     // Search assignments
     btnSearch.click(function(e) {
       // Google Analytics event tracking
-      trackSearch();
+      trackThis("Search button");
       e.preventDefault();
       var allAssignments = $('#defaultAssignments');
       var searchedAsssignments = $('#searchAssignments');
@@ -145,7 +145,7 @@ var custom = function($) {
     // Clear search field
     clearSearch.click(function() {
       search.val('');
-      trackClear();
+      trackThis("Clear button");
     });
 
     // Accordion border fixed
@@ -154,8 +154,8 @@ var custom = function($) {
     })
     $('#stats').on('show.bs.collapse', function() {
       $(this).find('.card-header').css('border-bottom', '1px solid rgba(0,0,0,0.125)');
-      trackStats();
-    })
+      trackThis("Expanding statistics");
+    });
   });
 
   function clearInput() {
@@ -166,26 +166,10 @@ var custom = function($) {
     grecaptcha.reset();
   }
 
-  function trackSearch() {
+  function trackThis(text) {
     // Google Analytics event tracking
     ga('send', 'event', {
-      eventCategory: 'Search button',
-      eventAction: 'Click'
-    });
-  }
-
-  function trackClear() {
-    // Google Analytics event tracking
-    ga('send', 'event', {
-      eventCategory: 'Clear button',
-      eventAction: 'Click'
-    });
-  }
-
-  function trackStats() {
-    // Google Analytics event tracking
-    ga('send', 'event', {
-      eventCategory: 'Expanding statistics',
+      eventCategory: text,
       eventAction: 'Click'
     });
   }

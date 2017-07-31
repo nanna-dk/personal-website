@@ -60,7 +60,7 @@ section {
   border: 0;
 
   &:hover {
-    background-color: $color-secondary;
+    background-color: $color4;
   }
 
   &:focus {
@@ -434,6 +434,7 @@ section {
     .list-inline {
       position: relative;
       top: 5px;
+      font-size: 1rem;
 
       a {
         color: $white;
