@@ -102,7 +102,6 @@ var custom = function($) {
 
     // Search assignments
     btnSearch.click(function(e) {
-      // Google Analytics event tracking
       trackThis("Search button");
       e.preventDefault();
       var allAssignments = $('#defaultAssignments');

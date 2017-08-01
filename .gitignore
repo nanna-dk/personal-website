@@ -35,7 +35,6 @@ opgaver
 includes/cv
 includes/mail
 includes/insert
-includes/paging
 includes/PdfToText
 includes/db.php
 includes/tracking
