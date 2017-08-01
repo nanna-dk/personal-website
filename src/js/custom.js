@@ -19,6 +19,21 @@ var custom = function($) {
     var overlay = $('.overlay');
     var menuItems = $('#menuItems').children().clone();
     navBarSide.prepend(menuItems);
+    // assignments
+    var allAssignments = $('#defaultAssignments');
+    var searchedAsssignments = $('#searchAssignments');
+
+    allAssignments.load("../includes/downloads/pagedAssignments.php");
+    // Pagination
+    allAssignments.on("click", ".pagination .page-link", function(e) {
+      e.preventDefault();
+      var page = $(this).attr("data-page"); //get page number from link
+      allAssignments.load("../includes/downloads/pagedAssignments.php", {
+        "page": page
+      }, function() { //get content from PHP page
+      });
+
+    });
 
     $('#navbarSideButton, #navbarSide, .overlay, .nav-link').click(function() {
       mobileNavIcon.toggleClass("open");
@@ -104,14 +119,13 @@ var custom = function($) {
     btnSearch.click(function(e) {
       trackThis("Search button");
       e.preventDefault();
-      var allAssignments = $('#defaultAssignments');
-      var searchedAsssignments = $('#searchAssignments');
       var url = '../includes/search/searchAssignments.php';
       var q = search.val();
-
       if (q == '') {
         searchedAsssignments.html('');
         allAssignments.show();
+        search.parent().addClass('has-danger');
+        search.addClass('form-control-danger');
       } else {
         $.ajax({
           type: 'POST',
@@ -121,6 +135,7 @@ var custom = function($) {
           },
           success: function(response) {
             allAssignments.hide();
+            clearErrors();
             searchedAsssignments.html(response).show();
           },
           error: function() {
@@ -144,6 +159,7 @@ var custom = function($) {
     // Clear search field
     clearSearch.click(function() {
       search.val('');
+      clearErrors();
       trackThis("Clear button");
     });
 
@@ -163,6 +179,11 @@ var custom = function($) {
     $('#email').val('');
     $('#msg').val('');
     grecaptcha.reset();
+  }
+
+  function clearErrors() {
+    $(search).parent().removeClass('has-danger');
+    $(search).removeClass('form-control-danger');
   }
 
   function trackThis(text) {

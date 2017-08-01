@@ -398,6 +398,16 @@ section {
     margin-bottom: 0.5rem;
   }
 }
+
+.pagination {
+  li {
+    &.disabled {
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+}
 // *******************************************
 //  Footer Styling
 // *******************************************

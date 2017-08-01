@@ -1,7 +1,7 @@
 <?php
 // Searching the database
 include (realpath(__DIR__ . '/../db.php'));
-
+include (realpath(__DIR__ . '/../paging/paging.php'));
 if (isset($_POST['search'])) {
   $search = $_POST['search'];
   $search = preg_replace("#[^0-9a-z]i#", "", $search);
