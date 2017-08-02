@@ -54,10 +54,16 @@ section {
   }
 }
 
+.btn {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .btn-primary {
   background-color: $color5;
   color: $white;
-  border: 0;
+  border-color: $color5;
 
   &:hover {
     background-color: $color4;
@@ -95,13 +101,14 @@ section {
 
   .navbar-toggler {
     width: 30px;
-    height: 90%;
+    height: 33px;
     outline: none !important;
     padding: 0;
     border: 0;
     cursor: pointer;
 
     span {
+      width: 30px;
       transition: all 400ms ease-in-out;
 
       &:before {
@@ -133,7 +140,8 @@ section {
   }
 
   .navbar-brand {
-    margin-right: 30px !important;
+    display: flex;
+    align-items: center;
     margin-top: -6px !important;
     font-weight: 700;
     padding: 0;
@@ -143,8 +151,10 @@ section {
   .brand-name {
     font-size: 1.2rem;
     font-weight: normal;
+    display: none;
     @include media-breakpoint-down(sm) {
       margin-left: 10px;
+      display: block;
     }
   }
 
@@ -202,6 +212,27 @@ section {
       top: 50%;
       transform: translateY(-50%);
     }
+  }
+}
+
+button {
+  &.close {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.has-danger {
+  .form-control-danger {
+    padding-right: 2.25rem;
+    background-repeat: no-repeat;
+    background-position: center right 0.5625rem;
+    background-size: 1.125rem 1.125rem;
+  }
+
+  .form-control {
+    border-color: #d9534f;
   }
 }
 // *******************************************
@@ -293,7 +324,7 @@ section {
         }
 
         &:hover {
-          color: lighten($gray-light, 10%);
+          color: lighten($gray-700, 10%);
           text-decoration: none;
         }
 
