@@ -27,6 +27,7 @@ var custom = function($) {
     // Pagination
     allAssignments.on("click", ".pagination .page-link", function(e) {
       e.preventDefault();
+      trackThis("Paging clicked");
       var page = $(this).attr("data-page"); //get page number from link
       allAssignments.load("../includes/downloads/pagedAssignments.php", {
         "page": page
@@ -163,6 +164,14 @@ var custom = function($) {
       trackThis("Clear button");
     });
 
+    // Social icons clicked
+    $('.social-nav a').click(function() {
+      var channel = $(this).attr('title');
+      if (channel) {
+        trackThis(channel);
+      }
+    });
+
     // Accordion border fixed
     $('#stats').on('hide.bs.collapse', function() {
       $(this).find('.card-header').css('border-bottom', '0');
@@ -171,6 +180,13 @@ var custom = function($) {
       $(this).find('.card-header').css('border-bottom', '1px solid rgba(0,0,0,0.125)');
       trackThis("Expanding statistics");
     });
+
+    // JS loading time
+    if (window.performance) {
+      // Gets the number of milliseconds (rounded) since page load
+      var timeSincePageLoad = Math.round(performance.now());
+      ga('send', 'timing', 'JS dependencies', 'load', timeSincePageLoad);
+    }
   });
 
   function clearInput() {

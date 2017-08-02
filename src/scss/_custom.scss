@@ -400,6 +400,8 @@ section {
 }
 
 .pagination {
+  margin-bottom: 0.5rem;
+
   li {
     &.disabled {
       &:hover {
@@ -407,6 +409,13 @@ section {
       }
     }
   }
+}
+
+.paging-stats {
+  margin-bottom: 0.6rem;
+  @extend .w-100;
+  @extend .text-right;
+  @include clearfix;
 }
 // *******************************************
 //  Footer Styling

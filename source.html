@@ -10,11 +10,11 @@
   <meta name="google-site-verification" content="MV2MazdIeTTrYsADXu2ARdwg44eWp_co_c7P2LZ7oyc">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="icon" href="favicon.ico">
-    <title>Nanna Ellegaard</title>
-    <link href="dist/css/style.css" rel="stylesheet">
-    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="dist/js/bootstrap.min.js"></script>
+  <title>Nanna Ellegaard</title>
+  <link href="dist/css/style.css" rel="stylesheet">
+  <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="dist/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -46,7 +46,7 @@
           <nav class="nav social-nav pull-right hidden-sm-down">
             <a title="Facebook" class="icon-facebook" href="https://www.facebook.com/nanna.ellegaard" target="_blank"></a>
             <a title="LinkedIn" class="icon-linkedin" href="http://dk.linkedin.com/in/nannaellegaard" target="_blank"></a>
-            <a title="send besked via webformular" class="icon-mail" href=""  data-toggle="modal" data-target="#contactForm"></a>
+            <a title="send besked via webformular" class="icon-mail" href="" data-toggle="modal" data-target="#contactForm"></a>
             <a title="Skype" class="icon-skype" href="skype:nanna_dk?call"></a>
             <a title="Google+" class="icon-gplus" href="https://plus.google.com/102076494911232201521?rel=author" target="_blank"></a>
             <a title="GitHub" class="icon-github" href="https://github.com/nanna-dk/" target="_blank"></a>
@@ -62,8 +62,7 @@
         <div class="card">
           <div class="card-block" itemscope itemtype="http://schema.org/Person">
             <h2>Nannas website</h2>
-            <p>Website tilhørende <span itemprop="name">Nanna Ellegaard</span> - min interaktive legeplads.<br />
-            Her findes mit <a href="#cv" itemprop="url">CV</a> og diverse <a href="#assignments" itemprop="url">opgaver</a> fra min tid på Aarhus Universitet.</p>
+            <p>Website tilhørende <span itemprop="name">Nanna Ellegaard</span> - min interaktive legeplads.<br /> Her findes mit <a href="#cv" itemprop="url">CV</a> og diverse <a href="#assignments" itemprop="url">opgaver</a> fra min tid på Aarhus Universitet.</p>
             <p>Kontakt mig via de sociale medier eller <a href="" data-toggle="modal" data-target="#contactForm">kontaktformularen</a>.</p>
           </div>
         </div>
@@ -204,8 +203,8 @@
               </div>
               <div class="col-xs-12 col-md-7 mt-2 mb-3 mt-md-0">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="search" placeholder="Søg efter opgaver...">
-                    <span class="input-group-btn btn-groups">
+                  <input type="text" class="form-control" id="search" placeholder="Søg efter opgaver...">
+                  <span class="input-group-btn btn-groups">
                       <button class="btn btn-secondary" type="button" id="clearSearch">Ryd</button>
                       <button class="btn btn-primary" type="button" id="goSearch">Søg</button>
                     </span>
@@ -317,8 +316,8 @@
             </div>
             <div class="col-xs-12 col-md-6 text-lg-right text-xs-center mt-3 mt-sm-1">
               <p class="copyright-text">Sidst opdateret:
-              <time datetime="<?php echo date( "Y-m-d", getlastmod() ); ?>"><?php echo strftime( "%d.%m.%Y", getlastmod() ); ?></time> <br />
-              Copyright © <?php echo date("Y"); ?> Nanna Ellegaard</p>
+                <time datetime="<?php echo date( " Y-m-d ", getlastmod() ); ?>"><?php echo strftime( "%d.%m.%Y", getlastmod() ); ?></time> <br /> Copyright ©
+                <?php echo date("Y"); ?> Nanna Ellegaard</p>
             </div>
           </div>
         </div>
@@ -327,6 +326,12 @@
     <!-- Scroll to top -->
     <a class="scrolltop" href="#about"><span class="icon-angle-up"></span></a>
     <!-- /Scroll to top -->
+    <script>
+      if (window.performance) {
+        var timeSincePageLoad = Math.round(performance.now());
+        ga('send', 'timing', 'Page load speed', 'load', timeSincePageLoad);
+      }
+    </script>
 </body>
 
 </html>

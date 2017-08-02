@@ -15,7 +15,7 @@ function paginate($item_per_page, $current_page, $total_records, $total_pages) {
             $pagination.= '<li class="page-item"><a class="page-link" href="#" data-page="' . $previous_link . '" title="Tilbage">Tilbage</a></li>'; //previous link
             for ($i = ($current_page - 2); $i < $current_page; $i++) { //Create left-hand side links
                 if ($i > 0) {
-                    $pagination.= '<li class="page-item"><a class="page-link" href="#" data-page="' . $i . '" title="Page' . $i . '">' . $i . '</a></li>';
+                    $pagination.= '<li class="page-item"><a class="page-link" href="#" data-page="' . $i . '" title="Side ' . $i . '">' . $i . '</a></li>';
                 }
             }
             //set first link to false

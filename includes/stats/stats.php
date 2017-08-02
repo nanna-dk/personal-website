@@ -17,11 +17,10 @@ if ($arr) {
         $title = $row['title'];
         $clicks = $row['clicks'];
         $hits = number_format($clicks, 0, '', '.');
-        $valuenow = round($clicks / 10);
         $percentage = round($clicks / 100);
         echo '<p class="card-text"><a href="includes/downloads/downloads.php?id=' . $id . '" target="_blank">' . $title . '</a></p>';
         echo '<div class="progress" title="' . $title . '">';
-        echo '<div class="progress-bar" role="progressbar" style="width:' . $percentage . '%" aria-valuenow="' . $valuenow . '" aria-valuemin="0" aria-valuemax="100">' . $hits . '</div>';
+        echo '<div class="progress-bar" role="progressbar" style="width:' . $percentage . '%" aria-valuenow="' . $percentage . '" aria-valuemin="0" aria-valuemax="100">' . $hits . '</div>';
         echo '</div><br />';
     }
 }
