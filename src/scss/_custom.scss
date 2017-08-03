@@ -66,7 +66,7 @@ section {
   border-color: $color5;
 
   &:hover {
-    background-color: $color4;
+    background-color: $gray-600;
   }
 
   &:focus {
@@ -232,7 +232,7 @@ button {
   }
 
   .form-control {
-    border-color: #d9534f;
+    border-color: $red;
   }
 }
 // *******************************************
@@ -262,7 +262,7 @@ button {
     padding-left: 24px;
     margin-left: 7px;
     border-left: 1px solid;
-    border-image: linear-gradient(to bottom, rgba(0,0,0,0) 5%, rgba(100,100,100,1) 20%, rgba(100,100,100,1) 80%, rgba(0,0,0,0) 95%) 22 stretch;
+    border-image: linear-gradient(to bottom, rgba($black,0) 5%, rgba(100,100,100,1) 20%, rgba(100,100,100,1) 80%, rgba($black,0) 95%) 22 stretch;
 
     ul {
       margin-bottom: 23px;
@@ -350,7 +350,7 @@ button {
 
       &.badge {
         padding: 0.25em 0.4em 0.4em;
-        color: rgba(0,0,0,0.6);
+        color: rgba($black, 0.6);
         background-color: $badge-color;
       }
     }
@@ -433,10 +433,17 @@ button {
 .pagination {
   margin-bottom: 0.5rem;
 
-  li {
+  .page-item {
     &.disabled {
       &:hover {
         cursor: not-allowed;
+      }
+    }
+
+    &.active {
+      .page-link {
+        background-color: $gray-600;
+        border-color: $gray-600;
       }
     }
   }

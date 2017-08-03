@@ -45,20 +45,15 @@ if (isset($_POST) && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SE
         $page_position = (($page_number - 1) * $item_per_page) + 1;
         echo '<div class="paging-stats">';
         echo 'Side ' . $page_number . ' viser ';
-        if ($page_number < $total_pages) {
-            echo $page_position . ' til ' . ($page_position - 1 + $item_per_page) . ' ud af i alt ' . $total;
-        }
-        elseif (($page_number == $total_pages)) {
-            echo $page_position . ' til ' . $total . ' ud af i alt' . $total;
-        }
+        echo $page_position . ' til ' . min (($page_number * $item_per_page) , $total) . ' ud af i alt ' . $total;;
         echo '</div>';
 
         while ($rs->fetch()) { //fetch values
             $clicks = number_format($clicks, 0, '', '.');
             $dates = (date('d.m.Y', strtotime($dates)));
             echo '<div class="card">';
-            echo '<h4 class="card-header">' . $title . '</h4>';
-            echo '<div class="card-block"><p class="card-text">' . $description . '</p><a href="includes/downloads/downloads.php?id=' . $id . '" target="_blank" class="btn btn-primary">Download</a></div>';
+            echo '<h4 class="card-header"><a href="includes/downloads/downloads.php?id=' . $id . '" target="_blank" title="Download">' . $title . '</a></h4>';
+            echo '<div class="card-block"><p class="card-text">' . $description . '</p></div>';
             echo '<div class="card-footer"><div class="footer-left">Dato: ' . $dates . '</div><div class="footer-right">Downloads: ' . $clicks . '</div></div>';
             echo '</div>';
         }

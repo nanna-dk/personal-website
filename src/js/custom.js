@@ -160,6 +160,8 @@ var custom = function($) {
     // Clear search field
     clearSearch.click(function() {
       search.val('');
+      searchedAsssignments.html('');
+      allAssignments.show();
       clearErrors();
       trackThis("Clear button");
     });
