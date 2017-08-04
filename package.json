@@ -4,10 +4,8 @@
   "description": "Nannas website",
   "main": "index.html",
   "dependencies": {
-    "gulp-babel": "^6.1.2",
     "gulp-cli": "^1.3.0",
     "gulp-util": "^3.0.8",
-    "gulp-webpack": "^1.5.0",
     "minimatch": "^3.0.3",
     "node-pre-gyp": "^0.6.36",
     "node-sass": "file:node-sass-4.5.3.tar.gz",
