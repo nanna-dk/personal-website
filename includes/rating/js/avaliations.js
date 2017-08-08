@@ -29,8 +29,9 @@ $(function() {
       item: itemId,
       point: vote
     }, function(data) {
+      //console.log(data);
       getAvg(data.average);
-      $('.votes span').html(data.votos);
+      $('.votes span').html(data.votes);
     }, 'jSON');
   });
 });
