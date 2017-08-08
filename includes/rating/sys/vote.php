@@ -14,7 +14,6 @@
 			$updateQuery = $pdo->prepare("UPDATE ". $DBtable ." SET `votes` = ?, `rating` = ? WHERE `id` = ?");
 			if($updateQuery->execute(array($voteUpdate, $pointssUpd, $id))){
 				$avg = round(($pointssUpd/$voteUpdate),1);
-				setcookie("rated", 1, time() + (86400 * 30), "/"); // 86400 = 1 day
 				die(json_encode(array('average' => $avg, 'votes' => $voteUpdate)));
 			}
 		}

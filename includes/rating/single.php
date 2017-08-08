@@ -17,6 +17,7 @@
 	$query->execute(array($id));
 	while($item = $query->fetchObject()){
 		$avg = ($item->rating == 0) ? 0 : round(($item->rating/$item->votes), 1);
+		$votes = ($item->votes == 1) ? "stemme" : "stemmer";
 ?>
 <h1><?php echo $item->title ?> - <a href="index.php"><<</a></h1>
 <span class="ratingAverage" data-average="<?php echo $avg;?>"></span>
@@ -27,11 +28,11 @@
 	<span class="stars">
 	<?php for($i=1; $i<=5; $i++):?>
 	<span class="star" data-vote="<?php echo $i;?>">
-		<span class="starTotal"></span>
+		<span class="starimg"></span>
 	</span>
 	<?php
 	endfor;
-	echo '</span></div><p class="votes"><span>'.$item->votes.'</span> votes</p>';
+	echo '</span></div><p class="votes"><span>'.$item->votes.' '.$votes.'</span></p>';
 }
 ?>
 </body>

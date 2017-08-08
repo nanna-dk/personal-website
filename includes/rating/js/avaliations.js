@@ -28,10 +28,12 @@ $(function() {
       vote: 'yes',
       item: itemId,
       point: vote
-    }, function(data) {
+    }, function(data, status) {
       //console.log(data);
+      //console.log(status);
       getAvg(data.average);
-      $('.votes span').html(data.votes);
+      var suffix = (data.votes == 1) ? "stemme" : "stemmer";
+      $('.votes span').html(data.votes + " " + suffix);
     }, 'jSON');
   });
 });
