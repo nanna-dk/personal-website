@@ -27,7 +27,7 @@ var custom = function($) {
     // Pagination
     allAssignments.on("click", ".pagination .page-link", function(e) {
       e.preventDefault();
-      trackThis("Paging clicked");
+      trackThis("Paging");
       var page = $(this).attr("data-page"); //get page number from link
       allAssignments.load("../includes/downloads/pagedAssignments.php", {
         "page": page
