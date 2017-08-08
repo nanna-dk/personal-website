@@ -1,14 +1,14 @@
 $(function() {
   var average = $('.ratingAverage').attr('data-average');
-  function avaliacao(average) {
+  function getAvg(average) {
     average = (Number(average) * 20);
     $('.bg').css('width', 0);
-    $('.barra .bg').animate({
+    $('.bar .bg').animate({
       width: average + '%'
     }, 500);
   }
 
-  avaliacao(average);
+  getAvg(average);
 
   $('.star').on('mouseover', function() {
     var indexAtual = $('.star').index(this);
@@ -16,20 +16,21 @@ $(function() {
       $('.star:eq(' + i + ')').addClass('full');
     }
   });
+
   $('.star').on('mouseout', function() {
     $('.star').removeClass('full');
   });
 
   $('.star').on('click', function() {
-    var idArticle = $('.article').attr('data-id');
-    var voto = $(this).attr('data-vote');
-    $.post('sys/votar.php', {
-      votar: 'sim',
-      artigo: idArticle,
-      ponto: voto
-    }, function(retorno) {
-      avaliacao(retorno.average);
-      $('.votos span').html(retorno.votos);
+    var itemId = $('.item').attr('data-id');
+    var vote = $(this).attr('data-vote');
+    $.post('sys/vote.php', {
+      vote: 'yes',
+      item: itemId,
+      point: vote
+    }, function(data) {
+      getAvg(data.average);
+      $('.votes span').html(data.votos);
     }, 'jSON');
   });
 });
