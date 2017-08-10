@@ -1,20 +1,23 @@
 <?php
 // Searching the database
 include (realpath(__DIR__ . '/../db.php'));
-include (realpath(__DIR__ . '/../paging/paging.php'));
+
 if (isset($_POST['search'])) {
 
   $search = mysqli_real_escape_string($conn, $_POST['search']);
   $search = preg_replace("#[^0-9a-z]i#", "", $search);
 
   $sql = "SELECT title, description, content FROM " . $DBtable . " WHERE title LIKE '%" . $search . "%' OR description LIKE '%" . $search . "%' OR content LIKE '%" . $search . "%' ORDER BY dates DESC";
+
   $rs = $conn->query($sql);
+
   if ($rs === false) {
       trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
   }
   else {
       $arr = $rs->fetch_all(MYSQLI_ASSOC);
   }
+
   if ($arr) {
     $total = mysqli_num_rows($rs);
     echo '<div id="searchResults">';
