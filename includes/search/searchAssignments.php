@@ -3,9 +3,11 @@
 include (realpath(__DIR__ . '/../db.php'));
 include (realpath(__DIR__ . '/../paging/paging.php'));
 if (isset($_POST['search'])) {
-  $search = $_POST['search'];
+
+  $search = mysqli_real_escape_string($conn, $_POST['search']);
   $search = preg_replace("#[^0-9a-z]i#", "", $search);
-  $sql = "SELECT * FROM " . $DBtable . " WHERE title LIKE '%" . $search . "%' OR description LIKE '%" . $search . "%' ORDER BY dates DESC";
+
+  $sql = "SELECT title, description, content FROM " . $DBtable . " WHERE title LIKE '%" . $search . "%' OR description LIKE '%" . $search . "%' OR content LIKE '%" . $search . "%' ORDER BY dates DESC";
   $rs = $conn->query($sql);
   if ($rs === false) {
       trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
@@ -23,6 +25,7 @@ if (isset($_POST['search'])) {
         $title = preg_replace("/($search)/i",'<mark>$1</mark>', $title);
         $desc = $row['description'];
         $desc = preg_replace("/($search)/i",'<mark>$1</mark>', $desc);
+        $content = $row['content'];
         $url = $row['url'];
         $clicks = $row['clicks'];
         $clicks = number_format($clicks, 0, '', '.');
