@@ -43,6 +43,7 @@ if (isset($_POST['search'])) {
       echo '<div class="alert alert-warning" role="alert">Ingen resultater fundet.</div>';
   }
   echo '</div>';
+
   // Free memory
   $rs->free();
   // Close connection
