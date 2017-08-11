@@ -22,18 +22,44 @@ var custom = function($) {
     // assignments
     var allAssignments = $('#defaultAssignments');
     var searchedAsssignments = $('#searchAssignments');
+    var loadMore = $('#load');
+    var limit = 3;
+    var offset = 0;
 
-    allAssignments.load("../includes/downloads/pagedAssignments.php");
-    // Pagination
-    allAssignments.on("click", ".pagination .page-link", function(e) {
-      e.preventDefault();
-      trackThis("Paging");
-      var page = $(this).attr("data-page"); //get page number from link
-      allAssignments.load("../includes/downloads/pagedAssignments.php", {
-        "page": page
-      }, function() { //get content from PHP page
+    function displayRecords(lim, off) {
+      $.ajax({
+        type: "GET",
+        url: "../includes/paging/loadmore.php",
+        data: "limit=" + lim + "&offset=" + off,
+        cache: false,
+        beforeSend: function() {
+          loadMore.text("Henter...");
+        },
+        success: function(data) {
+          allAssignments.hide().append(data).fadeIn(300);
+          loadMore.appendTo(allAssignments);
+          if (data == "") {
+            loadMore.html('');
+            //loadMore.html('<button data-atr="nodata" class="btn btn-primary disabled" type="button" disabled>No more records.</button>').show()
+          } else {
+            loadMore.html('<button class="btn btn-primary" type="button">Vis flere...</button>').show();
+          }
+        },
+        error: function(xhr, status, error) {
+          console.log(xhr.responseText);
+        }
       });
+    }
 
+    // start to load the first set of data
+    displayRecords(limit, offset);
+    loadMore.click(function() {
+      // if it has no more records no need to fire ajax request
+      var d = loadMore.find("button").attr("data-atr");
+      if (d != "nodata") {
+        offset = limit + offset;
+        displayRecords(limit, offset);
+      }
     });
 
     $('#navbarSideButton, #navbarSide, .overlay, .nav-link').click(function() {
@@ -182,13 +208,6 @@ var custom = function($) {
       $(this).find('.card-header').css('border-bottom', '1px solid rgba(0,0,0,0.125)');
       trackThis("Expanding statistics");
     });
-
-    // JS loading time
-    if (window.performance) {
-      // Gets the number of milliseconds (rounded) since page load
-      var timeSincePageLoad = Math.round(performance.now());
-      ga('send', 'timing', 'JS dependencies', 'load', timeSincePageLoad);
-    }
   });
 
   function clearInput() {

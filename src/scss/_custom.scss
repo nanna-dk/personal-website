@@ -73,6 +73,13 @@ section {
     color: $white;
     border: 0;
   }
+  &.disabled {
+    background-color: $gray-600;
+    border: 1px solid $gray-600;
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
 }
 // *******************************************
 //  Header Styling
@@ -401,6 +408,11 @@ button {
   }
 }
 
+#load {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
 .stats {
   .card-header {
     border-bottom: 0;
@@ -416,31 +428,31 @@ button {
   }
 }
 
-.pagination {
-  margin-bottom: 0.5rem;
+// .pagination {
+//   margin-bottom: 0.5rem;
+//
+//   .page-item {
+//     &.disabled {
+//       &:hover {
+//         cursor: not-allowed;
+//       }
+//     }
+//
+//     &.active {
+//       .page-link {
+//         background-color: $gray-600;
+//         border-color: $gray-600;
+//       }
+//     }
+//   }
+// }
 
-  .page-item {
-    &.disabled {
-      &:hover {
-        cursor: not-allowed;
-      }
-    }
-
-    &.active {
-      .page-link {
-        background-color: $gray-600;
-        border-color: $gray-600;
-      }
-    }
-  }
-}
-
-.paging-stats {
-  margin-bottom: 0.6rem;
-  @extend .w-100;
-  @extend .text-right;
-  @include clearfix;
-}
+// .paging-stats {
+//   margin-bottom: 0.6rem;
+//   @extend .w-100;
+//   @extend .text-right;
+//   @include clearfix;
+// }
 // *******************************************
 //  Footer Styling
 // *******************************************

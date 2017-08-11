@@ -12,8 +12,8 @@ function displayHits($id) {
     if ($stmt->rowCount() > 0) {
         $result = $stmt->fetchAll();
         foreach($result as $row) {
-            $clicks = $row['clicks'];
-            echo number_format($clicks, 0, '', '.');
+          $clicks = number_format($row['clicks'], 0, '', '.');
+          echo $clicks;
         }
     }
     $stmt = null;
@@ -63,8 +63,7 @@ function displayDate($id) {
     if ($stmt->rowCount() > 0) {
         $result = $stmt->fetchAll();
         foreach($result as $row) {
-            $dates = $row['dates'];
-            $dates = (date('d.m.Y', strtotime($dates)));
+            $dates = (date('d.m.Y', strtotime($row['dates'])));
             echo $dates;
         }
     }

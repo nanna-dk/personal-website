@@ -20,10 +20,8 @@ if (isset($_POST['search'])) {
             $desc = preg_replace("/($search)/i", '<mark>$1</mark>', $desc);
             $content = $row['content'];
             $url = $row['url'];
-            $clicks = $row['clicks'];
-            $clicks = number_format($clicks, 0, '', '.');
-            $dates = $row['dates'];
-            $dates = (date('d.m.Y', strtotime($dates)));
+            $clicks = number_format($row['clicks'], 0, '', '.');
+            $dates = (date('d.m.Y', strtotime($row['dates'])));
             echo '<div class="card">';
             echo '<h4 class="card-header"><a href="includes/downloads/downloads.php?id=' . $id . '" target="_blank" title="Download">' . $title . '</a></h4>';
             echo '<div class="card-block"><p class="card-text">' . $desc . '</p></div>';
