@@ -4,15 +4,15 @@
 <html lang="da">
 	<head>
 		<meta charset=UTF-8>
-		<title>Artigos</title>
+		<title>Items</title>
 	</head>
 
 	<body>
 		<ul>
 			<?php
-				$selecao = $pdo->prepare("SELECT * FROM `sitecontent` ORDER BY `id` DESC");
-				$selecao->execute();
-				while($row = $selecao->fetchObject()){
+				$sql = $pdo->prepare("SELECT * FROM `sitecontent` ORDER BY `id` DESC");
+				$sql->execute();
+				while($row = $sql->fetchObject()){
 			?>
 			<li><a href="single.php?id=<?php echo $row->id;?>"><?php echo $row->title ?></a></li>
 			<?php }?>

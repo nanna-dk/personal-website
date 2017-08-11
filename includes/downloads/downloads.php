@@ -3,35 +3,29 @@
 Script to host urls, and display the item based on its ID:
 Usage: /downloads.php?id=x
 */
-
 include (realpath(__DIR__ . '/../db.php'));
+if ((int)$_GET['id'] !== 0) {
+  //error_reporting(E_ALL);
+  $id = (int)$_GET['id'];
+  $sql = "SELECT id, clicks, url FROM " . $DBtable . " WHERE id = :id";
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+  $stmt->execute();
+  if ($stmt->rowCount() > 0) {
+      $result = $stmt->fetchAll();
+      foreach($result as $row) {
+          header("Location: " . $row["url"]);
+      }
 
-// Select by id
-$sql = "SELECT * FROM " . $DBtable . " WHERE id='" . intval($_REQUEST["id"]) . "'";
-$rs = $conn->query($sql);
-
-// Iterate over recordset
-if($rs === false) {
-  trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+      // Update counter by one
+      $sql2= "UPDATE " . $DBtable . " SET clicks = clicks + 1 WHERE id= :id";
+      $stmt2 = $pdo->prepare($sql2);
+      $stmt2->bindValue(':id', $id, PDO::PARAM_INT);
+      $stmt2->execute();
+  }
+  $stmt = null;
+  $pdo = null;
 } else {
-  $arr = $rs->fetch_all(MYSQLI_ASSOC);
+  echo "Invalid request";
 }
-
-// Generate url
-foreach($arr as $row) {
-  header("Location: " . $row["url"]);
-}
-
-// Update counter by one
-$sql= "UPDATE " . $DBtable . " SET clicks=clicks+1 WHERE id='" . intval($_REQUEST["id"]). "'";
-if($conn->query($sql) === false) {
-  trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
-} else {
-  $affected_rows = $conn->affected_rows;
-}
-
-// Free memory
-$rs->free();
-// Close connection
-$conn->close();
 ?>

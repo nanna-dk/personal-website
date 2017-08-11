@@ -13,9 +13,9 @@
 	<body>
 <?php
 	$id = (int)$_GET['id'];
-	$query = $pdo->prepare("SELECT * FROM ". $DBtable ." WHERE id = ?");
-	$query->execute(array($id));
-	while($item = $query->fetchObject()){
+	$sql = $pdo->prepare("SELECT * FROM ". $DBtable ." WHERE id = ?");
+	$sql->execute(array($id));
+	while($item = $sql->fetchObject()){
 		$avg = ($item->rating == 0) ? 0 : round(($item->rating/$item->votes), 1);
 		$votes = ($item->votes == 1) ? "stemme" : "stemmer";
 ?>
