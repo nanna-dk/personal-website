@@ -164,6 +164,8 @@ var custom = function($) {
             allAssignments.hide();
             clearErrors();
             searchedAsssignments.html(response).show();
+            // Append search phrase to url for tracking purposes
+            addParams('q', q);
           },
           error: function() {
             searchedAsssignments.html('Søgning kunne ikke udføres - prøv igen senere.').show();
@@ -209,6 +211,28 @@ var custom = function($) {
       trackThis("Expanding statistics");
     });
   });
+
+  // Append queries to url
+  function addParams(key, value) {
+    var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+      urlQueryString = document.location.search,
+      newParam = key + '=' + encodeURIComponent(value),
+      params = '?' + encodeURIComponent(newParam);
+    // If the "search" string exists, then build params from it
+    if (urlQueryString) {
+      updateRegex = new RegExp('([\?&])' + key + '[^&]*');
+      removeRegex = new RegExp('([\?&])' + key + '=[^&;]+[&;]?');
+      if (typeof value == 'undefined' || value == null || value == '') { // Remove param if value is empty
+        params = urlQueryString.replace(removeRegex, "$1");
+        params = params.replace(/[&;]$/, "");
+      } else if (urlQueryString.match(updateRegex) !== null) { // If param exists already, update it
+        params = urlQueryString.replace(updateRegex, "$1" + newParam);
+      } else { // Otherwise, add it to end of query string
+        params = urlQueryString + '&' + newParam;
+      }
+    }
+    window.history.replaceState({}, "", baseUrl + params);
+  };
 
   function clearInput() {
     // Clear the form fields
