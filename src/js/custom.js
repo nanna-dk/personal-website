@@ -165,7 +165,7 @@ var custom = function($) {
             clearErrors();
             searchedAsssignments.html(response).show();
             // Append search phrase to url for tracking purposes
-            addParams('q', q);
+            addParams('q', encodeURIComponent(q));
           },
           error: function() {
             searchedAsssignments.html('Søgning kunne ikke udføres - prøv igen senere.').show();
@@ -216,8 +216,8 @@ var custom = function($) {
   function addParams(key, value) {
     var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
       urlQueryString = document.location.search,
-      newParam = key + '=' + encodeURIComponent(value),
-      params = '?' + encodeURIComponent(newParam);
+      newParam = key + '=' + value,
+      params = '?' + newParam;
     // If the "search" string exists, then build params from it
     if (urlQueryString) {
       updateRegex = new RegExp('([\?&])' + key + '[^&]*');
