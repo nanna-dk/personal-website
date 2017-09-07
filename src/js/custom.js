@@ -124,7 +124,8 @@ var custom = function($) {
         $(messages).removeClass('alert alert-danger');
         $(messages).addClass('alert alert-success');
         $(messages).text(response);
-        clearInput()
+        clearInput();
+        trackThis("Message sent");
       }).fail(function(data) {
         $(messages).removeClass('alert alert-success');
         $(messages).addClass('alert alert-danger');
