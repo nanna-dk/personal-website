@@ -73,9 +73,11 @@ section {
     color: $white;
     border: 0;
   }
+
   &.disabled {
     background-color: $gray-600;
     border: 1px solid $gray-600;
+
     &:hover {
       cursor: not-allowed;
     }
@@ -368,6 +370,26 @@ button {
     &:first-child {
       border-radius: calc(.15rem - 1px) calc(.15rem - 1px) 0 0;
     }
+
+    a {
+      position: relative;
+
+      &::before {
+        position: absolute;
+        display: block;
+        line-height: 17px;
+        right: 0;
+        font-size: 30px;
+        transform: rotate(180deg);
+        transition: transform .3s linear;
+      }
+
+      &:not(.collapsed) {
+        &::before {
+          transform: rotate(0deg);
+        }
+      }
+    }
   }
 
   .card-footer {
@@ -427,7 +449,6 @@ button {
     margin-bottom: 0.5rem;
   }
 }
-
 // .pagination {
 //   margin-bottom: 0.5rem;
 //
@@ -446,7 +467,6 @@ button {
 //     }
 //   }
 // }
-
 // .paging-stats {
 //   margin-bottom: 0.6rem;
 //   @extend .w-100;
