@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta content="Nanna Ellegaard, frontend-udvikler, web developer, cand.it i multimedier, cv" name="description">
+  <meta content="Nanna Ellegaard, frontend-udvikler, web developer, cand.it i multimedier, cv, opgaver" name="description">
   <meta name="theme-color" content="#c14343">
   <meta name="google-site-verification" content="MV2MazdIeTTrYsADXu2ARdwg44eWp_co_c7P2LZ7oyc">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -15,6 +15,54 @@
   <script src='https://www.google.com/recaptcha/api.js' async defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="dist/js/bootstrap.min.js"></script>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "url": "http://<?php echo $_SERVER['SERVER_NAME']; ?>",
+      "name": "Nanna Ellegard, Cand.it i Multimedier",
+      "description": "Nannas website, front end developer. Find CV, opgaver, mv.",
+      "publisher": "Nanna Ellegaard",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "http://<?php echo $_SERVER['SERVER_NAME']; ?>?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Copenhagen"
+      },
+      "image": "http://<?php echo $_SERVER['SERVER_NAME']; ?>/img/nanna_ellegaard.jpg",
+      "jobTitle": "Front end developer",
+      "name": "Nanna Ellegaard",
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "University of Aarhus, Denmark"
+      },
+      "gender": "female",
+      "nationality": "Danish",
+      "owns": {
+        "@type": "Website",
+        "name": "http://www.studenterforum.dk"
+      },
+      "worksFor": {
+        "@type": "EducationalOrganization",
+        "name": "University of Copenhagen"
+      },
+      "url": "http://<?php echo $_SERVER['SERVER_NAME']; ?>",
+      "sameAs": ["https://www.facebook.com/nanna.ellegaard",
+        "http://dk.linkedin.com/in/nannaellegaard",
+        "https://plus.google.com/102076494911232201521?rel=author",
+        "https://github.com/nanna-dk/"
+      ]
+    }
+  </script>
 </head>
 
 <body>
@@ -61,9 +109,9 @@
     <section class="about" id="about">
       <div class="container">
         <div class="card">
-          <div class="card-block" itemscope itemtype="http://schema.org/Person">
+          <div class="card-block">
             <h2>Nannas website</h2>
-            <p>Website tilhørende <span itemprop="name">Nanna Ellegaard</span> - min interaktive legeplads.<br /> Her findes mit <a href="#cv" itemprop="url">CV</a> og diverse <a href="#assignments" itemprop="url">opgaver</a> fra min tid på Aarhus Universitet.</p>
+            <p>Website tilhørende Nanna Ellegaard - min interaktive legeplads.<br /> Her findes mit <a href="#cv">CV</a> og diverse <a href="#assignments">opgaver</a> fra min tid på Aarhus Universitet.</p>
             <p>Kontakt mig via de sociale medier eller <a href="" data-toggle="modal" data-target="#contactForm">kontaktformularen</a>.</p>
           </div>
         </div>
@@ -123,7 +171,8 @@
                     </li>
                     <li class="position">
                       <a href="includes/downloads/downloads.php?id=10" target="_blank">
-                        <?php displayTitle(10) ?></a><br>Oprettet:
+                        <?php displayTitle(10) ?>
+                      </a><br>Oprettet:
                       <?php displayDate(10) ?>.<br> Downloads:
                       <?php displayHits(10) ?>.
                     </li>
@@ -135,7 +184,8 @@
                     </li>
                     <li class="position">Bachelorprojekt:
                       <a href="includes/downloads/downloads.php?id=9" target="_blank">
-                        <?php displayTitle(9) ?></a><br>Oprettet:
+                        <?php displayTitle(9) ?>
+                      </a><br>Oprettet:
                       <?php displayDate(9) ?>.<br> Downloads:
                       <?php displayHits(9) ?>.
                     </li>
@@ -313,7 +363,7 @@
             </div>
             <div class="col-xs-12 col-md-6 text-lg-right text-xs-center mt-3 mt-sm-1">
               <p class="copyright-text">Sidst opdateret:
-                <time datetime="<?php echo date("Y-m-d", getlastmod()); ?>"><?php echo strftime( "%d.%m.%Y", getlastmod() ); ?></time> <br /> Copyright ©
+                <time datetime="<?php echo date(" Y-m-d ", getlastmod()); ?>"><?php echo strftime( "%d.%m.%Y", getlastmod() ); ?></time> <br /> Copyright ©
                 <?php echo date("Y"); ?> Nanna Ellegaard</p>
             </div>
           </div>
