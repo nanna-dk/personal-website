@@ -144,6 +144,7 @@ var custom = function($) {
     })
 
     // Search assignments
+
     btnSearch.click(function(e) {
       trackThis("Search button");
       e.preventDefault();
