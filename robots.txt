@@ -8,5 +8,6 @@
 User-agent: *
 Disallow: /backup/
 Disallow: /insert/
+Disallow: /PdfToText/
 
 Sitemap: http://www.e-nanna.dk/sitemap.xml
