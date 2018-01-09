@@ -293,7 +293,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <img src="img/it-cover.jpg" alt="Cover til CD-rom" class="img-fluid">
+              <img src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="img/it-cover.jpg" alt="Cover til CD-rom" class="img-fluid">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Luk</button>
@@ -372,8 +372,20 @@
     </footer>
     <!-- Scroll to top -->
     <a class="scrolltop" href="#about"><span class="icon-angle-up"></span></a>
-    <!-- /Scroll to top -->
+    <!-- Scripts: -->
     <script src="dist/js/bootstrap.min.js"></script>
+    <script>
+      // Defer images:
+      function init() {
+        var imgDefer = document.getElementsByTagName('img');
+        for (var i = 0; i < imgDefer.length; i++) {
+          if (imgDefer[i].getAttribute('data-src')) {
+            imgDefer[i].setAttribute('src', imgDefer[i].getAttribute('data-src'));
+          }
+        }
+      }
+      window.onload = init;
+    </script>
 </body>
 
 </html>
