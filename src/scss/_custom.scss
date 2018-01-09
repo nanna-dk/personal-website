@@ -7,6 +7,8 @@ $body-bg: #f5f2f0;
 $body-color: #383838;
 $color-primary: #d75959;
 $color-secondary: #3f639e;
+$link-color: #0056B3;
+$link-hover-color: #004a99;
 $color3: #fcfcfc;
 $color4: #5f5f5f;
 $color5: #df696e;
@@ -42,6 +44,14 @@ body {
   .container {
     width: 620px;
     max-width: 100%;
+  }
+}
+
+a {
+  color: $link-color;
+
+  @include hover {
+    color: $link-hover-color;
   }
 }
 

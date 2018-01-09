@@ -13,7 +13,7 @@
   <title>Nanna Ellegaard</title>
   <link href="dist/css/style.css" rel="stylesheet">
   <script src='https://www.google.com/recaptcha/api.js' async defer></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
 
   <script type="application/ld+json">
     {
@@ -92,12 +92,12 @@
             </li>
           </ul>
           <nav class="nav social-nav pull-right hidden-sm-down">
-            <a title="Facebook" class="icon-facebook" href="https://www.facebook.com/nanna.ellegaard" target="_blank"></a>
-            <a title="LinkedIn" class="icon-linkedin" href="http://dk.linkedin.com/in/nannaellegaard" target="_blank"></a>
+            <a title="Facebook" class="icon-facebook" href="https://www.facebook.com/nanna.ellegaard" target="_blank" rel="noopener"></a>
+            <a title="LinkedIn" class="icon-linkedin" href="http://dk.linkedin.com/in/nannaellegaard" target="_blank" rel="noopener"></a>
             <a title="send besked via webformular" class="icon-mail" href="" data-toggle="modal" data-target="#contactForm"></a>
             <a title="Skype" class="icon-skype" href="skype:nanna_dk?call"></a>
-            <a title="Google+" class="icon-gplus" href="https://plus.google.com/102076494911232201521?rel=author" target="_blank"></a>
-            <a title="GitHub" class="icon-github" href="https://github.com/nanna-dk/" target="_blank"></a>
+            <a title="Google+" class="icon-gplus" href="https://plus.google.com/102076494911232201521?rel=author" target="_blank" rel="noopener"></a>
+            <a title="GitHub" class="icon-github" href="https://github.com/nanna-dk/" target="_blank" rel="noopener"></a>
           </nav>
         </div>
       </div>
@@ -170,7 +170,7 @@
                       <a class="no-event">Cand.it i multimedier ved IT-Vest, Aarhus Universitet</a>
                     </li>
                     <li class="position">
-                      <a href="includes/downloads/downloads.php?id=10" target="_blank">
+                      <a href="includes/downloads/downloads.php?id=10" target="_blank" rel="noopener">
                         <?php displayTitle(10) ?>
                       </a><br>Oprettet:
                       <?php displayDate(10) ?>.<br> Downloads:
@@ -183,7 +183,7 @@
                       <a class="no-event">Bachelor i Spansk og Europastudier, Aarhus Universitet</a>
                     </li>
                     <li class="position">Bachelorprojekt:
-                      <a href="includes/downloads/downloads.php?id=9" target="_blank">
+                      <a href="includes/downloads/downloads.php?id=9" target="_blank" rel="noopener">
                         <?php displayTitle(9) ?>
                       </a><br>Oprettet:
                       <?php displayDate(9) ?>.<br> Downloads:
@@ -371,8 +371,9 @@
       </div>
     </footer>
     <!-- Scroll to top -->
-    <a class="scrolltop" href="#about"><span class="icon-angle-up"></span></a>
+    <a class="scrolltop" title="top" href="#about"><span class="icon-angle-up"></span></a>
     <!-- Scripts: -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
     <script>
       // Defer images:

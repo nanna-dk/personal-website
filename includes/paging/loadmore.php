@@ -23,7 +23,7 @@ if (isset($_POST) && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SE
       $clicks = number_format($row['clicks'], 0, '', '.');
       $dates = (date('d.m.Y', strtotime($row['dates'])));
       echo '<div class="card">';
-      echo '<h4 class="card-header"><a href="includes/downloads/downloads.php?id=' . $id . '" target="_blank" title="Download">' . $title . '</a></h4>';
+      echo '<h4 class="card-header"><a href="includes/downloads/downloads.php?id=' . $id . '" target="_blank" rel="noopener" title="Download">' . $title . '</a></h4>';
       echo '<div class="card-block"><p class="card-text">' . $desc . '</p></div>';
       echo '<div class="card-footer"><div class="footer-left">Oprettet: ' . $dates . '</div><div class="footer-right">Downloads: ' . $clicks . '</div></div>';
       echo '</div>';

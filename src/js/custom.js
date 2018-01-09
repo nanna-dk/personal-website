@@ -62,6 +62,23 @@ var custom = function($) {
       }
     });
 
+    // Run search on load if query is present
+    $.urlParam = function(name) {
+      var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.href);
+      if (results == null) {
+        return null;
+      } else {
+        return results[1] || 0;
+      }
+    }
+    var query = $.urlParam('q');
+    if (query) {
+      $(search).val(decodeURIComponent(query));
+      trackThis("Search");
+      searchDb();
+    }
+
+    // Mobile sidebar init
     $('#navbarSideButton, #navbarSide, .overlay, .nav-link').click(function() {
       mobileNavIcon.toggleClass("open");
       navBarSide.toggleClass('reveal');
@@ -109,6 +126,7 @@ var custom = function($) {
       }
     });
 
+    // Send message
     sendMsg.click(function() {
       // Serialize the form data.
       var formData = $(contactform).serialize();
@@ -144,10 +162,14 @@ var custom = function($) {
     })
 
     // Search assignments
-
     btnSearch.click(function(e) {
-      trackThis("Search button");
       e.preventDefault();
+      trackThis("Search");
+      searchDb();
+    });
+
+    // Search assignments
+    function searchDb() {
       var url = '../includes/search/searchAssignments.php';
       var q = search.val();
       if (q == '') {
@@ -166,7 +188,7 @@ var custom = function($) {
             allAssignments.hide();
             clearErrors();
             searchedAsssignments.html(response).show();
-            // Append search phrase to url for tracking purposes
+            // Append ?q=query to url for tracking purposes
             addParams('q', encodeURIComponent(q));
           },
           error: function() {
@@ -175,11 +197,12 @@ var custom = function($) {
         });
         return false;
       }
-    });
+    }
 
     // Trigger search by Enter key
     search.keypress(function(e) {
-      var code = (e.keyCode
+      var code = (
+        e.keyCode
         ? e.keyCode
         : e.which);
       if ((code == 13) || (code == 10)) {
