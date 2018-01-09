@@ -1,6 +1,6 @@
 // ******
 // Nanna Ellegaard custom scripts
-// http://www.e-nanna.dk 2017
+// http://www.e-nanna.dk 2018
 // ******
 
 var custom = function($) {
