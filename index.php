@@ -1,13 +1,13 @@
 <!DOCTYPE html><html class="no-js" lang="da"><head><meta charset="utf-8"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta content="width=device-width,initial-scale=1" name="viewport"><meta content="Nanna Ellegaard, Cand.it i Multimedier og frontend-udvikler med speciale indenfor html5, sass/less, javaScript, jQuery, node.js, git, mv. Se CV og opgaver fra fra Aarhus Universitet." name="description"><meta name="theme-color" content="#c14343"><meta name="google-site-verification" content="MV2MazdIeTTrYsADXu2ARdwg44eWp_co_c7P2LZ7oyc"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="alternate" href="https://www.<?php echo $_SERVER['SERVER_NAME']; ?>" hreflang="da-dk"><link rel="icon" href="favicon.ico"><title>Nanna Ellegaard</title><link href="dist/css/style.css" rel="stylesheet"><script src="https://www.google.com/recaptcha/api.js" async defer="defer"></script><script type="application/ld+json">{
       "@context": "http://schema.org",
       "@type": "WebSite",
-      "url": "https://<?php echo $_SERVER['SERVER_NAME']; ?>",
+      "url": "https://www.<?php echo $_SERVER['SERVER_NAME']; ?>",
       "name": "Nanna Ellegard, Cand.it i Multimedier",
       "description": "Nanna Ellegaard, Cand.it i Multimedier og frontend-udvikler med speciale indenfor html5, sass/less, javaScript, jQuery, node.js, git, mv. Se CV og opgaver fra fra Aarhus Universitet.",
       "publisher": "Nanna Ellegaard",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://<?php echo $_SERVER['SERVER_NAME']; ?>?q={search_term_string}",
+        "target": "https://www.<?php echo $_SERVER['SERVER_NAME']; ?>?q={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     }</script><script type="application/ld+json">{
@@ -17,7 +17,7 @@
         "@type": "PostalAddress",
         "addressLocality": "Copenhagen"
       },
-      "image": "https://<?php echo $_SERVER['SERVER_NAME']; ?>/img/nanna_ellegaard.jpg",
+      "image": "https://www.<?php echo $_SERVER['SERVER_NAME']; ?>/img/nanna_ellegaard.jpg",
       "jobTitle": "Front end developer",
       "name": "Nanna Ellegaard",
       "alumniOf": {
@@ -34,7 +34,7 @@
         "@type": "EducationalOrganization",
         "name": "University of Copenhagen, Denmark"
       },
-      "url": "https://<?php echo $_SERVER['SERVER_NAME']; ?>",
+      "url": "https://www.<?php echo $_SERVER['SERVER_NAME']; ?>",
       "sameAs": ["https://www.facebook.com/nanna.ellegaard",
         "http://dk.linkedin.com/in/nannaellegaard",
         "https://plus.google.com/102076494911232201521?rel=author",
