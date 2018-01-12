@@ -44,12 +44,11 @@ var sassOptions = {
 };
 
 var autoprefixerOptions = {
-    browsers: ['last 3 versions', '> 2%']
+    browsers: ['last 2 versions', '> 2%']
 };
 
 gulp.task('sass', function() {
-    return gulp
-        .src(paths.scss)
+    return gulp.src(paths.scss)
         .pipe(sass(sassOptions).on('error', sass.logError))
         .pipe(autoprefixer(autoprefixerOptions))
         .pipe(concat('style.css'))

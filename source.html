@@ -13,7 +13,7 @@
   <link rel="icon" href="favicon.ico">
   <title>Nanna Ellegaard</title>
   <link href="dist/css/style.css" rel="stylesheet">
-  <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script type="application/ld+json">
     {
       "@context": "http://schema.org",
@@ -48,7 +48,7 @@
       "nationality": "Danish",
       "owns": {
         "@type": "Website",
-        "name": "http://www.studenterforum.dk"
+        "name": "https://www.studenterforum.dk"
       },
       "worksFor": {
         "@type": "EducationalOrganization",
@@ -110,7 +110,7 @@
         <div class="card">
           <div class="card-block">
             <h2>Nannas website</h2>
-            <p>Website tilhørende Nanna Ellegaard - min interaktive legeplads.<br /> Her findes mit <a href="#cv">CV</a> og diverse <a href="#assignments">opgaver</a> fra min tid på Aarhus Universitet.</p>
+            <p>Website tilhørende Nanna Ellegaard - min interaktive legeplads.<br> Her findes mit <a href="#cv">CV</a> og diverse <a href="#assignments">opgaver</a> fra min tid på Aarhus Universitet.</p>
             <p>Kontakt mig via de sociale medier eller <a href="" data-toggle="modal" data-target="#contactForm">kontaktformularen</a>.</p>
           </div>
         </div>
@@ -142,7 +142,7 @@
                   </ul>
                   <ul>
                     <li class="date">12/2003 - &infin;</li>
-                    <li class="company"><a href="http://www.studenterforum.dk">Studenterforum.dk</a></li>
+                    <li class="company"><a href="https://www.studenterforum.dk">Studenterforum.dk</a></li>
                     <li class="position">Medstifter og webansvarlig</li>
                   </ul>
                 </div>
@@ -240,7 +240,7 @@
             </div>
           </div>
         </div>
-    </section>
+    </div></section>
     <section class="assignments" id="assignments">
       <div class="container">
         <div class="card">
@@ -317,10 +317,10 @@
               <div class="modal-body">
                 <form id="contactform" action="" method="POST">
                   <div class="form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Navn" />
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Navn">
                   </div>
                   <div class="form-group">
-                    <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" />
+                    <input type="email" name="email" class="form-control" id="email" placeholder="E-mail">
                   </div>
                   <div class="form-group">
                     <textarea rows="6" name="message" class="form-control" id="msg" placeholder="Besked"></textarea>
@@ -362,7 +362,7 @@
             </div>
             <div class="col-xs-12 col-md-6 text-lg-right text-xs-center mt-3 mt-sm-1">
               <p class="copyright-text">Sidst opdateret:
-                <time datetime="<?php echo date(" Y-m-d ", getlastmod()); ?>"><?php echo strftime( "%d.%m.%Y", getlastmod() ); ?></time> <br /> Copyright ©
+                <time datetime="<?php echo date("y-m-d" , getlastmod()) ?>"><?php echo strftime( "%d.%m.%Y", getlastmod() ); ?></time> <br> Copyright ©
                 <?php echo date("Y"); ?> Nanna Ellegaard</p>
             </div>
           </div>
@@ -375,7 +375,7 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
     <script>
-      // Defer images:
+    // Defer images:
       function init() {
         var imgDefer = document.getElementsByTagName('img');
         for (var i = 0; i < imgDefer.length; i++) {
