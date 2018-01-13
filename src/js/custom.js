@@ -78,6 +78,14 @@ var custom = function($) {
       searchDb();
     }
 
+    // Lazy load images using data-src=""
+    $('img').each(function() {
+      var imgSrc = $(this).data('src').toString();
+      if (imgSrc) {
+        $(this).attr('src', imgSrc);
+      }
+    });
+
     // Mobile sidebar init
     $('#navbarSideButton, #navbarSide, .overlay, .nav-link').click(function() {
       mobileNavIcon.toggleClass("open");
