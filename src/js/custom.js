@@ -78,8 +78,9 @@ var custom = function($) {
       searchDb();
     }
 
-    // Lazy load images using data-src=""
-    $('img').each(function() {
+    // Lazy load images
+    var lazy = $(this).find('.lazy');
+    lazy.each(function() {
       var imgSrc = $(this).data('src').toString();
       if (imgSrc) {
         $(this).attr('src', imgSrc);
