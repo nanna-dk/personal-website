@@ -78,14 +78,10 @@ var custom = function($) {
       searchDb();
     }
 
-    // Lazy load images
-    var lazy = $(this).find('.lazy');
-    lazy.each(function() {
-      var imgSrc = $(this).data('src').toString();
-      if (imgSrc) {
-        $(this).attr('src', imgSrc);
-      }
-    });
+    // Lazy load image
+    setTimeout(function() {
+      $('#cover').attr('src', 'img/it-cover.jpg');
+    }, 5000);
 
     // Mobile sidebar init
     $('#navbarSideButton, #navbarSide, .overlay, .nav-link').click(function() {
