@@ -23,7 +23,7 @@ var custom = function($) {
     var allAssignments = $('#defaultAssignments');
     var searchedAsssignments = $('#searchAssignments');
     var loadMore = $('#load');
-    var limit = 3;
+    var limit = 5;
     var offset = 0;
 
     function displayRecords(lim, off) {
