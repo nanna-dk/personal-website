@@ -13,7 +13,8 @@ Options -Indexes
 
 RewriteEngine On
 # Move to 'https':
-RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^(www\.)?e-nanna\.dk$ [NC]
+RewriteCond %{HTTPS} !=on
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 ## Begin - Rewrite rules to block out some common exploits.
 # If you experience problems on your site then comment out the operations listed
