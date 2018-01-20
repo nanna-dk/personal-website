@@ -5,6 +5,11 @@
 
 var custom = function($) {
   $(document).ready(function() {
+    // Variables to find paths for localhost and web
+    var $current_url = window.location.href;
+    var $isLocalhost = ($current_url.search('localhost') != -1) ? true : false;
+    var $path = ($isLocalhost === true) ? 'http://localhost:8080/personal-website/' : $current_url;
+
     // Search
     var search = $('#search');
     var clearSearch = $('#clearSearch');
@@ -23,14 +28,14 @@ var custom = function($) {
     var allAssignments = $('#defaultAssignments');
     var searchedAsssignments = $('#searchAssignments');
     var loadMore = $('#load');
-    var limit = 5;
+    var limit = 4;
     var offset = 0;
 
     function displayRecords(lim, off) {
       $.ajax({
-        type: "GET",
-        url: "../includes/paging/loadmore.php",
-        data: "limit=" + lim + "&offset=" + off,
+        type: 'GET',
+        url: $path + '/includes/paging/loadmore.php',
+        data: 'limit=' + lim + '&offset=' + off,
         cache: false,
         beforeSend: function() {
           loadMore.text("Henter...");
@@ -135,7 +140,7 @@ var custom = function($) {
     sendMsg.click(function() {
       // Serialize the form data.
       var formData = $(contactform).serialize();
-      var url = '../includes/mail/mail_ajax.php';
+      var url = $path + '/includes/mail/mail_ajax.php';
       $.ajax({
         type: 'POST',
         url: url,
@@ -175,7 +180,7 @@ var custom = function($) {
 
     // Search assignments
     function searchDb() {
-      var url = '../includes/search/searchAssignments.php';
+      var url = $path + '/includes/search/searchAssignments.php';
       var q = search.val();
       if (q == '') {
         searchedAsssignments.html('');
