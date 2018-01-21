@@ -257,11 +257,9 @@
               </div>
             </div>
             <p>Opgaverne er ment som inspiration - ikke til copy/paste. :-)</p>
-            <div class="sort">Sort by:
-              <a data-sort-by=".make" href="#">Make</a>
-              <a data-sort-by=".model" href="#">Model</a>
-              <a data-sort-by=".rank" href="#">Rank</a>
-          </div>
+            Sort by:
+              <a onclick="orderColumn('post_at','asc')">
+            <span>Post Date</span></a>
             <div id="defaultAssignments">
               <?php include ('includes/downloads/allAssignments.php') ?>
             </div>
