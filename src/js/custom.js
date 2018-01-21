@@ -7,8 +7,12 @@ var custom = function($) {
   $(document).ready(function() {
     // Variables to find paths for localhost and web
     var $current_url = window.location.href;
-    var $isLocalhost = ($current_url.search('localhost') != -1) ? true : false;
-    var $path = ($isLocalhost === true) ? 'http://localhost:8080/personal-website/' : $current_url;
+    var $isLocalhost = ($current_url.search('localhost') != -1)
+      ? true
+      : false;
+    var $path = ($isLocalhost === true)
+      ? 'http://localhost:8080/personal-website/'
+      : $current_url;
 
     // Search
     var search = $('#search');
@@ -27,45 +31,6 @@ var custom = function($) {
     // assignments
     var allAssignments = $('#defaultAssignments');
     var searchedAsssignments = $('#searchAssignments');
-    var loadMore = $('#load');
-    var limit = 4;
-    var offset = 0;
-
-    function displayRecords(lim, off) {
-      $.ajax({
-        type: 'GET',
-        url: $path + '/includes/paging/loadmore.php',
-        data: 'limit=' + lim + '&offset=' + off,
-        cache: false,
-        beforeSend: function() {
-          loadMore.text("Henter...");
-        },
-        success: function(data) {
-          allAssignments.hide().append(data).fadeIn(300);
-          loadMore.appendTo(allAssignments);
-          if (data == "") {
-            loadMore.html('');
-            //loadMore.html('<button data-atr="nodata" class="btn btn-primary disabled" type="button" disabled>No more records.</button>').show()
-          } else {
-            loadMore.html('<button class="btn btn-primary" type="button">Vis flere...</button>').show();
-          }
-        },
-        error: function(xhr, status, error) {
-          console.log(xhr.responseText);
-        }
-      });
-    }
-
-    // start to load the first set of data
-    displayRecords(limit, offset);
-    loadMore.click(function() {
-      // if it has no more records no need to fire ajax request
-      var d = loadMore.find("button").attr("data-atr");
-      if (d != "nodata") {
-        offset = limit + offset;
-        displayRecords(limit, offset);
-      }
-    });
 
     // Run search on load if query is present
     $.urlParam = function(name) {
@@ -288,5 +253,45 @@ var custom = function($) {
       eventCategory: text,
       eventAction: 'Click'
     });
+
+    // var loadMore = $('#load');
+    // var limit = 4;
+    // var offset = 0;
+
+    // function displayRecords(lim, off) {
+    //   $.ajax({
+    //     type: 'GET',
+    //     url: $path + '/includes/paging/loadmore.php',
+    //     data: 'limit=' + lim + '&offset=' + off,
+    //     cache: false,
+    //     beforeSend: function() {
+    //       loadMore.text("Henter...");
+    //     },
+    //     success: function(data) {
+    //       allAssignments.hide().append(data).fadeIn(300);
+    //       loadMore.appendTo(allAssignments);
+    //       if (data == "") {
+    //         loadMore.html('');
+    //         loadMore.html('<button data-atr="nodata" class="btn btn-primary disabled" type="button" disabled>No more records.</button>').show()
+    //       } else {
+    //         loadMore.html('<button class="btn btn-primary" type="button">Vis flere...</button>').show();
+    //       }
+    //     },
+    //     error: function(xhr, status, error) {
+    //       console.log(xhr.responseText);
+    //     }
+    //   });
+    // }
+
+    // start to load the first set of data
+    // displayRecords(limit, offset);
+    // loadMore.click(function() {
+    //    if it has no more records no need to fire ajax request
+    //   var d = loadMore.find("button").attr("data-atr");
+    //   if (d != "nodata") {
+    //     offset = limit + offset;
+    //     displayRecords(limit, offset);
+    //   }
+    // });
   }
 }(jQuery);

@@ -150,7 +150,7 @@
                     <li class="badge badge-default">sass/less</li>
                     <li class="badge badge-default">jQuery</li>
                     <li class="badge badge-default">automated workflows</li>
-                    <li class="badge badge-default">node.js</li>
+                    <li class="badge badge-default">npm</li>
                     <li class="badge badge-default">git</li>
                     <li class="badge badge-default">gulp</li>
                     <li class="badge badge-default">grunt</li>
@@ -257,8 +257,13 @@
               </div>
             </div>
             <p>Opgaverne er ment som inspiration - ikke til copy/paste. :-)</p>
+            <div class="sort">Sort by:
+              <a data-sort-by=".make" href="#">Make</a>
+              <a data-sort-by=".model" href="#">Model</a>
+              <a data-sort-by=".rank" href="#">Rank</a>
+          </div>
             <div id="defaultAssignments">
-              <div id="load"></div>
+              <?php include ('includes/downloads/allAssignments.php') ?>
             </div>
             <div id="searchAssignments"></div>
             <div id="stats collapsed" role="tablist" aria-multiselectable="true">
@@ -268,9 +273,7 @@
                   Stastistik</a></h4>
                 <div id="collapseStats" class="collapse" role="tabpanel" aria-labelledby="statsHeading">
                   <div class="card-block">
-                    <?php
-                      include('includes/stats/stats.php');
-                    ?>
+                    <?php include('includes/stats/stats.php'); ?>
                   </div>
                 </div>
               </div>

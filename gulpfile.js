@@ -6,6 +6,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var htmlmin = require('gulp-htmlmin');
 var rename = require('gulp-rename');
+var wait = require('gulp-wait2'); // Required on localhost
 
 // project paths
 var paths = {
@@ -64,6 +65,7 @@ gulp.task('scripts', function() {
 
 gulp.task('rename', function() {
     return gulp.src(paths.webroot + '/*.html')
+        .pipe(wait(5000))
         .pipe(rename({
           basename: "index",
           extname: ".php"

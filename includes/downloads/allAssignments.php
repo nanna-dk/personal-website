@@ -2,10 +2,6 @@
 // Query the database
 include (realpath(__DIR__ . '/../db.php'));
 
-error_reporting(E_ALL);
-if (isset($_POST['search'])) {
-  $search = $_POST['search'];
-
   $sql = "SELECT * FROM " . $DBtable . " ORDER BY dates DESC";
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
@@ -16,9 +12,7 @@ if (isset($_POST['search'])) {
         foreach($result as $row) {
             $id = $row['id'];
             $title = $row['title'];
-            $title = preg_replace("/($search)/i", '<mark>$1</mark>', $title);
             $desc = $row['description'];
-            $desc = preg_replace("/($search)/i", '<mark>$1</mark>', $desc);
             $content = $row['content'];
             $url = $row['url'];
             $clicks = number_format($row['clicks'], 0, '', '.');
@@ -38,5 +32,5 @@ if (isset($_POST['search'])) {
   // Closing
   $stmt = null;
   $pdo = null;
-}
+//}
 ?>
