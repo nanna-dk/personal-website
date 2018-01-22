@@ -374,6 +374,7 @@ button {
 
   .card-header {
     font-size: 1.15rem;
+    padding: .75rem .7rem;
     @include media-breakpoint-up(sm) {
       font-size: 1rem;
     }
