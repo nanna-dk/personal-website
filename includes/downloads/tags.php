@@ -17,7 +17,7 @@ error_reporting(E_ALL);
           // Get individual words and build a frequency table
           foreach( str_word_count( $lorem, 1 ) as $word ) {
             // If the word has more than x letters
-            if (mb_strlen($word) >= 5) {
+            if (mb_strlen($word, 'UTF-8') >= 5) {
             	// For each word found in the frequency table, increment its value by one
             	array_key_exists( $word, $freqData ) ? $freqData[ $word ]++ : $freqData[ $word ] = 0;
             }
@@ -43,7 +43,7 @@ error_reporting(E_ALL);
           $tag = strtolower($tag);
     		$cloudTags[] = '<a style="font-size: ' . floor( $size ) . 'px'
     		. '" class="tag_cloud" href="https://www.e-nanna.dk/?q=' . $tag
-    		. '" title="\'' . $tag  . '\' returned a count of ' . $count . '">'
+    		. '" title="\'' . $tag  . '\' er fundet ' . $count . ' gange">'
     		. htmlspecialchars( stripslashes( $tag ) ) . '</a>';
     	}
 

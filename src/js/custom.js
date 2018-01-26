@@ -48,7 +48,7 @@ var custom = function($) {
       searchDb();
     }
 
-    // Lazy load image
+    // Lazy load single image
     setTimeout(function() {
       $('#cover').attr('src', 'img/it-cover.jpg');
     }, 5000);
@@ -60,6 +60,7 @@ var custom = function($) {
       overlay.toggle();
     });
 
+    // Sticky navbar function
     var toggleAffix = function(affixElement, scrollElement, wrapper) {
       var height = affixElement.outerHeight(),
         top = wrapper.offset().top;
@@ -105,7 +106,7 @@ var custom = function($) {
     sendMsg.click(function() {
       // Serialize the form data.
       var formData = $(contactform).serialize();
-      var url = $path + '/includes/mail/mail_ajax.php';
+      var url = '/includes/mail/mail_ajax.php';
       $.ajax({
         type: 'POST',
         url: url,
@@ -145,7 +146,7 @@ var custom = function($) {
 
     // Search assignments
     function searchDb() {
-      var url = $path + '/includes/search/searchAssignments.php';
+      var url = '/includes/search/searchAssignments.php';
       var q = search.val();
       if (q == '') {
         searchedAsssignments.html('');
@@ -166,8 +167,9 @@ var custom = function($) {
             // Append ?q=query to url for tracking purposes
             addParams('q', encodeURIComponent(q));
           },
-          error: function() {
+          error: function(xhr, status, error) {
             searchedAsssignments.html('Søgning kunne ikke udføres - prøv igen senere.').show();
+            console.log(xhr.responseText);
           }
         });
         return false;
