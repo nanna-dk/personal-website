@@ -45,6 +45,9 @@ var custom = function($) {
     if (query) {
       $(search).val(decodeURIComponent(query));
       trackThis("Search");
+      $('html, body').animate({
+        scrollTop: searchedAsssignments.offset().top
+      }, 500);
       searchDb();
     }
 
