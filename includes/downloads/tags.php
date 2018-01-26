@@ -9,7 +9,7 @@ if ($stmt->rowCount() > 0) {
     $result   = $stmt->fetchAll();
     $freqData = array();
     foreach ($result as $row) {
-        $keywords    = $row['description'];
+        $keywords = $row['description'];
         // Set letter count to exclude words like 'and'/'or', etc.
         $letterCount = 5;
         // Get individual words and build a frequency table
@@ -25,6 +25,7 @@ if ($stmt->rowCount() > 0) {
         $mandatory_words = array(
             'cscw' => 4,
             'hci' => 3,
+            'opgave' => 3,
             'ETA' => 3
         );
 
@@ -43,11 +44,13 @@ function getCloud($data = array(), $minFontSize = 12, $maxFontSize = 30) {
     $spread == 0 && $spread = 1;
 
     foreach ($data as $tag => $count) {
+      if ($count > 0) {
         $size        = $minFontSize + ($count - $minimumCount) * ($maxFontSize - $minFontSize) / $spread;
         $tag         = strtolower($tag);
         $cloudTags[] = '<a style="font-size: ' . floor($size) . 'px' . '" class="tags" href="https://www.'. $_SERVER['HTTP_HOST'] .'/?q=' . $tag . '" title="\'' . $tag . '\' er fundet ' . $count . ' gange">' . htmlspecialchars(stripslashes($tag)) . '</a>';
+      }
     }
-
+    
     return join("\n", $cloudTags) . "\n";
 }
 
