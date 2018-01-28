@@ -1,4 +1,6 @@
 <?php
+header('Content-type: text/html;charset=utf-8');
+setlocale(LC_ALL, 'da_DK');
 // Query the database
 include(realpath(__DIR__ . '/../db.php'));
 
@@ -12,8 +14,9 @@ if ($stmt->rowCount() > 0) {
         $keywords = $row['description'];
         // Set letter count to exclude words like 'and'/'or', etc.
         $letterCount = 5;
+
         // Get individual words and build a frequency table
-        foreach (str_word_count($keywords, 1) as $word) {
+        foreach (str_word_count($keywords, 1, 'øæå1233456789') as $word) {
             // If the word has more than x letters
             if (mb_strlen($word, 'UTF-8') >= $letterCount) {
                 // For each word found in the frequency table, increment its value by one
@@ -47,10 +50,10 @@ function getCloud($data = array(), $minFontSize = 12, $maxFontSize = 30) {
       if ($count > 0) {
         $size        = $minFontSize + ($count - $minimumCount) * ($maxFontSize - $minFontSize) / $spread;
         $tag         = strtolower($tag);
-        $cloudTags[] = '<a style="font-size: ' . floor($size) . 'px' . '" class="tags" href="https://www.'. $_SERVER['HTTP_HOST'] .'/?q=' . $tag . '" title="\'' . $tag . '\' er fundet ' . $count . ' gange">' . htmlspecialchars(stripslashes($tag)) . '</a>';
+        $cloudTags[] = '<a style="font-size: ' . floor($size) . 'px' . '" class="tags" href="https://www.'. $_SERVER['HTTP_HOST'] .'/?q=' . $tag . '" title="\'' . $tag . '\' er fundet ' . $count . ' gange">' . html_entity_decode($tag) . '</a>';
       }
     }
-    
+
     return join("\n", $cloudTags) . "\n";
 }
 
