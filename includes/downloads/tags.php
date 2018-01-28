@@ -1,6 +1,6 @@
 <?php
 header('Content-type: text/html;charset=utf-8');
-setlocale(LC_ALL, 'da_DK');
+
 // Query the database
 include(realpath(__DIR__ . '/../db.php'));
 
