@@ -38,15 +38,16 @@ if ($stmt->rowCount() > 0) {
     echo 'Unable to fetch keywords';
 }
 
-function getCloud($data = array(), $minFontSize = 12, $maxFontSize = 30) {
+function getCloud($data = array(), $minFontSize = 12, $maxFontSize = 24) {
     $minimumCount = min(array_values($data));
     $maximumCount = max(array_values($data));
     $spread       = $maximumCount - $minimumCount;
     $cloudTags    = array();
     $spread == 0 && $spread = 1;
+    $max = 1; // or default 0
 
     foreach ($data as $tag => $count) {
-      if ($count > 0) {
+      if ($count > $max) {
         $size        = $minFontSize + ($count - $minimumCount) * ($maxFontSize - $minFontSize) / $spread;
         $tag         = strtolower($tag);
         $cloudTags[] = '<a style="font-size: ' . floor($size) . 'px' . '" class="tags" href="https://www.'. $_SERVER['HTTP_HOST'] .'/?q=' . $tag . '" title="\'' . $tag . '\' er fundet ' . $count . ' gange">' . htmlentities(stripslashes($tag)) . '</a>';
