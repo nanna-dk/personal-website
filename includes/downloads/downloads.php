@@ -18,7 +18,7 @@ if ((int)$_GET['id'] !== 0) {
       }
 
       // Update counter by one
-      $sql2= "UPDATE " . $DBtable . " SET clicks = clicks + 1 WHERE id= :id";
+      $sql2 = "UPDATE " . $DBtable . " SET clicks = clicks + 1 WHERE id= :id";
       $stmt2 = $pdo->prepare($sql2);
       $stmt2->bindValue(':id', $id, PDO::PARAM_INT);
       $stmt2->execute();

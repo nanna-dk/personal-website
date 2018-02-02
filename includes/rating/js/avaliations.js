@@ -1,5 +1,5 @@
 $(function() {
-  var average = $('.ratingAverage').attr('data-average');
+  var average = $('.ratingAverage').attr('data-av');
   function getAvg(average) {
     average = (Number(average) * 20);
     $('.bg').css('width', 0);
@@ -32,7 +32,9 @@ $(function() {
       //console.log(data);
       //console.log(status);
       getAvg(data.average);
-      var suffix = (data.votes == 1) ? "stemme" : "stemmer";
+      var suffix = (data.votes == 1)
+        ? "stemme"
+        : "stemmer";
       $('.votes span').html(data.votes + " " + suffix);
     }, 'jSON');
   });

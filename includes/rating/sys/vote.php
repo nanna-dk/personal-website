@@ -8,13 +8,15 @@
 		$query->execute(array($id));
 
 		while($row = $query->fetchObject()){
-			$pointssUpd = ($row->rating+$points);
+			$pointsUpdate = ($row->rating+$points);
 			$voteUpdate = ($row->votes+1);
 
 			$updateQuery = $pdo->prepare("UPDATE ". $DBtable ." SET `votes` = ?, `rating` = ? WHERE `id` = ?");
-			if($updateQuery->execute(array($voteUpdate, $pointssUpd, $id))){
-				$avg = round(($pointssUpd/$voteUpdate),1);
+			if($updateQuery->execute(array($voteUpdate, $pointsUpdate, $id))){
+				$avg = round(($pointsUpdate/$voteUpdate),1);
 				die(json_encode(array('average' => $avg, 'votes' => $voteUpdate)));
+			} else {
+				echo "Could not update votes";
 			}
 		}
 	}

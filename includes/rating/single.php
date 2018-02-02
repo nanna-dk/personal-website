@@ -20,7 +20,7 @@
 		$votes = ($item->votes == 1) ? "stemme" : "stemmer";
 ?>
 <h1><?php echo $item->title ?> - <a href="index.php"><<</a></h1>
-<span class="ratingAverage" data-average="<?php echo $avg;?>"></span>
+<span class="ratingAverage" data-av="<?php echo $avg;?>"></span>
 <span class="item" data-id="<?php echo $id;?>"></span>
 
 <div class="bar">

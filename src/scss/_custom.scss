@@ -448,10 +448,14 @@ button {
   }
 }
 
-#load {
-  text-align: center;
-  margin-bottom: 15px;
+.count {
+  color: $gray-600;
 }
+
+// #load {
+//   text-align: center;
+//   margin-bottom: 15px;
+// }
 
 .stats {
   .card-header {
