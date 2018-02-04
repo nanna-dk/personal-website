@@ -52,7 +52,12 @@ var custom = function($) {
     }
 
     // Rating
-    // var average = $('.ratingAverage').attr('data-av');
+    //var average = $('.ratingAverage').attr('data-av');
+    // $('.ratingAverage').each(function() {
+    //   average = $(this).attr('data-av');
+    //   getAvg(this);
+    // });
+    //
     // function getAvg(average) {
     //   average = (Number(average) * 20);
     //   $('.bg').css('width', 0);
@@ -60,9 +65,9 @@ var custom = function($) {
     //     width: average + '%'
     //   }, 500);
     // }
-    //
-    // getAvg(average);
-    //
+
+    //getAvg(average);
+
     // $('.star').on('mouseover', function() {
     //   var indexAtual = $('.star').index(this);
     //   for (var i = 0; i <= indexAtual; i++) {
@@ -77,13 +82,13 @@ var custom = function($) {
     // $('.star').on('click', function() {
     //   var itemId = $('.item').attr('data-id');
     //   var vote = $(this).attr('data-vote');
-    //   $.post('/includes/rating/sys/vote.php', {
+    //   $.post('http://localhost:8080/personal-website/includes/rating/sys/vote.php', {
     //     vote: 'yes',
     //     item: itemId,
     //     point: vote
     //   }, function(data, status) {
-    //     //console.log(data);
-    //     //console.log(status);
+    //     console.log(data);
+    //     console.log(status);
     //     getAvg(data.average);
     //     var suffix = (data.votes == 1)
     //       ? "stemme"
