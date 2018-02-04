@@ -25,8 +25,9 @@ if ($stmt->rowCount() > 0) {
         echo '<h4 class="card-header"><span class="count">' . $counter . '.</span> <a href="includes/downloads/downloads.php?id=' . $id . '" target="_blank" rel="noopener" title="Se ' . $title . '">' . $title . '</a></h4>';
         echo '<div class="card-block"><p class="card-text">' . $desc . '</p>';
         // Rating start
+        // echo '<div class="ratings">';
         // echo '<span class="ratingAverage" data-av="' . $avg . '"></span>
-        //     <span class="item" data-id="' . $id . '"></span>';
+        //       <span class="item" data-id="' . $id . '"></span>';
         // echo '<div class="bar">
         //       <span class="bg"></span>
         //       <span class="stars">';
@@ -36,6 +37,7 @@ if ($stmt->rowCount() > 0) {
         //       </span>';
         // endfor;
         // echo '</span></div><div class="votes"><span>' . $votes . ' ' . $totalVotes . '</span></div>';
+        // echo '</div>';
         // Rating end
         echo '</div>';
         echo '<div class="card-footer"><div class="footer-left">Oprettet: ' . $dates . '</div><div class="footer-right">Downloads: ' . $clicks . '</div></div>';
