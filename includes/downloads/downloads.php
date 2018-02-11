@@ -17,8 +17,9 @@ if ((int)$_GET['id'] !== 0) {
           header("Location: " . $row["url"]);
       }
 
-      // Update counter by one
-      $sql2 = "UPDATE " . $DBtable . " SET clicks = clicks + 1 WHERE id= :id";
+      // Update counter by one and add a timestamp
+      $sql2 = "UPDATE " . $DBtable . " SET clicks = clicks + 1, dl_time = now() WHERE id= :id";
+
       $stmt2 = $pdo->prepare($sql2);
       $stmt2->bindValue(':id', $id, PDO::PARAM_INT);
       $stmt2->execute();
