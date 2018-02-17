@@ -15,9 +15,9 @@
 
 	<table class="table">
 		<tr>
-			<th class="sort-heading" id="title-asc" >Titel</th>
-			<th class="sort-heading" id="clicks-asc" >Hits</th>
-			<th class="sort-heading" id="dates-asc" >Dato</th>
+			<th class="sort-heading" data-id="title-asc" >Titel</th>
+			<th class="sort-heading" data-id="clicks-asc">Hits</th>
+			<th class="sort-heading" data-id="dates-asc">Dato</th>
 		</tr>
 
 		<?php
@@ -57,7 +57,7 @@
 			$(".sort-heading").click(function() {
 				//get data-nex-order value
 				var getSortHeading = $(this);
-				var getNextSortOrder = getSortHeading.attr('id');
+				var getNextSortOrder = getSortHeading.data('id');
 				var splitID = getNextSortOrder.split('-');
 				var splitIDName = splitID[0];
 				var splitOrder = splitID[1];
@@ -71,9 +71,9 @@
 					},
 					success: function(response) {
 						if (splitOrder == 'asc') {
-							getSortHeading.attr('id', splitIDName + '-desc');
+							getSortHeading.data('id', splitIDName + '-desc');
 						} else {
-							getSortHeading.attr('id', splitIDName + '-asc');
+							getSortHeading.data('id', splitIDName + '-asc');
 						}
 						$(".table tr:not(:first)").remove();
 						$(".table").append(response);
