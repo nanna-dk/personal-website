@@ -31,6 +31,8 @@ var custom = function($) {
     // assignments
     var allAssignments = $('#defaultAssignments');
     var searchedAsssignments = $('#searchAssignments');
+    // sorting
+    var sortHeader = $('.sorting');
 
     // Run search on load if query is present
     $.urlParam = function(name) {
@@ -59,44 +61,44 @@ var custom = function($) {
     //   $(this).parents('.ratings').find(($('.bar .bg')).css('width', 0);
     // });
 
-    function getAvg(average) {
-      average = (Number(average) * 20);
-      $('.bar .bg').css('width', 0);
-      $('.bar .bg').animate({
-        width: average + '%'
-      }, 500);
-    }
+    // function getAvg(average) {
+    //   average = (Number(average) * 20);
+    //   $('.bar .bg').css('width', 0);
+    //   $('.bar .bg').animate({
+    //     width: average + '%'
+    //   }, 500);
+    // }
 
     //getAvg(average);
 
-    $('.star').on('mouseover', function() {
-      var indexAtual = $('.star').index(this);
-      for (var i = 0; i <= indexAtual; i++) {
-        $('.star:eq(' + i + ')').addClass('full');
-      }
-    });
-
-    $('.star').on('mouseout', function() {
-      $('.star').removeClass('full');
-    });
-
-    $('.star').on('click', function() {
-      var itemId = $('.item').attr('data-id');
-      var vote = $(this).attr('data-vote');
-      $.post('http://localhost:8080/personal-website/includes/rating/sys/vote.php', {
-        vote: 'yes',
-        item: itemId,
-        point: vote
-      }, function(data, status) {
-        //console.log(data);
-        //console.log(status);
-        getAvg(data.average);
-        var suffix = (data.votes == 1)
-          ? "stemme"
-          : "stemmer";
-        $('.votes span').html(data.votes + " " + suffix);
-      }, 'jSON');
-    });
+    // $('.star').on('mouseover', function() {
+    //   var indexAtual = $('.star').index(this);
+    //   for (var i = 0; i <= indexAtual; i++) {
+    //     $('.star:eq(' + i + ')').addClass('full');
+    //   }
+    // });
+    //
+    // $('.star').on('mouseout', function() {
+    //   $('.star').removeClass('full');
+    // });
+    //
+    // $('.star').on('click', function() {
+    //   var itemId = $('.item').attr('data-id');
+    //   var vote = $(this).attr('data-vote');
+    //   $.post('http://localhost:8080/personal-website/includes/rating/sys/vote.php', {
+    //     vote: 'yes',
+    //     item: itemId,
+    //     point: vote
+    //   }, function(data, status) {
+    //     console.log(data);
+    //     console.log(status);
+    //     getAvg(data.average);
+    //     var suffix = (data.votes == 1)
+    //       ? "stemme"
+    //       : "stemmer";
+    //     $('.votes span').html(data.votes + " " + suffix);
+    //   }, 'jSON');
+    // });
 
     // Lazy load single image
     setTimeout(function() {
@@ -150,6 +152,11 @@ var custom = function($) {
           return false;
         }
       }
+    });
+
+    sortHeader.click(function(e) {
+      sortAssignments(e);
+      trackThis("Sort");
     });
 
     // Send message
@@ -224,6 +231,36 @@ var custom = function($) {
         });
         return false;
       }
+    }
+
+    // Sort assognments
+    function sortAssignments(e) {
+      var target = $(e.currentTarget);
+      var sortOrder = target.data('id');
+      var getID = sortOrder.split('-');
+      var name = getID[0];
+      var order = getID[1];
+
+      $.ajax({
+        url: '/includes/downloads/sorting.php',
+        type: 'post',
+        data: {
+          'column': name,
+          'sortOrder': order
+        },
+        success: function(response) {
+          if (order == 'asc') {
+            target.data('id', name + '-desc');
+          } else {
+            target.data('id', name + '-asc');
+          }
+          allAssignments.empty();
+          allAssignments.append(response);
+        },
+        error: function(xhr, status, error) {
+          console.log(xhr.responseText);
+        }
+      });
     }
 
     // Trigger search by Enter key

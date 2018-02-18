@@ -10,10 +10,10 @@ $counter = 1;
 if ($stmt->rowCount() > 0) {
     $result = $stmt->fetchAll();
     foreach ($result as $row) {
-        $rating     = $row['rating'];
-        $votes      = $row['votes'];
-        $avg        = ($rating == 0) ? 0 : round(($rating / $votes), 1);
-        $totalVotes = ($votes == 1) ? "stemme" : "stemmer";
+        // $rating     = $row['rating'];
+        // $votes      = $row['votes'];
+        // $avg        = ($rating == 0) ? 0 : round(($rating / $votes), 1);
+        // $totalVotes = ($votes == 1) ? "stemme" : "stemmer";
         $id         = $row['id'];
         $title      = $row['title'];
         $desc       = $row['description'];

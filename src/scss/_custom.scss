@@ -441,12 +441,31 @@ button {
   }
 }
 
+.sorting {
+  cursor: pointer;
+
+  .asc {
+    @extend .text-muted;
+    margin-right: 5px;
+  }
+
+  .desc {
+    font-weight: 700;
+
+    &::before {
+      transform: rotate(180deg);
+    }
+  }
+
+  & + & {
+    margin-left: 1px;
+  }
+}
+
 .smaller {
   font-size: 90%;
 }
-
 // Ratings
-
 // .bar {
 //   width: 110px;
 //   height: 22px;
@@ -490,9 +509,7 @@ button {
 //   background: url('../../img/star.png') top left no-repeat;
 //   background-size: cover;
 // }
-
 // Ratings end
-
 .form-control::placeholder {
   color: #bbb;
   @include media-breakpoint-down(sm) {
@@ -503,7 +520,6 @@ button {
 .count {
   color: $gray-600;
 }
-
 // #load {
 //   text-align: center;
 //   margin-bottom: 15px;
