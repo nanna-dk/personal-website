@@ -249,10 +249,14 @@ var custom = function($) {
           'sortOrder': order
         },
         success: function(response) {
+          target.removeClass('asc desc');
+          target.siblings().removeClass('asc desc');
           if (order == 'asc') {
             target.data('id', name + '-desc');
+            target.addClass('desc');
           } else {
             target.data('id', name + '-asc');
+            target.addClass('asc');
           }
           allAssignments.empty();
           allAssignments.append(response);

@@ -443,22 +443,29 @@ button {
 
 .sorting {
   cursor: pointer;
+  margin-right: 5px;
 
-  .asc {
-    @extend .text-muted;
-    margin-right: 5px;
+  &.asc,
+  &.desc {
+    font-weight: 600;
+
+    .icon-angle-up {
+      &::before {
+        font-weight: 700;
+      }
+    }
   }
 
-  .desc {
-    font-weight: 700;
-
-    &::before {
-      transform: rotate(180deg);
+  &.desc {
+    .icon-angle-up {
+      &::before {
+        transform: rotate(180deg);
+      }
     }
   }
 
   & + & {
-    margin-left: 1px;
+    margin-left: 5px;
   }
 }
 
@@ -510,6 +517,7 @@ button {
 //   background-size: cover;
 // }
 // Ratings end
+
 .form-control::placeholder {
   color: #bbb;
   @include media-breakpoint-down(sm) {
