@@ -285,7 +285,7 @@ var custom = function($) {
     window.history.replaceState({}, "", baseUrl + params);
   };
 
-// Clear the form fields
+  // Clear the form fields
   function clearInput() {
     $('#name').val('');
     $('#email').val('');
@@ -293,19 +293,18 @@ var custom = function($) {
     grecaptcha.reset();
   }
 
-// Clear form errors
+  // Clear form errors
   function clearErrors() {
     $(search).parent().removeClass('has-danger');
     $(search).removeClass('form-control-danger');
   }
 
-// Google Analytics event tracking
+  // Google Analytics event tracking
   function trackThis(text) {
     gtag('send', 'event', {
       eventCategory: text,
       eventAction: 'Click'
     });
-
 
     // Rating
     //var average = $('.ratingAverage').attr('data-av');
@@ -353,7 +352,6 @@ var custom = function($) {
     //     $('.votes span').html(data.votes + " " + suffix);
     //   }, 'jSON');
     // });
-
 
     // var loadMore = $('#load');
     // var limit = 4;
