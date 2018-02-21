@@ -29,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $name = str_replace(array("\r","\n"),array(" "," "),$name);
           $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
           $message = trim($_POST["message"]);
+          $ip = $_SERVER['REMOTE_ADDR'];
           if ( empty($name) OR empty($message) OR !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             http_response_code(400);
             echo "Udfyld venligst alle felterne.";
@@ -38,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $subject = "Besked fra $name";
           $email_content = "<p><strong>Navn:</strong> ". $name ."</p>";
           $email_content .= "<p><strong>E-mail:</strong> ". $email ."</p>";
-          $email_content .= "<p><strong>Besked:</strong> ". $message ."</p>";
+          $email_content .= "<p><strong>IP-adresse:</strong> ". $ip ."</p>";
           $headers = "MIME-Version: 1.0" . "\r\n";
           $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
           $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";

@@ -285,22 +285,23 @@ var custom = function($) {
     window.history.replaceState({}, "", baseUrl + params);
   };
 
+// Clear the form fields
   function clearInput() {
-    // Clear the form fields
     $('#name').val('');
     $('#email').val('');
     $('#msg').val('');
     grecaptcha.reset();
   }
 
+// Clear form errors
   function clearErrors() {
     $(search).parent().removeClass('has-danger');
     $(search).removeClass('form-control-danger');
   }
 
+// Google Analytics event tracking
   function trackThis(text) {
-    // Google Analytics event tracking
-    ga('send', 'event', {
+    gtag('send', 'event', {
       eventCategory: text,
       eventAction: 'Click'
     });
