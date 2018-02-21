@@ -446,7 +446,7 @@ button {
   margin-right: 5px;
 
   & > .icon-angle-up {
-    @extend .text-muted;
+    color: $gray-600;
   }
 
   &.asc,
