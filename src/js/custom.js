@@ -108,6 +108,7 @@ var custom = function($) {
       }
     });
 
+    // Sorting headers
     sortHeader.click(function(e) {
       sortAssignments(e);
       trackThis("Sort");
@@ -142,8 +143,8 @@ var custom = function($) {
       });
     });
 
+    // Clear feedback mmessages when modal is closed
     contactform.on('hidden.bs.modal', function() {
-      // Clear feedback mmessages when modal is closed
       messages.text('').removeClass('alert alert-danger alert-success');
       clearInput();
     })
