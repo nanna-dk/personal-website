@@ -63,7 +63,7 @@ function displayDate($id) {
     if ($stmt->rowCount() > 0) {
         $result = $stmt->fetchAll();
         foreach($result as $row) {
-            $dates = (date('d. m Y', strtotime($row['dates'])));
+            $dates = (date('d. m. Y', strtotime($row['dates'])));
             echo $dates;
         }
     }
