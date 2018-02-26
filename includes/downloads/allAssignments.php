@@ -10,10 +10,10 @@ $counter = 1;
 if ($stmt->rowCount() > 0) {
     $result = $stmt->fetchAll();
     foreach ($result as $row) {
-        // $rating     = $row['rating'];
-        // $votes      = $row['votes'];
-        // $avg        = ($rating == 0) ? 0 : round(($rating / $votes), 1);
-        // $totalVotes = ($votes == 1) ? "stemme" : "stemmer";
+        $rating     = $row['rating'];
+        $votes      = $row['votes'];
+        $avg        = ($rating == 0) ? 0 : round(($rating / $votes), 1);
+        $totalVotes = ($votes == 1) ? "stemme" : "stemmer";
         $id         = $row['id'];
         $title      = $row['title'];
         $desc       = $row['description'];
@@ -25,19 +25,18 @@ if ($stmt->rowCount() > 0) {
         echo '<h4 class="card-header"><span class="count">' . $counter . '.</span> <a href="includes/downloads/downloads.php?id=' . $id . '" target="_blank" rel="noopener" title="Se ' . $title . '">' . $title . '</a></h4>';
         echo '<div class="card-block"><p class="card-text">' . $desc . '</p>';
         // Rating start
-        // echo '<div class="ratings">';
-        // echo '<span class="ratingAverage" data-av="' . $avg . '"></span>
-        //       <span class="item" data-id="' . $id . '"></span>';
-        // echo '<div class="bar">
-        //       <span class="bg"></span>
-        //       <span class="stars">';
-        // for ($i = 1; $i <= 5; $i++):
-        //     echo '<span class="star" data-vote="' . $i . '">
-        //         <span class="starimg"></span>
-        //       </span>';
-        // endfor;
-        // echo '</span></div><div class="votes"><span>' . $votes . ' ' . $totalVotes . '</span></div>';
-        // echo '</div>';
+        echo '<div class="ratings" data-item="' . $id . '">';
+        echo '<span class="ratingAverage" data-av="' . $avg . '"></span>';
+        echo '<div class="bar">
+              <span class="bg"></span>
+              <span class="stars">';
+        for ($i = 1; $i <= 5; $i++):
+            echo '<span class="star" data-vote="' . $i . '">
+                <span class="starimg"></span>
+              </span>';
+        endfor;
+        echo '</span></div><div class="votes"><span>' . $votes . ' ' . $totalVotes . '</span></div>';
+        echo '</div>';
         // Rating end
         echo '</div>';
         echo '<div class="card-footer"><div class="footer-left">Oprettet: ' . $dates . '</div><div class="footer-right">Downloads: ' . $clicks . '</div></div>';

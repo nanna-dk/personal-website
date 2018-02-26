@@ -1,5 +1,5 @@
 <?php
-	include_once (realpath(__DIR__ . '/../../db.php'));
+	include_once (realpath(__DIR__ . '/../db.php'));
 	if(isset($_POST['vote'])){
 
 		$id = (int)$_POST['item'];

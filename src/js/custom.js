@@ -120,7 +120,7 @@ var custom = function($) {
       var formData = $(contactform).serialize();
       var url = '/includes/mail/mail_ajax.php';
       $.ajax({
-        type: 'POST',
+        type: 'post',
         url: url,
         beforeSend: function() {
           $(messages).html('<div class="progress mb-4"><div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div></div>');
@@ -167,7 +167,7 @@ var custom = function($) {
         search.addClass('form-control-danger');
       } else {
         $.ajax({
-          type: 'POST',
+          type: 'post',
           url: url,
           data: {
             search: q
@@ -306,92 +306,95 @@ var custom = function($) {
       eventCategory: text,
       eventAction: 'Click'
     });
-
-    // Rating
-    //var average = $('.ratingAverage').attr('data-av');
-    // $('.ratingAverage').each(function() {
-    //   average = $(this).attr('data-av');
-    //   console.log($(this));
-    //   $(this).parents('.ratings').find(($('.bar .bg')).css('width', 0);
-    // });
-
-    // function getAvg(average) {
-    //   average = (Number(average) * 20);
-    //   $('.bar .bg').css('width', 0);
-    //   $('.bar .bg').animate({
-    //     width: average + '%'
-    //   }, 500);
-    // }
-
-    //getAvg(average);
-
-    // $('.star').on('mouseover', function() {
-    //   var indexAtual = $('.star').index(this);
-    //   for (var i = 0; i <= indexAtual; i++) {
-    //     $('.star:eq(' + i + ')').addClass('full');
-    //   }
-    // });
-    //
-    // $('.star').on('mouseout', function() {
-    //   $('.star').removeClass('full');
-    // });
-    //
-    // $('.star').on('click', function() {
-    //   var itemId = $('.item').attr('data-id');
-    //   var vote = $(this).attr('data-vote');
-    //   $.post('http://localhost:8080/personal-website/includes/rating/sys/vote.php', {
-    //     vote: 'yes',
-    //     item: itemId,
-    //     point: vote
-    //   }, function(data, status) {
-    //     console.log(data);
-    //     console.log(status);
-    //     getAvg(data.average);
-    //     var suffix = (data.votes == 1)
-    //       ? "stemme"
-    //       : "stemmer";
-    //     $('.votes span').html(data.votes + " " + suffix);
-    //   }, 'jSON');
-    // });
-
-    // var loadMore = $('#load');
-    // var limit = 4;
-    // var offset = 0;
-
-    // function displayRecords(lim, off) {
-    //   $.ajax({
-    //     type: 'GET',
-    //     url: $path + '/includes/paging/loadmore.php',
-    //     data: 'limit=' + lim + '&offset=' + off,
-    //     cache: false,
-    //     beforeSend: function() {
-    //       loadMore.text("Henter...");
-    //     },
-    //     success: function(data) {
-    //       allAssignments.hide().append(data).fadeIn(300);
-    //       loadMore.appendTo(allAssignments);
-    //       if (data == "") {
-    //         loadMore.html('');
-    //         loadMore.html('<button data-atr="nodata" class="btn btn-primary disabled" type="button" disabled>No more records.</button>').show()
-    //       } else {
-    //         loadMore.html('<button class="btn btn-primary" type="button">Vis flere...</button>').show();
-    //       }
-    //     },
-    //     error: function(xhr, status, error) {
-    //       console.log(xhr.responseText);
-    //     }
-    //   });
-    // }
-
-    // start to load the first set of data
-    // displayRecords(limit, offset);
-    // loadMore.click(function() {
-    //    if it has no more records no need to fire ajax request
-    //   var d = loadMore.find("button").attr("data-atr");
-    //   if (d != "nodata") {
-    //     offset = limit + offset;
-    //     displayRecords(limit, offset);
-    //   }
-    // });
   }
+
+  // Rating
+  $('.ratings').each(function() {
+    var average = $(this).find('.ratingAverage').attr('data-av');
+    average = (Number(average) * 20);
+    $(this).find('.bg').css('width', 0);
+    $(this).find('.bg').animate({
+      width: average + '%'
+    }, 500);
+  });
+
+  $('.star').on('mouseover', function() {
+    $(this).prevAll().addBack().addClass('full');
+  });
+
+  $('.star').on('mouseout', function() {
+    $('.star').removeClass('full');
+  });
+
+  $('.star').on('click', function() {
+    var itemId = $(this).closest('.ratings').attr('data-item');
+    var vote = $(this).attr('data-vote');
+    $.ajax({
+      url: 'http://localhost:8080/personal-website/includes/rating/vote.php',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        vote: 'yes',
+        item: itemId,
+        point: vote
+      },
+      success: function(data) {
+        var rated = $(".ratings[data-item='" + itemId + "']");
+        rated.find('.ratingAverage').attr('data-av', data.average);
+        var average = data.average;
+        average = (Number(average) * 20);
+        rated.find('.bg').css('width', 0);
+        rated.find('.bg').animate({
+          width: average + '%'
+        }, 500);
+        var suffix = (data.votes == 1)
+          ? "stemme"
+          : "stemmer";
+        rated.find('.votes span').html(data.votes + " " + suffix);
+      },
+      error: function(xhr, status, error) {
+        console.log(xhr.responseText);
+      }
+    });
+  });
+
+  // var loadMore = $('#load');
+  // var limit = 4;
+  // var offset = 0;
+
+  // function displayRecords(lim, off) {
+  //   $.ajax({
+  //     type: 'GET',
+  //     url: $path + '/includes/paging/loadmore.php',
+  //     data: 'limit=' + lim + '&offset=' + off,
+  //     cache: false,
+  //     beforeSend: function() {
+  //       loadMore.text("Henter...");
+  //     },
+  //     success: function(data) {
+  //       allAssignments.hide().append(data).fadeIn(300);
+  //       loadMore.appendTo(allAssignments);
+  //       if (data == "") {
+  //         loadMore.html('');
+  //         loadMore.html('<button data-atr="nodata" class="btn btn-primary disabled" type="button" disabled>No more records.</button>').show()
+  //       } else {
+  //         loadMore.html('<button class="btn btn-primary" type="button">Vis flere...</button>').show();
+  //       }
+  //     },
+  //     error: function(xhr, status, error) {
+  //       console.log(xhr.responseText);
+  //     }
+  //   });
+  // }
+
+  // start to load the first set of data
+  // displayRecords(limit, offset);
+  // loadMore.click(function() {
+  //    if it has no more records no need to fire ajax request
+  //   var d = loadMore.find("button").attr("data-atr");
+  //   if (d != "nodata") {
+  //     offset = limit + offset;
+  //     displayRecords(limit, offset);
+  //   }
+  // });
 }(jQuery);
