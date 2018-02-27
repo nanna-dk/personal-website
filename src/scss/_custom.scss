@@ -17,7 +17,9 @@ $color8: #7b8c94;
 $font-size-h1: 2rem !default;
 $font-size-h2: 1.75rem !default;
 $font-size-h4: 1.25rem !default;
-$badge-color: #e4e4e4; // *******************************************
+$badge-color: #e4e4e4;
+
+// *******************************************
 //   Social icons
 // *******************************************
 @font-face {
@@ -480,15 +482,15 @@ button {
 // Ratings
 
 .bar {
-  width: 110px;
-  height: 22px;
+  width: 80px;
+  height: 16px;
   background: #ebebeb;
   position: relative;
 
   .bg {
     float: left;
-    height: 22px;
-    width: 22%;
+    height: 16px;
+    width: 100%;
     background: linear-gradient(to bottom, #fee24f, #f4bb2f);
   }
 
@@ -501,8 +503,8 @@ button {
 
   .star {
     float: left;
-    width: 22px;
-    height: 22px;
+    width: 16px;
+    height: 16px;
     text-align: center;
     position: relative;
     cursor: pointer;

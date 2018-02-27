@@ -3,9 +3,8 @@
 Script to host urls, and display the item based on its ID:
 Usage: /downloads.php?id=x
 */
-include (realpath(__DIR__ . '/../db.php'));
+include(realpath(__DIR__ . '/../db.php'));
 if ((int)$_GET['id'] !== 0) {
-  //error_reporting(E_ALL);
   $id = (int)$_GET['id'];
   $sql = "SELECT id, clicks, url FROM " . $DBtable . " WHERE id = :id";
   $stmt = $pdo->prepare($sql);

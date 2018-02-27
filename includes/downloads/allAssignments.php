@@ -26,18 +26,17 @@ if ($stmt->rowCount() > 0) {
         echo '<div class="card-block"><p class="card-text">' . $desc . '</p>';
         // Rating start
         echo '<div class="ratings" data-id="' . $id . '" data-avg="' . $avg . '">';
-        //echo '<span class="ratingAverage" data-av="' . $avg . '"></span>';
         echo '<div class="bar">';
         echo '<span class="bg"></span>';
         echo '<span class="stars">';
         for ($i = 1; $i <= 5; $i++):
-            echo '<span class="star" data-vote="' . $i . '">
+            echo '<span class="star" data-vote="' . $i . '" title="' . $i . '/5">
                 <span class="starimg"></span>
               </span>';
         endfor;
         echo '</span>';
         echo '</div>';
-        echo '<div class="votes">' . $votes . ' ' . $totalVotes . '</div>';
+        echo '<div class="text-muted small votes">' . $votes . ' ' . $totalVotes . '</div>';
         echo '</div>';
         // Rating end
         echo '</div>';
@@ -52,5 +51,4 @@ if ($stmt->rowCount() > 0) {
 // Closing
 $stmt = null;
 $pdo  = null;
-//}
 ?>

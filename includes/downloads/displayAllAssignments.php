@@ -1,6 +1,6 @@
 <?php
 // Query the database
-include (realpath(__DIR__ . '/../db.php'));
+include(realpath(__DIR__ . '/../db.php'));
 
 error_reporting(E_ALL);
 if (isset($_POST['search'])) {

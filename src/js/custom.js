@@ -348,8 +348,8 @@ var custom = function($) {
           width: average + '%'
         }, 500);
         var suffix = (data.votes == 1)
-          ? "stemme"
-          : "stemmer";
+          ? "bedømmelse"
+          : "bedømmelser";
         rated.find('.votes').html(data.votes + " " + suffix);
       },
       error: function(xhr, status, error) {
