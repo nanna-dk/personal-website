@@ -310,7 +310,7 @@ var custom = function($) {
 
   // Rating
   $('.ratings').each(function() {
-    var average = $(this).find('.ratingAverage').attr('data-av');
+    var average = $(this).attr('data-avg');
     average = (Number(average) * 20);
     $(this).find('.bg').css('width', 0);
     $(this).find('.bg').animate({
@@ -323,14 +323,14 @@ var custom = function($) {
   });
 
   $('.star').on('mouseout', function() {
-    $('.star').removeClass('full');
+    $(this).removeClass('full');
   });
 
   $('.star').on('click', function() {
-    var itemId = $(this).closest('.ratings').attr('data-item');
+    var itemId = $(this).closest('.ratings').attr('data-id');
     var vote = $(this).attr('data-vote');
     $.ajax({
-      url: 'http://localhost:8080/personal-website/includes/rating/vote.php',
+      url: '/includes/rating/vote.php',
       type: 'POST',
       dataType: 'json',
       data: {
@@ -339,8 +339,8 @@ var custom = function($) {
         point: vote
       },
       success: function(data) {
-        var rated = $(".ratings[data-item='" + itemId + "']");
-        rated.find('.ratingAverage').attr('data-av', data.average);
+        var rated = $(".ratings[data-id='" + itemId + "']");
+        rated.attr('data-avg', data.average);
         var average = data.average;
         average = (Number(average) * 20);
         rated.find('.bg').css('width', 0);
@@ -350,7 +350,7 @@ var custom = function($) {
         var suffix = (data.votes == 1)
           ? "stemme"
           : "stemmer";
-        rated.find('.votes span').html(data.votes + " " + suffix);
+        rated.find('.votes').html(data.votes + " " + suffix);
       },
       error: function(xhr, status, error) {
         console.log(xhr.responseText);

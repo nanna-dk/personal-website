@@ -25,17 +25,19 @@ if ($stmt->rowCount() > 0) {
         echo '<h4 class="card-header"><span class="count">' . $counter . '.</span> <a href="includes/downloads/downloads.php?id=' . $id . '" target="_blank" rel="noopener" title="Se ' . $title . '">' . $title . '</a></h4>';
         echo '<div class="card-block"><p class="card-text">' . $desc . '</p>';
         // Rating start
-        echo '<div class="ratings" data-item="' . $id . '">';
-        echo '<span class="ratingAverage" data-av="' . $avg . '"></span>';
-        echo '<div class="bar">
-              <span class="bg"></span>
-              <span class="stars">';
+        echo '<div class="ratings" data-id="' . $id . '" data-avg="' . $avg . '">';
+        //echo '<span class="ratingAverage" data-av="' . $avg . '"></span>';
+        echo '<div class="bar">';
+        echo '<span class="bg"></span>';
+        echo '<span class="stars">';
         for ($i = 1; $i <= 5; $i++):
             echo '<span class="star" data-vote="' . $i . '">
                 <span class="starimg"></span>
               </span>';
         endfor;
-        echo '</span></div><div class="votes"><span>' . $votes . ' ' . $totalVotes . '</span></div>';
+        echo '</span>';
+        echo '</div>';
+        echo '<div class="votes">' . $votes . ' ' . $totalVotes . '</div>';
         echo '</div>';
         // Rating end
         echo '</div>';
