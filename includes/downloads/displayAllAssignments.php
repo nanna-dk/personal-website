@@ -14,20 +14,7 @@ if (isset($_POST['search'])) {
     if ($stmt->rowCount() > 0) {
         $result = $stmt->fetchAll();
         foreach($result as $row) {
-            $id = $row['id'];
-            $title = $row['title'];
-            $title = preg_replace("/($search)/i", '<mark>$1</mark>', $title);
-            $desc = $row['description'];
-            $desc = preg_replace("/($search)/i", '<mark>$1</mark>', $desc);
-            $content = $row['content'];
-            $url = $row['url'];
-            $clicks = number_format($row['clicks'], 0, '', '.');
-            $dates = (date('d. m. Y', strtotime($row['dates'])));
-            echo '<div class="card">';
-            echo '<h4 class="card-header"><span class="count">' . $counter . '.</span> <a href="includes/downloads/downloads.php?id=' . $id . '" target="_blank" rel="noopener" title="Download">' . $title . '</a></h4>';
-            echo '<div class="card-block"><p class="card-text">' . $desc . '</p></div>';
-            echo '<div class="card-footer"><div class="footer-left">Oprettet: ' . $dates . '</div><div class="footer-right">Downloads: ' . $clicks . '</div></div>';
-            echo '</div>';
+            include(realpath(__DIR__ . '/../tpl/assignment.php'));
             $counter++;
         }
     }

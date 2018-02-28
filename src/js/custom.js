@@ -169,6 +169,7 @@ var custom = function($) {
             searchedAsssignments.html(response).show();
             // Append ?q=query to url for tracking purposes
             addParams('q', encodeURIComponent(q));
+            setRatings();
           },
           error: function(xhr, status, error) {
             searchedAsssignments.html('Søgning kunne ikke udføres - prøv igen senere.').show();
@@ -210,6 +211,8 @@ var custom = function($) {
           }
           allAssignments.empty();
           allAssignments.append(response);
+          // Update Ratings
+          setRatings();
         },
         error: function(xhr, status, error) {
           console.log(xhr.responseText);
@@ -253,6 +256,8 @@ var custom = function($) {
       $(this).find('.card-header').css('border-bottom', '1px solid rgba(0,0,0,0.125)');
       trackThis("Expanding statistics");
     });
+
+    setRatings();
   });
 
   // Append queries to url
@@ -300,24 +305,26 @@ var custom = function($) {
   }
 
   // Rating
-  $('.ratings').each(function() {
-    var average = $(this).attr('data-avg');
-    average = (Number(average) * 20);
-    $(this).find('.bg').css('width', 0);
-    $(this).find('.bg').animate({
-      width: average + '%'
-    }, 500);
-  });
+  function setRatings() {
+    $('.ratings').each(function() {
+      var average = $(this).attr('data-avg');
+      average = (Number(average) * 20);
+      $(this).find('.bg').css('width', 0);
+      $(this).find('.bg').animate({
+        width: average + '%'
+      }, 500);
+    });
+  }
 
-  $('.star').on('mouseover', function() {
+  $(document).on('mouseover', '.star', function() {
     $(this).prevAll().addBack().addClass('full');
   });
 
-  $('.star').on('mouseout', function() {
+  $(document).on('mouseout', '.star', function() {
     $(this).removeClass('full');
   });
 
-  $('.star').on('click', function() {
+  $(document).on('click', '.star', function() {
     var itemId = $(this).closest('.ratings').attr('data-id');
     var vote = $(this).attr('data-vote');
     // Cookie 'Rating' is set in vote.php:
