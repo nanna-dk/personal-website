@@ -33,7 +33,6 @@ var js = {
         //"./js/tab.js",
         //"./js/scrollspy.js",
         paths.src + "/js/util.js",
-        //paths.src + "/js/customcv.js"
         paths.src + "/js/custom.js"
     ]
 };

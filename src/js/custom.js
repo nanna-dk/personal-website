@@ -1,19 +1,10 @@
 // ******
-// Nanna Ellegaard custom scripts
+// © Nanna Ellegaard custom scripts
 // http://www.e-nanna.dk 2018
 // ******
 
 var custom = function($) {
   $(document).ready(function() {
-    // Variables to find paths for localhost and web
-    // var $current_url = window.location.href;
-    // var $isLocalhost = ($current_url.search('localhost') != -1)
-    //   ? true
-    //   : false;
-    // var $path = ($isLocalhost === true)
-    //   ? 'http://localhost:8080/personal-website/'
-    //   : $current_url;
-
     // Search
     var search = $('#search');
     var clearSearch = $('#clearSearch');
@@ -118,7 +109,7 @@ var custom = function($) {
     sendMsg.click(function() {
       // Serialize the form data.
       var formData = $(contactform).serialize();
-      var url = '/includes/mail/mail_ajax.php';
+      var url = 'includes/mail/mail_ajax.php';
       $.ajax({
         type: 'post',
         url: url,
@@ -158,7 +149,7 @@ var custom = function($) {
 
     // Search assignments
     function searchDb() {
-      var url = '/includes/search/searchAssignments.php';
+      var url = 'includes/search/searchAssignments.php';
       var q = search.val();
       if (q == '') {
         searchedAsssignments.html('');
@@ -197,7 +188,7 @@ var custom = function($) {
       var order = getID[1];
 
       $.ajax({
-        url: '/includes/downloads/sorting.php',
+        url: 'includes/downloads/sorting.php',
         type: 'post',
         data: {
           'column': name,
@@ -329,33 +320,42 @@ var custom = function($) {
   $('.star').on('click', function() {
     var itemId = $(this).closest('.ratings').attr('data-id');
     var vote = $(this).attr('data-vote');
-    $.ajax({
-      url: '/includes/rating/vote.php',
-      type: 'POST',
-      dataType: 'json',
-      data: {
-        vote: 'yes',
-        item: itemId,
-        point: vote
-      },
-      success: function(data) {
-        var rated = $(".ratings[data-id='" + itemId + "']");
-        rated.attr('data-avg', data.average);
-        var average = data.average;
-        average = (Number(average) * 20);
-        rated.find('.bg').css('width', 0);
-        rated.find('.bg').animate({
-          width: average + '%'
-        }, 500);
-        var suffix = (data.votes == 1)
-          ? "bedømmelse"
-          : "bedømmelser";
-        rated.find('.votes').html(data.votes + " " + suffix);
-      },
-      error: function(xhr, status, error) {
-        console.log(xhr.responseText);
-      }
-    });
+    // Cookie 'Rating' is set in vote.php:
+    var cookieExists = (document.cookie.indexOf('Rating') > -1)
+      ? true
+      : false;
+    if (cookieExists == false) {
+      $.ajax({
+        url: 'includes/rating/vote.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          vote: 'yes',
+          item: itemId,
+          point: vote
+        },
+        success: function(data) {
+          var rated = $(".ratings[data-id='" + itemId + "']");
+          rated.attr('data-avg', data.average);
+          var average = data.average;
+          average = (Number(average) * 20);
+          rated.find('.bg').css('width', 0);
+          rated.find('.bg').animate({
+            width: average + '%'
+          }, 500);
+          var suffix = (data.votes == 1)
+            ? "bedømmelse"
+            : "bedømmelser";
+          rated.find('.votes').html(data.votes + " " + suffix);
+          trackThis("Rated assignment no. " + itemId + " with " + vote);
+        },
+        error: function(xhr, status, error) {
+          console.log(xhr.responseText);
+        }
+      });
+    } else {
+      $(this).closest('.ratings').find('.votes').html('Du har allerede afgivet en bedømmelse - vend tilbage senere.');
+    }
   });
 
   // var loadMore = $('#load');

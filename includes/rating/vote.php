@@ -1,9 +1,10 @@
 <?php
 	include_once (realpath(__DIR__ . '/../db.php'));
+	
 	if(isset($_POST['vote'])){
 		$id = (int)$_POST['item'];
 		$points = (int)$_POST['point'];
-		setcookie("Rating", "yes", time()+3600, '/');
+		setcookie("Rating", 1, time()+3600, '/');
 		$query = $pdo->prepare("SELECT votes, rating FROM ". $DBtable ." WHERE `id` = ?");
 		$query->execute(array($id));
 
