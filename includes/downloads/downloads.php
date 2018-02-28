@@ -16,8 +16,8 @@ if ((int)$_GET['id'] !== 0) {
           header("Location: " . $row["url"]);
       }
 
-      // Update counter by one and add a timestamp
-      $sql2 = "UPDATE " . $DBtable . " SET clicks = clicks + 1, dl_time = now() WHERE id= :id";
+      // Update counter by one and add a timestamp (plus 1 hour to get correct time zone on remote db)
+      $sql2 = "UPDATE " . $DBtable . " SET clicks = clicks + 1, dl_time = DATE_ADD(now(), INTERVAL 1 HOUR) WHERE id= :id";
 
       $stmt2 = $pdo->prepare($sql2);
       $stmt2->bindValue(':id', $id, PDO::PARAM_INT);
