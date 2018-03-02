@@ -257,6 +257,18 @@ var custom = function($) {
       trackThis("Expanding statistics");
     });
 
+    // Rating
+    function setRatings() {
+      $('.ratings').each(function() {
+        var average = $(this).attr('data-avg');
+        average = (Number(average) * 20);
+        $(this).find('.bg').css('width', 0);
+        $(this).find('.bg').animate({
+          width: average + '%'
+        }, 500);
+      });
+    }
+
     setRatings();
   });
 
@@ -301,18 +313,6 @@ var custom = function($) {
     gtag('send', 'event', {
       eventCategory: text,
       eventAction: 'Click'
-    });
-  }
-
-  // Rating
-  function setRatings() {
-    $('.ratings').each(function() {
-      var average = $(this).attr('data-avg');
-      average = (Number(average) * 20);
-      $(this).find('.bg').css('width', 0);
-      $(this).find('.bg').animate({
-        width: average + '%'
-      }, 500);
     });
   }
 
