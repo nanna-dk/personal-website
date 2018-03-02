@@ -1,6 +1,7 @@
 <?php
 // If the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+error_reporting(E_ALL);
 //var_dump($_POST);
     // If the Google Recaptcha box was clicked
     if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){
@@ -37,15 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           }
           $recipient = "nanna@e-nanna.dk";
           $subject = "Besked fra $name";
-          $email_content = "<p><strong>Navn:</strong> ". $name ."</p>";
-          $email_content .= "<p><strong>E-mail:</strong> ". $email ."</p>";
-          $email_content .= "<p><strong>IP-adresse:</strong> ". $ip ."</p>";
+          $body = "<p><strong>Navn:</strong> ". $name ."</p>";
+          $body .= "<p><strong>E-mail:</strong> ". $email ."</p>";
+          $body .= "<p><strong>IP-adresse:</strong> ". $ip ."</p>";
           $headers = "MIME-Version: 1.0" . "\r\n";
           $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
           $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
           $headers .= 'From:' . $name . ' <' . $email . '>' . "\r\n";
           $headers .= 'Reply-To:'  . $name . ' <' . $email . '>' . "\r\n";
-          if (mail($recipient, $subject, $email_content, $headers)) {
+          if (mail($recipient, $subject, $body, $headers)) {
             http_response_code(200);
             echo "Tak! Din besked er blevet sendt.";
           }

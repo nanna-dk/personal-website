@@ -1,6 +1,6 @@
 <?php
 	include_once (realpath(__DIR__ . '/../db.php'));
-	
+
 	if(isset($_POST['vote'])){
 		$id = (int)$_POST['item'];
 		$points = (int)$_POST['point'];
@@ -16,6 +16,7 @@
 			if($updateQuery->execute(array($voteUpdate, $pointsUpdate, $id))){
 				$avg = round(($pointsUpdate/$voteUpdate),1);
 				die(json_encode(array('average' => $avg, 'votes' => $voteUpdate)));
+
 			} else {
 				echo "Could not update votes";
 			}

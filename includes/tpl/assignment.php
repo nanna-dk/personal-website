@@ -1,23 +1,21 @@
 <?php
-  // Template layout for assignments
-  // Include where needed
-
+  /*
+  * Template layout for assignments
+  * Include where needed
+  */
   //error_reporting(E_ALL);
-
-  if (isset($_POST['search'])) {
-    $search = $_POST['search'];
-  }
 
   $rating     = $row['rating'];
   $votes      = $row['votes'];
   $avg        = ($rating == 0) ? 0 : round(($rating / $votes), 1);
-  $totalVotes = ($votes == 1) ? "stemme" : "stemmer";
+  $totalVotes = ($votes == 1) ? "bedømmelse" : "bedømmelser";
   $id         = $row['id'];
   $title      = $row['title'];
   $desc       = $row['description'];
 
   // If used in a search - mark search words
   if (isset($_POST['search'])) {
+    $search = $_POST['search'];
     $title = preg_replace("/($search)/i", '<mark>$1</mark>', $title);
     $desc = preg_replace("/($search)/i", '<mark>$1</mark>', $desc);
   }

@@ -46,9 +46,10 @@ var custom = function($) {
     }
 
     // Lazy load single image
-    setTimeout(function() {
+
+    $('#cd-cover').on('show.bs.modal', function(e) {
       $('#cover').attr('src', 'img/it-cover.jpg');
-    }, 5000);
+    })
 
     // Mobile sidebar init
     $('#navbarSideButton, #navbarSide, .overlay, .nav-link').click(function() {
