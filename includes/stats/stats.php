@@ -26,8 +26,8 @@ $stmt->execute();
         echo '<div class="progress" title="' . $title . ', downloaded '. $hits .' gange">';
         echo '<div class="progress-bar" role="progressbar" style="width:' . $percentage . '%" aria-valuenow="' . $percentage . '" aria-valuemin="0" aria-valuemax="100">' . $hits . '</div>';
         echo '</div>';
-        echo '<div class="text-muted smaller">Sidst downloaded: '. $dl .'.</div>';
-        echo '<div class="text-muted smaller">Bedømmelse: '. $rateStats .'.</div><br />';
+        echo '<div class="small">Sidst downloaded: '. $dl .'.</div>';
+        echo '<div class="small">Bedømmelse: '. $rateStats .'.</div><br />';
       }
   }
   else {

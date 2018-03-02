@@ -39,7 +39,7 @@
   endfor;
   echo '</span>';
   echo '</div>';
-  echo '<div class="text-muted small votes">' . $votes . ' ' . $totalVotes . '</div>';
+  echo '<div class="small votes">' . $votes . ' ' . $totalVotes . '</div>';
   echo '</div>';
   // Rating end
   echo '</div>';
