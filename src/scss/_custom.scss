@@ -187,7 +187,7 @@ section {
 
     &.nav-link {
       font-size: 1rem;
-      padding: 20px 0;
+      padding: 10px 0;
       margin-right: 15px;
       position: relative;
 
@@ -643,6 +643,7 @@ button {
   border-radius: 50%;
   background: $color-primary;
   color: $white;
+  border: 1px solid $white;
   text-align: center;
   font-size: 1.5rem;
   z-index: $zindex-fixed;

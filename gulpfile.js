@@ -34,6 +34,7 @@ var js = {
         //"./js/scrollspy.js",
         paths.src + "/js/util.js",
         paths.src + "/js/custom.js"
+        //paths.src + "/js/gitHubStats.js"
     ]
 };
 
