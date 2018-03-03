@@ -5,19 +5,20 @@
 @import "variables";
 $body-bg: #f5f2f0;
 $body-color: #383838;
-$color-primary: #d75959;
+$color-primary: #D14242;
 $color-secondary: #3f639e;
 $link-color: #0056B3;
 $link-hover-color: #004a99;
 $color3: #fcfcfc;
 $color4: #5f5f5f;
-$color5: #df696e;
+$color5: $color-primary ;
 $color6: #ee6e73;
 $color8: #7b8c94;
 $font-size-h1: 2rem !default;
 $font-size-h2: 1.75rem !default;
 $font-size-h4: 1.25rem !default;
 $badge-color: #e4e4e4;
+$card-footer-text: #4a5055;
 
 // *******************************************
 //   Social icons
@@ -69,6 +70,9 @@ section {
   &:hover {
     cursor: pointer;
   }
+}
+.btn-secondary {
+    background-color: #727b84;
 }
 
 .btn-primary {
@@ -424,7 +428,7 @@ button {
       @include float-right;
     }
     @extend .clearfix;
-    @extend .text-muted;
+    color: $card-footer-text;
   }
 
   .totalResults {
@@ -534,7 +538,7 @@ button {
 }
 
 .count {
-  color: $gray-600;
+  color: $card-footer-text;
 }
 // #load {
 //   text-align: center;

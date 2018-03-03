@@ -288,6 +288,6 @@ RewriteRule .* - [F]
 ## dots with \.  i.e. use www\.example\.com for www.example.com
 RewriteRule ^images/stories/([^/]+/)*([^/.]+\.)+(jp(e?g|2)?|png|gif|bmp|css|js|swf|ico)$ - [L]
 RewriteCond %{HTTP_REFERER} .
-RewriteCond %{HTTP_REFERER} !^https?://(www\.)?e-nanna\.dk|localhost [NC]
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?e-nanna\.dk|127.0.0.1 [NC]
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule \.(jp(e?g|2)?|png|gif|bmp|css|js|swf|ico)$ - [F]
