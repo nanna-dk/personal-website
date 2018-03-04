@@ -14,7 +14,7 @@ $stmt->execute();
         $rating     = $row['rating'];
         $votes      = $row['votes'];
         $avg        = ($rating == 0) ? 0 : round(($rating / $votes), 1);
-        $totalVotes = ($votes == 1) ? "bedømmelse" : "bedømmelser";
+        $totalVotes = ($votes == 1) ? "stemme" : "stemmer";
         $rateStats  = ($rating == 0) ? "Ingen stemmer afgivet" : "$avg/5 baseret på $votes $totalVotes";
         $id = $row['id'];
         $title = $row['title'];

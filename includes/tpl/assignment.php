@@ -8,7 +8,7 @@
   $rating     = $row['rating'];
   $votes      = $row['votes'];
   $avg        = ($rating == 0) ? 0 : round(($rating / $votes), 1);
-  $totalVotes = ($votes == 1) ? "bedømmelse" : "bedømmelser";
+  $totalVotes = ($votes == 1) ? "stemme" : "stemmer";
   $id         = $row['id'];
   $title      = $row['title'];
   $desc       = $row['description'];
