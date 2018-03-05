@@ -6,8 +6,11 @@ if (isset($_POST['column']) && isset($_POST['sortOrder'])) {
     $columnName = str_replace(" ", "_", strtolower($_POST['column']));
     $sortOrder  = $_POST['sortOrder'];
 
-    $sql = "SELECT * FROM " . $DBtable . " order by " . $columnName . " " . $sortOrder;
-
+    if ($columnName = 'rating') {
+      $sql = "SELECT * FROM " . $DBtable . " order by ROUND(rating / votes, 1) " . $sortOrder;
+    } else {
+      $sql = "SELECT * FROM " . $DBtable . " order by " . $columnName . " " . $sortOrder;
+    }
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     //set counter variable
