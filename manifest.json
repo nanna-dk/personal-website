@@ -1,0 +1,13 @@
+{
+  "name": "Nanna Ellegaard, cand.it og front-end udvikler",
+  "short_name": "Nanna E",
+  "description": "Interaktiv legeplads med CV, it-opgaver, etc.",
+  "start_url": "/",
+  "background_color": "#d75959",
+  "theme_color": "#c14343",
+  "icons": [{
+    "src": "icon-256.png",
+    "sizes": "256x256",
+    "type": "image/png"
+  }]
+}

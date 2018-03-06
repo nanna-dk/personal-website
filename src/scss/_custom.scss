@@ -6,7 +6,6 @@
 $body-bg: #f5f2f0;
 $body-color: #383838;
 $color-primary: #D14242;
-$color-secondary: #3f639e;
 $link-color: #0056B3;
 $link-hover-color: #004a99;
 $color3: #fcfcfc;
@@ -72,7 +71,12 @@ section {
   }
 }
 .btn-secondary {
-    background-color: #727b84;
+    background-color: $color3;
+    color: $body-color;
+}
+
+#clearSearch {
+  font-weight: 700;
 }
 
 .btn-primary {
