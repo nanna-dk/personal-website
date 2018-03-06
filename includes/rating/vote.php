@@ -19,8 +19,8 @@
 				$headers = "MIME-Version: 1.0" . "\r\n";
 				$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 				$headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-				$headers .= 'From: Nanna <nanna@e-nanna.dk>' . "\r\n";
-				$headers .= 'Reply-To: Nanna <nanna@e-nanna.dk>' . "\r\n";
+				$headers .= 'From: Admin <'. $adminMail .'>' . "\r\n";
+				$headers .= 'Reply-To: Admin <'. $adminMail .'>' . "\r\n";
 				$ip = $_SERVER['REMOTE_ADDR'];
 				$domain = $_SERVER['SERVER_NAME'];
 				$subject = $domain . ": Rating af opgave nr. " . $id . ".";
