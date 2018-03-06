@@ -15,6 +15,27 @@
 			$updateQuery = $pdo->prepare("UPDATE ". $DBtable ." SET `votes` = ?, `rating` = ? WHERE `id` = ?");
 			if($updateQuery->execute(array($voteUpdate, $pointsUpdate, $id))){
 				$avg = round(($pointsUpdate/$voteUpdate),1);
+				// Send mail
+				$headers = "MIME-Version: 1.0" . "\r\n";
+				$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+				$headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+				$headers .= 'From: Nanna <nanna@e-nanna.dk>' . "\r\n";
+				$headers .= 'Reply-To: Nanna <nanna@e-nanna.dk>' . "\r\n";
+				$ip = $_SERVER['REMOTE_ADDR'];
+				$domain = $_SERVER['SERVER_NAME'];
+				$subject = $domain . ": Rating af opgave nr. " . $id . ".";
+				$body = "<p>" . $subject . " Gennemnitlig score er nu " . $avg . " baseret på ". $voteUpdate . " stemmer.</p>";
+				$body .= "<p><strong>IP-adresse:</strong> ". $ip ."</p>";
+				if (mail("nanna@e-nanna.dk", $subject, $body, $headers)) {
+					// Success
+					http_response_code(200);
+				}
+				else {
+					// Error
+					http_response_code(500);
+				}
+
+				// Return data
 				die(json_encode(array('average' => $avg, 'votes' => $voteUpdate)));
 
 			} else {
