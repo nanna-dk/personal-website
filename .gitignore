@@ -39,3 +39,4 @@ includes/insert
 includes/PdfToText
 includes/db.php
 includes/tracking
+includes/test/
