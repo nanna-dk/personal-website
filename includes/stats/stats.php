@@ -33,9 +33,9 @@ $stmt->execute();
   else {
       echo 'Ingen resultater fundet.';
   }
-  echo '<div><h5>GitHub-statistik for dette website</h5><p>Commits:</p>';
-  echo '<div id="gitHubStats"></div>';
-  echo '</div>';
+  // echo '<div><h5>GitHub-statistik for dette website</h5><p>Commits:</p>';
+  // echo '<div id="gitHubStats"></div>';
+  // echo '</div>';
 // Closing
 $stmt = null;
 $pdo = null;
