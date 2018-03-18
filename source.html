@@ -2,6 +2,7 @@
 <html class="no-js" lang="da">
 
 <head>
+  <?php include_once('includes/tracking/analyticsTracking.php'); ?>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -62,10 +63,7 @@
 </head>
 
 <body>
-  <?php
-  include_once('includes/tracking/analyticsTracking.php');
-  include('includes/downloads/displayInfo.php');
-  ?>
+  <?php include('includes/downloads/displayInfo.php'); ?>
     <nav class="navbar navbar-toggleable-sm" data-toggle="affix">
       <div class="container pl-3 pl-sm-0">
         <button class="navbar-toggler navbar-toggler-right" id="navbarSideButton" type="button" aria-label="Toggle navigation">
