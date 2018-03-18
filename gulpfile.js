@@ -6,7 +6,6 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var htmlmin = require('gulp-htmlmin');
 var rename = require('gulp-rename');
-var livereload = require('gulp-livereload');
 var wait = require('gulp-wait2'); // Required on localhost
 
 // project paths
@@ -54,16 +53,14 @@ gulp.task('sass', function() {
         .pipe(sass(sassOptions).on('error', sass.logError))
         .pipe(autoprefixer(autoprefixerOptions))
         .pipe(concat('style.css'))
-        .pipe(gulp.dest(paths.minCss))
-        .pipe(livereload());
+        .pipe(gulp.dest(paths.minCss));
 });
 
 gulp.task('scripts', function() {
     return gulp.src(js.jsSrc)
         .pipe(uglify())
         .pipe(concat('bootstrap.min.js'))
-        .pipe(gulp.dest(paths.minJs))
-        .pipe(livereload());
+        .pipe(gulp.dest(paths.minJs));
 });
 
 gulp.task('rename', function() {
@@ -82,13 +79,11 @@ gulp.task('minifyHTML', ['rename'], function() {
             removeComments: true,
             collapseWhitespace: true
         }))
-        .pipe(gulp.dest(paths.webroot))
-        .pipe(livereload());
+        .pipe(gulp.dest(paths.webroot));
 });
 
 // Create watch task
 gulp.task('watch', function() {
-    livereload.listen();
     gulp.watch(paths.src + '/scss/**/*.scss', ['sass']);
     gulp.watch(paths.src + '/js/**/*.js', ['scripts']);
     gulp.watch(paths.webroot + '/*.html', ['rename', 'minifyHTML']);
