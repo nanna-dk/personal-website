@@ -6,36 +6,38 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var htmlmin = require('gulp-htmlmin');
 var rename = require('gulp-rename');
+var imagemin = require('gulp-imagemin');
 var wait = require('gulp-wait2'); // Required on localhost
 
 // project paths
 var paths = {
-    webroot: "./",
-    src: "./src",
-    scss: "./src/scss/bootstrap.scss",
-    minCss: "./dist/css",
-    minJs: "./dist/js",
-    pages: "./src/pages",
-    templates: './src/templates'
+  webroot: "./",
+  src: "./src",
+  scss: "./src/scss/bootstrap.scss",
+  img: "./src/images",
+  minCss: "./dist/css",
+  minJs: "./dist/js",
+  pages: "./src/pages",
+  templates: './src/templates'
 };
 
 // List of .js files to concatenate
 var js = {
-    jsSrc: [
-        //"./js/alert.js",
-        //paths.src + "/js/button.js",
-        //"./js/carousel.js",
-        paths.src + "/js/collapse.js",
-        //"./js/dropdown.js",
-        paths.src + "/js/modal.js",
-        //"./js/tooltip.js",
-        //"./js/popover.js",
-        //"./js/tab.js",
-        //"./js/scrollspy.js",
-        paths.src + "/js/util.js",
-        paths.src + "/js/custom.js"
-        //paths.src + "/js/gitHubStats.js"
-    ]
+  jsSrc: [
+    //"./js/alert.js",
+    //paths.src + "/js/button.js",
+    //"./js/carousel.js",
+    paths.src + "/js/collapse.js",
+    //"./js/dropdown.js",
+    paths.src + "/js/modal.js",
+    //"./js/tooltip.js",
+    //"./js/popover.js",
+    //"./js/tab.js",
+    //"./js/scrollspy.js",
+    paths.src + "/js/util.js",
+    paths.src + "/js/custom.js"
+    //paths.src + "/js/gitHubStats.js"
+  ]
 };
 
 // Options
@@ -61,6 +63,13 @@ gulp.task('scripts', function() {
         .pipe(uglify())
         .pipe(concat('bootstrap.min.js'))
         .pipe(gulp.dest(paths.minJs));
+});
+
+gulp.task('images', function() {
+  // Run manually when needed
+    return gulp.src(paths.img + '/*')
+    .pipe(imagemin({ progressive: true }))
+    .pipe(gulp.dest(paths.webroot + 'img'));
 });
 
 gulp.task('rename', function() {
