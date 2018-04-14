@@ -3,10 +3,10 @@
 include(realpath(__DIR__ . '/../db.php'));
 
 if (isset($_POST['column']) && isset($_POST['sortOrder'])) {
-    $columnName = str_replace(" ", "_", strtolower($_POST['column']));
+    $columnName = strtolower($_POST['column']);
     $sortOrder  = $_POST['sortOrder'];
 
-    if ($columnName = 'rating') {
+    if ($columnName == 'rating') {
       $sql = "SELECT * FROM " . $DBtable . " order by ROUND(rating / votes, 1) " . $sortOrder;
     } else {
       $sql = "SELECT * FROM " . $DBtable . " order by " . $columnName . " " . $sortOrder;
@@ -22,12 +22,11 @@ if (isset($_POST['column']) && isset($_POST['sortOrder'])) {
             $counter++;
         }
     } else {
-        echo '<td><div class="alert alert-warning" role="alert">Ingen resultater fundet.</div></td>';
+        echo '<div class="alert alert-warning" role="alert">Ingen resultater fundet.</div>';
     }
 
     // Closing
     $stmt = null;
     $pdo  = null;
-
 }
 ?>
