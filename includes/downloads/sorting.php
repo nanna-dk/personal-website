@@ -4,7 +4,7 @@ include(realpath(__DIR__ . '/../db.php'));
 
 if (isset($_POST['column']) && isset($_POST['sortOrder'])) {
     $columnName = strtolower($_POST['column']);
-    $sortOrder  = $_POST['sortOrder'];
+    $sortOrder  = strtoupper($_POST['sortOrder']);
 
     if ($columnName == 'rating') {
       $sql = "SELECT * FROM " . $DBtable . " order by ROUND(rating / votes, 1) " . $sortOrder;
