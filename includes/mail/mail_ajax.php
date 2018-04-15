@@ -1,5 +1,6 @@
 <?php
 // If the form was submitted
+include_once (realpath(__DIR__ . '/../db.php'));
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 error_reporting(E_ALL);
 //var_dump($_POST);
@@ -9,6 +10,7 @@ error_reporting(E_ALL);
         $secret  = '6LdqpBIUAAAAAFQF5a2Enla1sI0xAlN6xWsn4iST';
 
         $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt_array($ch, [
             CURLOPT_URL => 'https://www.google.com/recaptcha/api/siteverify',
             CURLOPT_POST => true,
@@ -36,7 +38,7 @@ error_reporting(E_ALL);
             echo "Udfyld venligst alle felterne.";
             exit;
           }
-          $recipient = "nanna@e-nanna.dk";
+          $recipient = $adminMail;
           $subject = "Besked fra $name";
           $body = "<p><strong>Navn:</strong> ". $name ."</p>";
           $body .= "<p><strong>E-mail:</strong> ". $email ."</p>";
