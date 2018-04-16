@@ -1,5 +1,6 @@
 // ******
-// © Nanna Ellegaard fetch commit data from GitHub API
+// © Nanna Ellegaard
+// Fetch commit data from GitHub API
 // http://www.e-nanna.dk 2018
 // ******
 
