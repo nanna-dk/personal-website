@@ -7,7 +7,6 @@ var uglify = require('gulp-uglify');
 var htmlmin = require('gulp-htmlmin');
 var rename = require('gulp-rename');
 var imagemin = require('gulp-imagemin');
-var header = require('gulp-header');
 
 // project paths
 var paths = {
@@ -50,16 +49,7 @@ var autoprefixerOptions = {
     browsers: ['last 2 versions', '> 2%']
 };
 
-// using data from package.json
-var pkg = require('./package.json');
-var banner = ['/**',
-  ' * <%= pkg.name %> - <%= pkg.description %>',
-  ' * @version v<%= pkg.version %>',
-  ' * @link <%= pkg.homepage %>',
-  ' * @license <%= pkg.license %>',
-  ' */',
-  ''].join('\n');
-
+// Tasks
 gulp.task('sass', function() {
     return gulp.src(paths.scss)
         .pipe(sass(sassOptions).on('error', sass.logError))
@@ -101,7 +91,7 @@ gulp.task('minifyHTML', ['rename'], function() {
         .pipe(gulp.dest(paths.webroot));
 });
 
-// Create watch task
+// Create watch tasks
 gulp.task('watch', function() {
     gulp.watch(paths.src + '/scss/**/*.scss', ['sass']);
     gulp.watch(paths.src + '/js/**/*.js', ['scripts']);
