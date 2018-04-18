@@ -1,7 +1,8 @@
 {
-  "name": "Nanna Ellegaard",
+  "name": "nanna-dk",
   "version": "1.0.0",
-  "description": "Nannas website",
+  "description": "Nanna Ellegaard, website",
+  "homepage": "https://www.e-nanna.dk",
   "keywords": [
     "css",
     "sass",
@@ -39,9 +40,14 @@
     "test": "test",
     "sass": "node-sass -w sass/ -o css/"
   },
+  "style": "dist/css/style.css",
+  "sass": "src/scss/bootstrap.scss",
   "repository": {
     "type": "git",
     "url": "https://github.com/nanna-dk/personal-website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nanna-dk/personal-website/issues"
   },
   "author": "Nanna Ellegaard",
   "license": "MIT"
