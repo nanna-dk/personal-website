@@ -37,7 +37,7 @@
     "gulp-uglify": "^2.0.1"
   },
   "scripts": {
-    "test": "test",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "sass": "node-sass -w sass/ -o css/"
   },
   "style": "dist/css/style.css",
