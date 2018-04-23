@@ -11,7 +11,6 @@
 		while($row = $query->fetchObject()){
 			$pointsUpdate = ($row->rating+$points);
 			$voteUpdate = ($row->votes+1);
-			$totalVotes = ($row->votes == 1) ? "stemme" : "stemmer";
 			$title = $row->title;
 			$updateQuery = $pdo->prepare("UPDATE ". $DBtable ." SET `votes` = ?, `rating` = ? WHERE `id` = ?");
 			if($updateQuery->execute(array($voteUpdate, $pointsUpdate, $id))){
@@ -25,7 +24,7 @@
 				$ip = $_SERVER['REMOTE_ADDR'];
 				$domain = $_SERVER['SERVER_NAME'];
 				$subject = $domain . ': Rating af opgaven "' . $title . '".';
-				$body = "<p>" . $subject . " Gennemnitlig score er nu " . $avg . " baseret på ". $voteUpdate ." ". $totalVotes .".</p>";
+				$body = "<p>" . $subject . " Gennemnitlig score er nu " . $avg . " baseret på ". $voteUpdate ." stemme(r).</p>";
 				$body .= "<p><strong>IP-adresse:</strong> ". $ip ."</p>";
 				if (mail("nanna@e-nanna.dk", $subject, $body, $headers)) {
 					// Success
