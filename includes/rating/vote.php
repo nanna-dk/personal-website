@@ -5,13 +5,14 @@
 		$id = (int)$_POST['item'];
 		$points = (int)$_POST['point'];
 		setcookie("Rating", 1, time()+3600, '/');
-		$query = $pdo->prepare("SELECT votes, rating FROM ". $DBtable ." WHERE `id` = ?");
+		$query = $pdo->prepare("SELECT title, votes, rating FROM ". $DBtable ." WHERE `id` = ?");
 		$query->execute(array($id));
 
 		while($row = $query->fetchObject()){
 			$pointsUpdate = ($row->rating+$points);
 			$voteUpdate = ($row->votes+1);
-
+			$totalVotes = ($row->votes == 1) ? "stemme" : "stemmer";
+			$title = $row->title;
 			$updateQuery = $pdo->prepare("UPDATE ". $DBtable ." SET `votes` = ?, `rating` = ? WHERE `id` = ?");
 			if($updateQuery->execute(array($voteUpdate, $pointsUpdate, $id))){
 				$avg = round(($pointsUpdate/$voteUpdate),1);
@@ -23,8 +24,8 @@
 				$headers .= 'Reply-To: Admin <'. $adminMail .'>' . "\r\n";
 				$ip = $_SERVER['REMOTE_ADDR'];
 				$domain = $_SERVER['SERVER_NAME'];
-				$subject = $domain . ": Rating af opgave nr. " . $id . ".";
-				$body = "<p>" . $subject . " Gennemnitlig score er nu " . $avg . " baseret på ". $voteUpdate . " stemmer.</p>";
+				$subject = $domain . ': Rating af opgaven "' . $title . '".';
+				$body = "<p>" . $subject . " Gennemnitlig score er nu " . $avg . " baseret på ". $voteUpdate ." ". $totalVotes .".</p>";
 				$body .= "<p><strong>IP-adresse:</strong> ". $ip ."</p>";
 				if (mail("nanna@e-nanna.dk", $subject, $body, $headers)) {
 					// Success
