@@ -26,7 +26,7 @@
 				$subject = $domain . ': Rating af opgaven "' . $title . '".';
 				$body = "<p>" . $subject . " Gennemnitlig score er nu " . $avg . " baseret på ". $voteUpdate ." stemme(r).</p>";
 				$body .= "<p><strong>IP-adresse:</strong> ". $ip ."</p>";
-				if (mail("nanna@e-nanna.dk", $subject, $body, $headers)) {
+				if (mail(". $adminMail .", $subject, $body, $headers)) {
 					// Success
 					http_response_code(200);
 				}

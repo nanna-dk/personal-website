@@ -29,6 +29,7 @@ error_reporting(E_ALL);
         // If the Google Recaptcha check was successful
         if($obj->success == true) {
           $name = strip_tags(trim($_POST["name"]));
+          $name = filter_var($name, FILTER_SANITIZE_STRING);
           $name = str_replace(array("\r","\n"),array(" "," "),$name);
           $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
           $message = trim($_POST["message"]);

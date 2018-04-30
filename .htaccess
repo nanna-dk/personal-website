@@ -121,7 +121,6 @@ AddType application/font-woff2         woff2
   </IfModule>
 </IfModule>
 #
-#
 # ----------------------------------------------------------------------
 # Expires headers (for better cache control)
 # ----------------------------------------------------------------------
