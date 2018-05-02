@@ -347,10 +347,12 @@ var custom = function($) {
           point: vote
         },
         success: function(data) {
+          console.log(data);
           var rated = $(".ratings[data-id='" + itemId + "']");
           rated.attr('data-avg', data.average);
           var average = data.average;
           average = (Number(average) * 20);
+
           rated.find('.bg').css('width', 0);
           rated.find('.bg').animate({
             width: average + '%'

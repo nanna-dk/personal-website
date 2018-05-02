@@ -29,11 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // If the Google Recaptcha check was successful
         if($obj->success == true) {
           $name = strip_tags(trim($_POST["name"]));
-          $name = htmlspecialchars($name);
+          $name = filter_var($name, FILTER_SANITIZE_STRING);
           $name = str_replace(array("\r","\n"),array(" "," "),$name);
           $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-          $message = trim($_POST["message"]);
-          $ip = $_SERVER['REMOTE_ADDR'];
+          $message = filter_var(trim($_POST["message"]), FILTER_SANITIZE_STRING);
+          $ip = filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP);
           if ( empty($name) OR empty($message) OR !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             http_response_code(400);
             echo "Udfyld venligst alle felterne.";

@@ -15,7 +15,7 @@
 
   // If used in a search - mark search words
   if (isset($_POST['search'])) {
-    $search = strip_tags($_POST['search']);
+    $search = filter_var($search, FILTER_SANITIZE_SPECIAL_CHARS);
     $title = preg_replace("/($search)/i", '<mark>$1</mark>', $title);
     $desc = preg_replace("/($search)/i", '<mark>$1</mark>', $desc);
   }
