@@ -2,9 +2,9 @@
 // Query the database
 include(realpath(__DIR__ . '/../db.php'));
 
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 if (isset($_POST['search'])) {
-  $search = $_POST['search'];
+  $search = strip_tags($_POST['search']);
 
   $sql = "SELECT * FROM " . $DBtable . " ORDER BY dates DESC";
   $stmt = $pdo->prepare($sql);

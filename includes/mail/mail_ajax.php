@@ -2,7 +2,7 @@
 // If the form was submitted
 include_once (realpath(__DIR__ . '/../db.php'));
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 //var_dump($_POST);
     // If the Google Recaptcha box was clicked
     if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){
