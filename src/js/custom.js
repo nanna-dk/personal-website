@@ -141,7 +141,7 @@ var custom = function($) {
       clearInput();
     })
 
-    // Search assignments
+    // Search assignments event
     btnSearch.click(function(e) {
       e.preventDefault();
       trackThis("Search");
@@ -152,6 +152,8 @@ var custom = function($) {
     function searchDb() {
       var url = 'includes/search/searchAssignments.php';
       var q = search.val();
+      // Strip tags
+      q = q.replace(/<\/?[^>]+(>|$)/g, "");
       if (q == '') {
         searchedAsssignments.html('');
         allAssignments.show();
@@ -238,6 +240,8 @@ var custom = function($) {
       searchedAsssignments.html('');
       allAssignments.show();
       clearErrors();
+      // Remove url params
+      addParams('q', '');
       trackThis("Clear button");
     });
 
@@ -295,7 +299,7 @@ var custom = function($) {
     window.history.replaceState({}, "", baseUrl + params);
   };
 
-  // Clear the form fields
+  // Clear the e-mail form fields
   function clearInput() {
     $('#name').val('');
     $('#email').val('');
