@@ -37,7 +37,8 @@ var custom = function($) {
 
     var query = $.urlParam('q');
     if (query) {
-      $(search).val(decodeURIComponent(query));
+      // Strip tags
+      $(search).val(decodeURIComponent(query)).replace(/<\/?[^>]+(>|$)/g, "");
       trackThis("Search");
       $('html, body').animate({
         scrollTop: searchedAsssignments.offset().top
@@ -151,9 +152,8 @@ var custom = function($) {
     // Search assignments
     function searchDb() {
       var url = 'includes/search/searchAssignments.php';
-      var q = search.val();
       // Strip tags
-      q = q.replace(/<\/?[^>]+(>|$)/g, "");
+      var q = search.val().replace(/<\/?[^>]+(>|$)/g, "");
       if (q == '') {
         searchedAsssignments.html('');
         allAssignments.show();
