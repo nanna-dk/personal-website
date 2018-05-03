@@ -37,8 +37,7 @@ var custom = function($) {
 
     var query = $.urlParam('q');
     if (query) {
-      // Strip tags
-      $(search).val(decodeURIComponent(query)).replace(/<\/?[^>]+(>|$)/g, "");
+      $(search).val(decodeURIComponent(strip_html_tags(query)));
       trackThis("Search");
       $('html, body').animate({
         scrollTop: searchedAsssignments.offset().top
@@ -152,14 +151,16 @@ var custom = function($) {
     // Search assignments
     function searchDb() {
       var url = 'includes/search/searchAssignments.php';
-      // Strip tags
-      var q = search.val().replace(/<\/?[^>]+(>|$)/g, "");
-      if (q == '') {
+      var q = search.val();
+      q = strip_html_tags(q);
+      if (!q) {
         searchedAsssignments.html('');
         allAssignments.show();
         search.parent().addClass('has-danger');
         search.addClass('form-control-danger');
       } else {
+        // Return stripped input to search field
+        search.val(strip_html_tags(q));
         $.ajax({
           type: 'post',
           url: url,
@@ -276,6 +277,15 @@ var custom = function($) {
 
     setRatings();
   });
+
+  // Strip html tags
+  function strip_html_tags(str) {
+    if ((str === null) || (str === ''))
+      return false;
+    else
+      str = str.toString();
+    return str.replace(/<\/?[^>]+(>|$)/g, '');
+  }
 
   // Append queries to url
   function addParams(key, value) {
