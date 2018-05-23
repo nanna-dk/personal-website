@@ -18,6 +18,8 @@ RewriteEngine On
 # ----------------------------------------------------------------------
 RewriteCond %{REQUEST_METHOD} POST
 RewriteCond %{REQUEST_URI} !/includes/mail/mail_ajax\.php [NC]
+RewriteCond %{REQUEST_URI} !/includes/rating/vote\.php [NC]
+RewriteCond %{REQUEST_URI} !/includes/downloads/sorting\.php [NC]
 RewriteCond %{REQUEST_URI} !/includes/search/searchAssignments\.php [NC]
 RewriteCond %{REMOTE_ADDR} !127.0.0.1
 RewriteRule .* - [F,L]
