@@ -15,8 +15,7 @@
 
   // If used in a search - mark search words
   if (isset($_POST['search'])) {
-    $search = strip_tags($_POST['search']);
-    $search = filter_var($search, FILTER_SANITIZE_SPECIAL_CHARS);
+    $search = $_POST['search'];
     $title = preg_replace("/($search)/i", '<mark>$1</mark>', $title);
     $desc = preg_replace("/($search)/i", '<mark>$1</mark>', $desc);
   }
@@ -27,7 +26,7 @@
   $dates      = (date('d. m. Y', strtotime($row['dates'])));
   echo '<div class="card">';
   echo '<h4 class="card-header"><span class="count">' . $counter . '.</span> <a href="includes/downloads/downloads.php?id=' . $id . '" target="_blank" rel="noopener" title="Se ' . $title . '">' . $title . '</a></h4>';
-  echo '<div class="card-block"><p class="card-text">' . $desc . '</p>';
+  echo '<div class="card-body"><p class="card-text">' . $desc . '</p>';
   // Rating start
   echo '<div class="ratings" data-id="' . $id . '" data-avg="' . $avg . '">';
   echo '<div class="bar">';

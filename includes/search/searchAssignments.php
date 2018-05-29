@@ -3,12 +3,9 @@
 include (realpath(__DIR__ . '/../db.php'));
 
 if (isset($_POST['search'])) {
-  $search = strip_tags($_POST['search']);
-  $search = filter_var($search, FILTER_SANITIZE_SPECIAL_CHARS);
+  $search = $_POST['search'];
 
-  // Order by relevance:
-  $sql = "SELECT * FROM " . $DBtable . " WHERE title LIKE :search OR description LIKE :search OR content LIKE :search ORDER BY  title LIKE :search DESC";
-
+  $sql = "SELECT * FROM " . $DBtable . " WHERE title LIKE :search OR description LIKE :search OR content LIKE :search ORDER BY dates DESC";
   $stmt = $pdo->prepare($sql);
   $stmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
   $stmt->execute();
