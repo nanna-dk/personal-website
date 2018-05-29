@@ -4,7 +4,6 @@
  */
 // Selected components etc.
 @import "src/scss/bootstrap-custom.scss";
-
 @font-face {
   font-family: "Social";
   src: url("../../font/social.eot?40467418");
@@ -101,6 +100,7 @@ h4 {
     [class*="icon-"] {
       padding-top: 0.1rem;
       padding-bottom: 0.1rem;
+      font-size: 0;
 
       &::before {
         font-size: 1.5rem;
@@ -128,8 +128,7 @@ h4 {
     padding-left: 0;
 
     li {
-      list-style: none;
-      padding-left: 0;
+      @extend .list-unstyled;
 
       &.date {
         font-size: 0.8rem;
@@ -282,12 +281,12 @@ section {
 
 .sorting {
   &.nav-link {
-    font-size: .9rem;
+    font-size: 0.9rem;
     background-color: $gray-100;
     color: $body-color;
     border: 1px solid $gray-300;
     border-radius: $border-radius;
-    padding: .2rem .4rem;
+    padding: 0.2rem 0.4rem;
     margin-top: 5px;
   }
   cursor: pointer;
@@ -403,7 +402,7 @@ section {
 
 .scrolltop {
   position: fixed;
-  bottom: 3%;
+  bottom: 4%;
   right: 3%;
   width: 42px;
   height: 42px;

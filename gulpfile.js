@@ -8,6 +8,7 @@ var htmlmin = require('gulp-htmlmin');
 var rename = require("gulp-rename");
 var notify = require("gulp-notify");
 var autoprefixer = require("gulp-autoprefixer");
+var minifyJson = require('gulp-minify-inline-json');
 
 // Sass compiling options:
 var sassOptions = {
@@ -81,6 +82,12 @@ gulp.task('scripts', function() {
     .pipe(browserSync.stream());
 });
 
+gulp.task('minifyJson', function() {
+  return gulp.src(res.root + 'includes/tpl/structuredData.php')
+    .pipe(minifyJson())
+    .pipe(gulp.dest(paths.root + 'includes/tpl/structuredData.php'));
+});
+
 gulp.task('rename', function() {
   return gulp.src(paths.root + '/*.html')
     .pipe(rename({
@@ -91,6 +98,7 @@ gulp.task('rename', function() {
         removeComments: true,
         collapseWhitespace: true
     }))
+    .pipe(minifyJson())
     .pipe(gulp.dest(paths.root));
 });
 

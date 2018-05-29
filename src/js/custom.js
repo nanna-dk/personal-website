@@ -79,7 +79,7 @@ jQuery(document).ready(function($) {
       type: 'post',
       url: url,
       beforeSend: function() {
-        $(messages).html('<div class="progress mb-4"><div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div></div>');
+        $(messages).html('<div class="px-2 mb-4">Vent venligst...</div>');
       },
       data: formData
     }).done(function(response) {

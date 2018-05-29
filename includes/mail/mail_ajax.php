@@ -44,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $body = "<p><strong>Navn:</strong> ". $name ."</p>";
           $body .= "<p><strong>E-mail:</strong> ". $email ."</p>";
           $body .= "<p><strong>IP-adresse:</strong> ". $ip ."</p>";
+          $body .= "<p><strong>Besked:</strong> ". $message ."</p>";
           $headers = "MIME-Version: 1.0" . "\r\n";
           $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
           $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
