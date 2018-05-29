@@ -2,7 +2,7 @@
 // If the form was submitted
 include_once (realpath(__DIR__ . '/../db.php'));
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 //var_dump($_POST);
     // If the Google Recaptcha box was clicked
     if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){
@@ -29,11 +29,11 @@ error_reporting(E_ALL);
         // If the Google Recaptcha check was successful
         if($obj->success == true) {
           $name = strip_tags(trim($_POST["name"]));
-          $name = htmlspecialchars($name);
+          $name = filter_var($name, FILTER_SANITIZE_STRING);
           $name = str_replace(array("\r","\n"),array(" "," "),$name);
           $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-          $message = trim($_POST["message"]);
-          $ip = $_SERVER['REMOTE_ADDR'];
+          $message = filter_var(trim($_POST["message"]), FILTER_SANITIZE_STRING);
+          $ip = filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP);
           if ( empty($name) OR empty($message) OR !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             http_response_code(400);
             echo "Udfyld venligst alle felterne.";
@@ -44,6 +44,7 @@ error_reporting(E_ALL);
           $body = "<p><strong>Navn:</strong> ". $name ."</p>";
           $body .= "<p><strong>E-mail:</strong> ". $email ."</p>";
           $body .= "<p><strong>IP-adresse:</strong> ". $ip ."</p>";
+          $body .= "<p><strong>Besked:</strong> ". $message ."</p>";
           $headers = "MIME-Version: 1.0" . "\r\n";
           $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
           $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";

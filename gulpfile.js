@@ -1,99 +1,109 @@
-//'use strict';
 var gulp = require('gulp');
+var browserSync = require('browser-sync').create();
+var plumber = require('gulp-plumber');
 var sass = require('gulp-sass');
-var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var htmlmin = require('gulp-htmlmin');
-var rename = require('gulp-rename');
-var imagemin = require('gulp-imagemin');
+var rename = require("gulp-rename");
+var notify = require("gulp-notify");
+var autoprefixer = require("gulp-autoprefixer");
+var minifyJson = require('gulp-minify-inline-json');
 
-// project paths
-var paths = {
-  webroot: "./",
-  src: "./src",
-  scss: "./src/scss/bootstrap.scss",
-  img: "./src/images",
-  minCss: "./dist/css",
-  minJs: "./dist/js",
-  pages: "./src/pages",
-  templates: './src/templates'
-};
-
-// List of .js files to concatenate
-var js = {
-  jsSrc: [
-    //"./js/alert.js",
-    //paths.src + "/js/button.js",
-    //"./js/carousel.js",
-    paths.src + "/js/collapse.js",
-    //"./js/dropdown.js",
-    paths.src + "/js/modal.js",
-    //"./js/tooltip.js",
-    //"./js/popover.js",
-    //"./js/tab.js",
-    //"./js/scrollspy.js",
-    paths.src + "/js/util.js",
-    paths.src + "/js/custom.js"
-    //paths.src + "/js/gitHubStats.js"
-  ]
-};
-
-// Options
+// Sass compiling options:
 var sassOptions = {
     errLogToConsole: true,
     outputStyle: 'compressed'
 };
 
+// Autoprefixer options
 var autoprefixerOptions = {
-    browsers: ['last 2 versions', '> 2%']
+  browsers: [
+    "last 1 major version",
+    ">= 1%",
+    "Chrome >= 45",
+    "Firefox >= 38",
+    "Edge >= 12",
+    "Explorer >= 10",
+    "iOS >= 9",
+    "Safari >= 9",
+    "Android >= 4.4",
+    "Opera >= 30"
+  ],
+  cascade: false
 };
 
-// Tasks
+// project paths
+var paths = {
+  root: "./",
+  src: "./src",
+  minCss: "./dist/css",
+  minJs: "./dist/js"
+};
+
+// List of rssource files to concatenate
+var res = {
+  jsSrc: [
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/bootstrap/dist/js/bootstrap.min.js',
+     paths.src + "/js/custom.js"
+  ],
+  cssSrc: [
+     paths.src + '/scss/custom.scss'
+  ]
+};
+
+gulp.task('browser-sync', ['sass'], function() {
+    browserSync.init({
+        server: "./",
+        //proxy: '127.0.0.1:8000',
+        index: "source.html",
+        notify: false
+    });
+    gulp.watch(res.cssSrc, ['sass']);
+    gulp.watch(res.jsSrc, ['scripts']);
+});
+
 gulp.task('sass', function() {
-    return gulp.src(paths.scss)
-        .pipe(sass(sassOptions).on('error', sass.logError))
-        .pipe(autoprefixer(autoprefixerOptions))
-        .pipe(concat('style.css'))
-        .pipe(gulp.dest(paths.minCss));
+  return gulp.src(res.cssSrc)
+    .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+    .pipe(sass(sassOptions).on('error', sass.logError))
+    .pipe(autoprefixer(autoprefixerOptions))
+    .pipe(concat("bootstrap.min.css"))
+    .pipe(gulp.dest(paths.minCss))
+    .pipe(browserSync.stream());
 });
 
 gulp.task('scripts', function() {
-    return gulp.src(js.jsSrc)
-        .pipe(uglify())
-        //.pipe(header(banner, { pkg : pkg } ))
-        .pipe(concat('bootstrap.min.js'))
-        .pipe(gulp.dest(paths.minJs));
+  return gulp.src(res.jsSrc)
+    .pipe(concat("bootstrap.min.js"))
+    .pipe(uglify())
+    .pipe(gulp.dest(paths.minJs))
+    .pipe(browserSync.stream());
 });
 
-gulp.task('images', function() {
-  // Run manually when needed
-    return gulp.src(paths.img + '/*')
-    .pipe(imagemin({ progressive: true }))
-    .pipe(gulp.dest(paths.webroot + 'img'));
+gulp.task('minifyJson', function() {
+  return gulp.src(res.root + 'includes/tpl/structuredData.php')
+    .pipe(minifyJson())
+    .pipe(gulp.dest(paths.root + 'includes/tpl/structuredData.php'));
 });
 
 gulp.task('rename', function() {
-    return gulp.src(paths.webroot + '/*.html')
-        .pipe(rename({
-          basename: "index",
-          extname: ".php"
-        }))
-        .pipe(gulp.dest(paths.webroot));
+  return gulp.src(paths.root + '/*.html')
+    .pipe(rename({
+      basename: "index",
+      extname: ".php"
+    }))
+    .pipe(htmlmin({
+        removeComments: true,
+        collapseWhitespace: true
+    }))
+    .pipe(minifyJson())
+    .pipe(gulp.dest(paths.root));
 });
 
-gulp.task('minifyHTML', ['rename'], function() {
-    return gulp.src(paths.webroot + '/*.php')
-        .pipe(htmlmin({
-            removeComments: true,
-            collapseWhitespace: true
-        }))
-        .pipe(gulp.dest(paths.webroot));
-});
-
-// Create watch tasks
-gulp.task('watch', function() {
-    gulp.watch(paths.src + '/scss/**/*.scss', ['sass']);
-    gulp.watch(paths.src + '/js/**/*.js', ['scripts']);
-    gulp.watch(paths.webroot + '/*.html', ['rename', 'minifyHTML']);
+gulp.task('watch', ['browser-sync'], function () {
+    gulp.watch(res.cssSrc, ['sass']);
+    gulp.watch(res.jsSrc, ['scripts']);
+    gulp.watch(paths.root + '/*.html', ['rename']).on('change', browserSync.reload);
 });
