@@ -12,6 +12,15 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="alternate" href="https://www.<?php echo $_SERVER['SERVER_NAME']; ?>" hreflang="da">
   <link rel="icon" href="favicon.ico">
+  <style>
+  @font-face {
+    font-family: "Social";
+    src: url("font/social.eot?40467418");
+    src: url("font/social.eot?40467418#iefix") format("embedded-opentype"), url("font/social.woff2?40467418") format("woff2"), url("font/social.woff?40467418") format("woff"), url("font/social.ttf?40467418") format("truetype"), url("font/social.svg?40467418#Social") format("svg");
+    font-weight: normal;
+    font-style: normal;
+  }
+  </style>
   <title>Nanna Ellegaard, Cand.it i Multimedier og frontend-udvikler</title>
   <link href="dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -214,7 +223,7 @@
             <div class="col-sm-12">
               <p>Opgaverne er ment som inspiration - ikke til copy/paste. :-)</p>
               <ul class="nav nav-pills">
-                <li class="nav-item"><a class="nav-link">Sorter efter: </a></li>
+                <li class="nav-item"><a class="nav-sort-label">Sorter efter: </a></li>
                 <li class="nav-item"><a data-id="title-asc" title="Sortér" href="#" class="nav-link sorting">Titel <span class="icon-angle-up"></span></a></li>
                 <li class="nav-item"><a data-id="clicks-asc" title="Sortér" href="#" class="nav-link sorting">Hits <span class="icon-angle-up"></span></a></li>
                 <li class="nav-item"><a data-id="dates-asc" title="Sorterer dato faldende" href="#" class="nav-link sorting desc">Dato <span class="icon-angle-up"></span></a></li>

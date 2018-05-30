@@ -233,11 +233,12 @@ jQuery(document).ready(function($) {
   setRatings();
   // Strip html tags
   function strip_html_tags(str) {
-    if ((str === null) || (str === ''))
+    if ((str === null) || (str === '')) {
       return false;
-    else
+    } else {
       str = str.toString();
-    return str.replace(/<\/?[^>]+(>|$)/g, '');
+      return str.replace(/<\/?[^>]+(>|$)/g, '');
+    }
   }
 
   // Append queries to url
@@ -309,7 +310,7 @@ jQuery(document).ready(function($) {
           point: vote
         },
         success: function(data) {
-        //  console.log(data);
+          //  console.log(data);
           var rated = $(".ratings[data-id='" + itemId + "']");
           rated.attr('data-avg', data.average);
           var average = data.average;

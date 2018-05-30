@@ -4,13 +4,7 @@
  */
 // Selected components etc.
 @import "src/scss/bootstrap-custom.scss";
-@font-face {
-  font-family: "Social";
-  src: url("../../font/social.eot?40467418");
-  src: url("../../font/social.eot?40467418#iefix") format("embedded-opentype"), url("../../font/social.woff2?40467418") format("woff2"), url("../font/social.woff?40467418") format("woff"), url("../../font/social.ttf?40467418") format("truetype"), url("../../font/social.svg?40467418#Social") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
+
 $body-bg: #f5f2f0;
 $body-color: #383838;
 $nav-height: 56px;
@@ -321,6 +315,12 @@ section {
   & + & {
     margin-left: 5px;
   }
+}
+
+.nav-sort-label {
+  padding: 0.2rem 0.5rem 0.4rem 0;
+  display: block;
+  margin-top: 5px;
 }
 
 .smaller {
