@@ -53,7 +53,7 @@ jQuery(document).ready(function($) {
       var target = $(this.hash);
       target = target.length
         ? target
-        : $('[name=' + this.hash.slice(1) + ']');
+        : $('[name="' + this.hash.slice(1) + '"]');
       if (target.length) {
         $('html, body').animate({
           //56px are added due to the sticky topmenu
@@ -170,11 +170,11 @@ jQuery(document).ready(function($) {
         var t = target.text().toLowerCase().trim();
         if (order == 'asc') {
           target.data('id', name + '-desc');
-          target.attr('title', 'Sortérer ' + t + ' stigende');
+          target.attr('title', 'Sortér ' + t + ' stigende');
           target.addClass('desc');
         } else {
           target.data('id', name + '-asc');
-          target.attr('title', 'Sortérer ' + t + ' faldende');
+          target.attr('title', 'Sortér ' + t + ' faldende');
           target.addClass('asc');
         }
         allAssignments.empty();
@@ -233,11 +233,12 @@ jQuery(document).ready(function($) {
   setRatings();
   // Strip html tags
   function strip_html_tags(str) {
-    if ((str === null) || (str === ''))
+    if ((str === null) || (str === '')) {
       return false;
-    else
+    } else {
       str = str.toString();
-    return str.replace(/<\/?[^>]+(>|$)/g, '');
+      return str.replace(/<\/?[^>]+(>|$)/g, '');
+    }
   }
 
   // Append queries to url
@@ -309,7 +310,7 @@ jQuery(document).ready(function($) {
           point: vote
         },
         success: function(data) {
-        //  console.log(data);
+          //  console.log(data);
           var rated = $(".ratings[data-id='" + itemId + "']");
           rated.attr('data-avg', data.average);
           var average = data.average;

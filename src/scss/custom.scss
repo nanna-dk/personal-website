@@ -4,13 +4,6 @@
  */
 // Selected components etc.
 @import "src/scss/bootstrap-custom.scss";
-@font-face {
-  font-family: "Social";
-  src: url("../../font/social.eot?40467418");
-  src: url("../../font/social.eot?40467418#iefix") format("embedded-opentype"), url("../../font/social.woff2?40467418") format("woff2"), url("../font/social.woff?40467418") format("woff"), url("../../font/social.ttf?40467418") format("truetype"), url("../../font/social.svg?40467418#Social") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
 $body-bg: #f5f2f0;
 $body-color: #383838;
 $nav-height: 56px;
@@ -97,13 +90,15 @@ h4 {
   .nav-item {
     flex: 1 1 auto;
 
-    [class*="icon-"] {
+    .nav-link {
       padding-top: 0.1rem;
       padding-bottom: 0.1rem;
-      font-size: 0;
 
-      &::before {
-        font-size: 1.5rem;
+      svg {
+        background-color: transparent;
+        fill: currentColor;
+        width: 24px;
+        height: 24px;
       }
     }
   }
@@ -292,35 +287,38 @@ section {
   cursor: pointer;
   margin-right: 5px;
 
-  & > .icon-angle-up {
-    color: $gray-600;
-    margin-left: 4px;
+  & > svg {
+    margin-top: 2px;
+    margin-right: 2px;
+    background-color: transparent;
+    fill: currentColor;
+    width: 12px;
+    height: 12px;
+    stroke: $gray-600;
+    stroke-width: 1;
   }
 
   &.asc,
   &.desc {
     font-weight: 600;
 
-    .icon-angle-up {
-      color: initial!important;
-
-      &::before {
-        font-weight: 700;
-      }
+    svg {
+      stroke: $body-color;
+      stroke-width: 2;
     }
   }
 
   &.desc {
-    .icon-angle-up {
-      &::before {
-        transform: rotate(180deg);
-      }
+    svg {
+      transform: rotate(180deg);
     }
   }
+}
 
-  & + & {
-    margin-left: 5px;
-  }
+.nav-sort-label {
+  padding: 0.2rem 0.5rem 0.4rem 0;
+  display: block;
+  margin-top: 5px;
 }
 
 .smaller {
@@ -372,12 +370,6 @@ section {
   background-size: cover;
 }
 // Ratings end
-// .form-control::placeholder {
-//   color: #bbb;
-//   @include media-breakpoint-down(sm) {
-//     font-size: 0.85rem;
-//   }
-// }
 
 .count {
   color: $gray-700;
@@ -404,6 +396,9 @@ section {
   position: fixed;
   bottom: 4%;
   right: 3%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 42px;
   height: 42px;
   border-radius: 50%;
@@ -414,57 +409,19 @@ section {
   font-size: 1.5rem;
   z-index: $zindex-fixed;
 
+  svg {
+    background-color: transparent;
+    fill: currentColor;
+    width: 75%;
+    height: 75%;
+    stroke: $white;
+    stroke-width: 1;
+  }
+
   &:active,
   &:focus,
   &:hover {
     color: $white !important;
     opacity: 0.75;
   }
-}
-// *******************************************
-//   Icons
-// *******************************************
-
-[class*="icon-"]::before,
-[class^="icon-"]::before {
-  font-family: "Social";
-  speak: none;
-  text-transform: none;
-  font-style: normal;
-  line-height: inherit;
-  display: inline-block;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-facebook::before {
-  content: "\f09a";
-}
-
-.icon-github::before {
-  content: "\f09b";
-}
-
-.icon-gplus::before {
-  content: "\f0d5";
-}
-
-.icon-mail::before {
-  content: "\f0e0";
-}
-
-.icon-linkedin::before {
-  content: "\f0e1";
-}
-
-.icon-angle-up::before {
-  content: "\f106";
-}
-
-.icon-code::before {
-  content: "\f121";
-}
-
-.icon-skype::before {
-  content: "\f17e";
 }
