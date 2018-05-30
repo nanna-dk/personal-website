@@ -9,15 +9,16 @@
     "responsive",
     "front-end",
     "framework",
-    "web"
+    "web",
+    "PHP"
   ],
   "homepage": "https://www.e-nanna.dk",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/twbs/bootstrap.git"
+    "url": "https://github.com/nanna-dk/personal-website.git"
   },
   "bugs": {
-    "url": "https://github.com/twbs/bootstrap/issues"
+    "url": "https://github.com/nanna-dk/personal-website/issues"
   },
   "main": "index.js",
   "scripts": {
@@ -34,7 +35,7 @@
     "gulp-htmlmin": "^3.0.0",
     "gulp-minify-inline-json": "^1.3.0",
     "gulp-notify": "^2.2.0",
-    "gulp-plumber": "^1.0.1",
+    "gulp-plumber": "^1.2.0",
     "gulp-rename": "^1.2.3",
     "gulp-sass": "^4.0.1",
     "gulp-uglify": "^2.0.1",

@@ -1,5 +1,4 @@
 jQuery(document).ready(function($) {
-
   // Search
   var search = $('#search');
   var clearSearch = $('#clearSearch');
@@ -15,12 +14,18 @@ jQuery(document).ready(function($) {
   var sortHeader = $('.sorting');
   // Scroll
   var scroller = $('.scrolltop');
+  // Toggle button
+  var toggle = $('[data-toggle="offcanvas"]')
 
   // Toggle off-canvas menu
-  $('[data-toggle="offcanvas"]').on('click', function() {
+  toggle.on('click', function() {
     $('.offcanvas-collapse').toggleClass('open');
     scroller.toggleClass('d-none');
-  })
+  });
+
+  $('.offcanvas-collapse .nav-link').on('click', function() {
+    toggle.click();
+  });
 
   // Run search on load if query is present
   $.urlParam = function(name) {
@@ -56,8 +61,8 @@ jQuery(document).ready(function($) {
         : $('[name="' + this.hash.slice(1) + '"]');
       if (target.length) {
         $('html, body').animate({
-          //56px are added due to the sticky topmenu
-          scrollTop: target.offset().top - 56
+          //Extra px are added due to the sticky topmenu
+          scrollTop: target.offset().top - 60
         }, 500);
         return false;
       }

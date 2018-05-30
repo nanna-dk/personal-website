@@ -35,7 +35,7 @@ $stmt->execute();
   }
   // echo '<div><h5>GitHub-statistik for dette website</h5><p>Commits:</p>';
   // echo '<div id="gitHubStats"></div>';
-  // echo '</div>';
+  echo '</div>';
 // Closing
 $stmt = null;
 $pdo = null;

@@ -65,8 +65,8 @@
   <?php include('includes/downloads/displayInfo.php'); ?>
   <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand mr-auto mr-lg-3" title="Start" href="/"><span class="icon-code"></span> </a>
-      <button class="navbar-toggler p-0 border-0" role="button" type="button" data-toggle="offcanvas">
+      <a class="navbar-brand mr-auto mr-lg-3" title="Start" href="/"><svg role="presentation"><use xlink:href="img/icons.svg#icon-code"></use></svg> </a>
+      <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
         <span class="sr-only">Toggle mobile menu</span>
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -88,19 +88,19 @@
         <div class="utility-icons">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a title="Facebook" class="nav-link" href="https://www.facebook.com/nanna.ellegaard" target="_blank" rel="noopener"><svg role="img" title="Facebook"><use xlink:href="img/icons.svg#icon-facebook"></use></svg></a>
+              <a title="Facebook" class="nav-link" href="https://www.facebook.com/nanna.ellegaard" target="_blank" rel="noopener"><svg role="presentation"><use xlink:href="img/icons.svg#icon-facebook"></use></svg></a>
             </li>
             <li class="nav-item">
-              <a title="LinkedIn" class="nav-link" href="https://www.linkedin.com/in/nannaellegaard/" target="_blank" rel="noopener"><svg role="img" title="LinkedIn"><use xlink:href="img/icons.svg#icon-linkedin"></use></svg></a>
+              <a title="LinkedIn" class="nav-link" href="https://www.linkedin.com/in/nannaellegaard/" target="_blank" rel="noopener"><svg role="presentation"><use xlink:href="img/icons.svg#icon-linkedin"></use></svg></a>
             </li>
             <li class="nav-item">
-              <a title="send besked via webformular" class="nav-link" href="" data-toggle="modal" data-target="#contactForm"><svg role="img" title="Kontaktformular"><use xlink:href="img/icons.svg#icon-mail"></use></svg></a>
+              <a title="send besked via webformular" class="nav-link" href="" data-toggle="modal" data-target="#contactForm"><svg role="presentation"><use xlink:href="img/icons.svg#icon-mail"></use></svg></a>
             </li>
             <li class="nav-item">
-              <a title="Google+" class="nav-link" href="https://plus.google.com/102076494911232201521?rel=author" target="_blank" rel="noopener"><svg role="img" title="G+"><use xlink:href="img/icons.svg#icon-gplus"></use></svg></a>
+              <a title="Google+" class="nav-link" href="https://plus.google.com/102076494911232201521?rel=author" target="_blank" rel="noopener"><svg role="presentation"><use xlink:href="img/icons.svg#icon-gplus"></use></svg></a>
             </li>
             <li class="nav-item">
-              <a title="GitHub" class="nav-link" href="https://github.com/nanna-dk/" target="_blank" rel="noopener"><svg role="img" title="GitHub"><use xlink:href="img/icons.svg#icon-github"></use></svg></a>
+              <a title="GitHub" class="nav-link" href="https://github.com/nanna-dk/" target="_blank" rel="noopener"><svg role="presentation"><use xlink:href="img/icons.svg#icon-github"></use></svg></a>
             </li>
           </ul>
         </div>
@@ -215,10 +215,10 @@
               <p>Opgaverne er ment som inspiration - ikke til copy/paste. :-)</p>
               <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-sort-label">Sorter efter: </a></li>
-                <li class="nav-item"><a data-id="title-asc" title="Sortér" href="#" class="nav-link sorting">Titel <svg role="img" title="Top"><use xlink:href="img/icons.svg#icon-angle-up"></use></svg></a></li>
-                <li class="nav-item"><a data-id="clicks-asc" title="Sortér" href="#" class="nav-link sorting">Hits <svg role="img" title="Top"><use xlink:href="img/icons.svg#icon-angle-up"></use></svg></a></li>
-                <li class="nav-item"><a data-id="dates-asc" title="Sorterer dato faldende" href="#" class="nav-link sorting desc">Dato <svg role="img" title="Top"><use xlink:href="img/icons.svg#icon-angle-up"></use></svg></a></li>
-                <li class="nav-item"><a data-id="rating-asc" title="Sortér rating" href="#" class="nav-link sorting">Rating <svg role="img" title="Top"><use xlink:href="img/icons.svg#icon-angle-up"></use></svg></a></li>
+                <li class="nav-item"><a data-id="title-asc" title="Sortér" href="#" class="nav-link sorting">Titel <svg role="presentation"><use xlink:href="img/icons.svg#icon-angle-up"></use></svg></a></li>
+                <li class="nav-item"><a data-id="clicks-asc" title="Sortér" href="#" class="nav-link sorting">Hits <svg role="presentation"><use xlink:href="img/icons.svg#icon-angle-up"></use></svg></a></li>
+                <li class="nav-item"><a data-id="dates-asc" title="Sorterer dato faldende" href="#" class="nav-link sorting desc">Dato <svg role="presentation"><use xlink:href="img/icons.svg#icon-angle-up"></use></svg></a></li>
+                <li class="nav-item"><a data-id="rating-asc" title="Sortér rating" href="#" class="nav-link sorting">Rating <svg role="presentation"><use xlink:href="img/icons.svg#icon-angle-up"></use></svg></a></li>
               </ul>
             </div>
           </div>
@@ -226,11 +226,11 @@
             <?php include ('includes/downloads/allAssignments.php') ?>
           </div>
           <div id="searchAssignments"></div>
-          <div id="stats collapsed" role="tablist" aria-multiselectable="true">
+          <div id="stats" role="tablist">
             <div class="card stats">
               <h4 class="card-header" role="tab" id="statsHeading">
-                  <a class="accordion collapsed icon-angle-up" data-toggle="collapse" data-parent="#stats" href="#collapseStats" aria-expanded="false">
-                  Stastistik</a></h4>
+                  <a class="accordion collapsed" data-toggle="collapse" data-parent="#stats" href="#collapseStats" aria-expanded="false">
+                  Stastistik<svg role="presentation"><use xlink:href="img/icons.svg#icon-angle-up"></use></svg></a></h4>
               <div id="collapseStats" class="collapse" role="tabpanel" aria-labelledby="statsHeading">
                 <div class="card-body">
                   <?php include('includes/stats/stats.php'); ?>
@@ -241,63 +241,64 @@
         </div>
       </div>
     </div>
-    <!-- Modals -->
-    <div class="modal fade" id="cd-cover" tabindex="-1" role="dialog" aria-labelledby="coverTitle" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="coverTitle">Cover til CD-rom</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  </section>
+
+  <!-- Modals -->
+  <div class="modal fade" id="cd-cover" tabindex="-1" role="dialog" aria-labelledby="coverTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="coverTitle">Cover til CD-rom</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
-          </div>
-          <div class="modal-body">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Cover til CD-rom" class="img-fluid" id="cover">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Luk</button>
-          </div>
+        </div>
+        <div class="modal-body">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Cover til CD-rom" class="img-fluid" id="cover">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Luk</button>
         </div>
       </div>
     </div>
-    <!-- /Modals -->
-    <!-- Form modal -->
-    <div class="modal fade" id="contactForm" role="dialog" aria-labelledby="responseLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h5 class="modal-title" id="responseLabel">Kontakt</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
-          </div>
-          <!-- Modal Body -->
-          <div class="modal-body">
-            <form id="contactform" action="" method="POST">
-              <div class="form-group">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Navn">
-              </div>
-              <div class="form-group">
-                <input type="email" name="email" class="form-control" id="email" placeholder="E-mail">
-              </div>
-              <div class="form-group">
-                <textarea rows="6" name="message" class="form-control" id="msg" placeholder="Besked"></textarea>
-              </div>
-              <div class="feedback" role="alert"></div>
-              <div class="captcha-box">
-                <div class="g-recaptcha" data-theme="light" data-sitekey="6LdqpBIUAAAAAAq17acWDx1oHuJsrQOdVQFb88rh"> </div>
-              </div>
-            </form>
-          </div>
-          <!-- Modal Footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default float-left" data-dismiss="modal">Luk</button>
-            <button type="submit" class="btn btn-primary float-right" id="sendMail">Send</button>
-          </div>
+  </div>
+  <!-- /Modals -->
+  <!-- Form modal -->
+  <div class="modal fade" id="contactForm" role="dialog" aria-labelledby="responseLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="responseLabel">Kontakt</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+        </div>
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form id="contactform" method="POST">
+            <div class="form-group">
+              <input type="text" name="name" class="form-control" id="name" placeholder="Navn">
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" class="form-control" id="email" placeholder="E-mail">
+            </div>
+            <div class="form-group">
+              <textarea rows="6" name="message" class="form-control" id="msg" placeholder="Besked"></textarea>
+            </div>
+            <div class="feedback" role="alert"></div>
+            <div class="captcha-box">
+              <div class="g-recaptcha" data-theme="light" data-sitekey="6LdqpBIUAAAAAAq17acWDx1oHuJsrQOdVQFb88rh"> </div>
+            </div>
+          </form>
+        </div>
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default float-left" data-dismiss="modal">Luk</button>
+          <button type="submit" class="btn btn-primary float-right" id="sendMail">Send</button>
         </div>
       </div>
     </div>
-    <!-- Form end -->
-  </section>
+  </div>
+  <!-- Form end -->
   <footer class="site-footer">
     <div class="container">
       <div class="row">
@@ -319,14 +320,14 @@
         </div>
         <div class="col-xs-12 col-md-6 text-lg-right text-xs-center mt-3 mt-sm-1">
           <p class="copyright-text">Sidst opdateret:
-            <time datetime="<?php echo date(" y-m-d " , getlastmod()) ?>"><?php echo strftime( "%d.%m.%Y", getlastmod() ); ?></time> <br> Copyright ©
+            <time datetime="<?php echo date(" Y-m-d " , getlastmod()) ?>"><?php echo strftime( "%d.%m.%Y", getlastmod() ); ?></time> <br> Copyright ©
             <?php echo date("Y"); ?> Nanna Ellegaard</p>
         </div>
       </div>
     </div>
   </footer>
   <!-- Scroll to top -->
-  <a class="scrolltop" title="top" href="#about"><svg role="img" title="Top"><use xlink:href="img/icons.svg#icon-angle-up"></use></svg></a>
+  <a class="scrolltop" title="top" href="#about"><svg role="presentation"><use xlink:href="img/icons.svg#icon-angle-up"></use></svg></a>
   <!-- Scripts: -->
   <script src="dist/js/bootstrap.min.js"></script>
 </body>

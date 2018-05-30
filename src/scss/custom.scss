@@ -38,6 +38,11 @@ h4 {
   font-size: $h4-font-size;
 }
 
+svg {
+  background-color: transparent;
+  fill: currentColor;
+}
+
 .btn-primary {
   background-color: $primary-color;
   border-color: $primary-color;
@@ -46,9 +51,9 @@ h4 {
 .navbar-brand {
   padding: 0;
 
-  .icon-code {
-    font-size: 2rem;
-    line-height: 0;
+  svg {
+    width: 60px;
+    height: 40px;
   }
 }
 @include media-breakpoint-down(md) {
@@ -80,6 +85,9 @@ h4 {
     left: 0;
     visibility: visible;
   }
+  .utility-icons {
+    margin-top: 1.5rem;
+  }
 }
 
 .utility-icons {
@@ -93,10 +101,9 @@ h4 {
     .nav-link {
       padding-top: 0.1rem;
       padding-bottom: 0.1rem;
+      tap-highlight-color: rgba(0,0,0,.1);
 
       svg {
-        background-color: transparent;
-        fill: currentColor;
         width: 24px;
         height: 24px;
       }
@@ -246,18 +253,17 @@ section {
       display: block;
       position: relative;
 
-      &::before {
+      svg {
         position: absolute;
-        display: block;
-        line-height: 17px;
         right: 0;
-        font-size: 30px;
         transform: rotate(180deg);
         transition: transform 0.3s linear;
+        width: 24px;
+        height: 24px;
       }
 
       &:not(.collapsed) {
-        &::before {
+        svg {
           transform: rotate(0deg);
         }
       }
@@ -290,8 +296,6 @@ section {
   & > svg {
     margin-top: 2px;
     margin-right: 2px;
-    background-color: transparent;
-    fill: currentColor;
     width: 12px;
     height: 12px;
     stroke: $gray-600;
@@ -310,6 +314,7 @@ section {
 
   &.desc {
     svg {
+      margin-top: 3px;
       transform: rotate(180deg);
     }
   }
@@ -410,8 +415,6 @@ section {
   z-index: $zindex-fixed;
 
   svg {
-    background-color: transparent;
-    fill: currentColor;
     width: 75%;
     height: 75%;
     stroke: $white;
