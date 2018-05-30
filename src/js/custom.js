@@ -170,11 +170,11 @@ jQuery(document).ready(function($) {
         var t = target.text().toLowerCase().trim();
         if (order == 'asc') {
           target.data('id', name + '-desc');
-          target.attr('title', 'Sortérer ' + t + ' stigende');
+          target.attr('title', 'Sortér ' + t + ' stigende');
           target.addClass('desc');
         } else {
           target.data('id', name + '-asc');
-          target.attr('title', 'Sortérer ' + t + ' faldende');
+          target.attr('title', 'Sortér ' + t + ' faldende');
           target.addClass('asc');
         }
         allAssignments.empty();
