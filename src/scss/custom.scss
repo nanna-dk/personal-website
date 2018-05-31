@@ -276,6 +276,25 @@ section {
   }
 }
 
+.progress {
+  display: flex;
+  height: $progress-height;
+  overflow: hidden;
+  font-size: $progress-font-size;
+  background-color: $progress-bg;
+  @include border-radius($progress-border-radius);
+}
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: $progress-bar-color;
+  text-align: center;
+  white-space: nowrap;
+  background-color: $progress-bar-bg;
+}
+
 .nav-pills {
   margin-bottom: 15px;
 }
