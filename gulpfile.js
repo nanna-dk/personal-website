@@ -59,6 +59,7 @@ gulp.task('browser-sync', ['sass'], function() {
         server: "./",
         //proxy: '127.0.0.1:8080',
         index: "source.html",
+        online: true,
         notify: false
     });
     gulp.watch(res.cssSrc, ['sass']);
