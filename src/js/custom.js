@@ -138,7 +138,7 @@ jQuery(document).ready(function($) {
         success: function(response) {
           allAssignments.hide();
           clearErrors();
-          searchedAsssignments.html(response).show();
+          searchedAsssignments.hide().html(response).fadeIn(600);
           // Append ?q=query to url for tracking purposes
           addParams('q', encodeURIComponent(q));
           setRatings();
@@ -183,7 +183,7 @@ jQuery(document).ready(function($) {
           target.addClass('asc');
         }
         allAssignments.empty();
-        allAssignments.append(response);
+        allAssignments.hide().append(response).fadeIn(600);
         // Update Ratings
         setRatings();
       },

@@ -5,7 +5,7 @@ include (realpath(__DIR__ . '/../db.php'));
 if (isset($_POST['search'])) {
   $search = $_POST['search'];
 
-  $sql = "SELECT * FROM " . $DBtable . " WHERE title LIKE :search OR description LIKE :search OR content LIKE :search ORDER BY dates DESC";
+  $sql = "SELECT * FROM " . $DBtable . " WHERE title LIKE :search OR description LIKE :search OR content LIKE :search ORDER BY title LIKE :search DESC";
   $stmt = $pdo->prepare($sql);
   $stmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
   $stmt->execute();
