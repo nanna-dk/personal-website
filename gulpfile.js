@@ -84,12 +84,6 @@ gulp.task('scripts', function() {
     .pipe(browserSync.stream());
 });
 
-gulp.task('minifyJson', function() {
-  return gulp.src(res.root + 'includes/tpl/structuredData.php')
-    .pipe(minifyJson())
-    .pipe(gulp.dest(paths.root + 'includes/tpl/structuredData.php'));
-});
-
 gulp.task('rename', function() {
   return gulp.src(paths.root + '/*.html')
     .pipe(rename({
