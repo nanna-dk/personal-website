@@ -20,13 +20,17 @@ jQuery(document).ready(function($) {
 
   // Toggle off-canvas menu
   toggle.on('click', function() {
-    $('.offcanvas-collapse').toggleClass('open');
-    scroller.toggleClass('d-none');
+    toggleNav();
   });
 
   $('.offcanvas-collapse .nav-link').on('click', function() {
     toggle.click();
   });
+
+  function toggleNav() {
+    $('.offcanvas-collapse').toggleClass('open');
+    scroller.toggleClass('d-none');
+  }
 
   // Run search on load if query is present
   $.urlParam = function(name) {
@@ -55,19 +59,12 @@ jQuery(document).ready(function($) {
 
   // Smooth scrolling from anchors
   $('a[href*="#"]').not('.accordion').click(function() {
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-      var target = $(this.hash);
-      target = target.length
-        ? target
-        : $('[name="' + this.hash.slice(1) + '"]');
-      if (target.length) {
-        $('html, body').animate({
-          scrollTop: target.offset().top - nav
-        }, 500);
-        return false;
-      }
-    }
+    $('html, body').animate({
+      scrollTop: 0
+    }, 500);
+    return false;
   });
+
   // Sorting headers
   sortHeader.click(function(e) {
     e.preventDefault();
