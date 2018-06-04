@@ -47,7 +47,7 @@ var res = {
   jsSrc: [
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.min.js',
-     paths.src + "/js/custom.js"
+     paths.src + '/js/custom.js'
   ],
   cssSrc: [
      paths.src + '/scss/custom.scss'

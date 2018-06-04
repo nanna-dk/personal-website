@@ -13,9 +13,12 @@ jQuery(document).ready(function($) {
   // sorting
   var sortHeader = $('.sorting');
   // Scroll
+  var nav = $('#global-nav').outerHeight(true) + 10;
   var scroller = $('.scrolltop');
   // Toggle button
-  var toggle = $('[data-toggle="offcanvas"]')
+  var toggle = $('[data-toggle="offcanvas"]');
+
+  $('body').css('padding-top', nav + 10);
 
   // Toggle off-canvas menu
   toggle.on('click', function() {
@@ -61,8 +64,7 @@ jQuery(document).ready(function($) {
         : $('[name="' + this.hash.slice(1) + '"]');
       if (target.length) {
         $('html, body').animate({
-          //Extra px are added due to the sticky topmenu
-          scrollTop: target.offset().top - 60
+          scrollTop: target.offset().top - nav
         }, 500);
         return false;
       }
@@ -84,7 +86,7 @@ jQuery(document).ready(function($) {
       type: 'post',
       url: url,
       beforeSend: function() {
-        $(messages).html('<div class="px-2 mb-4">Vent venligst...</div>');
+        $(messages).html('<div class="p-2 mb-4">Vent venligst...</div>');
       },
       data: formData
     }).done(function(response) {

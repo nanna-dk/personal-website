@@ -6,7 +6,7 @@
 @import "src/scss/bootstrap-custom.scss";
 $body-bg: #f5f2f0;
 $body-color: #383838;
-$nav-height: 56px;
+$nav-height: 66px;
 $nav-bg-color: #343a40;
 $color-red: #D14242;
 $link-color: #004a99;
@@ -21,7 +21,7 @@ html {
 }
 
 body {
-  padding-top: ($nav-height + 10);
+  padding-top: $nav-height;
   color: $body-color;
   background-color: $gray-100;
 }
