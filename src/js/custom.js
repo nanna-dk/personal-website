@@ -18,8 +18,6 @@ jQuery(document).ready(function($) {
   // Toggle button
   var toggle = $('[data-toggle="offcanvas"]');
 
-  $('body').css('padding-top', nav + 10);
-
   // Toggle off-canvas menu
   toggle.on('click', function() {
     $('.offcanvas-collapse').toggleClass('open');
