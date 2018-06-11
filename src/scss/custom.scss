@@ -89,6 +89,7 @@ svg {
     left: 0;
     visibility: visible;
   }
+
   .utility-icons {
     margin-top: 1.5rem;
   }
@@ -369,6 +370,7 @@ section {
   }
 
   .stars {
+    display: inline-flex;
     position: absolute;
     left: 0;
     top: 0;
@@ -376,27 +378,25 @@ section {
   }
 
   .star {
-    float: left;
     width: 16px;
     height: 16px;
-    text-align: center;
     position: relative;
     cursor: pointer;
 
+    svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      fill: none;
+    }
+
     &.full {
-      @include gradient-x($start-color: #fee24f, $end-color: #f4bb2f, $start-percent: 0%, $end-percent: 100%);
+      background: #f4bb2f;
     }
   }
-}
-
-.starimg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("../../img/star.png") top left no-repeat;
-  background-size: cover;
 }
 // Ratings end
 
