@@ -70,4 +70,18 @@ function displayDate($id) {
     $stmt = null;
     $pdo = null;
 }
+
+function countDownloads() {
+  include (realpath(__DIR__ . '/../db.php'));
+  $sql = "SELECT SUM(`clicks`) FROM " . $DBtable . "";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+
+  $total = $stmt->fetch(PDO::FETCH_NUM);
+
+  echo $total_income = $total[0];
+
+  $stmt = null;
+  $pdo = null;
+}
 ?>
