@@ -72,16 +72,18 @@ function displayDate($id) {
 }
 
 function countDownloads() {
-  include (realpath(__DIR__ . '/../db.php'));
-  $sql = "SELECT SUM(`clicks`) FROM " . $DBtable . "";
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute();
-
-  $total = $stmt->fetch(PDO::FETCH_NUM);
-
-  echo $total_income = $total[0];
-
-  $stmt = null;
-  $pdo = null;
-}
+    include (realpath(__DIR__ . '/../db.php'));
+    $sql = "SELECT SUM(`clicks`) FROM " . $DBtable . "";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    if ($stmt->rowCount() > 0) {
+      $total = $stmt->fetch(PDO::FETCH_NUM);
+      $clicks = number_format($total[0], 0, '', '.');
+      echo 'Opgaverne er tilsammen downloadet i alt ' . $clicks . ' gange';
+    } else {
+      echo '';
+    }
+    $stmt = null;
+    $pdo = null;
+  }
 ?>

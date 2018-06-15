@@ -10,6 +10,7 @@ $stmt->execute();
   if ($stmt->rowCount() > 0) {
       $result = $stmt->fetchAll();
       echo '<div id="searchResults">';
+      countDownloads();
       foreach($result as $row) {
         $rating     = $row['rating'];
         $votes      = $row['votes'];
