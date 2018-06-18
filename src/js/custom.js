@@ -57,8 +57,8 @@ jQuery(document).ready(function($) {
     $('#cover').attr('src', 'img/it-cover.jpg');
   })
 
-  // Smooth scrolling from anchors
-  $('a[href*="#"]').not('.accordion').click(function() {
+  // Smooth scrolling from scroller
+  scroller.click(function() {
     $('html, body').animate({
       scrollTop: 0
     }, 500);
