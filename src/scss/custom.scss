@@ -8,6 +8,7 @@ $body-bg: #f5f2f0;
 $body-color: #383838;
 $bodynav-height: 76px;
 $nav-height: 56px;
+$navbar-dark-color: rgba($white, .95);
 $nav-bg-color: #343a40;
 $color-red: #D14242;
 $link-color: #004a99;
@@ -66,6 +67,15 @@ svg {
     height: 40px;
   }
 }
+
+.navbar-dark {
+  .navbar-nav {
+    .nav-link {
+      color: $navbar-dark-color;
+    }
+  }
+}
+
 @include media-breakpoint-down(md) {
   #global-nav {
     & > .container {
@@ -110,6 +120,7 @@ svg {
     .nav-link {
       padding-top: 0.1rem;
       padding-bottom: 0.1rem;
+      color: rgba($white, .75);
       tap-highlight-color: rgba(0,0,0,.1);
 
       svg {
@@ -125,7 +136,6 @@ svg {
     padding-right: 0;
   }
 }
-
 @include media-breakpoint-up(md) {
   .container {
     width: 768px;
