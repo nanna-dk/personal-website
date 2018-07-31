@@ -10,6 +10,7 @@ var rename = require("gulp-rename");
 var notify = require("gulp-notify");
 var autoprefixer = require("gulp-autoprefixer");
 var minifyJson = require('gulp-minify-inline-json');
+var pump = require('pump');
 
 // Sass compiling options:
 var sassOptions = {
@@ -76,12 +77,16 @@ gulp.task('sass', function() {
     .pipe(browserSync.stream());
 });
 
-gulp.task('scripts', function() {
-  return gulp.src(res.jsSrc)
-    .pipe(concat("bootstrap.min.js"))
-    .pipe(uglify())
-    .pipe(gulp.dest(paths.minJs))
-    .pipe(browserSync.stream());
+gulp.task('scripts', function (cb) {
+  pump([
+    gulp.src(res.jsSrc),
+    concat("bootstrap.min.js"),
+    uglify(),
+    gulp.dest(paths.minJs),
+    browserSync.stream()
+  ],
+    cb
+  );
 });
 
 gulp.task('rename', function() {
