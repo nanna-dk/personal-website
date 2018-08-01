@@ -264,7 +264,7 @@ jQuery(document).ready(function($) {
   }
 
   NEL.setRatings();
-  //NEL.scroll();
+  NEL.scroll();
 
   // Toggle off-canvas menu
   toggle.on('click', function() {

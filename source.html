@@ -6,11 +6,12 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <?php include_once('includes/tracking/analyticsTracking.php'); ?>
+  <?php include_once('includes/functions.php'); ?>
   <meta content="Nanna Ellegaard, Cand.it i Multimedier og frontend-udvikler med speciale indenfor html5, sass/less, javaScript, jQuery, node.js, git, mv. Se CV og opgaver fra Aarhus Universitet." name="description">
   <meta name="theme-color" content="#c14343">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="alternate" href="https://www.<?php echo $_SERVER['SERVER_NAME']; ?>" hreflang="da">
+  <link rel="alternate" href="<?php echo siteUrl(); ?>" hreflang="da">
   <link rel="icon" href="favicon.ico">
   <title>Nanna Ellegaard, Cand.it i Multimedier og frontend-udvikler</title>
   <link href="dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,13 +20,13 @@
     {
       "@context": "http://schema.org",
       "@type": "WebSite",
-      "url": "https://www.<?php echo $_SERVER['SERVER_NAME']; ?>",
+      "url": "<?php echo siteUrl(); ?>",
       "name": "Nanna Ellegard, Cand.it i Multimedier",
       "description": "Nanna Ellegaard, Cand.it i Multimedier og frontend-udvikler med speciale indenfor html5, sass/less, javaScript, jQuery, node.js, git, mv. Se CV og opgaver fra fra Aarhus Universitet.",
       "publisher": "Nanna Ellegaard",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://www.<?php echo $_SERVER['SERVER_NAME']; ?>?q={search_term_string}",
+        "target": "<?php echo siteUrl(); ?>?q={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     }
@@ -38,7 +39,7 @@
         "@type": "PostalAddress",
         "addressLocality": "Copenhagen, Denmark"
       },
-      "image": "https://www.<?php echo $_SERVER['SERVER_NAME']; ?>/img/nanna_ellegaard.jpg",
+      "image": "<?php echo siteUrl(); ?>/img/nanna_ellegaard.jpg",
       "jobTitle": "Front end developer",
       "name": "Nanna Ellegaard",
       "gender": "female",
@@ -51,7 +52,7 @@
         "@type": "EducationalOrganization",
         "name": "University of Copenhagen, Denmark"
       },
-      "url": "https://www.<?php echo $_SERVER['SERVER_NAME']; ?>",
+      "url": "<?php echo siteUrl(); ?>",
       "sameAs": ["https://www.facebook.com/nanna.ellegaard",
         "https://www.linkedin.com/in/nannaellegaard/",
         "https://plus.google.com/102076494911232201521?rel=author",
@@ -330,7 +331,7 @@
     </div>
   </footer>
   <!-- Scroll to top -->
-  <a class="scrolltop fade show" title="top" href="#about"><svg role="presentation"><use xlink:href="img/icons.svg#icon-angle-up"></use></svg></a>
+  <a class="scrolltop fade" title="top" href="#about"><svg role="presentation"><use xlink:href="img/icons.svg#icon-angle-up"></use></svg></a>
   <!-- Scripts: -->
   <script src="dist/js/bootstrap.min.js"></script>
   <script src="dist/js/svgxuse.min.js" defer></script>
