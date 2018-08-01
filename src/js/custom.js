@@ -18,7 +18,7 @@ jQuery(document).ready(function($) {
   // Toggle button
   var toggle = $('[data-toggle="offcanvas"]');
 
-// Namespaced functions:
+  // Namespaced functions:
   var NEL = {
     toggleNav: function() {
       // Toggle offcanvas
@@ -246,10 +246,9 @@ jQuery(document).ready(function($) {
     },
     trackThis: function(text) {
       // Google Analytics event tracking
-      gtag('send', 'event', {
-        eventCategory: text,
-        eventAction: 'Click'
-      });
+      if (text) {
+        gtag('event', text);
+      }
     }
   }
 

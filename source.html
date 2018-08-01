@@ -211,6 +211,9 @@
                   <button class="btn btn-secondary" type="reset" title="Ryd" id="clearSearch" aria-label="Ryd">X</button>
                   <button class="btn btn-primary" type="button" id="goSearch" accesskey="s" title="Søg ved tryk på [Alt] + s" aria-label="Søg">Søg</button>
                 </div>
+                <div class="invalid-feedback">
+                  Indtast et eller flere søgeord.
+                </div>
               </div>
             </div>
           </div>
@@ -324,7 +327,7 @@
         </div>
         <div class="col-xs-12 col-md-6 text-lg-right text-xs-center mt-3 mt-sm-1">
           <p class="copyright-text">Sidst opdateret:
-            <time datetime="<?php echo date("Y-m-d" , getlastmod()) ?>"><?php echo strftime( "%d. %m. %Y", getlastmod() ); ?></time> <br> Copyright ©
+            <time datetime="<?php echo date(" Y-m-d " , getlastmod()) ?>"><?php echo strftime( "%d. %m. %Y", getlastmod() ); ?></time> <br> Copyright ©
             <?php echo date("Y"); ?> Nanna Ellegaard</p>
         </div>
       </div>
