@@ -1,5 +1,5 @@
 <?php
-header("Content-Type: application/rss+xml; charset=UTF-8");
+header('Content-Type: text/xml; charset=utf-8', true); //set document header content type to be XML
 
 // Query the database
 include(realpath(__DIR__ . '/../db.php'));
@@ -7,14 +7,28 @@ include(realpath(__DIR__ . '/../db.php'));
 // General functions
 include(realpath(__DIR__ . '/../functions.php'));
 
-$rssfeed = '<?xml version="1.0" encoding="UTF-8"?>';
-$rssfeed .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">';
-$rssfeed .= '<channel>';
-$rssfeed .= '<title>RSS feed</title>';
-$rssfeed .= '<link>' . siteUrl() .'</link>';
-$rssfeed .= '<description>This is an example RSS feed</description>';
-$rssfeed .= '<language>da</language>';
-$rssfeed .= '<copyright>Copyright © ' . date("Y") . ' ' . $site .'</copyright>';
+//Server timezone
+date_default_timezone_set('Europe/Copenhagen');
+
+$rss = new SimpleXMLElement('<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom"></rss>');
+$rss->addAttribute('version', '2.0');
+
+$channel = $rss->addChild('channel');
+
+// $atom = $channel->addChild('atom:atom:link');
+// $atom->addAttribute('href', siteUrl());
+// $atom->addAttribute('rel', 'self');
+// $atom->addAttribute('type', 'application/rss+xml');
+
+$title       = $channel->addChild('title', 'Nanna Ellegaard');
+$description = $channel->addChild('description', 'Nanna Ellegaard, Cand.it i Multimedier. Find opgaver fra Spansk og Cand.it i Multimedier fra Aarhus Universitet.');
+$link        = $channel->addChild('link', fullSiteUrl());
+$language    = $channel->addChild('language', 'da');
+
+//Create RFC822 Date format to comply with RFC822
+$date_f        = date("D, d M Y H:i:s T", time());
+$build_date    = gmdate(DATE_RFC2822, strtotime($date_f));
+//$lastBuildDate = $channel->addChild('lastBuildDate', $date_f);
 
 $sql  = "SELECT * FROM " . $DBtable . " ORDER BY dates DESC";
 $stmt = $pdo->prepare($sql);
@@ -23,32 +37,30 @@ $stmt->execute();
 if ($stmt->rowCount() > 0) {
     $result = $stmt->fetchAll();
     foreach ($result as $row) {
-        $id     = $row['id'];
-        $title  = $row['title'];
-        $desc   = $row['description'];
-        $cleanText = preg_replace('/<a[^>]*>.*?<\/a>/i', '', $desc);
+        $titles = $row['title'];
+        $full_desc   = $row['description'];
+        $desc = preg_replace('/<a[^>]*>.*?<\/a>/i', '', $full_desc);
         $url    = $row['url'];
-        $clicks = number_format($row['clicks'], 0, '', '.');
         $dates  = $row['dates'];
-        $rssfeed .= '<item>';
-        $rssfeed .= '<title>' . $title . '</title>';
-        $rssfeed .= '<description><![CDATA[' . $cleanText . ']]></description>';
-        $rssfeed .= '<link>' . $url . '</link>';
-        $rssfeed .= '<guid isPermaLink="true">' . fullSiteUrl() . '#-' . randomString(6) . $dates .'</guid>';
-        $rssfeed .= '<pubDate>' . date("D, d M Y H:i:s O", strtotime($row['dates'])) . '</pubDate>';
-        //$rssfeed .= '<atom:link href="' . fullSiteUrl() .' rel="self" type="application/rss+xml" />';
-        $rssfeed .= '</item>';
+
+        $item  = $channel->addChild('item');
+        $title = $item->addChild('title', $titles);
+        $link  = $item->addChild('link', $url);
+        $guid  = $item->addChild('guid', $url);
+        $guid->addAttribute('isPermaLink', 'true');
+
+        $description = $item->addChild('description', $desc);
+
+        $date_rfc = gmdate(DATE_RFC2822, strtotime($dates));
+        $item = $item->addChild('pubDate', $date_rfc);
     }
 } else {
     echo 'Ingen resultater fundet.';
 }
-$rssfeed .= '</channel>';
-$rssfeed .= '</rss>';
 
-echo $rssfeed;
+echo $rss->asXML();
 
 // Closing
 $stmt = null;
 $pdo  = null;
-
 ?>
