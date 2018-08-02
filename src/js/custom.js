@@ -252,6 +252,7 @@ jQuery(document).ready(function($) {
     }
   }
 
+  // Run on load:
   var query = NEL.urlParam('q');
   if (query) {
     $(search).val(decodeURIComponent(NEL.strip_html_tags(query)));
@@ -265,6 +266,7 @@ jQuery(document).ready(function($) {
   NEL.setRatings();
   NEL.scroll();
 
+  // Events:
   // Toggle off-canvas menu
   toggle.on('click', function() {
     NEL.toggleNav();
