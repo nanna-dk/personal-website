@@ -20,17 +20,17 @@ $channel = $rss->addChild('channel');
 // $atom->addAttribute('rel', 'self');
 // $atom->addAttribute('type', 'application/rss+xml');
 
-$title       = $channel->addChild('title', 'Nanna Ellegaard');
+$title = $channel->addChild('title', 'Nanna Ellegaard');
 $description = $channel->addChild('description', 'Nanna Ellegaard, Cand.it i Multimedier. Find opgaver fra Spansk og Cand.it i Multimedier fra Aarhus Universitet.');
-$link        = $channel->addChild('link', fullSiteUrl());
-$language    = $channel->addChild('language', 'da');
+$link = $channel->addChild('link', fullSiteUrl());
+$language = $channel->addChild('language', 'da');
 
 //Create RFC822 Date format to comply with RFC822
-$date_f        = date("D, d M Y H:i:s T", time());
-$build_date    = gmdate(DATE_RFC2822, strtotime($date_f));
+$date_f = date("D, d M Y H:i:s T", time());
+$build_date = gmdate(DATE_RFC2822, strtotime($date_f));
 //$lastBuildDate = $channel->addChild('lastBuildDate', $date_f);
 
-$sql  = "SELECT * FROM " . $DBtable . " ORDER BY dates DESC";
+$sql = "SELECT * FROM " . $DBtable . " ORDER BY dates DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 
@@ -38,15 +38,15 @@ if ($stmt->rowCount() > 0) {
     $result = $stmt->fetchAll();
     foreach ($result as $row) {
         $titles = $row['title'];
-        $full_desc   = $row['description'];
+        $full_desc = $row['description'];
         $desc = preg_replace('/<a[^>]*>.*?<\/a>/i', '', $full_desc);
-        $url    = $row['url'];
-        $dates  = $row['dates'];
+        $url = $row['url'];
+        $dates = $row['dates'];
 
-        $item  = $channel->addChild('item');
+        $item = $channel->addChild('item');
         $title = $item->addChild('title', $titles);
-        $link  = $item->addChild('link', $url);
-        $guid  = $item->addChild('guid', $url);
+        $link = $item->addChild('link', $url);
+        $guid = $item->addChild('guid', $url);
         $guid->addAttribute('isPermaLink', 'true');
 
         $description = $item->addChild('description', $desc);
