@@ -38,6 +38,7 @@ var autoprefixerOptions = {
 // project paths
 var paths = {
   root: "./",
+  page: "source.html",
   src: "./src",
   minCss: "./dist/css",
   minJs: "./dist/js"
@@ -55,19 +56,23 @@ var res = {
   ]
 };
 
-gulp.task('browser-sync', ['sass'], function() {
-    browserSync.init({
-        server: "./",
-        //proxy: '127.0.0.1:8080',
-        index: "source.html",
-        online: true,
-        notify: false
-    });
-    gulp.watch(res.cssSrc, ['sass']);
-    gulp.watch(res.jsSrc, ['scripts']);
-});
+function reload(done) {
+  browserSync.reload();
+  done();
+}
 
-gulp.task('sass', function() {
+function serve(done) {
+  browserSync.init({
+      server: "./",
+      //proxy: '127.0.0.1:8080',
+      index: paths.page,
+      online: true,
+      notify: false
+  });
+  done();
+}
+
+function styles() {
   return gulp.src(res.cssSrc)
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
     .pipe(sass(sassOptions).on('error', sass.logError))
@@ -75,22 +80,22 @@ gulp.task('sass', function() {
     .pipe(concat("bootstrap.min.css"))
     .pipe(gulp.dest(paths.minCss))
     .pipe(browserSync.stream());
-});
+}
 
-gulp.task('scripts', function (cb) {
+function scripts(cb) {
   pump([
-    gulp.src(res.jsSrc),
-    concat("bootstrap.min.js"),
-    uglify(),
-    gulp.dest(paths.minJs),
-    browserSync.stream()
-  ],
-    cb
-  );
-});
+      gulp.src(res.jsSrc),
+      concat("bootstrap.min.js"),
+      uglify(),
+      gulp.dest(paths.minJs),
+      browserSync.stream()
+    ],
+      cb
+    );
+}
 
-gulp.task('rename', function() {
-  return gulp.src(paths.root + '/*.html')
+function renameExt() {
+  return gulp.src(paths.page)
     .pipe(rename({
       basename: "index",
       extname: ".php"
@@ -101,10 +106,22 @@ gulp.task('rename', function() {
     }))
     .pipe(minifyJson())
     .pipe(gulp.dest(paths.root));
-});
+}
 
-gulp.task('watch', ['browser-sync'], function () {
-    gulp.watch(res.cssSrc, ['sass']);
-    gulp.watch(res.jsSrc, ['scripts']);
-    gulp.watch(paths.root + '/*.html', ['rename']).on('change', browserSync.reload);
-});
+function watch() {
+  gulp.watch(res.cssSrc, styles, gulp.series(reload));
+  gulp.watch(res.jsSrc, scripts, gulp.series(reload));
+  gulp.watch(paths.page, renameExt).on('change', browserSync.reload);
+}
+
+exports.reload = reload;
+exports.styles = styles;
+exports.scripts = scripts;
+exports.renameExt = renameExt;
+exports.watch = watch;
+
+var build = gulp.parallel(styles, scripts, renameExt);
+
+gulp.task('build', build);
+
+gulp.task('default', gulp.series(serve, watch, build));
