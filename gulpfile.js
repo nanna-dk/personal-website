@@ -1,16 +1,16 @@
 'use strict';
-var gulp = require('gulp');
-var browserSync = require('browser-sync').create();
-var plumber = require('gulp-plumber');
-var sass = require('gulp-sass');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var htmlmin = require('gulp-htmlmin');
-var rename = require("gulp-rename");
-var notify = require("gulp-notify");
-var autoprefixer = require("gulp-autoprefixer");
-var minifyJson = require('gulp-minify-inline-json');
-var pump = require('pump');
+var gulp = require('gulp'),
+browserSync = require('browser-sync').create(),
+plumber = require('gulp-plumber'),
+sass = require('gulp-sass'),
+concat = require('gulp-concat'),
+uglify = require('gulp-uglify'),
+htmlmin = require('gulp-htmlmin'),
+rename = require("gulp-rename"),
+notify = require("gulp-notify"),
+autoprefixer = require("gulp-autoprefixer"),
+minifyJson = require('gulp-minify-inline-json'),
+pump = require('pump');
 
 // Sass compiling options:
 var sassOptions = {
@@ -46,9 +46,11 @@ var paths = {
 
 // List of rssource files to concatenate
 var res = {
-  jsSrc: [
+  bsJs: [
     'node_modules/jquery/dist/jquery.min.js',
-    'node_modules/bootstrap/dist/js/bootstrap.min.js',
+    'node_modules/bootstrap/dist/js/bootstrap.min.js'
+  ],
+  customJs: [
      paths.src + '/js/custom.js'
   ],
   cssSrc: [
@@ -83,10 +85,11 @@ function styles() {
 }
 
 function scripts(cb) {
+  var arrays = res.bsJs.concat(res.customJs);
   pump([
-      gulp.src(res.jsSrc),
-      concat("bootstrap.min.js"),
+      gulp.src(arrays),
       uglify(),
+      concat("bootstrap.min.js"),
       gulp.dest(paths.minJs),
       browserSync.stream()
     ],
@@ -110,7 +113,7 @@ function renameExt() {
 
 function watch() {
   gulp.watch(res.cssSrc, styles, gulp.series(reload));
-  gulp.watch(res.jsSrc, scripts, gulp.series(reload));
+  gulp.watch(paths.src + '/js/**/*.js', scripts, gulp.series(reload));
   gulp.watch(paths.page, renameExt).on('change', browserSync.reload);
 }
 
