@@ -47,8 +47,8 @@ var paths = {
 // List of rssource files to concatenate
 var res = {
   bsJs: [
-    'node_modules/jquery/dist/jquery.min.js',
-    'node_modules/bootstrap/dist/js/bootstrap.min.js'
+    'node_modules/jquery/dist/jquery.js',
+    'node_modules/bootstrap/dist/js/bootstrap.js'
   ],
   customJs: [
      paths.src + '/js/custom.js'
