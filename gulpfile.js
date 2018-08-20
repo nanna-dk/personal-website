@@ -5,14 +5,15 @@ reload = browserSync.reload,
 plumber = require('gulp-plumber'),
 sass = require('gulp-sass'),
 concat = require('gulp-concat'),
-eslint = require("gulp-eslint"),
+jshint = require("gulp-jshint"),
 uglify = require('gulp-uglify'),
 htmlmin = require('gulp-htmlmin'),
 rename = require("gulp-rename"),
 notify = require("gulp-notify"),
 autoprefixer = require("gulp-autoprefixer"),
 minifyJson = require('gulp-minify-inline-json'),
-pump = require('pump');
+pump = require('pump'),
+jsStylish = require('jshint-stylish');
 
 // Sass compiling options:
 var sassOptions = {
@@ -80,9 +81,9 @@ function scriptsLint() {
   return gulp
     .src(res.customJs)
     .pipe(plumber())
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
+    .pipe(jshint())
+    .pipe(jshint.reporter(jsStylish));
+    //.pipe(jshint.reporter('fail'));
 }
 
 // Transpile, concatenate and minify scripts
