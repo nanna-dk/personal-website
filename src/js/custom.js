@@ -1,3 +1,4 @@
+'use strict';
 jQuery(document).ready(function($) {
   // Search
   var search = $('#search');
@@ -138,9 +139,7 @@ jQuery(document).ready(function($) {
       var itemId = $(this).closest('.ratings').attr('data-id');
       var vote = $(this).attr('data-vote');
       // Cookie 'Rating' is set in vote.php:
-      var cookieExists = (document.cookie.indexOf('Rating') > -1)
-        ? true
-        : false;
+      var cookieExists = (document.cookie.indexOf('Rating') > -1) ? true : false;
       if (cookieExists == false) {
         $.ajax({
           url: 'includes/rating/vote.php',
@@ -162,9 +161,7 @@ jQuery(document).ready(function($) {
             rated.find('.bg').animate({
               width: average + '%'
             }, 500);
-            var suffix = (data.votes == 1)
-              ? "bedømmelse"
-              : "bedømmelser";
+            var suffix = (data.votes == 1) ? "bedømmelse" : "bedømmelser";
             rated.find('.votes').html(data.votes + " " + suffix);
             NEL.trackThis("Rated assignment no. " + itemId + " with " + vote);
           },
@@ -193,8 +190,8 @@ jQuery(document).ready(function($) {
         params = '?' + newParam;
       // If the "search" string exists, then build params from it
       if (urlQueryString) {
-        updateRegex = new RegExp('([\?&])' + key + '[^&]*');
-        removeRegex = new RegExp('([\?&])' + key + '=[^&;]+[&;]?');
+        var updateRegex = new RegExp('([\?&])' + key + '[^&]*');
+        var removeRegex = new RegExp('([\?&])' + key + '=[^&;]+[&;]?');
         if (typeof value == 'undefined' || value == null || value == '') { // Remove param if value is empty
           params = urlQueryString.replace(removeRegex, "$1");
           params = params.replace(/[&;]$/, "");
@@ -250,7 +247,7 @@ jQuery(document).ready(function($) {
         gtag('event', text);
       }
     }
-  }
+  };
 
   // Run on load:
   var query = NEL.urlParam('q');
@@ -305,9 +302,7 @@ jQuery(document).ready(function($) {
   // Trigger search by Enter key
   search.keypress(function(e) {
     var code = (
-      e.keyCode
-      ? e.keyCode
-      : e.which);
+      e.keyCode ? e.keyCode : e.which);
     if ((code == 13) || (code == 10)) {
       btnSearch.click();
     }
