@@ -1,9 +1,11 @@
 'use strict';
 var gulp = require('gulp'),
 browserSync = require('browser-sync').create(),
+reload = browserSync.reload,
 plumber = require('gulp-plumber'),
 sass = require('gulp-sass'),
 concat = require('gulp-concat'),
+eslint = require("gulp-eslint"),
 uglify = require('gulp-uglify'),
 htmlmin = require('gulp-htmlmin'),
 rename = require("gulp-rename"),
@@ -40,8 +42,8 @@ var paths = {
 // List of rssource files to concatenate
 var res = {
   bsJs: [
-    'node_modules/jquery/dist/jquery.js',
-    'node_modules/bootstrap/dist/js/bootstrap.js'
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/bootstrap/dist/js/bootstrap.min.js'
   ],
   customJs: [
      paths.src + '/js/custom.js'
@@ -50,11 +52,6 @@ var res = {
      paths.src + '/scss/custom.scss'
   ]
 };
-
-function reload(done) {
-  browserSync.reload();
-  done();
-}
 
 function serve(done) {
   browserSync.init({
@@ -67,6 +64,7 @@ function serve(done) {
   done();
 }
 
+// Compile styles
 function styles() {
   return gulp.src(res.cssSrc)
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
@@ -77,17 +75,26 @@ function styles() {
     .pipe(browserSync.stream());
 }
 
-function scripts(cb) {
+// Lint scripts
+function scriptsLint() {
+  return gulp
+    .src(res.customJs)
+    .pipe(plumber())
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+}
+
+// Transpile, concatenate and minify scripts
+function scripts() {
   var arrays = res.bsJs.concat(res.customJs);
-  pump([
-      gulp.src(arrays),
-      uglify(),
-      concat("bootstrap.min.js"),
-      gulp.dest(paths.minJs),
-      browserSync.stream()
-    ],
-      cb
-    );
+  return gulp
+    .src(arrays)
+    .pipe(plumber())
+    .pipe(concat("bootstrap.min.js"))
+    .pipe(uglify())
+    .pipe(gulp.dest(paths.minJs))
+    .pipe(browserSync.stream());
 }
 
 function renameExt() {
@@ -105,19 +112,12 @@ function renameExt() {
 }
 
 function watch() {
-  gulp.watch(res.cssSrc, styles, gulp.series(reload));
-  gulp.watch(paths.src + '/js/**/*.js', scripts, gulp.series(reload));
-  gulp.watch(paths.page, renameExt).on('change', browserSync.reload);
+  gulp.watch(res.cssSrc, styles).on("change", reload);
+  gulp.watch(paths.src + '/js/**/*.js', gulp.series(scriptsLint, scripts)).on("change", reload);
+  gulp.watch(paths.page, renameExt).on("change", reload);
 }
 
-exports.reload = reload;
-exports.styles = styles;
-exports.scripts = scripts;
-exports.renameExt = renameExt;
-exports.watch = watch;
+gulp.task("js", gulp.series(scriptsLint, scripts));
 
-var build = gulp.parallel(styles, scripts, renameExt);
-
-gulp.task('build', build);
-
+var build = gulp.parallel(styles, "js", renameExt);
 gulp.task('default', gulp.series(serve, watch, build));
