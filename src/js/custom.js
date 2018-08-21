@@ -139,7 +139,9 @@ jQuery(document).ready(function($) {
       var itemId = $(this).closest('.ratings').attr('data-id');
       var vote = $(this).attr('data-vote');
       // Cookie 'Rating' is set in vote.php:
-      var cookieExists = (document.cookie.indexOf('Rating') > -1) ? true : false;
+      var cookieExists = (document.cookie.indexOf('Rating') > -1)
+        ? true
+        : false;
       if (cookieExists == false) {
         $.ajax({
           url: 'includes/rating/vote.php',
@@ -161,7 +163,9 @@ jQuery(document).ready(function($) {
             rated.find('.bg').animate({
               width: average + '%'
             }, 500);
-            var suffix = (data.votes == 1) ? "bedømmelse" : "bedømmelser";
+            var suffix = (data.votes == 1)
+              ? "bedømmelse"
+              : "bedømmelser";
             rated.find('.votes').html(data.votes + " " + suffix);
             NEL.trackThis("Rated assignment no. " + itemId + " with " + vote);
           },
@@ -235,7 +239,9 @@ jQuery(document).ready(function($) {
       $('#name').val('');
       $('#email').val('');
       $('#msg').val('');
-      grecaptcha.reset();
+      if (window.grecaptcha) {
+        grecaptcha.reset();
+      }
     },
     clearErrors: function() {
       // Clear form errors
