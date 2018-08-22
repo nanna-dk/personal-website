@@ -5,6 +5,7 @@ jQuery(document).ready(function($) {
   var clearSearch = $('#clearSearch');
   var btnSearch = $('#goSearch');
   // Send e-mail
+  var contactFormModal = $('#contactFormModal');
   var contactform = $('#contactform');
   var sendMsg = $('#sendMail');
   var messages = $('.feedback');
@@ -308,7 +309,9 @@ jQuery(document).ready(function($) {
   // Trigger search by Enter key
   search.keypress(function(e) {
     var code = (
-      e.keyCode ? e.keyCode : e.which);
+      e.keyCode
+      ? e.keyCode
+      : e.which);
     if ((code == 13) || (code == 10)) {
       btnSearch.click();
     }
@@ -337,6 +340,18 @@ jQuery(document).ready(function($) {
   sendMsg.click(function() {
     NEL.sendMsg();
   });
+
+  // Load Captcha when modal is opened
+  // contactFormModal.on('show.bs.modal', function() {
+  //   $.getScript("https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad")
+  //   .done(function(s, textStatus) {
+  //     console.log(textStatus);
+  //     //onReCaptchaLoad();
+  //   })
+  //   .fail(function(jqxhr, settings, exception) {
+  //     console.log("Error: " + exception);
+  //   });
+  // });
 
   // Clear feedback mmessages when modal is closed
   contactform.on('hidden.bs.modal', function() {
