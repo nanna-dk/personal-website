@@ -13,7 +13,6 @@
   <title>Nanna Ellegaard, Cand.it i Multimedier og frontend-udvikler</title>
   <link href="dist/css/bootstrap.min.css" rel="stylesheet">
   <?php include_once('includes/tracking/analyticsTracking.php'); ?>
-  <script type="text/javascript" src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script type="application/ld+json">
     {
       "@context": "http://schema.org",
@@ -294,7 +293,7 @@
             </div>
             <div class="feedback" role="alert"></div>
             <div class="captcha-box">
-              <div class="g-recaptcha" data-callback="onReCaptchaLoad" data-theme="light" data-sitekey="6LdqpBIUAAAAAAq17acWDx1oHuJsrQOdVQFb88rh"> </div>
+              <div class="g-recaptcha" id="recaptcha" data-callback="onReCaptchaLoad" data-theme="light"> </div>
             </div>
           </form>
         </div>

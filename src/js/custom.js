@@ -342,19 +342,14 @@ jQuery(document).ready(function($) {
   });
 
   // Load Captcha when modal is opened
-  // contactFormModal.on('show.bs.modal', function() {
-  //   $.getScript("https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad")
-  //   .done(function(s, textStatus) {
-  //     console.log(textStatus);
-  //     //onReCaptchaLoad();
-  //   })
-  //   .fail(function(jqxhr, settings, exception) {
-  //     console.log("Error: " + exception);
-  //   });
-  // });
+  contactFormModal.on('show.bs.modal', function() {
+    $.getScript("https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad").done(function(s, Status) {}).fail(function(jqxhr, settings, exception) {
+      console.log("Error loading script: " + exception);
+    });
+  });
 
   // Clear feedback mmessages when modal is closed
-  contactform.on('hidden.bs.modal', function() {
+  contactFormModal.on('hidden.bs.modal', function() {
     messages.text('').removeClass('alert alert-danger alert-success');
     NEL.clearInput();
   });
@@ -374,3 +369,17 @@ jQuery(document).ready(function($) {
   });
 
 });
+
+var myCaptcha = null;
+var onReCaptchaLoad = function() {
+  if (myCaptcha === null) {
+    myCaptcha = grecaptcha.render('recaptcha', {
+      sitekey: '6LdqpBIUAAAAAAq17acWDx1oHuJsrQOdVQFb88rh',
+      callback: function(response) {
+        //console.log(grecaptcha.getResponse(myCaptcha));
+      }
+    });
+  } else {
+    grecaptcha.reset(myCaptcha);
+  }
+};
