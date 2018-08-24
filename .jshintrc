@@ -2,7 +2,9 @@
   "node": true,
   "globals": {
     "$": false,
-    "jQuery": true
+    "jQuery": true,
+    "grecaptcha": true,
+    "gtag": true
   },
   "browser": true
 }
