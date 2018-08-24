@@ -1,3 +1,5 @@
 {
-  "preserve_ternary_lines": true
+  "js": {
+    "preserve_ternary_lines": true
+  }
 }
