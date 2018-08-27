@@ -1,0 +1,22 @@
+{
+  "name": "Nanna Ellegaard, cand.it og front-end udvikler",
+  "short_name": "e-nanna.dk",
+  "description": "Min interaktive legeplads med CV, it-opgaver, etc.",
+  "start_url": "/",
+  "display": "standalone",
+  "lang": "da-DK",
+  "background_color": "#d75959",
+  "theme_color": "#d75959",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+      },
+    {
+      "src": "/android-chrome-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+      }
+  ]
+}
