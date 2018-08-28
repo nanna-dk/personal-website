@@ -1,11 +1,10 @@
 'use strict';
-// Service ServiceWorker
+// Service Worker
 
 var CACHE_NAME = 'NEL-site-cache-v1';
 var urlsToCache = ['dist/', 'dist/css/bootstrap.min.css', 'dist/js/bootstrap.min.js'];
 
 self.addEventListener('install', function(event) {
-  // Perform install steps
   event.waitUntil(caches.open(CACHE_NAME).then(function(cache) {
     //console.log('Opened cache');
     return cache.addAll(urlsToCache);
