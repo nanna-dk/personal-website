@@ -4,7 +4,9 @@
     "$": false,
     "jQuery": true,
     "grecaptcha": true,
-    "gtag": true
+    "gtag": true,
+    "self": true,
+    "caches": true
   },
   "browser": true
 }

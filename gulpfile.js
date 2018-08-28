@@ -78,8 +78,9 @@ function styles() {
 
 // Lint scripts
 function scriptsLint() {
+  var arrays = res.customJs.concat('sw.js');
   return gulp
-    .src(res.customJs)
+    .src(arrays)
     .pipe(plumber())
     .pipe(jshint())
     .pipe(jshint.reporter(jsStylish));
