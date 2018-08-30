@@ -1,32 +1,30 @@
 'use strict';
 var gulp = require('gulp'),
-browserSync = require('browser-sync').create(),
-reload = browserSync.reload,
-plumber = require('gulp-plumber'),
-sass = require('gulp-sass'),
-concat = require('gulp-concat'),
-jshint = require("gulp-jshint"),
-uglify = require('gulp-uglify'),
-htmlmin = require('gulp-htmlmin'),
-rename = require("gulp-rename"),
-notify = require("gulp-notify"),
-autoprefixer = require("gulp-autoprefixer"),
-minifyJson = require('gulp-minify-inline-json'),
-pump = require('pump'),
-jsStylish = require('jshint-stylish');
+  browserSync = require('browser-sync').create(),
+  reload = browserSync.reload,
+  plumber = require('gulp-plumber'),
+  sass = require('gulp-sass'),
+  concat = require('gulp-concat'),
+  jshint = require("gulp-jshint"),
+  uglify = require('gulp-uglify'),
+  htmlmin = require('gulp-htmlmin'),
+  rename = require("gulp-rename"),
+  notify = require("gulp-notify"),
+  autoprefixer = require("gulp-autoprefixer"),
+  minifyJson = require('gulp-minify-inline-json'),
+  pump = require('pump'),
+  jsStylish = require('jshint-stylish');
 
 // Sass compiling options:
 var sassOptions = {
-    errLogToConsole: true,
-    outputStyle: 'compressed'
+  errLogToConsole: true,
+  outputStyle: 'compressed'
 };
 
 // Autoprefixer options
 var autoprefixerOptions = {
   browsers: [
-    "last 1 version",
-    "> 1%",
-    "not dead"
+    "last 1 version", "> 1%", "not dead"
   ],
   cascade: false
 };
@@ -46,28 +44,25 @@ var res = {
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.min.js'
   ],
-  customJs: [
-     paths.src + '/js/custom.js'
-  ],
-  cssSrc: [
-     paths.src + '/scss/custom.scss'
-  ]
+  customJs: [paths.src + '/js/custom.js'],
+  cssSrc: [paths.src + '/scss/custom.scss']
 };
 
 function serve(done) {
   browserSync.init({
-      server: "./",
-      //proxy: '127.0.0.1:8080',
-      index: paths.page,
-      online: true,
-      notify: false
+    server: paths.root,
+    //proxy: '127.0.0.1:8080',
+    index: paths.page,
+    online: true,
+    notify: false
   });
   done();
 }
 
 // Compile styles
 function styles() {
-  return gulp.src(res.cssSrc)
+  return gulp
+    .src(res.cssSrc)
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
     .pipe(sass(sassOptions).on('error', sass.logError))
     .pipe(autoprefixer(autoprefixerOptions))
@@ -84,7 +79,7 @@ function scriptsLint() {
     .pipe(plumber())
     .pipe(jshint())
     .pipe(jshint.reporter(jsStylish));
-    //.pipe(jshint.reporter('fail'));
+  //.pipe(jshint.reporter('fail'));
 }
 
 // Transpile, concatenate and minify scripts
@@ -100,23 +95,30 @@ function scripts() {
 }
 
 function renameExt() {
-  return gulp.src(paths.page)
+  return gulp
+    .src(paths.page)
     .pipe(rename({
       basename: "index",
       extname: ".php"
     }))
     .pipe(htmlmin({
-        removeComments: true,
-        collapseWhitespace: true
+      removeComments: true,
+      collapseWhitespace: true
     }))
     .pipe(minifyJson())
     .pipe(gulp.dest(paths.root));
 }
 
 function watch() {
-  gulp.watch(res.cssSrc, styles).on("change", reload);
-  gulp.watch(paths.src + '/js/**/*.js', gulp.series(scriptsLint, scripts)).on("change", reload);
-  gulp.watch(paths.page, renameExt).on("change", reload);
+  gulp
+    .watch(res.cssSrc, styles)
+    .on("change", reload);
+  gulp
+    .watch(paths.src + '/js/**/*.js', gulp.series(scriptsLint, scripts))
+    .on("change", reload);
+  gulp
+    .watch(paths.page, renameExt)
+    .on("change", reload);
 }
 
 gulp.task("js", gulp.series(scriptsLint, scripts));
