@@ -13,7 +13,8 @@
   <link rel="mask-icon" href="img/icons/safari-pinned-tab.svg" color="#d75959">
   <meta name="msapplication-TileColor" content="#d75959">
   <meta name="theme-color" content="#d75959">
-  <link rel="alternate" href="https://www.<?php echo $_SERVER['SERVER_NAME']; ?>" hreflang="da">
+  <?php include('includes/functions.php'); ?>
+  <link rel="alternate" href="<?php echo siteUrl(); ?>" hreflang="da">
   <title>Nanna Ellegaard, Cand.it i Multimedier og frontend-udvikler</title>
   <link href="dist/css/bootstrap.min.css" rel="stylesheet">
   <?php include_once('includes/tracking/analyticsTracking.php'); ?>
@@ -21,13 +22,13 @@
     {
       "@context": "http://schema.org",
       "@type": "WebSite",
-      "url": "https://www.<?php echo $_SERVER['SERVER_NAME']; ?>",
+      "url": "<?php echo siteUrl(); ?>",
       "name": "Nanna Ellegard, Cand.it i Multimedier",
       "description": "Nanna Ellegaard, Cand.it i Multimedier og frontend-udvikler med speciale indenfor html5, sass/less, javaScript, jQuery, node.js, git, mv. Se CV og opgaver fra fra Aarhus Universitet.",
       "publisher": "Nanna Ellegaard",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://www.<?php echo $_SERVER['SERVER_NAME']; ?>?q={search_term_string}",
+        "target": "<?php echo siteUrl(); ?>?q={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     }
@@ -40,7 +41,7 @@
         "@type": "PostalAddress",
         "addressLocality": "Copenhagen, Denmark"
       },
-      "image": "https://www.<?php echo $_SERVER['SERVER_NAME']; ?>/img/nanna_ellegaard.jpg",
+      "image": "<?php echo siteUrl(); ?>/img/nanna_ellegaard.jpg",
       "jobTitle": "Front end developer",
       "name": "Nanna Ellegaard",
       "gender": "female",
@@ -53,7 +54,7 @@
         "@type": "EducationalOrganization",
         "name": "University of Copenhagen, Denmark"
       },
-      "url": "https://www.<?php echo $_SERVER['SERVER_NAME']; ?>",
+      "url": "<?php echo siteUrl(); ?>",
       "sameAs": ["https://www.facebook.com/nanna.ellegaard",
         "https://www.linkedin.com/in/nannaellegaard/",
         "https://plus.google.com/102076494911232201521?rel=author",
