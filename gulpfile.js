@@ -97,13 +97,13 @@ function scripts() {
 function renameExt() {
   return gulp
     .src(paths.page)
-    .pipe(rename({
-      basename: "index",
-      extname: ".php"
-    }))
     .pipe(htmlmin({
       removeComments: true,
       collapseWhitespace: true
+    }))
+    .pipe(rename({
+      basename: "index",
+      extname: ".php"
     }))
     .pipe(minifyJson())
     .pipe(gulp.dest(paths.root));
