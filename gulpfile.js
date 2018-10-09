@@ -13,7 +13,8 @@ var gulp = require('gulp'),
   autoprefixer = require("gulp-autoprefixer"),
   minifyJson = require('gulp-minify-inline-json'),
   pump = require('pump'),
-  jsStylish = require('jshint-stylish');
+  jsStylish = require('jshint-stylish'),
+  svgmin = require('gulp-svgmin');
 
 // Sass compiling options:
 var sassOptions = {
@@ -35,7 +36,8 @@ var paths = {
   page: "source.html",
   src: "./src",
   minCss: "./dist/css",
-  minJs: "./dist/js"
+  minJs: "./dist/js",
+  minImg: "./dist/img"
 };
 
 // List of rssource files to concatenate
@@ -45,7 +47,8 @@ var res = {
     'node_modules/bootstrap/dist/js/bootstrap.min.js'
   ],
   customJs: [paths.src + '/js/custom.js'],
-  cssSrc: [paths.src + '/scss/custom.scss']
+  cssSrc: [paths.src + '/scss/custom.scss'],
+  minImg: paths.src + '/img/*.svg'
 };
 
 function serve(done) {
@@ -58,6 +61,13 @@ function serve(done) {
   });
   done();
 }
+
+// function imgMin() {
+//   return gulp
+//     .src(res.minImg)
+//     .pipe(svgmin())
+//     .pipe(gulp.dest(paths.minImg));
+// }
 
 // Compile styles
 function styles() {
@@ -110,6 +120,9 @@ function renameExt() {
 }
 
 function watch() {
+  // gulp
+  //   .watch(res.minImg, imgMin)
+  //   .on("change", reload);
   gulp
     .watch(res.cssSrc, styles)
     .on("change", reload);
