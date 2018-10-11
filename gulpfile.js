@@ -62,12 +62,20 @@ function serve(done) {
   done();
 }
 
-// function imgMin() {
-//   return gulp
-//     .src(res.minImg)
-//     .pipe(svgmin())
-//     .pipe(gulp.dest(paths.minImg));
-// }
+function imgMin() {
+  return gulp
+    .src(res.minImg)
+    .pipe(svgmin({
+        plugins: [{
+            cleanupIDs: false
+        }, {
+            removeUselessDefs: false
+        }, {
+            removeViewBox: true
+        }]
+    }))
+    .pipe(gulp.dest(paths.minImg));
+}
 
 // Compile styles
 function styles() {
@@ -120,9 +128,9 @@ function renameExt() {
 }
 
 function watch() {
-  // gulp
-  //   .watch(res.minImg, imgMin)
-  //   .on("change", reload);
+  gulp
+    .watch(res.minImg, imgMin)
+    .on("change", reload);
   gulp
     .watch(res.cssSrc, styles)
     .on("change", reload);
@@ -136,5 +144,5 @@ function watch() {
 
 gulp.task("js", gulp.series(scriptsLint, scripts));
 
-var build = gulp.parallel(styles, "js", renameExt);
+var build = gulp.parallel(styles, "js", renameExt, imgMin);
 gulp.task('default', gulp.series(serve, watch, build));
