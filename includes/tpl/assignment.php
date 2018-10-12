@@ -34,7 +34,7 @@
   echo '<span class="stars">';
   for ($i = 1; $i <= 5; $i++):
       echo '<span class="star" data-vote="' . $i . '" title="' . $i . '/5">
-          <svg role="presentation"><use xlink:href="img/icons.svg#icon-star"></use></svg>
+          <svg role="presentation"><use xlink:href="dist/img/icons.svg#icon-star"></use></svg>
         </span>';
   endfor;
   echo '</span>';

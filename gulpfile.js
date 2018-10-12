@@ -53,8 +53,11 @@ var res = {
 
 function serve(done) {
   browserSync.init({
-    server: paths.root,
-    //proxy: '127.0.0.1:8080',
+    host: '127.0.0.1',
+    port: 8080,
+    open: 'external',
+    proxy: '127.0.0.1:8080/personal-website/',
+    //server: paths.root,
     index: paths.page,
     online: true,
     notify: false
@@ -71,7 +74,11 @@ function imgMin() {
         }, {
             removeUselessDefs: false
         }, {
-            removeViewBox: true
+            removeTitle: false
+        }, {
+            removeDimensions: false
+        }, {
+            removeViewBox: false
         }]
     }))
     .pipe(gulp.dest(paths.minImg));

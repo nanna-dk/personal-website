@@ -7,6 +7,7 @@ var urlsToCache = [
   'dist/css/bootstrap.min.css',
   'dist/js/bootstrap.min.js',
   'dist/js/svgxuse.min.js',
+  'dist/img/icons.svg',
   'img/icons/favicon-16x16.png',
   'img/icons/favicon-32x32.png',
   'img/icons/android-chrome-192x192.png',
@@ -15,7 +16,6 @@ var urlsToCache = [
   'img/icons/safari-pinned-tab.svg',
   'img/icons/mstile-150x150.png',
   'img/it-cover.jpg',
-  'img/icons.svg',
   'favicon.ico'
 ];
 
