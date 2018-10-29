@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // If the Google Recaptcha box was clicked
     if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){
         $captcha = $_POST['g-recaptcha-response'];
-        $secret  = '6LdqpBIUAAAAAFQF5a2Enla1sI0xAlN6xWsn4iST';
+        $secret  = $captcha_secret_key;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
