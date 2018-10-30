@@ -2,8 +2,8 @@
 var version = '0.1.0';
 var cacheName = 'NEL-${version}';
 var urlsToCache = [
-  '/',
-  'index.php',
+  //'/',
+  //'index.php',
   'dist/css/bootstrap.min.css',
   'dist/js/bootstrap.min.js',
   'dist/js/svgxuse.min.js',

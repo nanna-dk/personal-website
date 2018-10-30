@@ -136,9 +136,7 @@ jQuery(document).ready(function($) {
         }, 500);
       });
     },
-    rate: function() {
-      var itemId = $(this).closest('.ratings').attr('data-id');
-      var vote = $(this).attr('data-vote');
+    rate: function(itemId, vote) {
       // Cookie 'Rating' is set in vote.php:
       var cookieExists = (document.cookie.indexOf('Rating') > -1) ? true : false;
       if (cookieExists == false) {
@@ -152,12 +150,11 @@ jQuery(document).ready(function($) {
             point: vote
           },
           success: function(data) {
-            //  console.log(data);
+            //console.log(data);
             var rated = $(".ratings[data-id='" + itemId + "']");
             rated.attr('data-avg', data.average);
             var average = data.average;
             average = (Number(average) * 20);
-
             rated.find('.bg').css('width', 0);
             rated.find('.bg').animate({
               width: average + '%'
@@ -171,7 +168,7 @@ jQuery(document).ready(function($) {
           }
         });
       } else {
-        $(this).closest('.ratings').find('.votes').html('Du har allerede afgivet en bedømmelse - vend tilbage senere.');
+        $(".ratings[data-id='" + itemId + "']").find('.votes').html('Du har allerede afgivet en bedømmelse - vend tilbage senere.');
       }
     },
     strip_html_tags: function(str) {
@@ -326,7 +323,11 @@ jQuery(document).ready(function($) {
   });
 
   $(document).on('click', '.star', function() {
-    NEL.rate();
+    var itemId = $(this).closest('.ratings').attr('data-id');
+    var vote = $(this).attr('data-vote');
+    if(itemId && vote) {
+      NEL.rate(itemId, vote);
+    }
   });
 
   // Send message
