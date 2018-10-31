@@ -163,8 +163,8 @@ jQuery(document).ready(function($) {
             rated.find('.votes').html(data.votes + " " + suffix);
             NEL.trackThis("Rated assignment no. " + itemId + " with " + vote);
           },
-          error: function(xhr, status, error) {
-            console.log(xhr.responseText);
+          error: function() {
+            console.log('Error setting rating.');
           }
         });
       } else {
@@ -379,14 +379,14 @@ var onReCaptchaLoad = function() {
 };
 
 // Start service worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('sw.js').then(function(registration) {
-      // Registration was successful
-      //console.log('Service Worker registration successful with scope: ', registration.scope);
-    }, function(err) {
-      // registration failed :(
-      console.log('Service Worker registration failed: ', err);
-    });
-  });
-}
+// if ('serviceWorker' in navigator && (window.location.protocol === 'https:')) {
+//   window.addEventListener('load', function() {
+//     navigator.serviceWorker.register('sw.js').then(function(registration) {
+//       // Registration was successful
+//       //console.log('Service Worker registration successful with scope: ', registration.scope);
+//     }, function(err) {
+//       // registration failed :(
+//       console.log('Service Worker registration failed: ', err);
+//     });
+//   });
+// }
