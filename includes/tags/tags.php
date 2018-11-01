@@ -2,8 +2,9 @@
 // Functions to create tag cloud from db row of keywords
 // Query the database
 include(realpath(__DIR__ . '/../db.php'));
+include_once(realpath(__DIR__ . '/../functions.php'));
 
-$sql  = "SELECT description FROM " . $DBtable . " ORDER BY id DESC";
+$sql  = "SELECT description, content FROM " . $DBtable . " ORDER BY id DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 if ($stmt->rowCount() > 0) {
@@ -31,6 +32,12 @@ if ($stmt->rowCount() > 0) {
             'ETA' => 3
         );
 
+        // TO-DO: Implement this:
+        $remove_words = array(
+          "disse",
+          "hvorfor"
+        );
+
         // Merge the two arrays
         $freqData  = array_merge($freqData, $mandatory_words);
     }
@@ -50,7 +57,7 @@ function getCloud($data = array(), $minFontSize = 12, $maxFontSize = 24) {
       if ($count > $max) {
         $size        = $minFontSize + ($count - $minimumCount) * ($maxFontSize - $minFontSize) / $spread;
         $tag         = strtolower($tag);
-        $cloudTags[] = '<a style="font-size: ' . floor($size) . 'px' . '" class="tags" href="https://www.'. $_SERVER['HTTP_HOST'] .'/?q=' . $tag . '" title="\'' . $tag . '\' er fundet ' . $count . ' gange">' . htmlentities(stripslashes($tag)) . '</a>';
+        $cloudTags[] = '<a style="font-size: ' . floor($size) . 'px' . '" class="tags" href="'. siteUrl() .'/?q=' . $tag . '" title="\'' . $tag . '\' er fundet ' . $count . ' gange">' . htmlentities(stripslashes($tag)) . '</a>';
       }
     }
 
