@@ -4,7 +4,7 @@
 	if(isset($_POST['vote'])){
 		$id = (int)$_POST['item'];
 		$points = (int)$_POST['point'];
-		setcookie("Rating", 1, time()+3600, '/');
+		setcookie("Rating", 1, time()+3600, '/'); // One hour
 		$query = $pdo->prepare("SELECT title, votes, rating FROM ". $DBtable ." WHERE `id` = ?");
 		$query->execute(array($id));
 
