@@ -1,5 +1,5 @@
 'use strict';
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
   // Search
   var search = $('#search');
   var clearSearch = $('#clearSearch');
@@ -10,6 +10,7 @@ jQuery(document).ready(function($) {
   var sendMsg = $('#sendMail');
   var messages = $('.feedback');
   // assignments
+  var assignments = $('#assignments');
   var allAssignments = $('#defaultAssignments');
   var searchedAsssignments = $('#searchAssignments');
   // sorting
@@ -17,24 +18,25 @@ jQuery(document).ready(function($) {
   // Scroll
   var nav = $('#global-nav').outerHeight(true) + 10;
   var scroller = $('.scrolltop');
+  var $root = $('html, body');
   // Toggle button
   var toggle = $('[data-toggle="offcanvas"]');
 
   // Namespaced functions:
   var NEL = {
-    toggleNav: function() {
+    toggleNav: function () {
       // Toggle offcanvas
       $('.offcanvas-collapse').toggleClass('open');
       scroller.toggleClass('d-none');
     },
-    scrollToTop: function() {
+    scrollToTop: function () {
       // Smooth scroll to top
-      $('html, body').animate({
+      $root.animate({
         scrollTop: 0
       }, 500);
       return false;
     },
-    scroll: function() {
+    scroll: function () {
       if (scroller) {
         if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
           scroller.addClass('show');
@@ -43,7 +45,7 @@ jQuery(document).ready(function($) {
         }
       }
     },
-    urlParam: function(name) {
+    urlParam: function (name) {
       // Get query string from url
       var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.href);
       if (results == null) {
@@ -52,7 +54,7 @@ jQuery(document).ready(function($) {
         return results[1] || 0;
       }
     },
-    searchDb: function() {
+    searchDb: function () {
       // Search assignments
       var url = 'includes/search/searchAssignments.php';
       var q = search.val();
@@ -70,7 +72,7 @@ jQuery(document).ready(function($) {
           data: {
             search: q
           },
-          success: function(response) {
+          success: function (response) {
             allAssignments.hide();
             NEL.clearErrors();
             searchedAsssignments.hide().html(response).fadeIn(600);
@@ -78,7 +80,7 @@ jQuery(document).ready(function($) {
             NEL.addParams('q', encodeURIComponent(q));
             NEL.setRatings();
           },
-          error: function(xhr, status, error) {
+          error: function (xhr, status, error) {
             searchedAsssignments.html('Søgning kunne ikke udføres - prøv igen senere.').show();
             console.log(xhr.responseText);
           }
@@ -86,7 +88,7 @@ jQuery(document).ready(function($) {
         return false;
       }
     },
-    sortAssignments: function(e) {
+    sortAssignments: function (e) {
       // Sort assognments
       var target = $(e.currentTarget);
       var siblings = target.parent().siblings().find('a');
@@ -94,7 +96,6 @@ jQuery(document).ready(function($) {
       var getID = sortOrder.split('-');
       var name = getID[0];
       var order = getID[1];
-
       $.ajax({
         url: 'includes/downloads/sorting.php',
         type: 'post',
@@ -102,7 +103,7 @@ jQuery(document).ready(function($) {
           'column': name,
           'sortOrder': order
         },
-        success: function(response) {
+        success: function (response) {
           target.removeClass('asc desc');
           siblings.removeClass('asc desc');
           siblings.attr('title', 'Sortér');
@@ -121,13 +122,13 @@ jQuery(document).ready(function($) {
           // Update Ratings
           NEL.setRatings();
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
           console.log(xhr.responseText);
         }
       });
     },
-    setRatings: function() {
-      $('.ratings').each(function() {
+    setRatings: function () {
+      $('.ratings').each(function () {
         var average = $(this).attr('data-avg');
         average = (Number(average) * 20);
         $(this).find('.bg').css('width', 0);
@@ -136,7 +137,7 @@ jQuery(document).ready(function($) {
         }, 500);
       });
     },
-    rate: function(itemId, vote) {
+    rate: function (itemId, vote) {
       // Cookie 'Rating' is set in vote.php:
       var cookieExists = (document.cookie.indexOf('Rating') > -1) ? true : false;
       if (cookieExists == false) {
@@ -149,7 +150,7 @@ jQuery(document).ready(function($) {
             item: itemId,
             point: vote
           },
-          success: function(data) {
+          success: function (data) {
             //console.log(data);
             var rated = $(".ratings[data-id='" + itemId + "']");
             rated.attr('data-avg', data.average);
@@ -163,7 +164,7 @@ jQuery(document).ready(function($) {
             rated.find('.votes').html(data.votes + " " + suffix);
             NEL.trackThis("Rated assignment no. " + itemId + " with " + vote);
           },
-          error: function() {
+          error: function () {
             console.log('Error setting rating.');
           }
         });
@@ -171,7 +172,7 @@ jQuery(document).ready(function($) {
         $(".ratings[data-id='" + itemId + "']").find('.votes').html('Du har allerede afgivet en bedømmelse - vend tilbage senere.');
       }
     },
-    strip_html_tags: function(str) {
+    strip_html_tags: function (str) {
       // Strip html tags
       if ((str === null) || (str === '')) {
         return false;
@@ -180,7 +181,7 @@ jQuery(document).ready(function($) {
         return str.replace(/<\/?[^>]+(>|$)/g, '');
       }
     },
-    addParams: function(key, value) {
+    addParams: function (key, value) {
       // Append queries to url
       var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
         urlQueryString = document.location.search,
@@ -201,34 +202,36 @@ jQuery(document).ready(function($) {
       }
       window.history.replaceState({}, "", baseUrl + params);
     },
-    sendMsg: function() {
+    sendMsg: function () {
       // Serialize the form data.
       var formData = $(contactform).serialize();
       var url = 'includes/mail/mail_ajax.php';
       $.ajax({
-        type: 'post',
-        url: url,
-        beforeSend: function() {
-          $(messages).html('<div class="p-2 mb-4">Vent venligst...</div>');
-        },
-        data: formData
-      }).done(function(response) {
-        $(messages).removeClass('alert alert-danger');
-        $(messages).addClass('alert alert-success');
-        $(messages).text(response);
-        NEL.clearInput();
-        NEL.trackThis("Message sent");
-      }).fail(function(data) {
-        $(messages).removeClass('alert alert-success');
-        $(messages).addClass('alert alert-danger');
-        if (data.responseText !== '') {
-          $(messages).text(data.responseText);
-        } else {
-          $(messages).text('Der er sket en fejl. Beskeden er ikke blevet sendt.');
-        }
-      });
+          type: 'post',
+          url: url,
+          beforeSend: function () {
+            $(messages).html('<div class="p-2 mb-4">Vent venligst...</div>');
+          },
+          data: formData
+        })
+        .done(function (response) {
+          $(messages).removeClass('alert alert-danger');
+          $(messages).addClass('alert alert-success');
+          $(messages).text(response);
+          NEL.clearInput();
+          NEL.trackThis("Message sent");
+        })
+        .fail(function (data) {
+          $(messages).removeClass('alert alert-success');
+          $(messages).addClass('alert alert-danger');
+          if (data.responseText !== '') {
+            $(messages).text(data.responseText);
+          } else {
+            $(messages).text('Der er sket en fejl. Beskeden er ikke blevet sendt.');
+          }
+        });
     },
-    clearInput: function() {
+    clearInput: function () {
       // Clear form fields
       $('#name').val('');
       $('#email').val('');
@@ -237,11 +240,11 @@ jQuery(document).ready(function($) {
         grecaptcha.reset();
       }
     },
-    clearErrors: function() {
+    clearErrors: function () {
       // Clear form errors
       $(search).removeClass('is-invalid');
     },
-    trackThis: function(text) {
+    trackThis: function (text) {
       // Google Analytics event tracking
       if (text) {
         gtag('event', text);
@@ -254,8 +257,8 @@ jQuery(document).ready(function($) {
   if (query) {
     $(search).val(decodeURIComponent(NEL.strip_html_tags(query)));
     NEL.trackThis("Search");
-    $('html, body').animate({
-      scrollTop: searchedAsssignments.offset().top
+    $root.animate({
+      scrollTop: assignments.offset().top
     }, 500);
     NEL.searchDb();
   }
@@ -265,16 +268,16 @@ jQuery(document).ready(function($) {
 
   // Events:
   // Toggle off-canvas menu
-  toggle.on('click', function() {
+  toggle.on('click', function () {
     NEL.toggleNav();
   });
 
-  $('.offcanvas-collapse .nav-link').on('click', function() {
+  $('.offcanvas-collapse .nav-link').on('click', function () {
     toggle.click();
   });
 
   // Social icons clicked
-  $('.utility-icons .nav-item a').click(function() {
+  $('.utility-icons .nav-item a').click(function () {
     var channel = $(this).attr('title');
     if (channel) {
       NEL.trackThis(channel);
@@ -282,14 +285,14 @@ jQuery(document).ready(function($) {
   });
 
   // Search assignments event
-  btnSearch.click(function(e) {
+  btnSearch.click(function (e) {
     e.preventDefault();
     NEL.trackThis("Search");
     NEL.searchDb();
   });
 
   // Clear search field
-  clearSearch.click(function() {
+  clearSearch.click(function () {
     search.val('');
     searchedAsssignments.html('');
     allAssignments.show();
@@ -300,7 +303,7 @@ jQuery(document).ready(function($) {
   });
 
   // Trigger search by Enter key
-  search.keypress(function(e) {
+  search.keypress(function (e) {
     var code = (e.keyCode ? e.keyCode : e.which);
     if ((code == 13) || (code == 10)) {
       btnSearch.click();
@@ -308,68 +311,111 @@ jQuery(document).ready(function($) {
   });
 
   // Sorting headers
-  sortHeader.click(function(e) {
+  sortHeader.click(function (e) {
     e.preventDefault();
     NEL.sortAssignments(e);
     NEL.trackThis("Sort");
   });
 
-  $(document).on('mouseover', '.star', function() {
+  $(document).on('mouseover', '.star', function () {
     $(this).prevAll().addBack().addClass('full');
   });
 
-  $(document).on('mouseout', '.star', function() {
+  $(document).on('mouseout', '.star', function () {
     $(this).removeClass('full');
   });
 
-  $(document).on('click', '.star', function() {
+  $(document).on('click', '.star', function () {
     var itemId = $(this).closest('.ratings').attr('data-id');
     var vote = $(this).attr('data-vote');
-    if(itemId && vote) {
+    if (itemId && vote) {
       NEL.rate(itemId, vote);
+      NEL.trackThis("Rated");
+    }
+  });
+
+  $('.tags').click(function (e) {
+    e.preventDefault();
+    var query = $(this).attr('data-tag');
+    if (query) {
+      $(search).val(decodeURIComponent(NEL.strip_html_tags(query)));
+      NEL.trackThis("Search by tag");
+      NEL.searchDb();
     }
   });
 
   // Send message
-  sendMsg.click(function() {
+  sendMsg.click(function () {
     NEL.sendMsg();
   });
 
   // Load Captcha when modal is opened
-  contactFormModal.on('show.bs.modal', function() {
-    $.getScript("https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad").done(function(s, Status) {}).fail(function(jqxhr, settings, exception) {
-      console.log("Error loading script: " + exception);
-    });
+  contactFormModal.on('show.bs.modal', function () {
+    $.getScript("https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad")
+      .done(function (s, Status) {})
+      .fail(function (jqxhr, settings, exception) {
+        console.log("Error loading script: " + exception);
+      });
   });
 
   // Clear feedback mmessages when modal is closed
-  contactFormModal.on('hidden.bs.modal', function() {
+  contactFormModal.on('hidden.bs.modal', function () {
     messages.text('').removeClass('alert alert-danger alert-success');
     NEL.clearInput();
   });
 
   // Lazy load single image
-  $('#cd-cover').on('show.bs.modal', function(e) {
+  $('#cd-cover').on('show.bs.modal', function (e) {
     $('#cover').attr('src', 'img/it-cover.jpg');
   });
 
   // Smooth scrolling from scroller
-  scroller.click(function() {
+  scroller.click(function () {
     NEL.scrollToTop();
   });
 
-  $(window).scroll(function() {
+  $(window).scroll(function () {
     NEL.scroll();
+  });
+
+  $('a[href*="#"]').not('[href="#"]').not('.accordion').click(function (event) {
+    // On-page links
+    if (
+      location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname
+    ) {
+      // Figure out element to scroll to
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      // Does a scroll target exist?
+      if (target.length) {
+        // Only prevent default if animation is actually gonna happen
+        event.preventDefault();
+        $root.animate({
+          scrollTop: target.offset().top
+        }, 500, function () {
+          // Callback after animation
+          // Must change focus!
+          var $target = $(target);
+          $target.focus();
+          if ($target.is(":focus")) { // Checking if the target was focused
+            return false;
+          } else {
+            $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+            $target.focus(); // Set focus again
+          }
+        });
+      }
+    }
   });
 
 });
 
 var myCaptcha = null;
-var onReCaptchaLoad = function() {
+var onReCaptchaLoad = function () {
   if (myCaptcha === null) {
     myCaptcha = grecaptcha.render('recaptcha', {
       sitekey: '6LdXbXcUAAAAALIJ58R3GYrXGr0vgz6eS_SXuWcS',
-      callback: function(response) {
+      callback: function (response) {
         //console.log(grecaptcha.getResponse(myCaptcha));
       }
     });

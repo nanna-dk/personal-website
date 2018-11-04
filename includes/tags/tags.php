@@ -13,7 +13,7 @@ if ($stmt->rowCount() > 0) {
     foreach ($result as $row) {
         $keywords = $row['description'];
         // Set letter count to exclude words like 'and'/'or', etc.
-        $letterCount = 5;
+        $letterCount = 4;
 
         // Get individual words and build a frequency table - allow special chars
         foreach (str_word_count($keywords, 1, 'øæåé1233456789') as $word) {
@@ -24,28 +24,34 @@ if ($stmt->rowCount() > 0) {
             }
         }
 
-        // Custom words and their frequency
+        // Custom words and their frequency - always include
         $mandatory_words = array(
             'cscw' => 4,
             'hci' => 3,
-            'opgave' => 3,
-            'ETA' => 3
+            'opgave' => 4,
+            'nationalisme' => 3,
+            'speciale' => 3,
+            'multimedier' => 4,
+            'ETA' => 4
         );
 
-        // TO-DO: Implement this:
+        // Words to filter out
         $remove_words = array(
           "disse",
           "hvorfor"
         );
 
         // Merge the two arrays
-        $freqData  = array_merge($freqData, $mandatory_words);
+        $freqData = array_merge($freqData, $mandatory_words);
+        // Filter out the words
+        $freqData = array_diff_key($freqData, array_flip($remove_words));
+        ksort($freqData);
     }
 } else {
     echo 'Unable to fetch keywords';
 }
 
-function getCloud($data = array(), $minFontSize = 12, $maxFontSize = 24) {
+function getCloud($data = array(), $minFontSize = 12, $maxFontSize = 22) {
     $minimumCount = min(array_values($data));
     $maximumCount = max(array_values($data));
     $spread       = $maximumCount - $minimumCount;
@@ -57,10 +63,9 @@ function getCloud($data = array(), $minFontSize = 12, $maxFontSize = 24) {
       if ($count > $max) {
         $size        = $minFontSize + ($count - $minimumCount) * ($maxFontSize - $minFontSize) / $spread;
         $tag         = strtolower($tag);
-        $cloudTags[] = '<a style="font-size: ' . floor($size) . 'px' . '" class="tags" href="'. siteUrl() .'/?q=' . $tag . '" title="\'' . $tag . '\' er fundet ' . $count . ' gange">' . htmlentities(stripslashes($tag)) . '</a>';
+        $cloudTags[] = '<a style="font-size: ' . floor($size) . 'px' . '" class="tags" data-tag="' . $tag . '" href="#" title="\'' . $tag . '\' er fundet ' . $count . ' gange">' . htmlentities(stripslashes($tag)) . '</a>';
       }
     }
-
     return join("\n", $cloudTags) . "\n";
 }
 
