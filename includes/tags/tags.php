@@ -13,14 +13,14 @@ if ($stmt->rowCount() > 0) {
     foreach ($result as $row) {
         $keywords = $row['description'];
         // Set letter count to exclude words like 'and'/'or', etc.
-        $letterCount = 4;
+        $letterCount = 5;
 
         // Get individual words and build a frequency table - allow special chars
         foreach (str_word_count($keywords, 1, 'øæåé1233456789') as $word) {
             // If the word has more than x letters
             if (mb_strlen($word, 'UTF-8') >= $letterCount) {
                 // For each word found in the frequency table, increment its value by one
-                array_key_exists($word, $freqData) ? $freqData[$word]++ : $freqData[$word] = 0;
+                array_key_exists($word, $freqData) ? $freqData[$word]++ : $freqData[$word] = 1;
             }
         }
 
@@ -37,8 +37,9 @@ if ($stmt->rowCount() > 0) {
 
         // Words to filter out
         $remove_words = array(
-          "disse",
-          "hvorfor"
+          'disse',
+          'spiller',
+          'hvorfor'
         );
 
         // Merge the two arrays
