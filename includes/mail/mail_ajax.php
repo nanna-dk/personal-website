@@ -28,6 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //var_dump($obj);
         // If the Google Recaptcha check was successful
         if($obj->success == true) {
+          date_default_timezone_set('Europe/Copenhagen');
+          $time = date("d. m. Y, H:i:s");
           $name = strip_tags(trim($_POST["name"]));
           $name = filter_var($name, FILTER_SANITIZE_STRING);
           $name = str_replace(array("\r","\n"),array(" "," "),$name);
@@ -43,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $subject = "Besked fra $name";
           $body = "<p><strong>Navn:</strong> ". $name ."</p>";
           $body .= "<p><strong>E-mail:</strong> ". $email ."</p>";
+          $body .= "<p><strong>Dato/tid:</strong> ". $time ."</p>";
           $body .= "<p><strong>IP-adresse:</strong> ". $ip ."</p>";
           $body .= "<p><strong>Besked:</strong> ". $message ."</p>";
           $headers = "MIME-Version: 1.0" . "\r\n";
