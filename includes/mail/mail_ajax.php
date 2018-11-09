@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // If the Google Recaptcha box was not clicked
   else {
     http_response_code(400);
-    echo "Udfyld venligst alle felter.";
+    echo "Klik venligst på reCaptcha-boksen.";
   }
 }
 
