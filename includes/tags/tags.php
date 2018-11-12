@@ -12,7 +12,7 @@ if ($stmt->rowCount() > 0) {
     $freqData = array();
     foreach ($result as $row) {
         $keywords = $row['description'];
-        $keywords .= $row['title'];
+        //$keywords .= $row['title'];
         //$keywords .= $row['content'];
         // Set letter count to exclude words like 'and'/'or', etc.
         $letterCount = 5;
@@ -41,6 +41,7 @@ if ($stmt->rowCount() > 0) {
         $remove_words = array(
           'disse',
           'spiller',
+          'herunder',
           'hvorfor'
         );
 
@@ -49,12 +50,13 @@ if ($stmt->rowCount() > 0) {
         // Filter out the words
         $freqData = array_diff_key($freqData, array_flip($remove_words));
         ksort($freqData);
+
     }
 } else {
     echo 'Unable to fetch keywords';
 }
 
-function getCloud($data = array(), $minFontSize = 12, $maxFontSize = 22) {
+function getCloud($data = array(), $minFontSize = 12, $maxFontSize = 22, $totalOutput = 20) {
     $minimumCount = min(array_values($data));
     $maximumCount = max(array_values($data));
     $spread       = $maximumCount - $minimumCount;
@@ -69,6 +71,7 @@ function getCloud($data = array(), $minFontSize = 12, $maxFontSize = 22) {
         $cloudTags[] = '<a style="font-size: ' . floor($size) . 'px' . '" class="tags" data-tag="' . $tag . '" href="#" title="\'' . $tag . '\' er fundet ' . $count . ' gange">' . htmlentities(stripslashes($tag)) . '</a>';
       }
     }
+
     return join("\n", $cloudTags) . "\n";
 }
 
