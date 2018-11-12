@@ -4,7 +4,7 @@
 include(realpath(__DIR__ . '/../db.php'));
 include_once(realpath(__DIR__ . '/../functions.php'));
 
-$sql  = "SELECT description, content FROM " . $DBtable . " ORDER BY id DESC";
+$sql  = "SELECT title, description, content FROM " . $DBtable . " ORDER BY id DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 if ($stmt->rowCount() > 0) {
@@ -12,6 +12,8 @@ if ($stmt->rowCount() > 0) {
     $freqData = array();
     foreach ($result as $row) {
         $keywords = $row['description'];
+        $keywords .= $row['title'];
+        //$keywords .= $row['content'];
         // Set letter count to exclude words like 'and'/'or', etc.
         $letterCount = 5;
 
