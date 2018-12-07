@@ -430,6 +430,10 @@ section {
   color: $white;
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
+  @include media-breakpoint-down(sm) {
+    padding-left: ($spacer * 1);
+    padding-right: ($spacer * 1);
+  }
 
   a {
     color: $white;

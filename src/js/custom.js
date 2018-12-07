@@ -21,6 +21,8 @@ jQuery(document).ready(function ($) {
   var $root = $('html, body');
   // Toggle button
   var toggle = $('[data-toggle="offcanvas"]');
+  // geolocation
+  var geo = $('#geo');
 
   // Namespaced functions:
   var NEL = {
@@ -249,6 +251,22 @@ jQuery(document).ready(function ($) {
       if (text) {
         gtag('event', text);
       }
+    },
+    getLocation: function () {
+      // Get users's location
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(NEL.showPosition);
+      } else {
+        geo.text("Geolocation is not supported by this browser.");
+      }
+    },
+    showPosition: function (position) {
+      var dither = 0.0001;
+      var lat = position.coords.latitude;
+      lat = lat.toFixed(5); // 5 decimals should be enough for our case
+      var long = position.coords.longitude;
+      long = long.toFixed(5);
+      geo.text(lat + ", " + long);
     }
   };
 
@@ -265,6 +283,7 @@ jQuery(document).ready(function ($) {
 
   NEL.setRatings();
   NEL.scroll();
+  NEL.getLocation();
 
   // Events:
   // Toggle off-canvas menu
