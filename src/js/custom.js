@@ -257,7 +257,7 @@ jQuery(document).ready(function ($) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(NEL.showPosition);
       } else {
-        geo.text("Geolocation is not supported by this browser.");
+        geo.val("Geolocation is not supported by this browser.");
       }
     },
     showPosition: function (position) {
@@ -266,7 +266,7 @@ jQuery(document).ready(function ($) {
       lat = lat.toFixed(5); // 5 decimals should be enough for our case
       var long = position.coords.longitude;
       long = long.toFixed(5);
-      geo.text(lat + ", " + long);
+      geo.val(lat + ", " + long);
     }
   };
 
@@ -283,7 +283,6 @@ jQuery(document).ready(function ($) {
 
   NEL.setRatings();
   NEL.scroll();
-  NEL.getLocation();
 
   // Events:
   // Toggle off-canvas menu
@@ -388,6 +387,10 @@ jQuery(document).ready(function ($) {
     $('#cover').attr('src', 'img/it-cover.jpg');
   });
 
+  // Get location
+  $('#generateCoords').click(function () {
+    NEL.getLocation();
+  });
   // Smooth scrolling from scroller
   scroller.click(function () {
     NEL.scrollToTop();
