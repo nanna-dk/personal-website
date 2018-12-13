@@ -261,11 +261,10 @@ jQuery(document).ready(function ($) {
       }
     },
     showPosition: function (position) {
-      var dither = 0.0001;
       var lat = position.coords.latitude;
-      lat = lat.toFixed(5); // 5 decimals should be enough for our case
+      lat = lat.toFixed(6); // 6 decimals should be enough for our case
       var long = position.coords.longitude;
-      long = long.toFixed(5);
+      long = long.toFixed(6);
       geo.val(lat + ", " + long);
     }
   };
