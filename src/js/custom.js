@@ -69,7 +69,7 @@ jQuery(document).ready(function ($) {
         // Return stripped input to search field
         search.val(NEL.strip_html_tags(q));
         $.ajax({
-          type: 'post',
+          type: 'POST',
           url: url,
           data: {
             search: q
@@ -100,7 +100,7 @@ jQuery(document).ready(function ($) {
       var order = getID[1];
       $.ajax({
         url: 'includes/downloads/sorting.php',
-        type: 'post',
+        type: 'POST',
         data: {
           'column': name,
           'sortOrder': order
@@ -209,7 +209,7 @@ jQuery(document).ready(function ($) {
       var formData = $(contactform).serialize();
       var url = 'includes/mail/mail_ajax.php';
       $.ajax({
-          type: 'post',
+          type: 'POST',
           url: url,
           beforeSend: function () {
             $(messages).html('<div class="p-2 mb-4">Vent venligst...</div>');
