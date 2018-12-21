@@ -7,6 +7,7 @@ var gulp = require('gulp'),
   concat = require('gulp-concat'),
   jshint = require("gulp-jshint"),
   uglify = require('gulp-uglify'),
+  babel  = require('gulp-babel'),
   htmlmin = require('gulp-htmlmin'),
   rename = require("gulp-rename"),
   notify = require("gulp-notify"),
@@ -114,6 +115,7 @@ function scripts() {
     .src(arrays)
     .pipe(plumber())
     .pipe(concat("bootstrap.min.js"))
+    .pipe(babel())
     .pipe(uglify())
     .pipe(gulp.dest(paths.minJs))
     .pipe(browserSync.stream());

@@ -40,7 +40,7 @@ self.addEventListener('install', function (event) {
 
   //console.log('Handling install event. Resources to pre-fetch:', urlsToPrefetch);
   event.waitUntil(
-    caches.open(CURRENT_CACHES['prefetch']).then(function (cache) {
+    caches.open(CURRENT_CACHES.prefetch).then(function (cache) {
       cache.addAll(urlsToPrefetch.map(function (urlToPrefetch) {
         return new Request(urlToPrefetch, {
           mode: 'no-cors'
@@ -102,7 +102,7 @@ self.addEventListener('fetch', function (event) {
     return;
   }
   event.respondWith(
-    caches.open(CURRENT_CACHES['prefetch']).then(function (cache) {
+    caches.open(CURRENT_CACHES.prefetch).then(function (cache) {
       return cache.match(event.request).then(function (response) {
         if (response) {
           console.log('Found response in cache:', response);

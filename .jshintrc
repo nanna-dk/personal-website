@@ -8,5 +8,6 @@
     "self": true,
     "caches": true
   },
-  "browser": true
+  "browser": true,
+  "esversion":6
 }

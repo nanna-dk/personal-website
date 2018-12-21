@@ -254,25 +254,28 @@
           <div id="stats" role="tablist">
             <div class="card stats">
               <h4 class="card-header" role="tab" id="statsHeading">
-                <a class="accordion collapsed" data-toggle="collapse" data-parent="#stats" href="#collapseStats" aria-expanded="false"> Stastistik<svg role="presentation">
+                <a class="accordion collapsed" id="admin" data-toggle="collapse" href="#collapseStats" aria-expanded="false" aria-controls="collapseStats"> Admin tools<svg role="presentation">
                     <use xlink:href="dist/img/icons.svg#icon-angle-up"></use>
                   </svg></a></h4>
               <div id="collapseStats" class="collapse" role="tabpanel" aria-labelledby="statsHeading">
                 <div class="card-body">
                   <?php include('includes/stats/stats.php'); ?>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div id="coords">
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <button class="btn btn-secondary" type="button" id="generateCoords">Start</button>
+                <div class="card-body">
+                  <div id="coords">
+                    <h5 class="card-title">Position</h5>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <button class="btn btn-secondary" type="button" id="generateCoords">Start</button>
+                      </div>
+                      <label for="generateCoords" class="sr-only">Find koordinater</label>
+                      <input id="geo" type="text" class="form-control" placeholder="Find koordinater" aria-label="Get coordiantes">
+                    </div>
                   </div>
-                  <label for="generateCoords" class="sr-only">Find koordinater</label>
-                  <input id="geo" type="text" class="form-control" placeholder="Find koordinater" aria-label="Get coordiantes">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Dev stats for dette website</h5>
+                  <div id="gitHubStats"></div>
                 </div>
               </div>
             </div>

@@ -23,6 +23,8 @@ jQuery(document).ready(function ($) {
   var toggle = $('[data-toggle="offcanvas"]');
   // geolocation
   var geo = $('#geo');
+  // Statistik
+  var $stats = $('#gitHubStats');
 
   // Namespaced functions:
   var NEL = {
@@ -252,6 +254,49 @@ jQuery(document).ready(function ($) {
         gtag('event', text);
       }
     },
+    getGitHubStats: function () {
+      var user = "nanna-dk";
+      var repo = "personal-website";
+      var gitHubUrl = "https://github.com/" + user + "/" + repo + "/commit/";
+      var url = "https://api.github.com/repos/" + user + "/" + repo + "/commits";
+      $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: "json",
+        success: function (data) {
+          //console.log(data);
+          var newData = data.reduce((acc, el) => {
+            var date = el.commit.committer.date;
+            var msg = el.commit.message;
+            var sha = el.sha;
+            var d = date.split('T')[0];
+            var commitUrl = gitHubUrl + sha;
+            var commit = ' <a href="' + commitUrl + '" target="_blank" rel="noopener">' + msg + '</a>';
+            if (acc.hasOwnProperty(d))
+              acc[d].push(commit);
+            else
+              acc[d] = [commit];
+            return acc;
+          }, {});
+
+          Object.keys(newData).forEach(function (v, k) {
+            var date = v;
+            var t = new Date(date);
+            var day = ("0" + (
+              t.getDate())).slice(-2);
+            var month = ("0" + (
+              t.getMonth() + 1)).slice(-2);
+            var year = t.getFullYear();
+
+            $stats.append('<li>' + day + '/' + month + '/' + year + ': ' + newData[v] + '</li>');
+          });
+          $stats.children().wrapAll("<ul class='list-unstyled' />");
+        },
+        error: function (xhr, status, error) {
+          console.log(xhr.responseText);
+        }
+      });
+    },
     getLocation: function () {
       // Get users's location
       if (navigator.geolocation) {
@@ -381,6 +426,11 @@ jQuery(document).ready(function ($) {
     NEL.clearInput();
   });
 
+  $('#collapseStats').on('show.bs.collapse', function () {
+    // When accordion is open - run function
+    NEL.getGitHubStats();
+  });
+
   // Lazy load single image
   $('#cd-cover').on('show.bs.modal', function (e) {
     $('#cover').attr('src', 'img/it-cover.jpg');
@@ -401,9 +451,7 @@ jQuery(document).ready(function ($) {
 
   $('a[href*="#"]').not('[href="#"]').not('.accordion').click(function (event) {
     // On-page links
-    if (
-      location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname
-    ) {
+    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
       // Figure out element to scroll to
       var target = $(this.hash);
       target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
@@ -428,7 +476,6 @@ jQuery(document).ready(function ($) {
       }
     }
   });
-
 });
 
 var myCaptcha = null;
