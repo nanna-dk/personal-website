@@ -28,6 +28,7 @@ Thumbs.db
 # Files to ignore
 robots.txt
 sitemap.xml
+sw.js
 
 # Folders to ignore
 node_modules
