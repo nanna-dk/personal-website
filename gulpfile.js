@@ -15,7 +15,8 @@ var gulp = require('gulp'),
   minifyJson = require('gulp-minify-inline-json'),
   pump = require('pump'),
   jsStylish = require('jshint-stylish'),
-  svgmin = require('gulp-svgmin');
+  svgmin = require('gulp-svgmin'),
+  nunjucksRender = require('gulp-nunjucks-render');
 
 // Sass compiling options:
 var sassOptions = {
@@ -34,8 +35,8 @@ var autoprefixerOptions = {
 // project paths
 var paths = {
   root: "./",
-  page: "source.html",
   src: "./src",
+  html: "./src/html/*.+(njk)",
   minCss: "./dist/css",
   minJs: "./dist/js",
   minImg: "./dist/img"
@@ -59,7 +60,7 @@ function serve(done) {
     open: 'external',
     proxy: '127.0.0.1:8080/personal-website/',
     //server: paths.root,
-    index: paths.page,
+    index: 'index.php',
     online: true,
     notify: false
   });
@@ -121,19 +122,35 @@ function scripts() {
     .pipe(browserSync.stream());
 }
 
+// function renameExt() {
+//   return gulp
+//     .src(paths.html)
+//     .pipe(htmlmin({
+//       removeComments: true,
+//       collapseWhitespace: true
+//     }))
+//     .pipe(rename({
+//       //basename: "index",
+//       extname: ".php"
+//     }))
+//     .pipe(minifyJson())
+//     .pipe(gulp.dest(paths.root));
+// }
+
 function renameExt() {
   return gulp
-    .src(paths.page)
-    .pipe(htmlmin({
-      removeComments: true,
-      collapseWhitespace: true
-    }))
-    .pipe(rename({
-      basename: "index",
-      extname: ".php"
-    }))
-    .pipe(minifyJson())
-    .pipe(gulp.dest(paths.root));
+  .src(paths.html)
+  .pipe(nunjucksRender({
+    path: ['./src/html/templates/']
+  }))
+  .pipe(htmlmin({
+    removeComments: true,
+    collapseWhitespace: true
+  }))
+  .pipe(rename({
+    extname: ".php"
+  }))
+  .pipe(gulp.dest(paths.root));
 }
 
 function watch() {
@@ -147,7 +164,7 @@ function watch() {
     .watch(paths.src + '/js/**/*.js', gulp.series(scriptsLint, scripts))
     .on("change", reload);
   gulp
-    .watch(paths.page, renameExt)
+    .watch(paths.html, renameExt)
     .on("change", reload);
 }
 

@@ -426,10 +426,9 @@ jQuery(document).ready(function ($) {
     NEL.clearInput();
   });
 
-  $('#collapseStats').on('show.bs.collapse', function () {
-    // When accordion is open - run function
+  if ($('#gitHubStats')) {
     NEL.getGitHubStats();
-  });
+  }
 
   // Lazy load single image
   $('#cd-cover').on('show.bs.modal', function (e) {

@@ -437,11 +437,15 @@ section {
 
   a {
     color: $white;
-    margin-right: 15px;
   }
 
   .footer-links {
     margin-top: 20px;
+    li {
+      & + li {
+        margin-left: 25px;
+      }
+    }
   }
 }
 

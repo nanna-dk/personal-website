@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html class="no-js" lang="da">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <meta content="Nanna Ellegaard, Cand.it i Multimedier og frontend-udvikler med speciale indenfor html5, sass/less, javaScript, jQuery, node.js, git, mv. Se CV og opgaver fra Aarhus Universitet." name="description">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/icons/favicon-16x16.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="manifest" href="manifest.json">
+  <link rel="mask-icon" href="img/icons/safari-pinned-tab.svg" color="#d75959">
+  <meta name="msapplication-TileColor" content="#d75959">
+  <meta name="theme-color" content="#d75959">
+  <?php include('includes/functions.php'); ?>
+  <link rel="alternate" href="<?php echo siteUrl(); ?>" hreflang="da">
+  <title>Nanna Ellegaard, Cand.it i Multimedier og frontend-udvikler</title>
+  <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+  <?php include_once('includes/tracking/analyticsTracking.php'); ?>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "url": "<?php echo siteUrl(); ?>",
+      "name": "Nanna Ellegard, Cand.it i Multimedier",
+      "description": "Nanna Ellegaard, Cand.it i Multimedier og frontend-udvikler med speciale indenfor html5, sass/less, javaScript, jQuery, node.js, git, mv. Se CV og opgaver fra fra Aarhus Universitet.",
+      "publisher": "Nanna Ellegaard",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "<?php echo siteUrl(); ?>?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Copenhagen, Denmark"
+      },
+      "image": "<?php echo siteUrl(); ?>/img/nanna_ellegaard.jpg",
+      "jobTitle": "Front end developer",
+      "name": "Nanna Ellegaard",
+      "gender": "female",
+      "nationality": "Danish",
+      "owns": {
+        "@type": "Website",
+        "name": "https://www.studenterforum.dk"
+      },
+      "worksFor": {
+        "@type": "EducationalOrganization",
+        "name": "University of Copenhagen, Denmark"
+      },
+      "url": "<?php echo siteUrl(); ?>",
+      "sameAs": ["https://www.facebook.com/nanna.ellegaard", "https://www.linkedin.com/in/nannaellegaard/", "https://plus.google.com/102076494911232201521?rel=author", "https://github.com/nanna-dk/"]
+    }
+  </script>
+</head>
+
+<body>
+  <?php include('includes/downloads/displayInfo.php'); ?>
+  {% include "partials/topmenu.njk" %}
+  {% block content %} {% endblock %}
+  {% include "partials/contact-modal.njk" %}
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <ul class="list-inline footer-links">
+            <li class="list-inline-item">
+              <a href="#about">Start</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#cv">CV</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#assignments">Opgaver</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="" data-toggle="modal" data-target="#contactFormModal">Kontakt</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-xs-12 col-md-6 text-lg-right text-xs-center mt-3 mt-sm-1">
+          <p class="copyright-text">Sidst opdateret: <time datetime="<?php echo date(" Y-m-d " , getlastmod()) ?>">
+              <?php echo strftime( "%d. %m. %Y", getlastmod() ); ?></time> <br> Copyright ©
+            <?php echo date("Y"); ?> <a href="admin.php#about">Nanna Ellegaard</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Scroll to top -->
+  <a class="scrolltop fade" title="top" href="#about"><svg role="presentation">
+      <use xlink:href="dist/img/icons.svg#icon-angle-up"></use>
+    </svg></a>
+  <!-- Scripts: -->
+  <script src="dist/js/bootstrap.min.js"></script>
+  <script src="dist/js/svgxuse.min.js" defer></script>
+  </body>
+
+  </html>
