@@ -59,7 +59,6 @@ function serve(done) {
     port: 8080,
     open: 'external',
     proxy: '127.0.0.1:8080/personal-website/',
-    //server: paths.root,
     index: 'index.php',
     online: true,
     notify: false
@@ -122,22 +121,7 @@ function scripts() {
     .pipe(browserSync.stream());
 }
 
-// function renameExt() {
-//   return gulp
-//     .src(paths.html)
-//     .pipe(htmlmin({
-//       removeComments: true,
-//       collapseWhitespace: true
-//     }))
-//     .pipe(rename({
-//       //basename: "index",
-//       extname: ".php"
-//     }))
-//     .pipe(minifyJson())
-//     .pipe(gulp.dest(paths.root));
-// }
-
-function renameExt() {
+function renderHtml() {
   return gulp
   .src(paths.html)
   .pipe(nunjucksRender({
@@ -164,11 +148,11 @@ function watch() {
     .watch(paths.src + '/js/**/*.js', gulp.series(scriptsLint, scripts))
     .on("change", reload);
   gulp
-    .watch(paths.html, renameExt)
+    .watch(paths.html, renderHtml)
     .on("change", reload);
 }
 
 gulp.task("js", gulp.series(scriptsLint, scripts));
 
-var build = gulp.parallel(styles, "js", renameExt, imgMin);
+var build = gulp.parallel(styles, "js", renderHtml, imgMin);
 gulp.task('default', gulp.series(serve, watch, build));

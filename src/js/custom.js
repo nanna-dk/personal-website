@@ -288,7 +288,7 @@ jQuery(document).ready(function ($) {
               t.getMonth() + 1)).slice(-2);
             var year = t.getFullYear();
 
-            $stats.append('<li>' + day + '/' + month + '/' + year + ': ' + newData[v] + '</li>');
+            $stats.append('<li>' + day + '.' + month + '.' + year + ': ' + newData[v] + '</li>');
           });
           $stats.children().wrapAll("<ul class='list-unstyled' />");
         },

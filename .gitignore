@@ -24,6 +24,7 @@ docs/.jekyll-metadata
 .DS_Store
 Thumbs.db
 .htaccess
+.gitattributes
 
 # Files to ignore
 robots.txt
