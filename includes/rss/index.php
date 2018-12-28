@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: text/xml; charset=utf-8', true); //set document header content type to be XML
+header('Content-Type: text/xml; charset=utf-8', true);
 
 // Query the database
 include(realpath(__DIR__ . '/../db.php'));
@@ -28,7 +28,7 @@ $language = $channel->addChild('language', 'da');
 //Create RFC822 Date format to comply with RFC822
 $date_f = date("D, d M Y H:i:s T", time());
 $build_date = gmdate(DATE_RFC2822, strtotime($date_f));
-//$lastBuildDate = $channel->addChild('lastBuildDate', $date_f);
+$lastBuildDate = $channel->addChild('lastBuildDate', $build_date);
 
 $sql = "SELECT * FROM " . $DBtable . " ORDER BY dates DESC";
 $stmt = $pdo->prepare($sql);
@@ -48,9 +48,7 @@ if ($stmt->rowCount() > 0) {
         $link = $item->addChild('link', $url);
         $guid = $item->addChild('guid', $url);
         $guid->addAttribute('isPermaLink', 'true');
-
         $description = $item->addChild('description', $desc);
-
         $date_rfc = gmdate(DATE_RFC2822, strtotime($dates));
         $item = $item->addChild('pubDate', $date_rfc);
     }
