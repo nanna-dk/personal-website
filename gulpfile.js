@@ -53,6 +53,14 @@ var res = {
   minImg: paths.src + '/img/*.svg'
 };
 
+var pkg = require('./package.json');
+
+function getBanner() {
+  return `
+  ${pkg.description}
+  `;
+}
+
 function serve(done) {
   browserSync.init({
     host: '127.0.0.1',
@@ -125,7 +133,10 @@ function renderHtml() {
   return gulp
   .src(paths.html)
   .pipe(nunjucksRender({
-    path: ['./src/html/templates/']
+    path: ['./src/html/templates/'],
+    data: {
+    description: getBanner()
+    }
   }))
   .pipe(htmlmin({
     removeComments: true,
