@@ -55,10 +55,11 @@ var res = {
 
 var pkg = require('./package.json');
 
-function getBanner() {
-  return `
-  ${pkg.description}
-  `;
+function getBanner(i) {
+  var node = i;
+  if (node) {
+    return pkg.node;
+  }
 }
 
 function serve(done) {
@@ -135,17 +136,23 @@ function renderHtml() {
   .pipe(nunjucksRender({
     path: ['./src/html/templates/'],
     data: {
-    description: getBanner()
+      description: getBanner('description')
     }
   }))
   .pipe(htmlmin({
     removeComments: true,
-    collapseWhitespace: true
+    collapseWhitespace: true,
+    minifyCSS: true,
+    minifyJS: true
+  }))
+  .pipe(minifyJson({
+    mimeTypes: ['application/ld+json']
   }))
   .pipe(rename({
     extname: ".php"
   }))
-  .pipe(gulp.dest(paths.root));
+  .pipe(gulp.dest(paths.root))
+  .pipe(browserSync.stream());
 }
 
 function watch() {
