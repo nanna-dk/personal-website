@@ -25,7 +25,9 @@
 <body>
   <?php include('includes/downloads/displayInfo.php'); ?>
   {% include "partials/topmenu.njk" %}
-  {% block content %} {% endblock %}
+  <div class="content">
+    {% block content %} {% endblock %}
+  </div>
   {% include "partials/contact-modal.njk" %}
   {% include "partials/footer.njk" %}
 
