@@ -4,31 +4,32 @@
 
 <?php
 include(realpath(__DIR__ . '/includes/db.php'));
-    if (isset($_POST['submit'])) {
-      $user = filter_var($_POST["username"], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_LOW);
-      $psw = filter_var($_POST["password"], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_LOW);
+if (isset($_POST['submit'])) {
+    $user = filter_var($_POST["username"], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_LOW);
+    $psw  = filter_var($_POST["password"], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_LOW);
 
-      $sql  = "SELECT * FROM " . $userTable . " WHERE username = :username AND password = :password";
-      $stmt = $pdo->prepare($sql);
-      $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-      $stmt->bindParam(':password', $password, PDO::PARAM_STR);
-      $stmt->execute();
-      if ($stmt->rowCount() > 0) {
-          $result = $stmt->fetchAll();
-          foreach($result as $row) {
+    $sql = "SELECT * FROM " . $userTable . " WHERE username = :username LIMIT 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':username', $user, PDO::PARAM_STR);
+    $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+        $result = $stmt->fetchAll();
+        foreach ($result as $row) {
             $db_username = $row['username'];
             $db_password = $row['password'];
-          }
-      }
-      if($user == $db_username && $psw == $db_password) {
+        }
+        if (isset($db_username) && $user == $db_username && isset($db_password) && $psw == $db_password) {
             // PASSWORD PROTECTED AREA STARTS HERE:
 ?>
-        <section class="assignments" id="stats">
+       <section class="assignments" id="stats">
           <div class="container">
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Statistik</h5>
-                <?php include ('includes/stats/stats.php'); ?>
+                <?php
+                include('includes/stats/stats.php');
+                ?>
               </div>
               <div class="card-body">
                 <div id="coords">
@@ -51,16 +52,15 @@ include(realpath(__DIR__ . '/includes/db.php'));
         </section>
         <?php
             // PASSWORD PROTECTED AREA ENDS
+        } else {
+            echo '<div class="alert alert-danger" role="alert">Brugernavn og/eller adgangskode er ikke korrekt.</div>';
         }
-        else {
-            echo '<div class="container px-3">';
-            echo "Sorry, the username and/or password were incorrect";
-            echo '</div>';
-        }
+    } else {
+        echo '<div class="alert alert-danger" role="alert">Brugernavn og/eller adgangskode er ikke korrekt.</div>';
     }
-    else {
-        // IF THE FORM WAS NOT SUBMITTED - SHOW FORM
-    ?>
+} else {
+    // IF THE FORM WAS NOT SUBMITTED - SHOW FORM:
+?>
 <div class="container px-3">
 <h2>Indtast login</h2>
   <form method="post" class="mt-sm-4">
@@ -73,7 +73,7 @@ include(realpath(__DIR__ . '/includes/db.php'));
     <div class="form-group row">
       <label for="password" class="col-sm-2 col-form-label">Adgangskode</label>
       <div class="col-sm-10">
-        <input type="password" class="form-control" id="password" name="password" placeholder="Password required">
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
       </div>
     </div>
     <div class="form-group row">
@@ -83,10 +83,11 @@ include(realpath(__DIR__ . '/includes/db.php'));
     </div>
   </form>
 </div>
+
 <?php
-// Closing
-$stmt = null;
-$pdo  = null;
+    // Closing
+    $stmt = null;
+    $pdo  = null;
 }
 ?>
 
