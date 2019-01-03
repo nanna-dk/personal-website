@@ -2,19 +2,19 @@
 jQuery(document).ready(function ($) {
   // Search
   var search = $('#search');
-  var clearSearch = $('#clearSearch');
+  var $clearSearch = $('#clearSearch');
   var btnSearch = $('#goSearch');
   // Send e-mail
   var contactFormModal = $('#contactFormModal');
   var contactform = $('#contactform');
-  var sendMsg = $('#sendMail');
+  var $sendMsg = $('#sendMail');
   var messages = $('.feedback');
   // assignments
   var assignments = $('#assignments');
   var allAssignments = $('#defaultAssignments');
   var searchedAsssignments = $('#searchAssignments');
   // sorting
-  var sortHeader = $('.sorting');
+  var $sortHeader = $('.sorting');
   // Scroll
   var nav = $('#global-nav').outerHeight(true) + 10;
   var scroller = $('.scrolltop');
@@ -22,7 +22,7 @@ jQuery(document).ready(function ($) {
   // Toggle button
   var toggle = $('[data-toggle="offcanvas"]');
   // geolocation
-  var geo = $('#geo');
+  var $geo = $('#geo');
   // Statistik
   var $stats = $('#gitHubStats');
 
@@ -302,7 +302,7 @@ jQuery(document).ready(function ($) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(NEL.showPosition);
       } else {
-        geo.val("Geolocation is not supported by this browser.");
+        $geo.val("Geolocation is not supported by this browser.");
       }
     },
     showPosition: function (position) {
@@ -310,7 +310,7 @@ jQuery(document).ready(function ($) {
       lat = lat.toFixed(6); // 6 decimals should be enough for our case
       var long = position.coords.longitude;
       long = long.toFixed(6);
-      geo.val(lat + ", " + long);
+      $geo.val(lat + ", " + long);
     }
   };
 
@@ -354,7 +354,7 @@ jQuery(document).ready(function ($) {
   });
 
   // Clear search field
-  clearSearch.click(function () {
+  $clearSearch.click(function () {
     search.val('');
     searchedAsssignments.html('');
     allAssignments.show();
@@ -373,7 +373,7 @@ jQuery(document).ready(function ($) {
   });
 
   // Sorting headers
-  sortHeader.click(function (e) {
+  $sortHeader.click(function (e) {
     e.preventDefault();
     NEL.sortAssignments(e);
     NEL.trackThis("Sort");
@@ -407,7 +407,7 @@ jQuery(document).ready(function ($) {
   });
 
   // Send message
-  sendMsg.click(function () {
+  $sendMsg.click(function () {
     NEL.sendMsg();
   });
 

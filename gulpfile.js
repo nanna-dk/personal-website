@@ -157,7 +157,7 @@ function watch() {
     .watch(res.cssSrc, styles)
     .on("change", reload);
   gulp
-    .watch(paths.src + '/js/**/*.js', gulp.series(scriptsLint, scripts))
+    .watch(res.customJs, gulp.series(scriptsLint, scripts))
     .on("change", reload);
   gulp
     .watch(paths.html, renderHtml)
