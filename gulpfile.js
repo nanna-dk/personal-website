@@ -16,7 +16,9 @@ var gulp = require('gulp'),
   pump = require('pump'),
   jsStylish = require('jshint-stylish'),
   svgmin = require('gulp-svgmin'),
-  nunjucksRender = require('gulp-nunjucks-render');
+  nunjucksRender = require('gulp-nunjucks-render'),
+  // Get data from file
+  pkg = require('./package.json');
 
 // Sass compiling options:
 var sassOptions = {
@@ -52,15 +54,6 @@ var res = {
   cssSrc: [paths.src + '/scss/custom.scss'],
   minImg: paths.src + '/img/*.svg'
 };
-
-var pkg = require('./package.json');
-
-function getBanner(i) {
-  var node = i;
-  if (node) {
-    return pkg.node;
-  }
-}
 
 function serve(done) {
   browserSync.init({
@@ -136,7 +129,8 @@ function renderHtml() {
   .pipe(nunjucksRender({
     path: ['./src/html/templates/'],
     data: {
-      description: getBanner('description')
+      description: pkg.description,
+      author: pkg.author
     }
   }))
   .pipe(htmlmin({

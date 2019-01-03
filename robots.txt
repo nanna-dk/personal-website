@@ -5,7 +5,7 @@
 # For syntax checking, see:
 # http://www.sxw.org.uk/computing/robots/check.html
 
-User-agent:
+User-agent: *
 Disallow: /admin.php
 Disallow: /backup/
 Disallow: /PdfToText/

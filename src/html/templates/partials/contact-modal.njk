@@ -11,10 +11,10 @@
       <div class="modal-body">
         <form id="contactform" method="POST">
           <div class="form-group">
-            <input type="text" name="name" class="form-control" id="name" placeholder="Navn">
+            <input type="text" name="name" class="form-control" id="name" placeholder="Navn" autofocus required>
           </div>
           <div class="form-group">
-            <input type="email" name="email" class="form-control" id="email" placeholder="E-mail">
+            <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" required>
           </div>
           <div class="form-group">
             <textarea rows="6" name="message" class="form-control" id="msg" placeholder="Besked"></textarea>
@@ -27,8 +27,8 @@
       </div>
       <!-- Modal Footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-default float-left" data-dismiss="modal">Luk</button>
-        <button type="submit" class="btn btn-primary float-right" id="sendMail">Send</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Luk</button>
+        <button type="submit" class="btn btn-primary" id="sendMail">Send</button>
       </div>
     </div>
   </div>
