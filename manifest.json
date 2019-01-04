@@ -1,7 +1,7 @@
 {
   "name": "Nanna Ellegaard, cand.it og front-end udvikler",
   "short_name": "e-nanna.dk",
-  "description": "Min interaktive legeplads med CV, it-opgaver, etc.",
+  "description": "Nanna Ellegaard, Cand.it i Multimedier og frontend-udvikler med speciale indenfor html5, sass/less, javaScript, jQuery, node.js, git, PHP mv. Se CV og opgaver fra Aarhus Universitet.",
   "start_url": "/",
   "display": "standalone",
   "lang": "da-DK",

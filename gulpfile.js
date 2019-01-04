@@ -44,7 +44,7 @@ var paths = {
   minImg: "./dist/img"
 };
 
-// List of rssource files to concatenate
+// List of ressource files to concatenate
 var res = {
   bsJs: [
     'node_modules/jquery/dist/jquery.min.js',
@@ -136,7 +136,6 @@ function renderHtml() {
   .pipe(htmlmin({
     removeComments: true,
     collapseWhitespace: true,
-    minifyCSS: true,
     minifyJS: true
   }))
   .pipe(minifyJson({

@@ -53,10 +53,10 @@ if (isset($_POST['submit'])) {
         <?php
             // PASSWORD PROTECTED AREA ENDS
         } else {
-            echo '<div class="alert alert-danger" role="alert">Brugernavn og/eller adgangskode er ikke korrekt.</div>';
+            echo '<div class="container p-3"><div class="alert alert-danger" role="alert">Brugernavn og/eller adgangskode er ikke korrekt.</div></div>';
         }
     } else {
-        echo '<div class="alert alert-danger" role="alert">Brugernavn og/eller adgangskode er ikke korrekt.</div>';
+        echo '<div class="container p-3"><div class="alert alert-danger" role="alert">Brugernavnet findes ikke - prøv igen.</div></div>';
     }
 } else {
     // IF THE FORM WAS NOT SUBMITTED - SHOW FORM:
