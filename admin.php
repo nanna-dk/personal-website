@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
             $db_username = $row['username'];
             $db_password = $row['password'];
         }
-        if (isset($db_username) && $user == $db_username && isset($db_password) && $psw == $db_password) {
+        if (isset($db_username) && $user == $db_username && isset($db_password) && $psw == password_verify($psw, $db_password)) {
             // PASSWORD PROTECTED AREA STARTS HERE:
 ?> <section class="assignments" id="stats"><div class="container"><div class="card"><div class="card-body"><h5 class="card-title">Statistik</h5> <?php
                 include('includes/stats/stats.php');
