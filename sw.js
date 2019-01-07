@@ -5,7 +5,7 @@ const CACHE_APP = [
   '/',
   'index.php',
   'admin.php'
-]
+];
 const CACHE_STATIC = [
   'dist/css/bootstrap.min.css',
   'dist/js/bootstrap.min.js',
@@ -20,7 +20,7 @@ const CACHE_STATIC = [
   'img/icons/mstile-150x150.png',
   'img/it-cover.jpg',
   'favicon.ico'
-]
+];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(
@@ -53,6 +53,7 @@ self.addEventListener('activate', function (e) {
 self.addEventListener('fetch', function (e) {
   const url = new URL(e.request.url);
   if (url.hostname === 'static.mysite.co' || url.hostname === 'cdnjs.cloudflare.com' || url.hostname === 'fonts.googleapis.com') {
+    console.log('STATIC_CACHE_NAME');
     e.respondWith(
       caches.match(e.request).then(function (response) {
         if (response) {
