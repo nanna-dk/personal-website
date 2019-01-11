@@ -1,5 +1,5 @@
-const STATIC_CACHE_NAME = 'static-cache-v1';
-const APP_CACHE_NAME = 'app-cache-#VERSION';
+const STATIC_CACHE_NAME = 'static-cache-v2';
+const APP_CACHE_NAME = 'app-cache-v2';
 
 const CACHE_APP = [
   '/',
@@ -7,6 +7,7 @@ const CACHE_APP = [
   'admin.php'
 ];
 const CACHE_STATIC = [
+  'manifest.json',
   'dist/css/bootstrap.min.css',
   'dist/js/bootstrap.min.js',
   'dist/js/svgxuse.min.js',
@@ -74,6 +75,7 @@ self.addEventListener('fetch', function (e) {
       })
     );
   } else if (CACHE_APP.indexOf(url.pathname) !== -1) {
+    console.log('Cache app');
     e.respondWith(caches.match(e.request));
   }
 });
