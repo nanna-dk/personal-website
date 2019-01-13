@@ -1,12 +1,11 @@
-const STATIC_CACHE_NAME = 'static-cache-v2';
-const APP_CACHE_NAME = 'app-cache-v2';
+var version = '1.0';
+var cacheName = 'web-cache-' + version;
+var dataCacheName = 'web-data-' + version;
 
-const CACHE_APP = [
+//app cache files and data
+var filesToCache = [
   '/',
   'index.php',
-  'admin.php'
-];
-const CACHE_STATIC = [
   'manifest.json',
   'dist/css/bootstrap.min.css',
   'dist/js/bootstrap.min.js',
@@ -23,59 +22,67 @@ const CACHE_STATIC = [
   'favicon.ico'
 ];
 
+var cachableUrls = [
+  'admin.php'
+];
+
 self.addEventListener('install', function (e) {
+  //console.log('[ServiceWorker] Install');
   e.waitUntil(
-    Promise.all([caches.open(STATIC_CACHE_NAME), caches.open(APP_CACHE_NAME), self.skipWaiting()]).then(function (storage) {
-      var static_cache = storage[0];
-      var app_cache = storage[1];
-      return Promise.all([static_cache.addAll(CACHE_STATIC), app_cache.addAll(CACHE_APP)]);
+    caches.open(cacheName).then(function (cache) {
+      //console.log('[ServiceWorker] Caching web...');
+      return cache.addAll(filesToCache);
     })
   );
 });
 
 self.addEventListener('activate', function (e) {
+  //console.log('[ServiceWorker] Activate');
   e.waitUntil(
-    Promise.all([
-            self.clients.claim(),
-            caches.keys().then(function (cacheNames) {
-        return Promise.all(
-          cacheNames.map(function (cacheName) {
-            if (cacheName !== APP_CACHE_NAME && cacheName !== STATIC_CACHE_NAME) {
-              console.log('deleting', cacheName);
-              return caches.delete(cacheName);
-            }
-          })
-        );
-      })
-    ])
+    caches.keys().then(function (keyList) {
+      return Promise.all(keyList.map(function (key) {
+        if (key !== cacheName) {
+          //console.log('[ServiceWorker] Removing old cache', key);
+          return caches.delete(key);
+        }
+      }));
+    })
   );
 });
 
 self.addEventListener('fetch', function (e) {
-  const url = new URL(e.request.url);
-  if (url.hostname === 'static.mysite.co' || url.hostname === 'cdnjs.cloudflare.com' || url.hostname === 'fonts.googleapis.com') {
-    console.log('STATIC_CACHE_NAME');
+  //console.log("WORKER FETCH CALLED...");
+  if (mustCache(e.request.url)) {
     e.respondWith(
-      caches.match(e.request).then(function (response) {
-        if (response) {
-          return response;
-        }
-        var fetchRequest = e.request.clone();
-
-        return fetch(fetchRequest).then(function (response) {
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
-          }
-          var responseToCache = response.clone();
-          caches.open(STATIC_CACHE_NAME).then(function (cache) {
-            cache.put(e.request, responseToCache);
-          });
+      fetch(e.request)
+      .then(function (response) {
+        return caches.open(dataCacheName).then(function (cache) {
+          //console.log("SAVING >>> " + e.request.url);
+          cache.put(e.request.url, response.clone());
           return response;
         });
       })
     );
-  } else if (CACHE_APP.indexOf(url.pathname) !== -1) {
-    console.log('Cache app');
-    e.respondWith(caches.match(e.request));
+  } else {
+    e.respondWith(
+      caches.match(e.request).then(function (response) {
+        /*var type = response ? "cached" : "network";
+        if(response && 'url' in response) {
+            console.log(type+": "+response.url);
+        }else{
+            console.log(type+": "+e.request.url);
+        }*/
+        return response || fetch(e.request);
+      })
+    );
   }
 });
+
+function mustCache(requestUrl) {
+  for (var i = 0; i < cachableUrls.length; i++) {
+    if (requestUrl.indexOf(cachableUrls[i]) > -1) {
+      return true;
+    }
+  }
+  return false;
+}
