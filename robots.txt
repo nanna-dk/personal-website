@@ -1,6 +1,5 @@
 User-agent: *
 Disallow: /admin.php
 Disallow: /backup/
-Disallow: /PdfToText/
 
-Sitemap: http://www.e-nanna.dk/sitemap.xml
+Sitemap: https://www.e-nanna.dk/sitemap.xml
