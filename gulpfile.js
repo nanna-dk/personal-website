@@ -26,14 +26,6 @@ var sassOptions = {
   outputStyle: 'compressed'
 };
 
-// Autoprefixer options
-var autoprefixerOptions = {
-  browsers: [
-    "last 1 version", "> 1%", "not dead"
-  ],
-  cascade: false
-};
-
 // project paths
 var paths = {
   root: "./",
@@ -93,7 +85,7 @@ function styles() {
     .src(res.cssSrc)
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
     .pipe(sass(sassOptions).on('error', sass.logError))
-    .pipe(autoprefixer(autoprefixerOptions))
+    .pipe(autoprefixer())
     .pipe(concat("bootstrap.min.css"))
     .pipe(gulp.dest(paths.minCss))
     .pipe(browserSync.stream());
