@@ -7,6 +7,12 @@ IndexIgnore *
 
 ## Can be commented out if causes errors, see notes above.
 #Options +FollowSymlinks
+
+# Prevent mime based attacks
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+</IfModule>
+
 Options -Indexes
 
 ## Mod_rewrite in use.
@@ -308,9 +314,6 @@ RewriteCond %{HTTP_REFERER} .
 RewriteCond %{HTTP_REFERER} !^https?://(www\.)?e-nanna\.dk|127.0.0.1 [NC]
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule \.(jp(e?g|2)?|png|gif|bmp|css|js|swf|ico)$ - [F]
-
-# Prevent mime based attacks
-Header set X-Content-Type-Options "nosniff"
 
 # Turn on IE8-IE9 XSS prevention tools
 Header set X-XSS-Protection "1; mode=block"
