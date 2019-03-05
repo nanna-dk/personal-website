@@ -258,11 +258,11 @@ svg {
     }
 
     .footer-left {
-      @include float-left;
+      float: left;
     }
 
     .footer-right {
-      @include float-right;
+      float: right;
     }
     color: $gray-700;
   }

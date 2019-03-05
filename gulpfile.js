@@ -20,6 +20,8 @@ var gulp = require('gulp'),
   // Get data from file
   pkg = require('./package.json');
 
+  // Banner
+
 // Sass compiling options:
 var sassOptions = {
   errLogToConsole: true,
