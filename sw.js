@@ -18,6 +18,7 @@ var filesToCache = [
   'img/icons/android-chrome-512x512.png',
   'img/icons/safari-pinned-tab.svg',
   'img/icons/mstile-150x150.png',
+  'img/3d-modellering.jpg',
   'img/it-cover.jpg',
   'favicon.ico'
 ];
