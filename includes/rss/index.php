@@ -40,7 +40,8 @@ if ($stmt->rowCount() > 0) {
         $titles = $row['title'];
         $full_desc = $row['description'];
         $desc = preg_replace('/<a[^>]*>.*?<\/a>/i', '', $full_desc);
-        $url = $row['url'];
+        $id = $row['id'];
+        $url = siteUrl() . '/includes/downloads/downloads.php?id=' . $id;
         $dates = $row['dates'];
 
         $item = $channel->addChild('item');
