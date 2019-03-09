@@ -426,6 +426,11 @@ jQuery(document).ready(function ($) {
     NEL.clearInput();
   });
 
+  // When 3D animation modal has been opened
+  $('#animation').on('shown.bs.modal', function (e) {
+    NEL.trackThis('Watching 3D animation');
+  });
+
   if ($('#gitHubStats')) {
     NEL.getGitHubStats();
   }
@@ -493,11 +498,11 @@ var onReCaptchaLoad = function () {
 
 // Start service worker
 if ('serviceWorker' in navigator && (window.location.protocol === 'https:')) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('sw.js').then(function(registration) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').then(function (registration) {
       // Registration was successful
       //console.log('Service Worker registration successful with scope: ', registration.scope);
-    }, function(err) {
+    }, function (err) {
       // registration failed :(
       console.log('Service Worker registration failed: ', err);
     });
