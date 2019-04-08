@@ -27,9 +27,9 @@
   "author": "Nanna Ellegaard",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
     "babel-plugin-transform-es2015-modules-strip": "^0.1.1",
     "babel-preset-env": "^1.7.0",
     "browser-sync": "^2.26.3",
@@ -46,11 +46,11 @@
     "gulp-plumber": "^1.2.1",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
-    "gulp-svgmin": "^2.1.0",
+    "gulp-svgmin": "^2.2.0",
     "gulp-uglify": "^3.0.2",
     "jshint": "^2.10.2",
     "jshint-stylish": "^2.2.1",
-    "popper.js": "^1.14.7"
+    "popper.js": "^1.15.0"
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
@@ -60,7 +60,7 @@
   },
   "peerDependencies": {
     "jquery": "^3.3.1",
-    "popper.js": "^1.14.7"
+    "popper.js": "^1.15.0"
   },
   "private": true,
   "browserslist": [
