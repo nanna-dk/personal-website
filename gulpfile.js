@@ -89,7 +89,7 @@ function styles() {
     .pipe(sass(sassOptions).on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(concat("bootstrap.min.css"))
-    .pipe(gulp.dest(paths.minCss))
+    .pipe(gulp.dest(paths.minCss, { sourcemaps: '.' }))
     .pipe(browserSync.stream());
 }
 
@@ -113,7 +113,7 @@ function scripts() {
     .pipe(concat("bootstrap.min.js"))
     .pipe(babel())
     .pipe(uglify())
-    .pipe(gulp.dest(paths.minJs))
+    .pipe(gulp.dest(paths.minJs, { sourcemaps: '.' }))
     .pipe(browserSync.stream());
 }
 
