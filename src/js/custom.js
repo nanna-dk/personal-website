@@ -435,11 +435,6 @@ jQuery(document).ready(function ($) {
     NEL.getGitHubStats();
   }
 
-  // Lazy load single image
-  $('#cd-cover').on('show.bs.modal', function (e) {
-    $('#cover').attr('src', 'img/it-cover.jpg');
-  });
-
   // Get location
   $('#generateCoords').click(function () {
     NEL.getLocation();

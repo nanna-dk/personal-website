@@ -45,7 +45,11 @@
         </button>
       </div>
       <div class="modal-body">
-        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Cover til CD-rom" class="img-fluid" id="cover">
+        <picture>
+          <source srcset="img/it-cover.webp" type="image/webp">
+          <source srcset="img/it-cover.jpg" type="image/jpeg">
+          <img src="img/it-cover.jpg" alt="Cover" loading="lazy" class="img-fluid">
+      </picture>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Luk</button>
