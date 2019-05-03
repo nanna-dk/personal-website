@@ -84,7 +84,7 @@ function imgMin() {
 // Compile styles
 function styles() {
   return gulp
-    .src(res.cssSrc)
+    .src(res.cssSrc, { sourcemaps: true })
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
     .pipe(sass(sassOptions).on('error', sass.logError))
     .pipe(autoprefixer())
@@ -108,7 +108,7 @@ function scriptsLint() {
 function scripts() {
   var arrays = res.bsJs.concat(res.customJs);
   return gulp
-    .src(arrays)
+    .src(arrays, { sourcemaps: true })
     .pipe(plumber())
     .pipe(concat("bootstrap.min.js"))
     .pipe(babel())
