@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /admin.php
 Disallow: /backup/
 
 Sitemap: https://www.e-nanna.dk/sitemap.xml
