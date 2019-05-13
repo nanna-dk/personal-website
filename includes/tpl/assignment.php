@@ -24,10 +24,11 @@
   $url        = $row['url'];
   $clicks     = number_format($row['clicks'], 0, '', '.');
   $dates      = (date('d. m. Y', strtotime($row['dates'])));
-  // Urls containing zip archives require the download attribute
+  // Urls containing zip archives require the download attribute and no targets
   $dl_tag     = ($id == 2 || $id == 7) ? 'download' : '';
+  $blank_tag  = ($id == 2 || $id == 7) ? '' : 'target="_blank" rel="noopener"';
   echo '<div class="card">';
-  echo '<h4 class="card-header"><span class="count">' . $counter . '.</span> <a href="includes/downloads/downloads.php?id=' . $id . '" target="_blank" rel="noopener" title="Se ' . $title . '" ' . $dl_tag .'>' . $title . '</a></h4>';
+  echo '<h4 class="card-header"><span class="count">' . $counter . '.</span> <a href="includes/downloads/downloads.php?id=' . $id . '" '. $blank_tag .' title="Se ' . $title . '" ' . $dl_tag .'>' . $title . '</a></h4>';
   echo '<div class="card-body"><p class="card-text">' . $desc . '</p>';
   // Rating start
   echo '<div class="ratings" data-id="' . $id . '" data-avg="' . $avg . '">';
