@@ -13,7 +13,19 @@ if ((int)$_GET['id'] !== 0) {
   if ($stmt->rowCount() > 0) {
       $result = $stmt->fetchAll();
       foreach($result as $row) {
-          header("Location: " . $row["url"]);
+          if ($id == 7) {
+            // Special header for zip files
+            header("Content-Description: Download");
+            header('Content-type: application/zip');
+            header('Content-Transfer-Encoding: binary');
+            header('Connection: Keep-Alive');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+            header("Content-Length: " . filesize($row["url"]));
+            header("Location: " . $row["url"]);
+          } else {
+            header("Location: " . $row["url"]);
+          }
       }
 
       // Update counter by one and add a timestamp (plus 1 hour to get correct time zone on remote db)
