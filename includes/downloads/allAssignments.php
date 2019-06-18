@@ -2,7 +2,7 @@
 // Query the database
 include(realpath(__DIR__ . '/../db.php'));
 
-$sql  = "SELECT * FROM " . $DBtable . " ORDER BY dates DESC";
+$sql  = "SELECT * FROM " . $DBtable . " ORDER BY clicks DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 //set counter variable
