@@ -49,6 +49,17 @@ jQuery(document).ready(function ($) {
         }
       }
     },
+    scrollIndicator: function () {
+      var progressBar;
+      progressBar = $("scrollProgress");
+
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = Math.floor((winScroll / height) * 100);
+      progressBar.setAttribute("aria-valuenow", scrolled);
+      progressBar.style.width = scrolled + "%";
+
+    },
     urlParam: function (name) {
       // Get query string from url
       var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.href);
@@ -446,6 +457,7 @@ jQuery(document).ready(function ($) {
 
   $(window).scroll(function () {
     NEL.scroll();
+    NEL.scrollIndicator();
   });
 
   $('a[href*="#"]').not('[href="#"]').not('.accordion').click(function (event) {
