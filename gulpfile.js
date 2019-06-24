@@ -31,6 +31,7 @@ var sassOptions = {
 // project paths
 var paths = {
   root: "./",
+  dist: './dist',
   src: "./src",
   html: "./src/html/*.+(njk)",
   minCss: "./dist/css",
