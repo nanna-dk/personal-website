@@ -51,14 +51,11 @@ jQuery(document).ready(function ($) {
     },
     scrollIndicator: function () {
       var progressBar;
-      progressBar = $("scrollProgress");
-
+      progressBar = $("#scrollProgress");
       var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       var scrolled = Math.floor((winScroll / height) * 100);
-      progressBar.setAttribute("aria-valuenow", scrolled);
-      progressBar.style.width = scrolled + "%";
-
+      progressBar.attr('aria-valuenow', scrolled).css('width', scrolled);
     },
     urlParam: function (name) {
       // Get query string from url

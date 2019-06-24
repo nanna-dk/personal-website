@@ -84,12 +84,12 @@ function imgMin() {
 // Compile styles
 function styles() {
   return gulp
-    .src(res.cssSrc, { sourcemaps: true })
+    .src(res.cssSrc)
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
     .pipe(sass(sassOptions).on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(concat("bootstrap.min.css"))
-    .pipe(gulp.dest(paths.minCss, { sourcemaps: '.' }))
+    .pipe(gulp.dest(paths.minCss))
     .pipe(browserSync.stream());
 }
 

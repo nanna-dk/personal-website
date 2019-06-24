@@ -16,6 +16,7 @@ $primary-color: #004a99;
 $border-radius: 0.1rem;
 $h2-font-size: $font-size-base * 1.5;
 $h4-font-size: $font-size-base * 1.2;
+$scrollIndicatorHeight: 5px;
 
 body,
 html {
@@ -57,6 +58,7 @@ svg {
 
 #global-nav {
   height: $nav-height;
+  top: $scrollIndicatorHeight;
 }
 
 .btn-primary {
@@ -458,9 +460,15 @@ section {
   }
 }
 
-#scrollProgress {
-  height: 10px;
+.scrollProgress {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  height: $scrollIndicatorHeight;
 }
+
 .scrolltop {
   position: fixed;
   bottom: 4%;
