@@ -50,12 +50,11 @@ jQuery(document).ready(function ($) {
       }
     },
     scrollIndicator: function () {
-      var progressBar;
-      progressBar = $("#scrollProgress");
+      var progressBar = $("#scrollProgress");
       var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       var scrolled = Math.floor((winScroll / height) * 100);
-      progressBar.attr('aria-valuenow', scrolled).css('width', scrolled);
+      progressBar.attr('aria-valuenow', scrolled).css('width', scrolled + '%');
     },
     urlParam: function (name) {
       // Get query string from url
@@ -93,7 +92,7 @@ jQuery(document).ready(function ($) {
             NEL.setRatings();
           },
           error: function (xhr, status, error) {
-            searchedAsssignments.html('Søgning kunne ikke udføres - prøv igen senere.').show();
+            searchedAsssignments.html('S&oslash;gning kunne ikke udf&oslash;res - pr&oslash;v igen senere.').show();
             console.log(xhr.responseText);
           }
         });
@@ -501,14 +500,14 @@ var onReCaptchaLoad = function () {
 };
 
 // Start service worker
-if ('serviceWorker' in navigator && (window.location.protocol === 'https:')) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('sw.js').then(function (registration) {
-      // Registration was successful
-      //console.log('Service Worker registration successful with scope: ', registration.scope);
-    }, function (err) {
-      // registration failed :(
-      console.log('Service Worker registration failed: ', err);
-    });
-  });
-}
+// if ('serviceWorker' in navigator && (window.location.protocol === 'https:')) {
+//   window.addEventListener('load', function () {
+//     navigator.serviceWorker.register('sw.js').then(function (registration) {
+//       // Registration was successful
+//       //console.log('Service Worker registration successful with scope: ', registration.scope);
+//     }, function (err) {
+//       // registration failed :(
+//       console.log('Service Worker registration failed: ', err);
+//     });
+//   });
+// }
