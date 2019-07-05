@@ -15,6 +15,7 @@ jQuery(document).ready(function ($) {
   var searchedAsssignments = $('#searchAssignments');
   // sorting
   var $sortHeader = $('.sorting');
+  var $assignmentCategory = $('#categories');
   // Scroll
   var nav = $('#global-nav').outerHeight(true) + 10;
   var scroller = $('.scrolltop');
@@ -107,12 +108,14 @@ jQuery(document).ready(function ($) {
       var getID = sortOrder.split('-');
       var name = getID[0];
       var order = getID[1];
+      var cat = $assignmentCategory.children("option:selected").val();
       $.ajax({
         url: 'includes/downloads/sorting.php',
         type: 'POST',
         data: {
           'column': name,
-          'sortOrder': order
+          'sortOrder': order,
+          'category': cat
         },
         success: function (response) {
           target.removeClass('asc desc');
@@ -382,6 +385,11 @@ jQuery(document).ready(function ($) {
   // Sorting headers
   $sortHeader.click(function (e) {
     e.preventDefault();
+    NEL.sortAssignments(e);
+    NEL.trackThis("Sort");
+  });
+
+  $assignmentCategory.on('change', function (e) {
     NEL.sortAssignments(e);
     NEL.trackThis("Sort");
   });
