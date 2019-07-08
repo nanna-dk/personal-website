@@ -148,6 +148,29 @@ jQuery(document).ready(function ($) {
         }
       });
     },
+    sortCategory: function (e) {
+      // Sort assognments by category
+      var cat = $assignmentCategory.val();
+      $.ajax({
+        url: 'includes/downloads/sorting.php',
+        type: 'POST',
+        dataType:"json",
+        data: {
+          'column': 'title',
+          'sortOrder': 'asc',
+          'category': cat
+        },
+        success: function (response) {
+          allAssignments.empty();
+          allAssignments.hide().append(response).fadeIn(600);
+          // Update Ratings
+          NEL.setRatings();
+        },
+        error: function (xhr, status, error) {
+          console.log(xhr.responseText);
+        }
+      });
+    },
     setRatings: function () {
       $('.ratings').each(function () {
         var average = $(this).attr('data-avg');
@@ -397,7 +420,7 @@ jQuery(document).ready(function ($) {
   });
 
   $assignmentCategory.on('change', function (e) {
-    NEL.sortAssignments(e);
+    NEL.sortCategory(e);
     NEL.trackThis("Sort");
   });
 
