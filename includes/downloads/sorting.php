@@ -8,22 +8,25 @@ if (isset($_POST['column']) && isset($_POST['sortOrder']) && isset($_POST['categ
     $sortOrder  = strtoupper($_POST['sortOrder']);
     $sortOrder = filter_var($sortOrder, FILTER_SANITIZE_SPECIAL_CHARS);
 
-      $category = isset($_POST['category']);
+
+      $category = $_POST['category'];
       //$category = filter_var($category, FILTER_VALIDATE_INT) === 0 || filter_var($category, FILTER_VALIDATE_INT);
 
+      if ($category == "1") {
+        $where = " WHERE category = 1";
+      } else if ($category == "2") {
+        $where = "  WHERE category = 2";
+      }
+
     if ($columnName == 'rating') {
-      $sql = "SELECT * FROM " . $DBtable . " order by ROUND(rating / votes, 1) " . $sortOrder;
+      $sql = "SELECT * FROM " . $DBtable . $where . " order by ROUND(rating / votes, 1) " . $sortOrder;
     } else {
-      $sql = "SELECT * FROM " . $DBtable . " order by " . $columnName . " " . $sortOrder;
+      $sql = "SELECT * FROM " . $DBtable . $where . " order by " . $columnName . " " . $sortOrder;
     }
 
-    if ($category === 1) {
-      $sql .= "WHERE category = '1'";
-    } else if ($category === 2) {
-      $sql .= "WHERE category = '2'";
-    }
 
-    var_dump($sql);
+
+var_dump($sql);
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
