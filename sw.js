@@ -1,15 +1,28 @@
+self.addEventListener('install', function(e) {
+  self.skipWaiting();
+});
 
-var version = '1.0';
-var cacheName = 'web-cache-' + version;
-var dataCacheName = 'web-data-' + version;
+self.addEventListener('activate', function(e) {
+  self.registration.unregister()
+    .then(function() {
+      return self.clients.matchAll();
+    })
+    .then(function(clients) {
+      clients.forEach(client => client.navigate(client.url));
+    });
+});
 //
-// //app cache files and data
+// var version = '1.1';
+// var cacheName = 'web-cache-' + version;
+// var dataCacheName = 'web-data-' + version;
+// //
+// // //app cache files and data
 // var filesToCache = [
 //   '/',
 //   'index.php',
 //   'manifest.json',
-//   'dist/css/bootstrap.min.css',
-//   'dist/js/bootstrap.min.js',
+//   //'dist/css/bootstrap.min.css',
+//   //'dist/js/bootstrap.min.js',
 //   'dist/js/svgxuse.min.js',
 //   'dist/img/icons.svg',
 //   'img/icons/favicon-16x16.png',
@@ -27,41 +40,25 @@ var dataCacheName = 'web-data-' + version;
 // var cachableUrls = [
 //   'admin.php'
 // ];
-
-self.addEventListener('activate', function(event) {
-  event.waitUntil(
-    caches.keys().then(function(cacheNames) {
-      return Promise.all(
-        cacheNames.filter(function(cacheName) {
-          return true;
-          // Return true if you want to remove this cache,
-          // but remember that caches are shared across
-          // the whole origin
-        }).map(function(cacheName) {
-          return caches.delete(cacheName);
-        })
-      );
-    })
-  );
-});
-
+//
+//
 // self.addEventListener('install', function (e) {
-//   //console.log('[ServiceWorker] Install');
+//   console.log('[ServiceWorker] Install');
 //   e.waitUntil(
 //     caches.open(cacheName).then(function (cache) {
-//       //console.log('[ServiceWorker] Caching web...');
+//       console.log('[ServiceWorker] Caching web...');
 //       return cache.addAll(filesToCache);
 //     })
 //   );
 // });
 //
 // self.addEventListener('activate', function (e) {
-//   //console.log('[ServiceWorker] Activate');
+//   console.log('[ServiceWorker] Activate');
 //   e.waitUntil(
 //     caches.keys().then(function (keyList) {
 //       return Promise.all(keyList.map(function (key) {
 //         if (key !== cacheName) {
-//           //console.log('[ServiceWorker] Removing old cache', key);
+//           console.log('[ServiceWorker] Removing old cache', key);
 //           return caches.delete(key);
 //         }
 //       }));
@@ -76,7 +73,7 @@ self.addEventListener('activate', function(event) {
 //       fetch(e.request)
 //       .then(function (response) {
 //         return caches.open(dataCacheName).then(function (cache) {
-//           //console.log("SAVING >>> " + e.request.url);
+//           console.log("SAVING >>> " + e.request.url);
 //           cache.put(e.request.url, response.clone());
 //           return response;
 //         });
@@ -85,12 +82,12 @@ self.addEventListener('activate', function(event) {
 //   } else {
 //     e.respondWith(
 //       caches.match(e.request).then(function (response) {
-//         /*var type = response ? "cached" : "network";
+//         var type = response ? "cached" : "network";
 //         if(response && 'url' in response) {
 //             console.log(type+": "+response.url);
 //         }else{
 //             console.log(type+": "+e.request.url);
-//         }*/
+//         }
 //         return response || fetch(e.request);
 //       })
 //     );

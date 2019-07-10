@@ -154,7 +154,6 @@ jQuery(document).ready(function ($) {
       $.ajax({
         url: 'includes/downloads/sorting.php',
         type: 'POST',
-        dataType:"json",
         data: {
           'column': 'title',
           'sortOrder': 'asc',
