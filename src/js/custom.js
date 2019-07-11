@@ -144,7 +144,7 @@ jQuery(document).ready(function ($) {
           NEL.setRatings();
         },
         error: function (xhr, status, error) {
-          console.log(xhr.responseText);
+          console.log(error);
         }
       });
     },
@@ -160,13 +160,14 @@ jQuery(document).ready(function ($) {
           'category': cat
         },
         success: function (response) {
+          console.log("Category: " + response);
           allAssignments.empty();
           allAssignments.hide().append(response).fadeIn(600);
           // Update Ratings
           NEL.setRatings();
         },
         error: function (xhr, status, error) {
-          console.log(xhr.responseText);
+          console.log(error);
         }
       });
     },
