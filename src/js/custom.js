@@ -102,71 +102,51 @@ jQuery(document).ready(function ($) {
     },
     sortAssignments: function (e) {
       // Sort assognments
+      // Sort assognments
       var sortOrder, getID, name, order, isAnchor;
       var target = $(e.currentTarget);
-
-      var siblings = target.parent().siblings().find('a');
-      sortOrder = target.data('id');
-      getID = sortOrder.split('-');
-      name = getID[0];
-      order = getID[1];
-
+      if (target.prop("tagName").toLowerCase() == 'a') {
+        isAnchor = true;
+        var siblings = target.parent().siblings().find('a');
+        sortOrder = target.data('id');
+        getID = sortOrder.split('-');
+        name = getID[0];
+        order = getID[1];
+      }
 
       var cat = $assignmentCategory.val();
       $.ajax({
-        url: 'includes/downloads/sorting.php',
+        url: '../includes/downloads/sorting.php',
         type: 'POST',
         data: {
-          'column': name,
-          'sortOrder': order,
+          'column': name || 'clicks',
+          'sortOrder': order || 'desc',
           'category': cat
         },
         success: function (response) {
-
-          target.removeClass('asc desc');
-          siblings.removeClass('asc desc');
-          siblings.attr('title', 'Sortér');
-          var t = target.text().toLowerCase().trim();
-          if (order == 'asc') {
-            target.data('id', name + '-desc');
-            target.attr('title', 'Sortér ' + t + ' stigende');
-            target.addClass('desc');
-          } else {
-            target.data('id', name + '-asc');
-            target.attr('title', 'Sortér ' + t + ' faldende');
-            target.addClass('asc');
+          console.log(response);
+          if (isAnchor) {
+            target.removeClass('asc desc');
+            siblings.removeClass('asc desc');
+            siblings.attr('title', 'Sortér');
+            var t = target.text().toLowerCase().trim();
+            if (order == 'asc') {
+              target.data('id', name + '-desc');
+              target.attr('title', 'Sortér ' + t + ' stigende');
+              target.addClass('desc');
+            } else {
+              target.data('id', name + '-asc');
+              target.attr('title', 'Sortér ' + t + ' faldende');
+              target.addClass('asc');
+            }
           }
-
           allAssignments.empty();
           allAssignments.hide().append(response).fadeIn(600);
           // Update Ratings
           NEL.setRatings();
         },
         error: function (xhr, status, error) {
-          console.log(error);
-        }
-      });
-    },
-    sortCategory: function (e) {
-      // Sort assognments by category
-      var cat = $assignmentCategory.val();
-      $.ajax({
-        url: 'includes/downloads/sorting.php',
-        type: 'POST',
-        data: {
-          'column': 'title',
-          'sortOrder': 'asc',
-          'category': cat
-        },
-        success: function (response) {
-          console.log("Category: " + response);
-          allAssignments.empty();
-          allAssignments.hide().append(response).fadeIn(600);
-          // Update Ratings
-          NEL.setRatings();
-        },
-        error: function (xhr, status, error) {
-          console.log(error);
+          console.log(xhr.responseText);
         }
       });
     },
@@ -419,7 +399,7 @@ jQuery(document).ready(function ($) {
   });
 
   $assignmentCategory.on('change', function (e) {
-    NEL.sortCategory(e);
+    NEL.sortAssignments(e);
     NEL.trackThis("Sort");
   });
 

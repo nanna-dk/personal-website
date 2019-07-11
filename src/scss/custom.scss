@@ -119,6 +119,12 @@ svg {
   }
 }
 
+.nav-item {
+  label {
+    position: absolute;
+  }
+}
+
 .utility-icons {
   .navbar-nav {
     flex-direction: row;
@@ -137,6 +143,10 @@ svg {
         width: 24px;
         height: 24px;
       }
+    }
+
+    label {
+      position: absolute;
     }
   }
 }

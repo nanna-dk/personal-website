@@ -89,16 +89,15 @@ function styles() {
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
     .pipe(sass(sassOptions).on('error', sass.logError))
     .pipe(autoprefixer())
-    .pipe(concat("styles.min.css"))
+    .pipe(concat("style.min.css"))
     .pipe(gulp.dest(paths.minCss))
     .pipe(browserSync.stream());
 }
 
 // Lint scripts
 function scriptsLint() {
-  var arrays = res.customJs.concat('sw.js');
   return gulp
-    .src(arrays)
+    .src(res.customJs)
     .pipe(plumber())
     .pipe(jshint())
     .pipe(jshint.reporter(jsStylish));
@@ -111,7 +110,7 @@ function scripts() {
   return gulp
     .src(arrays, { sourcemaps: true })
     .pipe(plumber())
-    .pipe(concat("scripts.min.js"))
+    .pipe(concat("script.min.js"))
     .pipe(babel())
     .pipe(uglify())
     .pipe(gulp.dest(paths.minJs, { sourcemaps: '.' }))
