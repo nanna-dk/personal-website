@@ -1,0 +1,55 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Test</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fafafa">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <select class="form-control form-control-sm" id="categories" data-id="category-asc">
+    <option value="0">Alle</option>
+    <option value="2">Cand.it i multimedier</option>
+    <option value="1">Spansk og Europastudier</option>
+  </select>
+  <div id="defaultAssignments"></div>
+  <script>
+    jQuery(document).ready(function($) {
+      var $assignmentCategory = $('#categories');
+      var allAssignments = $('#defaultAssignments');
+
+      function sortCategory(e) {
+
+        var cat = $assignmentCategory.val();
+        $.ajax({
+          url: '../includes/downloads/sorting.php',
+          type: 'POST',
+          data: {
+            'column': 'title',
+            'sortOrder': 'asc',
+            'category': cat
+          },
+          success: function(response) {
+            //console.log(response);
+            allAssignments.empty();
+            allAssignments.hide().append(response).fadeIn(600);
+          },
+          error: function(xhr, status, error) {
+            console.log(error);
+          }
+        });
+      }
+
+      $assignmentCategory.on('change', function(e) {
+        sortCategory(e);
+      });
+    });
+  </script>
+</body>
+
+</html>

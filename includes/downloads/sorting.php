@@ -3,6 +3,7 @@
 include(realpath(__DIR__ . '/../db.php'));
 
 if (isset($_POST['column']) && isset($_POST['sortOrder']) && isset($_POST['category'])) {
+
     $columnName = strtolower($_POST['column']);
     $columnName = filter_var($columnName, FILTER_SANITIZE_SPECIAL_CHARS);
     $sortOrder  = strtoupper($_POST['sortOrder']);

@@ -104,14 +104,13 @@ jQuery(document).ready(function ($) {
       // Sort assognments
       var sortOrder, getID, name, order, isAnchor;
       var target = $(e.currentTarget);
-      if (target.prop("tagName").toLowerCase() == 'a') {
-        isAnchor = true;
-        var siblings = target.parent().siblings().find('a');
-        sortOrder = target.data('id');
-        getID = sortOrder.split('-');
-        name = getID[0];
-        order = getID[1];
-      }
+
+      var siblings = target.parent().siblings().find('a');
+      sortOrder = target.data('id');
+      getID = sortOrder.split('-');
+      name = getID[0];
+      order = getID[1];
+
 
       var cat = $assignmentCategory.val();
       $.ajax({
@@ -123,21 +122,21 @@ jQuery(document).ready(function ($) {
           'category': cat
         },
         success: function (response) {
-          if (isAnchor) {
-            target.removeClass('asc desc');
-            siblings.removeClass('asc desc');
-            siblings.attr('title', 'Sortér');
-            var t = target.text().toLowerCase().trim();
-            if (order == 'asc') {
-              target.data('id', name + '-desc');
-              target.attr('title', 'Sortér ' + t + ' stigende');
-              target.addClass('desc');
-            } else {
-              target.data('id', name + '-asc');
-              target.attr('title', 'Sortér ' + t + ' faldende');
-              target.addClass('asc');
-            }
+
+          target.removeClass('asc desc');
+          siblings.removeClass('asc desc');
+          siblings.attr('title', 'Sortér');
+          var t = target.text().toLowerCase().trim();
+          if (order == 'asc') {
+            target.data('id', name + '-desc');
+            target.attr('title', 'Sortér ' + t + ' stigende');
+            target.addClass('desc');
+          } else {
+            target.data('id', name + '-asc');
+            target.attr('title', 'Sortér ' + t + ' faldende');
+            target.addClass('asc');
           }
+
           allAssignments.empty();
           allAssignments.hide().append(response).fadeIn(600);
           // Update Ratings
