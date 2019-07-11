@@ -4,16 +4,16 @@
 */
 //error_reporting(E_ALL);
 function displayHits($id) {
-    include (realpath(__DIR__ . '/../db.php'));
-    $sql = "SELECT clicks FROM " . $DBtable . " WHERE id = :id";
+    include realpath(__DIR__.'/../db.php');
+    $sql = 'SELECT clicks FROM '.$DBtable.' WHERE id = :id';
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     if ($stmt->rowCount() > 0) {
         $result = $stmt->fetchAll();
-        foreach($result as $row) {
-          $clicks = number_format($row['clicks'], 0, '', '.');
-          echo $clicks;
+        foreach ($result as $row) {
+            $clicks = number_format($row['clicks'], 0, '', '.');
+            echo $clicks;
         }
     }
     $stmt = null;
@@ -21,14 +21,14 @@ function displayHits($id) {
 }
 
 function displayTitle($id) {
-    include (realpath(__DIR__ . '/../db.php'));
-    $sql = "SELECT title FROM " . $DBtable . " WHERE id = :id";
+    include realpath(__DIR__.'/../db.php');
+    $sql = 'SELECT title FROM '.$DBtable.' WHERE id = :id';
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     if ($stmt->rowCount() > 0) {
         $result = $stmt->fetchAll();
-        foreach($result as $row) {
+        foreach ($result as $row) {
             $titles = $row['title'];
             echo $titles;
         }
@@ -38,14 +38,14 @@ function displayTitle($id) {
 }
 
 function displayDesc($id) {
-    include (realpath(__DIR__ . '/../db.php'));
-    $sql = "SELECT description FROM " . $DBtable . " WHERE id = :id";
+    include realpath(__DIR__.'/../db.php');
+    $sql = 'SELECT description FROM '.$DBtable.' WHERE id = :id';
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     if ($stmt->rowCount() > 0) {
         $result = $stmt->fetchAll();
-        foreach($result as $row) {
+        foreach ($result as $row) {
             $desc = $row['description'];
             echo $desc;
         }
@@ -55,14 +55,14 @@ function displayDesc($id) {
 }
 
 function displayDate($id) {
-    include (realpath(__DIR__ . '/../db.php'));
-    $sql = "SELECT dates FROM " . $DBtable . " WHERE id = :id";
+    include realpath(__DIR__.'/../db.php');
+    $sql = 'SELECT dates FROM '.$DBtable.' WHERE id = :id';
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     if ($stmt->rowCount() > 0) {
         $result = $stmt->fetchAll();
-        foreach($result as $row) {
+        foreach ($result as $row) {
             $dates = (date('d. m. Y', strtotime($row['dates'])));
             echo $dates;
         }
@@ -72,18 +72,18 @@ function displayDate($id) {
 }
 
 function countDownloads() {
-    include (realpath(__DIR__ . '/../db.php'));
-    $sql = "SELECT SUM(`clicks`) FROM " . $DBtable . "";
+    include realpath(__DIR__.'/../db.php');
+    $sql = 'SELECT SUM(`clicks`) FROM '.$DBtable.'';
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     if ($stmt->rowCount() > 0) {
-      $total = $stmt->fetch(PDO::FETCH_NUM);
-      $clicks = number_format($total[0], 0, '', '.');
-      echo 'Opgaverne er tilsammen downloadet i alt ' . $clicks . ' gange';
+        $total = $stmt->fetch(PDO::FETCH_NUM);
+        $clicks = number_format($total[0], 0, '', '.');
+        echo 'Opgaverne er tilsammen downloadet i alt '.$clicks.' gange';
     } else {
-      echo '';
+        echo '';
     }
     $stmt = null;
     $pdo = null;
-  }
+}
 ?>
