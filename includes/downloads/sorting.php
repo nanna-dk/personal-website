@@ -35,6 +35,8 @@ if (isset($_POST['column']) && isset($_POST['sortOrder']) && isset($_POST['categ
     $counter = 1;
     if ($stmt->rowCount() > 0) {
         $result = $stmt->fetchAll();
+        $total = $stmt->rowCount();
+        echo '<div class="totalResults">Antal resultater: '.$total.'</div>';
         foreach ($result as $row) {
             include realpath(__DIR__.'/../tpl/assignment.php');
             ++$counter;
