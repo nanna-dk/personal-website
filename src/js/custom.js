@@ -102,7 +102,6 @@ jQuery(document).ready(function ($) {
     },
     sortAssignments: function (e) {
       // Sort assognments
-      // Sort assognments
       var sortOrder, getID, name, order, isAnchor;
       var target = $(e.currentTarget);
       if (target.prop("tagName").toLowerCase() == 'a') {
@@ -113,10 +112,9 @@ jQuery(document).ready(function ($) {
         name = getID[0];
         order = getID[1];
       }
-
       var cat = $assignmentCategory.val();
       $.ajax({
-        url: '../includes/downloads/sorting.php',
+        url: 'includes/downloads/sorting.php',
         type: 'POST',
         data: {
           'column': name || 'clicks',
@@ -124,7 +122,7 @@ jQuery(document).ready(function ($) {
           'category': cat
         },
         success: function (response) {
-          console.log(response);
+          //console.log(response);
           if (isAnchor) {
             target.removeClass('asc desc');
             siblings.removeClass('asc desc');
