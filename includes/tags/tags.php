@@ -44,6 +44,8 @@ if ($stmt->rowCount() > 0) {
           'spiller',
           'herunder',
           'hvorfor',
+          'data-target',
+          'data-toggle',
         ];
 
         // Merge the two arrays

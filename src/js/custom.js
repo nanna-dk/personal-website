@@ -68,7 +68,7 @@ jQuery(document).ready(function ($) {
     },
     searchDb: function () {
       // Search assignments
-      var url = 'includes/search/searchAssignments.php';
+      var url = 'includes/search/searchAssignments.php'; //searchpdf.php
       var q = search.val();
       q = NEL.strip_html_tags(q);
       if (!q) {
