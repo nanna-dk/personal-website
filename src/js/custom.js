@@ -1,29 +1,30 @@
 'use strict';
+
 jQuery(document).ready(function ($) {
   // Search
-  var search = $('#search');
+  var search = document.getElementById('search');
   var $clearSearch = $('#clearSearch');
-  var btnSearch = $('#goSearch');
+  var btnSearch = document.getElementById('goSearch');
   // Send e-mail
-  var contactFormModal = $('#contactFormModal');
-  var contactform = $('#contactform');
-  var $sendMsg = $('#sendMail');
+  var contactFormModal = document.getElementById('contactFormModal');
+  var contactform = document.getElementById('contactform');
+  var $sendMsg = document.getElementById('sendMail');
   var messages = $('.feedback');
   // assignments
-  var assignments = $('#assignments');
-  var allAssignments = $('#defaultAssignments');
-  var searchedAsssignments = $('#searchAssignments');
+  var assignments = document.getElementById('assignments');
+  var allAssignments = document.getElementById('defaultAssignments');
+  var searchedAsssignments = document.getElementById('searchAssignments');
   // sorting
   var $sortHeader = $('.sorting');
   var $assignmentCategory = $('#categories');
   // Scroll
   var nav = $('#global-nav').outerHeight(true) + 10;
-  var scroller = $('.scrolltop');
+  var scroller = document.querySelector('.scrolltop');
   var $root = $('html, body');
   // Toggle button
   var toggle = $('[data-toggle="offcanvas"]');
   // geolocation
-  var $geo = $('#geo');
+  var geo = document.getElementById('geo');
   // Statistik
   var $stats = $('#gitHubStats');
 
@@ -31,8 +32,9 @@ jQuery(document).ready(function ($) {
   var NEL = {
     toggleNav: function () {
       // Toggle offcanvas
-      $('.offcanvas-collapse').toggleClass('open');
-      scroller.toggleClass('d-none');
+      var canvas = document.querySelector('.offcanvas-collapse');
+      canvas.classList.toggle('open');
+      scroller.classList.toggle('d-none');
     },
     scrollToTop: function () {
       // Smooth scroll to top
@@ -44,12 +46,10 @@ jQuery(document).ready(function ($) {
     scroll: function () {
       if (scroller) {
         if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
-          scroller.addClass('show');
+          scroller.classList.add('show');
         } else {
-          scroller.removeClass('show');
+          scroller.classList.remove('show');
         }
-
-        // scroller = document.body.scrollTop > 60 || document.documentElement.scrollTop > 60 ? scroller.classList.add('show') : scroller.classList.remove('show');
       }
     },
     scrollIndicator: function () {
@@ -72,15 +72,15 @@ jQuery(document).ready(function ($) {
     searchDb: function () {
       // Search assignments
       var url = 'includes/search/searchAssignments.php'; //searchpdf.php
-      var q = search.val();
+      var q = search.value;
       q = NEL.strip_html_tags(q);
       if (!q) {
-        searchedAsssignments.html('');
-        allAssignments.show();
-        search.addClass('is-invalid');
+        searchedAsssignments.innerHTML = '';
+        allAssignments.classList.add('fadeIn');
+        search.classList.add('is-invalid');
       } else {
         // Return stripped input to search field
-        search.val(NEL.strip_html_tags(q));
+        search.value = NEL.strip_html_tags(q);
         $.ajax({
           type: 'POST',
           url: url,
@@ -88,15 +88,18 @@ jQuery(document).ready(function ($) {
             search: q
           },
           success: function (response) {
-            allAssignments.hide();
+            allAssignments.style.display = 'none';
             NEL.clearErrors();
-            searchedAsssignments.hide().html(response).fadeIn(600);
+            //searchedAsssignments.style.display = 'none';
+            searchedAsssignments.innerHTML = searchedAsssignments.innerHTML + response;
+            searchedAsssignments.classList.add('show');
             // Append ?q=query to url for tracking purposes
             NEL.addParams('q', encodeURIComponent(q));
             NEL.setRatings();
           },
           error: function (xhr, status, error) {
-            searchedAsssignments.html('S&oslash;gning kunne ikke udf&oslash;res - pr&oslash;v igen senere.').show();
+            searchedAsssignments.innerHTML = 'S&oslash;gning kunne ikke udf&oslash;res - pr&oslash;v igen senere.';
+            searchedAsssignments.classList.add('show');
             console.log(xhr.responseText);
           }
         });
@@ -127,22 +130,24 @@ jQuery(document).ready(function ($) {
         success: function (response) {
           //console.log(response);
           if (isAnchor) {
-            target.removeClass('asc desc');
-            siblings.removeClass('asc desc');
-            siblings.attr('title', 'Sortér');
+            target.removeClass('asc', 'desc');
+            siblings.classList.remove('asc', 'desc');
+            siblings.setAttribute('title', 'Sortér');
             var t = target.text().toLowerCase().trim();
             if (order == 'asc') {
-              target.data('id', name + '-desc');
-              target.attr('title', 'Sortér ' + t + ' stigende');
-              target.addClass('desc');
+              target.getAttribute('data-id', name + '-desc');
+              target.setAttribute('title', 'Sortér ' + t + ' stigende');
+              target.classList.add('desc');
             } else {
-              target.data('id', name + '-asc');
-              target.attr('title', 'Sortér ' + t + ' faldende');
-              target.addClass('asc');
+              target.getAttribute('data-id', name + '-asc');
+              target.setAttribute('title', 'Sortér ' + t + ' faldende');
+              target.classList.add('asc');
             }
           }
-          allAssignments.empty();
-          allAssignments.hide().append(response).fadeIn(600);
+          allAssignments.innerHTML = '';
+          //allAssignments.style.display = 'none';
+          allAssignments.innerHTML = allAssignments.innerHTML + response;
+          allAssignments.classList.add('fadeIn');
           // Update Ratings
           NEL.setRatings();
         },
@@ -257,16 +262,16 @@ jQuery(document).ready(function ($) {
     },
     clearInput: function () {
       // Clear form fields
-      $('#name').val('');
-      $('#email').val('');
-      $('#msg').val('');
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('msg').value = '';
       if (window.grecaptcha) {
         grecaptcha.reset();
       }
     },
     clearErrors: function () {
       // Clear form errors
-      $(search).removeClass('is-invalid');
+      search.classList.remove('is-invalid');
     },
     trackThis: function (text) {
       // Google Analytics event tracking
@@ -322,7 +327,7 @@ jQuery(document).ready(function ($) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(NEL.showPosition);
       } else {
-        $geo.val("Geolocation is not supported by this browser.");
+        geo.value = 'Geolocation is not supported by this browser.';
       }
     },
     showPosition: function (position) {
@@ -330,7 +335,7 @@ jQuery(document).ready(function ($) {
       lat = lat.toFixed(6); // 6 decimals should be enough for our case
       var long = position.coords.longitude;
       long = long.toFixed(6);
-      $geo.val(lat + ", " + long);
+      geo.value = lat + ", " + long;
     }
   };
 
@@ -340,7 +345,7 @@ jQuery(document).ready(function ($) {
     $(search).val(decodeURIComponent(NEL.strip_html_tags(query)));
     NEL.trackThis("Search");
     $root.animate({
-      scrollTop: assignments.offset().top
+      scrollTop: assignments.offsetTop
     }, 500);
     NEL.searchDb();
   }
@@ -375,9 +380,9 @@ jQuery(document).ready(function ($) {
 
   // Clear search field
   $clearSearch.click(function () {
-    search.val('');
-    searchedAsssignments.html('');
-    allAssignments.show();
+    search.value = '';
+    searchedAsssignments.innerHTML = '';
+    allAssignments.style.display = 'block';
     NEL.clearErrors();
     // Remove url params
     NEL.addParams('q', '');
@@ -385,12 +390,14 @@ jQuery(document).ready(function ($) {
   });
 
   // Trigger search by Enter key
-  search.keypress(function (e) {
-    var code = (e.keyCode ? e.keyCode : e.which);
-    if ((code == 13) || (code == 10)) {
-      btnSearch.click();
+  document.getElementsByTagName('body')[0].addEventListener('keyup', function (e) {
+    if (e.target.classList.contains("searchfield")) {
+      var code = (e.keyCode ? e.keyCode : e.which);
+      if ((code == 13) || (code == 10)) {
+        btnSearch.click();
+      }
     }
-  });
+  }, false);
 
   // Sorting headers
   $sortHeader.click(function (e) {
@@ -421,40 +428,44 @@ jQuery(document).ready(function ($) {
     }
   });
 
-  $('.tags').click(function (e) {
-    e.preventDefault();
-    var query = $(this).attr('data-tag');
-    if (query) {
-      $(search).val(decodeURIComponent(NEL.strip_html_tags(query)));
-      NEL.trackThis("Search by tag");
-      NEL.searchDb();
-    }
+
+  var tags = document.querySelectorAll('.tags');
+  tags.forEach(function (e) {
+      e.addEventListener('click', function (f) {
+        f.preventDefault();
+        var query = f.target.getAttribute('data-tag');
+        if (query) {
+          search.value = decodeURIComponent(NEL.strip_html_tags(query));
+          NEL.trackThis("Search by tag");
+          NEL.searchDb();
+        }
+      });
   });
 
   // Send message
-  $sendMsg.click(function () {
+  $sendMsg.addEventListener('click', function () {
     NEL.sendMsg();
   });
 
   // Load Captcha when modal is opened
-  contactFormModal.on('show.bs.modal', function () {
-    $.getScript("https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad")
-      .done(function (s, Status) {})
-      .fail(function (jqxhr, settings, exception) {
-        console.log("Error loading script: " + exception);
-      });
-  });
+  // contactFormModal.on('show.bs.modal', function () {
+  //   $.getScript("https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad")
+  //     .done(function (s, Status) {})
+  //     .fail(function (jqxhr, settings, exception) {
+  //       console.log("Error loading script: " + exception);
+  //     });
+  // });
 
   // Clear feedback mmessages when modal is closed
-  contactFormModal.on('hidden.bs.modal', function () {
-    messages.text('').removeClass('alert alert-danger alert-success');
-    NEL.clearInput();
-  });
+  // contactFormModal.on('hidden.bs.modal', function () {
+  //   messages.text('').removeClass('alert alert-danger alert-success');
+  //   NEL.clearInput();
+  // });
 
   // When 3D animation modal has been opened
-  $('#animation').on('shown.bs.modal', function (e) {
-    NEL.trackThis('Watching 3D animation');
-  });
+  // $('#animation').on('shown.bs.modal', function (e) {
+  //   NEL.trackThis('Watching 3D animation');
+  // });
 
   if ($('#gitHubStats')) {
     NEL.getGitHubStats();
@@ -485,7 +496,8 @@ jQuery(document).ready(function ($) {
         // Only prevent default if animation is actually gonna happen
         event.preventDefault();
         $root.animate({
-          scrollTop: target.offset().top
+          //scrollTop: target.offset().top
+          scrollTop: target.offsetTop
         }, 500, function () {
           // Callback after animation
           // Must change focus!
