@@ -1,7 +1,8 @@
 <?php
+
 // Parse all pdf files from a folder
 error_reporting(E_ALL);
-ini_set("display_errors", 1);
+ini_set('display_errors', 1);
 
 include 'vendor/autoload.php';
 
@@ -23,4 +24,14 @@ foreach ($pdf_files as $file) {
         echo '<hr>';
     }
 }
+
+// $json = '';
+//
+// foreach (glob(dirname(__FILE__).'/opgaver/*.pdf') as $file) {
+//     $json .= '{ "url":'.$file.' }, ';
+// }
+//
+// $json = trim($json, ', ');
+//
+// echo $json;
 ?>

@@ -48,14 +48,17 @@ jQuery(document).ready(function ($) {
         } else {
           scroller.removeClass('show');
         }
+
+        // scroller = document.body.scrollTop > 60 || document.documentElement.scrollTop > 60 ? scroller.classList.add('show') : scroller.classList.remove('show');
       }
     },
     scrollIndicator: function () {
-      var progressBar = $("#scrollProgress");
+      var progressBar = document.getElementById("scrollProgress");
       var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       var scrolled = Math.floor((winScroll / height) * 100);
-      progressBar.attr('aria-valuenow', scrolled).css('width', scrolled + '%');
+      progressBar.setAttribute('aria-valuenow', scrolled);
+      progressBar.style.width = scrolled + '%';
     },
     urlParam: function (name) {
       // Get query string from url
