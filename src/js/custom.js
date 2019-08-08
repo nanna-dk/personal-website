@@ -9,14 +9,14 @@ jQuery(document).ready(function ($) {
   var contactFormModal = document.getElementById('contactFormModal');
   var contactform = document.getElementById('contactform');
   var $sendMsg = document.getElementById('sendMail');
-  var messages = $('.feedback');
+  var messages = document.querySelector('.feedback');
   // assignments
   var assignments = document.getElementById('assignments');
   var allAssignments = document.getElementById('defaultAssignments');
   var searchedAsssignments = document.getElementById('searchAssignments');
   // sorting
   var $sortHeader = $('.sorting');
-  var $assignmentCategory = $('#categories');
+  var $assignmentCategory = document.getElementById('categories');
   // Scroll
   var nav = $('#global-nav').outerHeight(true) + 10;
   var scroller = document.querySelector('.scrolltop');
@@ -26,7 +26,7 @@ jQuery(document).ready(function ($) {
   // geolocation
   var geo = document.getElementById('geo');
   // Statistik
-  var $stats = $('#gitHubStats');
+  var stats = document.getElementById('gitHubStats');
 
   // Namespaced functions:
   var NEL = {
@@ -109,16 +109,16 @@ jQuery(document).ready(function ($) {
     sortAssignments: function (e) {
       // Sort assognments
       var sortOrder, getID, name, order, isAnchor;
-      var target = $(e.currentTarget);
-      if (target.prop("tagName").toLowerCase() == 'a') {
+      var target = e.currentTarget;
+      if (target.tagName.toLowerCase() == 'a') {
         isAnchor = true;
         var siblings = target.parent().siblings().find('a');
-        sortOrder = target.data('id');
+        sortOrder = target.getAttribute('data-id');
         getID = sortOrder.split('-');
         name = getID[0];
         order = getID[1];
       }
-      var cat = $assignmentCategory.val();
+      var cat = $assignmentCategory.value;
       $.ajax({
         url: 'includes/downloads/sorting.php',
         type: 'POST',
@@ -133,7 +133,8 @@ jQuery(document).ready(function ($) {
             target.removeClass('asc', 'desc');
             siblings.classList.remove('asc', 'desc');
             siblings.setAttribute('title', 'Sortér');
-            var t = target.text().toLowerCase().trim();
+            var t = target.textContent || target.innerText;
+            t = t.toLowerCase().trim();
             if (order == 'asc') {
               target.getAttribute('data-id', name + '-desc');
               target.setAttribute('title', 'Sortér ' + t + ' stigende');
@@ -182,7 +183,7 @@ jQuery(document).ready(function ($) {
           success: function (data) {
             //console.log(data);
             var rated = $(".ratings[data-id='" + itemId + "']");
-            rated.attr('data-avg', data.average);
+            rated.setAttribute('data-avg', data.average);
             var average = data.average;
             average = (Number(average) * 20);
             rated.find('.bg').css('width', 0);
@@ -313,9 +314,9 @@ jQuery(document).ready(function ($) {
               t.getMonth() + 1)).slice(-2);
             var year = t.getFullYear();
 
-            $stats.append('<li>' + day + '.' + month + '.' + year + ': ' + newData[v] + '</li>');
+            stats.append('<li>' + day + '.' + month + '.' + year + ': ' + newData[v] + '</li>');
           });
-          $stats.children().wrapAll("<ul class='list-unstyled' />");
+          stats.children().wrapAll("<ul class='list-unstyled' />");
         },
         error: function (xhr, status, error) {
           console.log(xhr.responseText);
@@ -342,7 +343,7 @@ jQuery(document).ready(function ($) {
   // Run on load:
   var query = NEL.urlParam('q');
   if (query) {
-    $(search).val(decodeURIComponent(NEL.strip_html_tags(query)));
+    search.value = decodeURIComponent(NEL.strip_html_tags(query));
     NEL.trackThis("Search");
     $root.animate({
       scrollTop: assignments.offsetTop
@@ -353,63 +354,129 @@ jQuery(document).ready(function ($) {
   NEL.setRatings();
   NEL.scroll();
 
-  // Events:
-  // Toggle off-canvas menu
-  toggle.on('click', function () {
-    NEL.toggleNav();
-  });
 
-  $('.offcanvas-collapse .nav-link').on('click', function () {
-    toggle.click();
-  });
-
-  // Social icons clicked
-  $('.utility-icons .nav-item a').click(function () {
-    var channel = $(this).attr('title');
-    if (channel) {
-      NEL.trackThis(channel);
+  // Click events
+  document.addEventListener('click', function (e) {
+    // Toggle off-canvas menu
+    if (e.target.closest(toggle)) {
+      NEL.toggleNav();
     }
-  });
 
-  // Search assignments event
-  btnSearch.click(function (e) {
-    e.preventDefault();
-    NEL.trackThis("Search");
-    NEL.searchDb();
-  });
 
-  // Clear search field
-  $clearSearch.click(function () {
-    search.value = '';
-    searchedAsssignments.innerHTML = '';
-    allAssignments.style.display = 'block';
-    NEL.clearErrors();
-    // Remove url params
-    NEL.addParams('q', '');
-    NEL.trackThis("Clear button");
-  });
+    // Close mobile menu when menu items are clicked
+    if (e.target.closest('.offcanvas-collapse .nav-link')) {
+      toggle.click();
+    }
 
-  // Trigger search by Enter key
-  document.getElementsByTagName('body')[0].addEventListener('keyup', function (e) {
-    if (e.target.classList.contains("searchfield")) {
-      var code = (e.keyCode ? e.keyCode : e.which);
-      if ((code == 13) || (code == 10)) {
-        btnSearch.click();
+
+    // Social icons clicked
+    if (e.target.closest('.utility-icons .nav-item a')) {
+      var channel = $(this).attr('title');
+      if (channel) {
+        NEL.trackThis(channel);
       }
     }
+
+    // Search assignments event
+    if (e.target.closest(btnSearch)) {
+      e.preventDefault();
+      NEL.trackThis("Search");
+      NEL.searchDb();
+    }
+
+    // Clear search field
+    if (e.target.closest($clearSearch)) {
+      search.value = '';
+      searchedAsssignments.innerHTML = '';
+      allAssignments.style.display = 'block';
+      NEL.clearErrors();
+      // Remove url params
+      NEL.addParams('q', '');
+      NEL.trackThis("Clear button");
+    }
+
+    // Sorting headers
+    if (e.target.closest($sortHeader)) {
+      e.preventDefault();
+      NEL.sortAssignments(e);
+      NEL.trackThis("Sort");
+    }
+
+    // Tags initiate search
+    if (e.target.closest('.tags')) {
+      e.preventDefault();
+      var query = e.target.getAttribute('data-tag');
+      if (query) {
+        search.value = decodeURIComponent(NEL.strip_html_tags(query));
+        NEL.trackThis("Search by tag");
+        NEL.searchDb();
+      }
+    }
+
+    // Send message
+    if (e.target.closest($sendMsg)) {
+      NEL.sendMsg();
+    }
+
+    // Get location
+    if (e.target.closest('#generateCoords')) {
+      NEL.getLocation();
+    }
+
+    // Smooth scrolling from scroller
+    if (e.target.closest(scroller)) {
+      NEL.scrollToTop();
+    }
+
+    // Animated jumps
+    if (e.target.closest('a[href*="#"]').not('[href="#"]').not('.accordion')) {
+      // On-page links
+      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+        // Figure out element to scroll to
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+        // Does a scroll target exist?
+        if (target.length) {
+          // Only prevent default if animation is actually gonna happen
+          event.preventDefault();
+          $root.animate({
+            //scrollTop: target.offset().top
+            scrollTop: target.offsetTop
+          }, 500, function () {
+            // Callback after animation
+            // Must change focus!
+            var $target = $(target);
+            $target.focus();
+            if ($target.is(":focus")) { // Checking if the target was focused
+              return false;
+            } else {
+              $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+              $target.focus(); // Set focus again
+            }
+          });
+        }
+      }
+    }
+
   }, false);
 
-  // Sorting headers
-  $sortHeader.click(function (e) {
-    e.preventDefault();
-    NEL.sortAssignments(e);
-    NEL.trackThis("Sort");
-  });
 
-  $assignmentCategory.on('change', function (e) {
-    NEL.sortAssignments(e);
-    NEL.trackThis("Sort");
-  });
+  // Trigger search by Enter key
+  if (search) {
+    search.addEventListener('keyup', function (e) {
+      if (e.which === 13 || e.keyCode === 13 || e.key === "Enter") {
+        btnSearch.click();
+      }
+    });
+  }
+
+  if ($assignmentCategory) {
+    //$assignmentCategory.on('change', function (e) {
+    $assignmentCategory.onchange = function (e) {
+      NEL.sortAssignments(e);
+      NEL.trackThis("Sort");
+    };
+  }
 
   $(document).on('mouseover', '.star', function () {
     $(this).prevAll().addBack().addClass('full');
@@ -428,24 +495,6 @@ jQuery(document).ready(function ($) {
     }
   });
 
-
-  var tags = document.querySelectorAll('.tags');
-  tags.forEach(function (e) {
-      e.addEventListener('click', function (f) {
-        f.preventDefault();
-        var query = f.target.getAttribute('data-tag');
-        if (query) {
-          search.value = decodeURIComponent(NEL.strip_html_tags(query));
-          NEL.trackThis("Search by tag");
-          NEL.searchDb();
-        }
-      });
-  });
-
-  // Send message
-  $sendMsg.addEventListener('click', function () {
-    NEL.sendMsg();
-  });
 
   // Load Captcha when modal is opened
   // contactFormModal.on('show.bs.modal', function () {
@@ -467,52 +516,15 @@ jQuery(document).ready(function ($) {
   //   NEL.trackThis('Watching 3D animation');
   // });
 
-  if ($('#gitHubStats')) {
+  if (stats) {
     NEL.getGitHubStats();
   }
 
-  // Get location
-  $('#generateCoords').click(function () {
-    NEL.getLocation();
-  });
-  // Smooth scrolling from scroller
-  scroller.click(function () {
-    NEL.scrollToTop();
-  });
-
-  $(window).scroll(function () {
+  window.addEventListener('scroll', function() {
     NEL.scroll();
     NEL.scrollIndicator();
   });
 
-  $('a[href*="#"]').not('[href="#"]').not('.accordion').click(function (event) {
-    // On-page links
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-      // Figure out element to scroll to
-      var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-      // Does a scroll target exist?
-      if (target.length) {
-        // Only prevent default if animation is actually gonna happen
-        event.preventDefault();
-        $root.animate({
-          //scrollTop: target.offset().top
-          scrollTop: target.offsetTop
-        }, 500, function () {
-          // Callback after animation
-          // Must change focus!
-          var $target = $(target);
-          $target.focus();
-          if ($target.is(":focus")) { // Checking if the target was focused
-            return false;
-          } else {
-            $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
-            $target.focus(); // Set focus again
-          }
-        });
-      }
-    }
-  });
 });
 
 var myCaptcha = null;
