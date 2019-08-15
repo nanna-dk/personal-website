@@ -3,28 +3,30 @@
 jQuery(document).ready(function ($) {
   // Search
   var search = document.getElementById('search');
-  var $clearSearch = $('#clearSearch');
+  var clearSearch = document.getElementById('#clearSearch');
   var btnSearch = document.getElementById('goSearch');
   // Send e-mail
   var contactFormModal = document.getElementById('contactFormModal');
   var contactform = document.getElementById('contactform');
-  var $sendMsg = document.getElementById('sendMail');
+  var sendMsg = document.getElementById('sendMail');
   var messages = document.querySelector('.feedback');
   // assignments
   var assignments = document.getElementById('assignments');
   var allAssignments = document.getElementById('defaultAssignments');
   var searchedAsssignments = document.getElementById('searchAssignments');
   // sorting
-  var $sortHeader = $('.sorting');
+  var sortHeader = document.querySelectorAll('.sorting');
   var $assignmentCategory = document.getElementById('categories');
   // Scroll
   var nav = $('#global-nav').outerHeight(true) + 10;
-  var scroller = document.querySelector('.scrolltop');
+  var scroller = document.querySelector('.scrolltop')[0];
   var $root = $('html, body');
+  var anchors = document.querySelectorAll('a[href*="#"], a:not([href="#"]), div:not(.accordion)');
   // Toggle button
-  var toggle = $('[data-toggle="offcanvas"]');
+  var toggle = document.querySelector('[data-toggle="offcanvas"]');
   // geolocation
   var geo = document.getElementById('geo');
+  var getCoords = document.getElementById('#generateCoords');
   // Statistik
   var stats = document.getElementById('gitHubStats');
 
@@ -337,6 +339,34 @@ jQuery(document).ready(function ($) {
       var long = position.coords.longitude;
       long = long.toFixed(6);
       geo.value = lat + ", " + long;
+    },
+    scrollAnimstion: function (e) {
+      e.currentTarget();
+      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+        // Figure out element to scroll to
+        var target = this.hash;
+        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+        // Does a scroll target exist?
+        if (target.length) {
+          // Only prevent default if animation is actually gonna happen
+          e.preventDefault();
+          $root.animate({
+            //scrollTop: target.offset().top
+            scrollTop: target.offsetTop
+          }, 500, function () {
+            // Callback after animation
+            // Must change focus!
+            var $target = $(target);
+            $target.focus();
+            if ($target.is(":focus")) { // Checking if the target was focused
+              return false;
+            } else {
+              $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+              $target.focus(); // Set focus again
+            }
+          });
+        }
+      }
     }
   };
 
@@ -356,36 +386,45 @@ jQuery(document).ready(function ($) {
 
 
   // Click events
-  document.addEventListener('click', function (e) {
-    // Toggle off-canvas menu
-    if (e.target.closest(toggle)) {
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      // Toggle off-canvas menu
       NEL.toggleNav();
-    }
+    }, false);
+  }
 
-
-    // Close mobile menu when menu items are clicked
-    if (e.target.closest('.offcanvas-collapse .nav-link')) {
+  var menuitems = document.querySelectorAll('.offcanvas-collapse .nav-link');
+  // Close mobile menu when menu items are clicked
+  Array.prototype.forEach.call(menuitems, function (item) {
+    item.addEventListener("click", function () {
       toggle.click();
-    }
+    });
+  });
 
-
-    // Social icons clicked
-    if (e.target.closest('.utility-icons .nav-item a')) {
-      var channel = $(this).attr('title');
+  var socialIcon = document.querySelectorAll('.utility-icons .nav-item a');
+  // Social items clicked
+  Array.prototype.forEach.call(socialIcon, function (icon) {
+    icon.addEventListener("click", function () {
+      var channel = icon.getAttribute('title');
       if (channel) {
         NEL.trackThis(channel);
       }
-    }
+    });
+  });
 
+
+  if (btnSearch) {
     // Search assignments event
-    if (e.target.closest(btnSearch)) {
+    btnSearch.addEventListener('click', function (e) {
       e.preventDefault();
       NEL.trackThis("Search");
       NEL.searchDb();
-    }
+    }, false);
+  }
 
+  if (clearSearch) {
     // Clear search field
-    if (e.target.closest($clearSearch)) {
+    clearSearch.addEventListener('click', function (e) {
       search.value = '';
       searchedAsssignments.innerHTML = '';
       allAssignments.style.display = 'block';
@@ -393,73 +432,55 @@ jQuery(document).ready(function ($) {
       // Remove url params
       NEL.addParams('q', '');
       NEL.trackThis("Clear button");
-    }
+    }, false);
+  }
 
+  Array.prototype.forEach.call(sortHeader, function (heading) {
     // Sorting headers
-    if (e.target.closest($sortHeader)) {
+    heading.addEventListener("click", function (e) {
       e.preventDefault();
       NEL.sortAssignments(e);
       NEL.trackThis("Sort");
-    }
+    });
+  });
 
-    // Tags initiate search
-    if (e.target.closest('.tags')) {
-      e.preventDefault();
-      var query = e.target.getAttribute('data-tag');
+  if (sendMsg) {
+    // Send message
+    sendMsg.addEventListener('click', function () {
+      NEL.sendMsg();
+    }, false);
+  }
+
+  if (getCoords) {
+    // Get location
+    getCoords.addEventListener('click', function () {
+      NEL.getLocation();
+    }, false);
+  }
+
+  if (scroller) {
+    // Smooth scrolling from scroller
+    scroller.addEventListener('click', function () {
+      NEL.scrollToTop();
+    }, false);
+  }
+
+  Array.prototype.forEach.call(anchors, function (anchor) {
+    anchor.addEventListener("click", NEL.scrollAnimstion());
+  });
+
+  // Tags initiate search
+  var tags = document.querySelectorAll(".tags");
+  Array.prototype.forEach.call(tags, function (tag) {
+    tag.addEventListener("click", function () {
+      var query = tag.getAttribute('data-tag');
       if (query) {
         search.value = decodeURIComponent(NEL.strip_html_tags(query));
         NEL.trackThis("Search by tag");
         NEL.searchDb();
       }
-    }
-
-    // Send message
-    if (e.target.closest($sendMsg)) {
-      NEL.sendMsg();
-    }
-
-    // Get location
-    if (e.target.closest('#generateCoords')) {
-      NEL.getLocation();
-    }
-
-    // Smooth scrolling from scroller
-    if (e.target.closest(scroller)) {
-      NEL.scrollToTop();
-    }
-
-    // Animated jumps
-    if (e.target.closest('a[href*="#"]').not('[href="#"]').not('.accordion')) {
-      // On-page links
-      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-        // Figure out element to scroll to
-        var target = $(this.hash);
-        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-        // Does a scroll target exist?
-        if (target.length) {
-          // Only prevent default if animation is actually gonna happen
-          event.preventDefault();
-          $root.animate({
-            //scrollTop: target.offset().top
-            scrollTop: target.offsetTop
-          }, 500, function () {
-            // Callback after animation
-            // Must change focus!
-            var $target = $(target);
-            $target.focus();
-            if ($target.is(":focus")) { // Checking if the target was focused
-              return false;
-            } else {
-              $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
-              $target.focus(); // Set focus again
-            }
-          });
-        }
-      }
-    }
-
-  }, false);
-
+    });
+  });
 
   // Trigger search by Enter key
   if (search) {
@@ -520,7 +541,7 @@ jQuery(document).ready(function ($) {
     NEL.getGitHubStats();
   }
 
-  window.addEventListener('scroll', function() {
+  window.addEventListener('scroll', function () {
     NEL.scroll();
     NEL.scrollIndicator();
   });
