@@ -16,7 +16,7 @@ jQuery(document).ready(function ($) {
   var searchedAsssignments = document.getElementById('searchAssignments');
   // sorting
   var sortHeader = document.querySelectorAll('.sorting');
-  var $assignmentCategory = document.getElementById('categories');
+  var assignmentCategory = document.getElementById('categories');
   // Scroll
   var nav = $('#global-nav').outerHeight(true) + 10;
   var scroller = document.querySelector('.scrolltop')[0];
@@ -120,7 +120,7 @@ jQuery(document).ready(function ($) {
         name = getID[0];
         order = getID[1];
       }
-      var cat = $assignmentCategory.value;
+      var cat = assignmentCategory.value;
       $.ajax({
         url: 'includes/downloads/sorting.php',
         type: 'POST',
@@ -160,14 +160,31 @@ jQuery(document).ready(function ($) {
       });
     },
     setRatings: function () {
-      $('.ratings').each(function () {
-        var average = $(this).attr('data-avg');
+      var ratings = document.querySelectorAll('.ratings');
+      Array.prototype.forEach.call(ratings, function (rating) {
+        var average = rating.getAttribute('data-avg');
         average = (Number(average) * 20);
-        $(this).find('.bg').css('width', 0);
-        $(this).find('.bg').animate({
-          width: average + '%'
-        }, 500);
+        var bg = rating.querySelectorAll('.bg');
+        Array.prototype.forEach.call(bg, function (star) {
+          star.style.width = 0;
+          star.animate([
+            {
+              width: average + '%'
+            },
+          ], {
+            duration: 500
+          });
+        });
       });
+
+      // $('.ratings').each(function () {
+      //   var average = $(this).attr('data-avg');
+      //   average = (Number(average) * 20);
+      //   $(this).find('.bg').css('width', 0);
+      //   $(this).find('.bg').animate({
+      //     width: average + '%'
+      //   }, 500);
+      // });
     },
     rate: function (itemId, vote) {
       // Cookie 'Rating' is set in vote.php:
@@ -242,24 +259,24 @@ jQuery(document).ready(function ($) {
           type: 'POST',
           url: url,
           beforeSend: function () {
-            $(messages).html('<div class="p-2 mb-4">Vent venligst...</div>');
+            messages.innerHTML = '<div class="p-2 mb-4">Vent venligst...</div>';
           },
           data: formData
         })
         .done(function (response) {
-          $(messages).removeClass('alert alert-danger');
-          $(messages).addClass('alert alert-success');
-          $(messages).text(response);
+          messages.classList.remove('alert alert-danger');
+          messages.classList.add('alert alert-success');
+          messages.innerHTML = 'response';
           NEL.clearInput();
           NEL.trackThis("Message sent");
         })
         .fail(function (data) {
-          $(messages).removeClass('alert alert-success');
-          $(messages).addClass('alert alert-danger');
+          messages.classList.remove('alert alert-success');
+          messages.classList.add('alert alert-danger');
           if (data.responseText !== '') {
-            $(messages).text(data.responseText);
+            messages.innerHTML = data.responseText;
           } else {
-            $(messages).text('Der er sket en fejl. Beskeden er ikke blevet sendt.');
+            messages.innerHTML = 'Der er sket en fejl. Beskeden er ikke blevet sendt.';
           }
         });
     },
@@ -316,9 +333,11 @@ jQuery(document).ready(function ($) {
               t.getMonth() + 1)).slice(-2);
             var year = t.getFullYear();
 
-            stats.append('<li>' + day + '.' + month + '.' + year + ': ' + newData[v] + '</li>');
+            stats.appendChild('<li>' + day + '.' + month + '.' + year + ': ' + newData[v] + '</li>');
           });
-          stats.children().wrapAll("<ul class='list-unstyled' />");
+          var items = stats.innerHTML;
+          var ul = "<ul class='list-unstyled'>" + items + "</ul>";
+          stats.innerHTML = ul;
         },
         error: function (xhr, status, error) {
           console.log(xhr.responseText);
@@ -342,31 +361,11 @@ jQuery(document).ready(function ($) {
     },
     scrollAnimstion: function (e) {
       e.currentTarget();
-      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-        // Figure out element to scroll to
-        var target = this.hash;
-        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-        // Does a scroll target exist?
-        if (target.length) {
-          // Only prevent default if animation is actually gonna happen
-          e.preventDefault();
-          $root.animate({
-            //scrollTop: target.offset().top
-            scrollTop: target.offsetTop
-          }, 500, function () {
-            // Callback after animation
-            // Must change focus!
-            var $target = $(target);
-            $target.focus();
-            if ($target.is(":focus")) { // Checking if the target was focused
-              return false;
-            } else {
-              $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
-              $target.focus(); // Set focus again
-            }
-          });
-        }
-      }
+      window.scrollTo({
+        'behavior': 'smooth',
+        'left': 0,
+        'top': e.offsetTop
+      });
     }
   };
 
@@ -491,9 +490,9 @@ jQuery(document).ready(function ($) {
     });
   }
 
-  if ($assignmentCategory) {
-    //$assignmentCategory.on('change', function (e) {
-    $assignmentCategory.onchange = function (e) {
+  if (assignmentCategory) {
+    //assignmentCategory.on('change', function (e) {
+    assignmentCategory.onchange = function (e) {
       NEL.sortAssignments(e);
       NEL.trackThis("Sort");
     };
