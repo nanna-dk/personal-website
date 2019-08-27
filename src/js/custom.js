@@ -106,29 +106,6 @@ jQuery(document).ready(function ($) {
           }
         };
         xhr.send('search=' + q);
-        // $.ajax({
-        //   type: 'POST',
-        //   url: url,
-        //   data: {
-        //     search: q
-        //   },
-        //   success: function (response) {
-        //     allAssignments.style.display = 'none';
-        //     NEL.clearErrors();
-        //     //searchedAsssignments.style.display = 'none';
-        //     searchedAsssignments.innerHTML = searchedAsssignments.innerHTML + response;
-        //     searchedAsssignments.classList.add('show');
-        //     // Append ?q=query to url for tracking purposes
-        //     NEL.addParams('q', encodeURIComponent(q));
-        //     NEL.setRatings();
-        //   },
-        //   error: function (xhr, status, error) {
-        //     searchedAsssignments.innerHTML = 'S&oslash;gning kunne ikke udf&oslash;res - pr&oslash;v igen senere.';
-        //     searchedAsssignments.classList.add('show');
-        //     console.log(xhr.responseText);
-        //   }
-        // });
-        //return false;
       }
     },
     sortAssignments: function (e) {
