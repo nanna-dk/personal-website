@@ -82,30 +82,53 @@ jQuery(document).ready(function ($) {
         search.classList.add('is-invalid');
       } else {
         // Return stripped input to search field
-        search.value = NEL.strip_html_tags(q);
-        $.ajax({
-          type: 'POST',
-          url: url,
-          data: {
-            search: q
-          },
-          success: function (response) {
-            allAssignments.style.display = 'none';
-            NEL.clearErrors();
-            //searchedAsssignments.style.display = 'none';
-            searchedAsssignments.innerHTML = searchedAsssignments.innerHTML + response;
-            searchedAsssignments.classList.add('show');
-            // Append ?q=query to url for tracking purposes
-            NEL.addParams('q', encodeURIComponent(q));
-            NEL.setRatings();
-          },
-          error: function (xhr, status, error) {
-            searchedAsssignments.innerHTML = 'S&oslash;gning kunne ikke udf&oslash;res - pr&oslash;v igen senere.';
-            searchedAsssignments.classList.add('show');
-            console.log(xhr.responseText);
+        q = NEL.strip_html_tags(q);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+              console.log(xhr.responseText);
+              allAssignments.style.display = 'none';
+              NEL.clearErrors();
+              searchedAsssignments.innerHTML = this.responseText;
+              searchedAsssignments.classList.add('show');
+              // Append ?q=query to url for tracking purposes
+              NEL.addParams('q', encodeURIComponent(q));
+              NEL.setRatings();
+              return false;
+            } else {
+              searchedAsssignments.innerHTML = 'S&oslash;gning kunne ikke udf&oslash;res - pr&oslash;v igen senere.';
+              searchedAsssignments.classList.add('show');
+              console.log(xhr.responseText);
+            }
           }
-        });
-        return false;
+        };
+        xhr.send('search=' + q);
+        // $.ajax({
+        //   type: 'POST',
+        //   url: url,
+        //   data: {
+        //     search: q
+        //   },
+        //   success: function (response) {
+        //     allAssignments.style.display = 'none';
+        //     NEL.clearErrors();
+        //     //searchedAsssignments.style.display = 'none';
+        //     searchedAsssignments.innerHTML = searchedAsssignments.innerHTML + response;
+        //     searchedAsssignments.classList.add('show');
+        //     // Append ?q=query to url for tracking purposes
+        //     NEL.addParams('q', encodeURIComponent(q));
+        //     NEL.setRatings();
+        //   },
+        //   error: function (xhr, status, error) {
+        //     searchedAsssignments.innerHTML = 'S&oslash;gning kunne ikke udf&oslash;res - pr&oslash;v igen senere.';
+        //     searchedAsssignments.classList.add('show');
+        //     console.log(xhr.responseText);
+        //   }
+        // });
+        //return false;
       }
     },
     sortAssignments: function (e) {
