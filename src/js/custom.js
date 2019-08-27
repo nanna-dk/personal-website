@@ -87,9 +87,9 @@ jQuery(document).ready(function ($) {
         xhr.open('POST', url, true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.onreadystatechange = function () {
-          if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-              console.log(xhr.responseText);
+          if (this.readyState == 4) {
+            if (this.status == 200) {
+              console.log(this.responseText);
               allAssignments.style.display = 'none';
               NEL.clearErrors();
               searchedAsssignments.innerHTML = this.responseText;
@@ -101,7 +101,7 @@ jQuery(document).ready(function ($) {
             } else {
               searchedAsssignments.innerHTML = 'S&oslash;gning kunne ikke udf&oslash;res - pr&oslash;v igen senere.';
               searchedAsssignments.classList.add('show');
-              console.log(xhr.responseText);
+              console.log(this.responseText);
             }
           }
         };
@@ -230,6 +230,40 @@ jQuery(document).ready(function ($) {
         return str.replace(/<\/?[^>]+(>|$)/g, '');
       }
     },
+    serializeForm: function (form) {
+      /*!
+       * Serialize all form data into a query string
+       * (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
+       * @param  {Node}   form The form to serialize
+       * @return {String}      The serialized form data
+       */
+      // Setup our serialized data
+      var serialized = [];
+
+      // Loop through each field in the form
+      for (var i = 0; i < form.elements.length; i++) {
+
+        var field = form.elements[i];
+
+        // Don't serialize fields without a name, submits, buttons, file and reset inputs, and disabled fields
+        if (!field.name || field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') continue;
+
+        // If a multi-select, get all selections
+        if (field.type === 'select-multiple') {
+          for (var n = 0; n < field.options.length; n++) {
+            if (!field.options[n].selected) continue;
+            serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[n].value));
+          }
+        }
+
+        // Convert field data to a query string
+        else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
+          serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
+        }
+      }
+
+      return serialized.join('&');
+    },
     addParams: function (key, value) {
       // Append queries to url
       var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
@@ -252,33 +286,60 @@ jQuery(document).ready(function ($) {
       window.history.replaceState({}, "", baseUrl + params);
     },
     sendMsg: function () {
-      // Serialize the form data.
-      var formData = $(contactform).serialize();
+      messages.innerHTML = '<div class="p-2 mb-4">Vent venligst...</div>';
       var url = 'includes/mail/mail_ajax.php';
-      $.ajax({
-          type: 'POST',
-          url: url,
-          beforeSend: function () {
-            messages.innerHTML = '<div class="p-2 mb-4">Vent venligst...</div>';
-          },
-          data: formData
-        })
-        .done(function (response) {
-          messages.classList.remove('alert alert-danger');
-          messages.classList.add('alert alert-success');
-          messages.innerHTML = 'response';
-          NEL.clearInput();
-          NEL.trackThis("Message sent");
-        })
-        .fail(function (data) {
-          messages.classList.remove('alert alert-success');
-          messages.classList.add('alert alert-danger');
-          if (data.responseText !== '') {
-            messages.innerHTML = data.responseText;
+      var formData = NEL.serializeForm(contactFormModal);
+
+      // Return stripped input to search field
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4) {
+          if (this.status == 200) {
+            console.log(this.responseText);
+            if (this.responseText !== '') {
+              messages.classList.remove('alert alert-danger');
+              messages.classList.add('alert alert-success');
+              messages.innerHTML = this.responseText;
+              NEL.clearInput();
+              NEL.trackThis("Message sent");
+            } else {
+              messages.innerHTML = 'Der er sket en fejl. Beskeden er ikke blevet sendt.';
+            }
           } else {
-            messages.innerHTML = 'Der er sket en fejl. Beskeden er ikke blevet sendt.';
+            console.log('Error: ' + this.responseText);
           }
-        });
+        }
+      };
+      xhr.send(formData);
+      // Serialize the form data.
+      // var formData = $(contactform).serialize();
+      // var url = 'includes/mail/mail_ajax.php';
+      // $.ajax({
+      //     type: 'POST',
+      //     url: url,
+      //     beforeSend: function () {
+      //       messages.innerHTML = '<div class="p-2 mb-4">Vent venligst...</div>';
+      //     },
+      //     data: formData
+      //   })
+      //   .done(function (response) {
+      //     messages.classList.remove('alert alert-danger');
+      //     messages.classList.add('alert alert-success');
+      //     messages.innerHTML = 'response';
+      //     NEL.clearInput();
+      //     NEL.trackThis("Message sent");
+      //   })
+      //   .fail(function (data) {
+      //     messages.classList.remove('alert alert-success');
+      //     messages.classList.add('alert alert-danger');
+      //     if (data.responseText !== '') {
+      //       messages.innerHTML = data.responseText;
+      //     } else {
+      //       messages.innerHTML = 'Der er sket en fejl. Beskeden er ikke blevet sendt.';
+      //     }
+      //   });
     },
     clearInput: function () {
       // Clear form fields
