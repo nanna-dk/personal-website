@@ -7,7 +7,7 @@ jQuery(document).ready(function ($) {
   var btnSearch = document.getElementById('goSearch');
   // Send e-mail
   var contactFormModal = document.getElementById('contactFormModal');
-  var contactform = document.getElementById('contactform');
+  var contactform = document.querySelector('#contactform');
   var sendMsg = document.getElementById('sendMail');
   var messages = document.querySelector('.feedback');
   // assignments
@@ -286,60 +286,31 @@ jQuery(document).ready(function ($) {
       window.history.replaceState({}, "", baseUrl + params);
     },
     sendMsg: function () {
-      messages.innerHTML = '<div class="p-2 mb-4">Vent venligst...</div>';
+      messages.innerHTML = '<div class="p-2 mb-4 alert alert-info">Vent venligst...</div>';
       var url = 'includes/mail/mail_ajax.php';
-      var formData = NEL.serializeForm(contactFormModal);
+      var formData = NEL.serializeForm(contactform);
 
       // Return stripped input to search field
       var xhr = new XMLHttpRequest();
       xhr.open('POST', url, true);
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
           if (this.status == 200) {
             console.log(this.responseText);
-            if (this.responseText !== '') {
-              messages.classList.remove('alert alert-danger');
-              messages.classList.add('alert alert-success');
+            //if (this.responseText !== '') {
+              messages.classList.remove('alert-danger', 'alert-info');
+              messages.classList.add('alert', 'alert-success');
               messages.innerHTML = this.responseText;
-              NEL.clearInput();
-              NEL.trackThis("Message sent");
-            } else {
-              messages.innerHTML = 'Der er sket en fejl. Beskeden er ikke blevet sendt.';
-            }
-          } else {
-            console.log('Error: ' + this.responseText);
+            //}
+          } else if (this.status !== 200) {
+            messages.classList.remove('alert-success', 'alert-info');
+            messages.classList.add('alert', 'alert-danger');
+            messages.innerHTML = this.responseText;
           }
         }
       };
       xhr.send(formData);
-      // Serialize the form data.
-      // var formData = $(contactform).serialize();
-      // var url = 'includes/mail/mail_ajax.php';
-      // $.ajax({
-      //     type: 'POST',
-      //     url: url,
-      //     beforeSend: function () {
-      //       messages.innerHTML = '<div class="p-2 mb-4">Vent venligst...</div>';
-      //     },
-      //     data: formData
-      //   })
-      //   .done(function (response) {
-      //     messages.classList.remove('alert alert-danger');
-      //     messages.classList.add('alert alert-success');
-      //     messages.innerHTML = 'response';
-      //     NEL.clearInput();
-      //     NEL.trackThis("Message sent");
-      //   })
-      //   .fail(function (data) {
-      //     messages.classList.remove('alert alert-success');
-      //     messages.classList.add('alert alert-danger');
-      //     if (data.responseText !== '') {
-      //       messages.innerHTML = data.responseText;
-      //     } else {
-      //       messages.innerHTML = 'Der er sket en fejl. Beskeden er ikke blevet sendt.';
-      //     }
-      //   });
     },
     clearInput: function () {
       // Clear form fields
