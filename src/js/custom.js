@@ -391,12 +391,12 @@ jQuery(document).ready(function ($) {
       long = long.toFixed(6);
       geo.value = lat + ", " + long;
     },
-    scrollAnimstion: function (e) {
-      e.currentTarget();
+    scrollAnimstion: function () {
+      //e.currentTarget();
       window.scrollTo({
         'behavior': 'smooth',
         'left': 0,
-        'top': e.offsetTop
+        'top': anchors.offsetTop
       });
     }
   };
