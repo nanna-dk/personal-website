@@ -3,7 +3,7 @@
 jQuery(document).ready(function ($) {
   // Search
   var search = document.getElementById('search');
-  var clearSearch = document.getElementById('#clearSearch');
+  var clearSearch = document.getElementById('clearSearch');
   var btnSearch = document.getElementById('goSearch');
   // Send e-mail
   var contactFormModal = document.getElementById('contactFormModal');
@@ -89,7 +89,7 @@ jQuery(document).ready(function ($) {
         xhr.onreadystatechange = function () {
           if (this.readyState == 4) {
             if (this.status == 200) {
-              console.log(this.responseText);
+              //console.log(this.responseText);
               allAssignments.style.display = 'none';
               NEL.clearErrors();
               searchedAsssignments.innerHTML = this.responseText;
@@ -161,30 +161,14 @@ jQuery(document).ready(function ($) {
     },
     setRatings: function () {
       var ratings = document.querySelectorAll('.ratings');
-      Array.prototype.forEach.call(ratings, function (rating) {
-        var average = rating.getAttribute('data-avg');
+      var i;
+      for (i = 0; i < ratings.length; ++i) {
+        var average = ratings[i].getAttribute('data-avg');
         average = (Number(average) * 20);
-        var bg = rating.querySelectorAll('.bg');
-        Array.prototype.forEach.call(bg, function (star) {
-          star.style.width = 0;
-          star.animate([
-            {
-              width: average + '%'
-            },
-          ], {
-            duration: 500
-          });
-        });
-      });
-
-      // $('.ratings').each(function () {
-      //   var average = $(this).attr('data-avg');
-      //   average = (Number(average) * 20);
-      //   $(this).find('.bg').css('width', 0);
-      //   $(this).find('.bg').animate({
-      //     width: average + '%'
-      //   }, 500);
-      // });
+        var bg = ratings[i].querySelector('.bg');
+        bg.style.width = 0;
+        bg.style.width = average + '%';
+      }
     },
     rate: function (itemId, vote) {
       // Cookie 'Rating' is set in vote.php:
@@ -294,14 +278,14 @@ jQuery(document).ready(function ($) {
       var xhr = new XMLHttpRequest();
       xhr.open('POST', url, true);
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      xhr.onreadystatechange = function() {
+      xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
           if (this.status == 200) {
             console.log(this.responseText);
             //if (this.responseText !== '') {
-              messages.classList.remove('alert-danger', 'alert-info');
-              messages.classList.add('alert', 'alert-success');
-              messages.innerHTML = this.responseText;
+            messages.classList.remove('alert-danger', 'alert-info');
+            messages.classList.add('alert', 'alert-success');
+            messages.innerHTML = this.responseText;
             //}
           } else if (this.status !== 200) {
             messages.classList.remove('alert-success', 'alert-info');
@@ -503,7 +487,8 @@ jQuery(document).ready(function ($) {
   // Tags initiate search
   var tags = document.querySelectorAll(".tags");
   Array.prototype.forEach.call(tags, function (tag) {
-    tag.addEventListener("click", function () {
+    tag.addEventListener("click", function (e) {
+      e.preventDefault();
       var query = tag.getAttribute('data-tag');
       if (query) {
         search.value = decodeURIComponent(NEL.strip_html_tags(query));
