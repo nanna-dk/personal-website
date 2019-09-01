@@ -83,6 +83,13 @@ jQuery(document).ready(function ($) {
       } else {
         // Return stripped input to search field
         q = NEL.strip_html_tags(q);
+        var data = {
+          search: q
+        };
+        // Serialize an array of data or a set of key/values into a query string
+        var params = Object.keys(data).map(function (k) {
+          return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+        }).join('&');
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url, true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -105,59 +112,71 @@ jQuery(document).ready(function ($) {
             }
           }
         };
-        xhr.send('search=' + q);
+        xhr.send(params);
       }
     },
     sortAssignments: function (e) {
       // Sort assognments
       var sortOrder, getID, name, order, isAnchor;
       var target = e.currentTarget;
-      if (target.tagName.toLowerCase() == 'a') {
+      if (target.classList.contains('nav-link')) {
         isAnchor = true;
-        var siblings = target.parent().siblings().find('a');
+        var siblings = NEL.getSiblings(target.parentElement);
         sortOrder = target.getAttribute('data-id');
         getID = sortOrder.split('-');
         name = getID[0];
         order = getID[1];
       }
       var cat = assignmentCategory.value;
-      $.ajax({
-        url: 'includes/downloads/sorting.php',
-        type: 'POST',
-        data: {
-          'column': name || 'clicks',
-          'sortOrder': order || 'desc',
-          'category': cat
-        },
-        success: function (response) {
-          //console.log(response);
-          if (isAnchor) {
-            target.removeClass('asc', 'desc');
-            siblings.classList.remove('asc', 'desc');
-            siblings.setAttribute('title', 'Sortér');
-            var t = target.textContent || target.innerText;
-            t = t.toLowerCase().trim();
-            if (order == 'asc') {
-              target.getAttribute('data-id', name + '-desc');
-              target.setAttribute('title', 'Sortér ' + t + ' stigende');
-              target.classList.add('desc');
-            } else {
-              target.getAttribute('data-id', name + '-asc');
-              target.setAttribute('title', 'Sortér ' + t + ' faldende');
-              target.classList.add('asc');
+      var data = {
+        'column': name || 'clicks',
+        'sortOrder': order || 'desc',
+        'category': cat
+      };
+      // Serialize an array of data or a set of key/values into a query string
+      var params = Object.keys(data).map(function (k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+      }).join('&');
+
+      var url = 'includes/downloads/sorting.php';
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4) {
+          if (this.status == 200) {
+            //console.log(this.responseText);
+            if (isAnchor) {
+              target.classList.remove('asc', 'desc');
+              [].forEach.call(siblings, function (el) {
+                var sort = el.children;
+              [].forEach.call(sort, function (e) {
+                  e.classList.remove('asc', 'desc');
+                  e.setAttribute('title', 'Sortér');
+                });
+              });
+              var text = target.textContent || target.innerText;
+              text = text.toLowerCase().trim();
+              if (order == 'asc') {
+                target.setAttribute('data-id', name + '-desc');
+                target.setAttribute('title', 'Sortér ' + text + ' stigende');
+                target.classList.add('desc');
+              } else {
+                target.setAttribute('data-id', name + '-asc');
+                target.setAttribute('title', 'Sortér ' + text + ' faldende');
+                target.classList.add('asc');
+              }
             }
+            allAssignments.innerHTML = this.responseText;
+            allAssignments.classList.add('fadeIn');
+            // Update Ratings
+            NEL.setRatings();
+          } else {
+            console.log(this.responseText);
           }
-          allAssignments.innerHTML = '';
-          //allAssignments.style.display = 'none';
-          allAssignments.innerHTML = allAssignments.innerHTML + response;
-          allAssignments.classList.add('fadeIn');
-          // Update Ratings
-          NEL.setRatings();
-        },
-        error: function (xhr, status, error) {
-          console.log(xhr.responseText);
         }
-      });
+      };
+      xhr.send(params);
     },
     setRatings: function () {
       var ratings = document.querySelectorAll('.ratings');
@@ -171,39 +190,61 @@ jQuery(document).ready(function ($) {
       }
     },
     rate: function (itemId, vote) {
+      var data = {
+        vote: 'yes',
+        item: itemId,
+        point: vote
+      };
+
+      var params = Object.keys(data).map(function (k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+      }).join('&');
+
+      var url = 'includes/rating/vote.php';
       // Cookie 'Rating' is set in vote.php:
       var cookieExists = (document.cookie.indexOf('Rating') > -1) ? true : false;
       if (cookieExists == false) {
-        $.ajax({
-          url: 'includes/rating/vote.php',
-          type: 'POST',
-          dataType: 'json',
-          data: {
-            vote: 'yes',
-            item: itemId,
-            point: vote
-          },
-          success: function (data) {
-            //console.log(data);
-            var rated = $(".ratings[data-id='" + itemId + "']");
-            rated.setAttribute('data-avg', data.average);
-            var average = data.average;
-            average = (Number(average) * 20);
-            rated.find('.bg').css('width', 0);
-            rated.find('.bg').animate({
-              width: average + '%'
-            }, 500);
-            var suffix = (data.votes == 1) ? "bedømmelse" : "bedømmelser";
-            rated.find('.votes').html(data.votes + " " + suffix);
-            NEL.trackThis("Rated assignment no. " + itemId + " with " + vote);
-          },
-          error: function () {
-            console.log('Error setting rating.');
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        xhr.onreadystatechange = function () {
+          if (this.readyState == 4) {
+            if (this.status == 200) {
+              var data = this.responseText;
+              console.log(data);
+              var rated = document.querySelector(".ratings[data-id='" + itemId + "']");
+              var average = data.average;
+              average = (Number(average) * 20);
+              rated.setAttribute('data-avg', data.average);
+              rated.style.width = 0;
+              rated.style.width = average + '%';
+              var suffix = (data.votes == 1) ? "bedømmelse" : "bedømmelser";
+              rated.querySelector('.votes').innerHTML = data.votes + " " + suffix;
+              NEL.trackThis("Rated assignment no. " + itemId + " with " + vote);
+            } else {
+              console.log(this.responseText);
+            }
           }
-        });
+        };
+        xhr.send(data);
       } else {
-        $(".ratings[data-id='" + itemId + "']").find('.votes').html('Du har allerede afgivet en bedømmelse - vend tilbage senere.');
+        var voted = document.querySelector(".ratings[data-id='" + itemId + "']");
+        voted.querySelector('.votes').innerHTML = 'Du har allerede afgivet en bedømmelse - vend tilbage senere.';
       }
+    },
+    getSiblings: function (elem) {
+      // Setup siblings array and get the first sibling
+      var siblings = [];
+      var sibling = elem.parentNode.firstChild;
+      // Loop through each sibling and push to the array
+      while (sibling) {
+        if (sibling.nodeType === 1 && sibling !== elem) {
+          siblings.push(sibling);
+        }
+        sibling = sibling.nextSibling;
+      }
+      return siblings;
     },
     strip_html_tags: function (str) {
       // Strip html tags
