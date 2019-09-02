@@ -284,7 +284,6 @@ document.addEventListener("DOMContentLoaded", function () {
       var script = document.createElement('script');
       var prior = document.getElementsByTagName('script')[0];
       script.async = 1;
-
       script.onload = script.onreadystatechange = function (_, isAbort) {
         if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
           script.onload = script.onreadystatechange = null;
@@ -292,7 +291,6 @@ document.addEventListener("DOMContentLoaded", function () {
           if (!isAbort && callback) setTimeout(callback, 0);
         }
       };
-
       script.src = source;
       prior.parentNode.insertBefore(script, prior);
     },
@@ -368,45 +366,50 @@ document.addEventListener("DOMContentLoaded", function () {
       var repo = "personal-website";
       var gitHubUrl = "https://github.com/" + user + "/" + repo + "/commit/";
       var url = "https://api.github.com/repos/" + user + "/" + repo + "/commits";
-      $.ajax({
-        type: 'GET',
-        url: url,
-        dataType: "json",
-        success: function (data) {
-          //console.log(data);
-          var newData = data.reduce((acc, el) => {
-            var date = el.commit.committer.date;
-            var msg = el.commit.message;
-            var sha = el.sha;
-            var d = date.split('T')[0];
-            var commitUrl = gitHubUrl + sha;
-            var commit = ' <a href="' + commitUrl + '" target="_blank" rel="noopener">' + msg + '</a>';
-            if (acc.hasOwnProperty(d))
-              acc[d].push(commit);
-            else
-              acc[d] = [commit];
-            return acc;
-          }, {});
 
-          Object.keys(newData).forEach(function (v, k) {
-            var date = v;
-            var t = new Date(date);
-            var day = ("0" + (
-              t.getDate())).slice(-2);
-            var month = ("0" + (
-              t.getMonth() + 1)).slice(-2);
-            var year = t.getFullYear();
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4) {
+          if (this.status == 200) {
+            console.log(this.responseText);
+            var data = JSON.parse(this.responseText);
+            var newData = data.reduce((acc, el) => {
+              var date = el.commit.committer.date;
+              var msg = el.commit.message;
+              var sha = el.sha;
+              var d = date.split('T')[0];
+              var commitUrl = gitHubUrl + sha;
+              var commit = ' <a href="' + commitUrl + '" target="_blank" rel="noopener">' + msg + '</a>';
+              if (acc.hasOwnProperty(d))
+                acc[d].push(commit);
+              else
+                acc[d] = [commit];
+              return acc;
+            }, {});
 
-            stats.appendChild('<li>' + day + '.' + month + '.' + year + ': ' + newData[v] + '</li>');
-          });
-          var items = stats.innerHTML;
-          var ul = "<ul class='list-unstyled'>" + items + "</ul>";
-          stats.innerHTML = ul;
-        },
-        error: function (xhr, status, error) {
-          console.log(xhr.responseText);
+            Object.keys(newData).forEach(function (v, k) {
+              var date = v;
+              var t = new Date(date);
+              var day = ("0" + (
+                t.getDate())).slice(-2);
+              var month = ("0" + (
+                t.getMonth() + 1)).slice(-2);
+              var year = t.getFullYear();
+              var li = document.createElement('li');
+              li.innerHTML = day + '.' + month + '.' + year + ': ' + newData[v];
+              stats.appendChild(li);
+            });
+            var items = stats.innerHTML;
+            var ul = "<ul class='list-unstyled'>" + items + "</ul>";
+            stats.innerHTML = ul;
+          } else {
+            console.log(this.responseText);
+          }
         }
-      });
+      };
+      xhr.send(null);
     },
     getLocation: function () {
       // Get users's location
@@ -580,7 +583,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-    Array.prototype.forEach.call(contactFormModal, function (contactModal) {
+  Array.prototype.forEach.call(contactFormModal, function (contactModal) {
     // Load Captcha when modal is opened
     contactModal.addEventListener("click", function (e) {
       messages.innerHTML = '';
