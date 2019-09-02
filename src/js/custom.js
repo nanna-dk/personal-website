@@ -1,12 +1,12 @@
 'use strict';
 
-jQuery(document).ready(function ($) {
+document.addEventListener("DOMContentLoaded", function () {
   // Search
   var search = document.getElementById('search');
   var clearSearch = document.getElementById('clearSearch');
   var btnSearch = document.getElementById('goSearch');
   // Send e-mail
-  var contactFormModal = document.getElementById('contactFormModal');
+  var contactFormModal = document.querySelectorAll('a[data-target="#contactFormModal"]');
   var contactform = document.querySelector('#contactform');
   var sendMsg = document.getElementById('sendMail');
   var messages = document.querySelector('.feedback');
@@ -256,20 +256,11 @@ jQuery(document).ready(function ($) {
       }
     },
     serializeForm: function (form) {
-      /*!
-       * Serialize all form data into a query string
-       * (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
-       * @param  {Node}   form The form to serialize
-       * @return {String}      The serialized form data
-       */
-      // Setup our serialized data
+      //Serialize all form data into a query string
       var serialized = [];
-
       // Loop through each field in the form
       for (var i = 0; i < form.elements.length; i++) {
-
         var field = form.elements[i];
-
         // Don't serialize fields without a name, submits, buttons, file and reset inputs, and disabled fields
         if (!field.name || field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') continue;
 
@@ -286,8 +277,24 @@ jQuery(document).ready(function ($) {
           serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
         }
       }
-
       return serialized.join('&');
+    },
+    getScript: function (source, callback) {
+      // Replacement for jQuery.getScript
+      var script = document.createElement('script');
+      var prior = document.getElementsByTagName('script')[0];
+      script.async = 1;
+
+      script.onload = script.onreadystatechange = function (_, isAbort) {
+        if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
+          script.onload = script.onreadystatechange = null;
+          script = undefined;
+          if (!isAbort && callback) setTimeout(callback, 0);
+        }
+      };
+
+      script.src = source;
+      prior.parentNode.insertBefore(script, prior);
     },
     addParams: function (key, value) {
       // Append queries to url
@@ -573,21 +580,15 @@ jQuery(document).ready(function ($) {
     }
   });
 
-
-  // Load Captcha when modal is opened
-  // contactFormModal.on('show.bs.modal', function () {
-  //   $.getScript("https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad")
-  //     .done(function (s, Status) {})
-  //     .fail(function (jqxhr, settings, exception) {
-  //       console.log("Error loading script: " + exception);
-  //     });
-  // });
-
-  // Clear feedback mmessages when modal is closed
-  // contactFormModal.on('hidden.bs.modal', function () {
-  //   messages.text('').removeClass('alert alert-danger alert-success');
-  //   NEL.clearInput();
-  // });
+    Array.prototype.forEach.call(contactFormModal, function (contactModal) {
+    // Load Captcha when modal is opened
+    contactModal.addEventListener("click", function (e) {
+      messages.innerHTML = '';
+      messages.classList.remove('alert', 'alert-danger', 'alert-success', 'alert-info');
+      NEL.getScript('https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad');
+      NEL.clearInput();
+    });
+  });
 
   // When 3D animation modal has been opened
   // $('#animation').on('shown.bs.modal', function (e) {
@@ -603,7 +604,7 @@ jQuery(document).ready(function ($) {
     NEL.scrollIndicator();
   });
 
-});
+}, false);
 
 var myCaptcha = null;
 var onReCaptchaLoad = function () {
