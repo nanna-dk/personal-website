@@ -1,13 +1,11 @@
 <?php
     include_once realpath(__DIR__.'/../db.php');
-
     if (isset($_POST['vote'])) {
         $id = (int) $_POST['item'];
         $points = (int) $_POST['point'];
         setcookie('Rating', 1, time() + 3600, '/'); // One hour
         $query = $pdo->prepare('SELECT title, votes, rating FROM '.$DBtable.' WHERE `id` = ?');
         $query->execute([$id]);
-
         while ($row = $query->fetchObject()) {
             $pointsUpdate = ($row->rating + $points);
             $voteUpdate = ($row->votes + 1);
@@ -34,7 +32,6 @@
                 // 	// Error
                 // 	http_response_code(500);
                 // }
-
                 // Return data
                 die(json_encode(['average' => $avg, 'votes' => $voteUpdate]));
             } else {

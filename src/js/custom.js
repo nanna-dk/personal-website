@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // sorting
   var sortHeader = document.querySelectorAll('.sorting');
   var assignmentCategory = document.getElementById('categories');
+  // Ratings
+  var stars = document.querySelectorAll(".star");
   // Scroll
   var nav = $('#global-nav').outerHeight(true) + 10;
   var scroller = document.querySelector('.scrolltop');
@@ -207,18 +209,18 @@ document.addEventListener("DOMContentLoaded", function () {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url, true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        //xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         xhr.onreadystatechange = function () {
           if (this.readyState == 4) {
             if (this.status == 200) {
-              var data = this.responseText;
-              console.log(data);
+              var data = JSON.parse(this.responseText);
+              //console.log(data);
               var rated = document.querySelector(".ratings[data-id='" + itemId + "']");
+              var bg = rated.querySelector('.bg');
               var average = data.average;
               average = (Number(average) * 20);
-              rated.setAttribute('data-avg', data.average);
-              rated.style.width = 0;
-              rated.style.width = average + '%';
+              bg.setAttribute('data-avg', data.average);
+              bg.style.width = 0;
+              bg.style.width = average + '%';
               var suffix = (data.votes == 1) ? "bedømmelse" : "bedømmelser";
               rated.querySelector('.votes').innerHTML = data.votes + " " + suffix;
               NEL.trackThis("Rated assignment no. " + itemId + " with " + vote);
@@ -227,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           }
         };
-        xhr.send(data);
+        xhr.send(params);
       } else {
         var voted = document.querySelector(".ratings[data-id='" + itemId + "']");
         voted.querySelector('.votes').innerHTML = 'Du har allerede afgivet en bedømmelse - vend tilbage senere.';
@@ -245,6 +247,29 @@ document.addEventListener("DOMContentLoaded", function () {
         sibling = sibling.nextSibling;
       }
       return siblings;
+    },
+    getClosest: function (elem, selector) {
+      // Traverse upwards until first match is found (.closest()):
+      // Element.matches() polyfill
+      if (!Element.prototype.matches) {
+        Element.prototype.matches =
+          Element.prototype.matchesSelector ||
+          Element.prototype.mozMatchesSelector ||
+          Element.prototype.msMatchesSelector ||
+          Element.prototype.oMatchesSelector ||
+          Element.prototype.webkitMatchesSelector ||
+          function (s) {
+            var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+              i = matches.length;
+            while (--i >= 0 && matches.item(i) !== this) {}
+            return i > -1;
+          };
+      }
+      // Get closest match
+      for (; elem && elem !== document; elem = elem.parentNode) {
+        if (elem.matches(selector)) return elem;
+      }
+      return null;
     },
     strip_html_tags: function (str) {
       // Strip html tags
@@ -559,28 +584,34 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   if (assignmentCategory) {
-    //assignmentCategory.on('change', function (e) {
     assignmentCategory.onchange = function (e) {
       NEL.sortAssignments(e);
       NEL.trackThis("Sort");
     };
   }
 
-  $(document).on('mouseover', '.star', function () {
-    $(this).prevAll().addBack().addClass('full');
+  stars.forEach(function (star) {
+    // Rating animations
+    star.addEventListener("mouseover", function (e) {
+      var siblings = NEL.getSiblings(star);
+      star.classList.add('full');
+    });
+    star.addEventListener("mouseout", function (e) {
+      this.classList.remove('full');
+    });
   });
 
-  $(document).on('mouseout', '.star', function () {
-    $(this).removeClass('full');
-  });
-
-  $(document).on('click', '.star', function () {
-    var itemId = $(this).closest('.ratings').attr('data-id');
-    var vote = $(this).attr('data-vote');
-    if (itemId && vote) {
-      NEL.rate(itemId, vote);
-      NEL.trackThis("Rated");
-    }
+  stars.forEach(function (star) {
+    // Rate
+    star.addEventListener("click", function (e) {
+      var rating = NEL.getClosest(star, '.ratings');
+      var itemId = rating.getAttribute('data-id');
+      var vote = star.getAttribute('data-vote');
+      if (itemId && vote) {
+        NEL.rate(itemId, vote);
+        NEL.trackThis("Rated");
+      }
+    });
   });
 
   Array.prototype.forEach.call(contactFormModal, function (contactModal) {
