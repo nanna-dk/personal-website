@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var assignmentCategory = document.getElementById('categories');
   // Scroll
   var nav = $('#global-nav').outerHeight(true) + 10;
-  var scroller = document.querySelector('.scrolltop')[0];
+  var scroller = document.querySelector('.scrolltop');
   var $root = $('html, body');
   var anchors = document.querySelectorAll('a[href*="#"], a:not([href="#"]), div:not(.accordion)');
   // Toggle button
@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url, true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        //xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         xhr.onreadystatechange = function () {
           if (this.readyState == 4) {
             if (this.status == 200) {
@@ -344,9 +344,7 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     clearInput: function () {
       // Clear form fields
-      document.getElementById('name').value = '';
-      document.getElementById('email').value = '';
-      document.getElementById('msg').value = '';
+      contactform.reset();
       if (window.grecaptcha) {
         grecaptcha.reset();
       }
@@ -532,12 +530,14 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   Array.prototype.forEach.call(anchors, function (anchor) {
+    // Smooth scrolling from anchors
     anchor.addEventListener("click", NEL.scrollAnimstion());
   });
 
-  // Tags initiate search
+
   var tags = document.querySelectorAll(".tags");
   Array.prototype.forEach.call(tags, function (tag) {
+    // Tags initiate search
     tag.addEventListener("click", function (e) {
       e.preventDefault();
       var query = tag.getAttribute('data-tag');
@@ -549,8 +549,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Trigger search by Enter key
   if (search) {
+    // Trigger search by Enter key
     search.addEventListener('keyup', function (e) {
       if (e.which === 13 || e.keyCode === 13 || e.key === "Enter") {
         btnSearch.click();
