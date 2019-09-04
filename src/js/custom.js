@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var clearSearch = document.getElementById('clearSearch');
   var btnSearch = document.getElementById('goSearch');
   // Send e-mail
-  var contactFormModal = document.querySelectorAll('a[data-target="#contactFormModal"]');
   var contactform = document.querySelector('#contactform');
   var sendMsg = document.getElementById('sendMail');
   var messages = document.querySelector('.feedback');
@@ -19,10 +18,11 @@ document.addEventListener("DOMContentLoaded", function () {
   var assignmentCategory = document.getElementById('categories');
   // Ratings
   var stars = document.querySelectorAll(".star");
+  // tags
+  var tags = document.querySelectorAll(".tags");
   // Scroll
-  var nav = $('#global-nav').outerHeight(true) + 10;
   var scroller = document.querySelector('.scrolltop');
-  var $root = $('html, body');
+  var root = document.body;
   var anchors = document.querySelectorAll('a[href*="#"], a:not([href="#"]), div:not(.accordion)');
   // Toggle button
   var toggle = document.querySelector('[data-toggle="offcanvas"]');
@@ -31,6 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
   var getCoords = document.getElementById('#generateCoords');
   // Statistik
   var stats = document.getElementById('gitHubStats');
+  // Modals
+  var contactFormModal = document.querySelectorAll('a[data-target="#contactFormModal"]');
+  var animationModal = document.querySelector('a[data-target="#animation"]');
 
   // Namespaced functions:
   var NEL = {
@@ -39,39 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
       var canvas = document.querySelector('.offcanvas-collapse');
       canvas.classList.toggle('open');
       scroller.classList.toggle('d-none');
-    },
-    scrollToTop: function () {
-      // Smooth scroll to top
-      $root.animate({
-        scrollTop: 0
-      }, 500);
-      return false;
-    },
-    scroll: function () {
-      if (scroller) {
-        if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
-          scroller.classList.add('show');
-        } else {
-          scroller.classList.remove('show');
-        }
-      }
-    },
-    scrollIndicator: function () {
-      var progressBar = document.getElementById("scrollProgress");
-      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      var scrolled = Math.floor((winScroll / height) * 100);
-      progressBar.setAttribute('aria-valuenow', scrolled);
-      progressBar.style.width = scrolled + '%';
-    },
-    urlParam: function (name) {
-      // Get query string from url
-      var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.href);
-      if (results == null) {
-        return null;
-      } else {
-        return results[1] || 0;
-      }
     },
     searchDb: function () {
       // Search assignments
@@ -235,111 +205,6 @@ document.addEventListener("DOMContentLoaded", function () {
         voted.querySelector('.votes').innerHTML = 'Du har allerede afgivet en bedømmelse - vend tilbage senere.';
       }
     },
-    getSiblings: function (elem) {
-      // Setup siblings array and get the first sibling
-      var siblings = [];
-      var sibling = elem.parentNode.firstChild;
-      // Loop through each sibling and push to the array
-      while (sibling) {
-        if (sibling.nodeType === 1 && sibling !== elem) {
-          siblings.push(sibling);
-        }
-        sibling = sibling.nextSibling;
-      }
-      return siblings;
-    },
-    getClosest: function (elem, selector) {
-      // Traverse upwards until first match is found (.closest()):
-      // Element.matches() polyfill
-      if (!Element.prototype.matches) {
-        Element.prototype.matches =
-          Element.prototype.matchesSelector ||
-          Element.prototype.mozMatchesSelector ||
-          Element.prototype.msMatchesSelector ||
-          Element.prototype.oMatchesSelector ||
-          Element.prototype.webkitMatchesSelector ||
-          function (s) {
-            var matches = (this.document || this.ownerDocument).querySelectorAll(s),
-              i = matches.length;
-            while (--i >= 0 && matches.item(i) !== this) {}
-            return i > -1;
-          };
-      }
-      // Get closest match
-      for (; elem && elem !== document; elem = elem.parentNode) {
-        if (elem.matches(selector)) return elem;
-      }
-      return null;
-    },
-    strip_html_tags: function (str) {
-      // Strip html tags
-      if ((str === null) || (str === '')) {
-        return false;
-      } else {
-        str = str.toString();
-        return str.replace(/<\/?[^>]+(>|$)/g, '');
-      }
-    },
-    serializeForm: function (form) {
-      //Serialize all form data into a query string
-      var serialized = [];
-      // Loop through each field in the form
-      for (var i = 0; i < form.elements.length; i++) {
-        var field = form.elements[i];
-        // Don't serialize fields without a name, submits, buttons, file and reset inputs, and disabled fields
-        if (!field.name || field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') continue;
-
-        // If a multi-select, get all selections
-        if (field.type === 'select-multiple') {
-          for (var n = 0; n < field.options.length; n++) {
-            if (!field.options[n].selected) continue;
-            serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[n].value));
-          }
-        }
-
-        // Convert field data to a query string
-        else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
-          serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
-        }
-      }
-      return serialized.join('&');
-    },
-    getScript: function (source, callback) {
-      // Replacement for jQuery.getScript
-      var script = document.createElement('script');
-      var prior = document.getElementsByTagName('script')[0];
-      script.async = 1;
-      script.onload = script.onreadystatechange = function (_, isAbort) {
-        if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
-          script.onload = script.onreadystatechange = null;
-          script = undefined;
-          if (!isAbort && callback) setTimeout(callback, 0);
-        }
-      };
-      script.src = source;
-      prior.parentNode.insertBefore(script, prior);
-    },
-    addParams: function (key, value) {
-      // Append queries to url
-      var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
-        urlQueryString = document.location.search,
-        newParam = key + '=' + value,
-        params = '?' + newParam;
-      // If the "search" string exists, then build params from it
-      if (urlQueryString) {
-        var updateRegex = new RegExp('([\?&])' + key + '[^&]*');
-        var removeRegex = new RegExp('([\?&])' + key + '=[^&;]+[&;]?');
-        if (typeof value == 'undefined' || value == null || value == '') { // Remove param if value is empty
-          params = urlQueryString.replace(removeRegex, "$1");
-          params = params.replace(/[&;]$/, "");
-        } else if (urlQueryString.match(updateRegex) !== null) { // If param exists already, update it
-          params = urlQueryString.replace(updateRegex, "$1" + newParam);
-        } else { // Otherwise, add it to end of query string
-          params = urlQueryString + '&' + newParam;
-        }
-      }
-      window.history.replaceState({}, "", baseUrl + params);
-    },
     sendMsg: function () {
       messages.innerHTML = '<div class="p-2 mb-4 alert alert-info">Vent venligst...</div>';
       var url = 'includes/mail/mail_ajax.php';
@@ -449,14 +314,145 @@ document.addEventListener("DOMContentLoaded", function () {
       long = long.toFixed(6);
       geo.value = lat + ", " + long;
     },
-    scrollAnimstion: function () {
-      //e.currentTarget();
+    scroll: function () {
+      if (scroller) {
+        if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
+          scroller.classList.add('show');
+        } else {
+          scroller.classList.remove('show');
+        }
+      }
+    },
+    scrollIndicator: function () {
+      var progressBar = document.getElementById("scrollProgress");
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = Math.floor((winScroll / height) * 100);
+      progressBar.setAttribute('aria-valuenow', scrolled);
+      progressBar.style.width = scrolled + '%';
+    },
+    scrollAnimation: function (el) {
+      var destination = el;
       window.scrollTo({
         'behavior': 'smooth',
         'left': 0,
-        'top': anchors.offsetTop
+        'top': destination.offsetTop
       });
-    }
+    },
+    getSiblings: function (elem) {
+      // Setup siblings array and get the first sibling
+      var siblings = [];
+      var sibling = elem.parentNode.firstChild;
+      // Loop through each sibling and push to the array
+      while (sibling) {
+        if (sibling.nodeType === 1 && sibling !== elem) {
+          siblings.push(sibling);
+        }
+        sibling = sibling.nextSibling;
+      }
+      return siblings;
+    },
+    getClosest: function (elem, selector) {
+      // Traverse upwards until first match is found (.closest()):
+      // Element.matches() polyfill
+      if (!Element.prototype.matches) {
+        Element.prototype.matches =
+          Element.prototype.matchesSelector ||
+          Element.prototype.mozMatchesSelector ||
+          Element.prototype.msMatchesSelector ||
+          Element.prototype.oMatchesSelector ||
+          Element.prototype.webkitMatchesSelector ||
+          function (s) {
+            var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+              i = matches.length;
+            while (--i >= 0 && matches.item(i) !== this) {}
+            return i > -1;
+          };
+      }
+      // Get closest match
+      for (; elem && elem !== document; elem = elem.parentNode) {
+        if (elem.matches(selector)) return elem;
+      }
+      return null;
+    },
+    strip_html_tags: function (str) {
+      // Strip html tags
+      if ((str === null) || (str === '')) {
+        return false;
+      } else {
+        str = str.toString();
+        return str.replace(/<\/?[^>]+(>|$)/g, '');
+      }
+    },
+    serializeForm: function (form) {
+      //Serialize all form data into a query string
+      var serialized = [];
+      // Loop through each field in the form
+      for (var i = 0; i < form.elements.length; i++) {
+        var field = form.elements[i];
+        // Don't serialize fields without a name, submits, buttons, file and reset inputs, and disabled fields
+        if (!field.name || field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') continue;
+
+        // If a multi-select, get all selections
+        if (field.type === 'select-multiple') {
+          for (var n = 0; n < field.options.length; n++) {
+            if (!field.options[n].selected) continue;
+            serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[n].value));
+          }
+        }
+
+        // Convert field data to a query string
+        else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
+          serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
+        }
+      }
+      return serialized.join('&');
+    },
+    getScript: function (source, callback) {
+      // Replacement for jQuery.getScript
+      var script = document.createElement('script');
+      var prior = document.getElementsByTagName('script')[0];
+      script.async = 1;
+      script.onload = script.onreadystatechange = function (_, isAbort) {
+        if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
+          script.onload = script.onreadystatechange = null;
+          script = undefined;
+          if (!isAbort && callback) setTimeout(callback, 0);
+        }
+      };
+      script.src = source;
+      prior.parentNode.insertBefore(script, prior);
+    },
+    addParams: function (key, value) {
+      // Append queries to url
+      var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+        urlQueryString = document.location.search,
+        newParam = key + '=' + value,
+        params = '?' + newParam;
+      // If the "search" string exists, then build params from it
+      if (urlQueryString) {
+        var updateRegex = new RegExp('([\?&])' + key + '[^&]*');
+        var removeRegex = new RegExp('([\?&])' + key + '=[^&;]+[&;]?');
+        if (typeof value == 'undefined' || value == null || value == '') { // Remove param if value is empty
+          params = urlQueryString.replace(removeRegex, "$1");
+          params = params.replace(/[&;]$/, "");
+        } else if (urlQueryString.match(updateRegex) !== null) { // If param exists already, update it
+          params = urlQueryString.replace(updateRegex, "$1" + newParam);
+        } else { // Otherwise, add it to end of query string
+          params = urlQueryString + '&' + newParam;
+        }
+      }
+      window.history.replaceState({}, "", baseUrl + params);
+    },
+    urlParam: function (name) {
+      // Get query string from url
+      var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.href);
+      if (results == null) {
+        return null;
+      } else {
+        return results[1] || 0;
+      }
+    },
   };
 
   // Run on load:
@@ -464,9 +460,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (query) {
     search.value = decodeURIComponent(NEL.strip_html_tags(query));
     NEL.trackThis("Search");
-    $root.animate({
-      scrollTop: assignments.offsetTop
-    }, 500);
+    NEL.scrollAnimation(assignments);
     NEL.searchDb();
   }
 
@@ -550,17 +544,15 @@ document.addEventListener("DOMContentLoaded", function () {
   if (scroller) {
     // Smooth scrolling from scroller
     scroller.addEventListener('click', function () {
-      NEL.scrollToTop();
+      NEL.scrollAnimation(root);
     }, false);
   }
 
   Array.prototype.forEach.call(anchors, function (anchor) {
     // Smooth scrolling from anchors
-    anchor.addEventListener("click", NEL.scrollAnimstion());
+    anchor.addEventListener("click", NEL.scrollAnimation(anchors));
   });
 
-
-  var tags = document.querySelectorAll(".tags");
   Array.prototype.forEach.call(tags, function (tag) {
     // Tags initiate search
     tag.addEventListener("click", function (e) {
@@ -616,7 +608,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   Array.prototype.forEach.call(contactFormModal, function (contactModal) {
     // Load Captcha when modal is opened
-    contactModal.addEventListener("click", function (e) {
+    contactModal.addEventListener("click", function () {
       messages.innerHTML = '';
       messages.classList.remove('alert', 'alert-danger', 'alert-success', 'alert-info');
       NEL.getScript('https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad');
@@ -624,6 +616,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // if (animationModal) {
+  //   animationModal.addEventListener("click", function (e) {
+  //     NEL.trackThis('Watching 3D animation');
+  //   });
+  // }
   // When 3D animation modal has been opened
   // $('#animation').on('shown.bs.modal', function (e) {
   //   NEL.trackThis('Watching 3D animation');

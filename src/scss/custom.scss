@@ -23,6 +23,10 @@ html {
   overflow-x: hidden;
 }
 
+html {
+  scroll-behavior:smooth;
+}
+
 body {
   padding-top: $bodynav-height;
   color: $body-color;
