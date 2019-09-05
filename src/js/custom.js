@@ -616,17 +616,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  if (animationModal) {
-    document.addEventListener('click', function (e) {
-      if (e.target && e.target.closest(animationModal)) {
-        NEL.trackThis('Watching 3D animation');
+
+    document.addEventListener("click", function(e) {
+      for (var target = e.target; target && target != this; target = target.parentNode) {
+        if (target.matches('[data-target*="animation"]')) {
+          NEL.trackThis('Watching 3D animation');
+          break;
+        }
       }
-    });
-  }
-  // When 3D animation modal has been opened
-  // $('#animation').on('shown.bs.modal', function (e) {
-  //   NEL.trackThis('Watching 3D animation');
-  // });
+    }, false);
 
   if (stats) {
     NEL.getGitHubStats();
