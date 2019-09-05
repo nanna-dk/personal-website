@@ -616,11 +616,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // if (animationModal) {
-  //   animationModal.addEventListener("click", function (e) {
-  //     NEL.trackThis('Watching 3D animation');
-  //   });
-  // }
+  if (animationModal) {
+    document.addEventListener('click', function (e) {
+      if (e.target && e.target.closest(animationModal)) {
+        NEL.trackThis('Watching 3D animation');
+      }
+    });
+  }
   // When 3D animation modal has been opened
   // $('#animation').on('shown.bs.modal', function (e) {
   //   NEL.trackThis('Watching 3D animation');
