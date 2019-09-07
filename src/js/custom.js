@@ -597,8 +597,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Rating animation
     for (var target = e.target; target && target != this; target = target.parentNode) {
       if (target.matches('.star')) {
-        var star = NEL.getClosest(e.target, '.star');
-        var siblings = NEL.getSiblings(star);
+          var star = NEL.getClosest(e.target, '.star');
+          var siblings = NEL.getSiblings(star);
         star.classList.add('full');
         break;
       }
