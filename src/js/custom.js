@@ -582,17 +582,45 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
 
-  stars.forEach(function (star) {
-    // Rating animations
-    star.addEventListener("mouseover", function (e) {
-      var siblings = NEL.getSiblings(star);
-      star.classList.add('full');
-    });
-    star.addEventListener("mouseout", function (e) {
-      this.classList.remove('full');
-    });
-  });
+  // stars.forEach(function (star) {
+  //   // Rating animations
+  //   star.addEventListener("mouseover", function (e) {
+  //     var siblings = NEL.getSiblings(star);
+  //     star.classList.add('full');
+  //   });
+  //   star.addEventListener("mouseout", function (e) {
+  //     this.classList.remove('full');
+  //   });
+  // });
 
+  document.addEventListener("mouseover", function(e) {
+    // Rating animation
+    for (var target = e.target; target && target != this; target = target.parentNode) {
+      if (target.matches('.star')) {
+        var star = NEL.getClosest(e.target, '.star');
+        var siblings = NEL.getSiblings(star);
+        star.classList.add('full');
+        break;
+      }
+    }
+  }, false);
+  document.addEventListener("mouseout", function(e) {
+    // Rating animation
+
+    for (var target = e.target; target && target != this; target = target.parentNode) {
+      if (target.matches('.star')) {
+        var star = target.dataset.vote;
+        var ex =  NEL.getSiblings(target);
+        //console.log(ex);
+        // if (target.dataset.vote === star) {
+        //   star.classList.remove('full');
+        // }
+
+
+        //e.target.classList.remove('full');
+      }
+    }
+  }, false);
   stars.forEach(function (star) {
     // Rate
     star.addEventListener("click", function (e) {
@@ -618,6 +646,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     document.addEventListener("click", function(e) {
+      // Setting event handler on dynamically created content:
       for (var target = e.target; target && target != this; target = target.parentNode) {
         if (target.matches('[data-target*="animation"]')) {
           NEL.trackThis('Watching 3D animation');
