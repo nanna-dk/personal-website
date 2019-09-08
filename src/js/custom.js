@@ -161,13 +161,15 @@ document.addEventListener("DOMContentLoaded", function () {
         bg.style.width = average + '%';
       }
     },
-    rate: function (itemId, vote) {
+    rate: function (itemId, vote, e) {
+      var target = e.target.parentNode;
+      var rated = NEL.getClosest(target, ".ratings[data-id='" + itemId + "']");
+      var sum = rated.querySelector('.votes');
       var data = {
         vote: 'yes',
         item: itemId,
         point: vote
       };
-
       var params = Object.keys(data).map(function (k) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
       }).join('&');
@@ -184,15 +186,14 @@ document.addEventListener("DOMContentLoaded", function () {
             if (this.status == 200) {
               var data = JSON.parse(this.responseText);
               //console.log(data);
-              var rated = document.querySelector(".ratings[data-id='" + itemId + "']");
               var bg = rated.querySelector('.bg');
               var average = data.average;
               average = (Number(average) * 20);
               bg.setAttribute('data-avg', data.average);
               bg.style.width = 0;
               bg.style.width = average + '%';
-              var suffix = (data.votes == 1) ? "bedømmelse" : "bedømmelser";
-              rated.querySelector('.votes').innerHTML = data.votes + " " + suffix;
+              var suffix = (data.votes == 1) ? "stemme" : "stemmer";
+              sum.innerHTML = data.votes + " " + suffix;
               NEL.trackThis("Rated assignment no. " + itemId + " with " + vote);
             } else {
               console.log(this.responseText);
@@ -201,8 +202,8 @@ document.addEventListener("DOMContentLoaded", function () {
         };
         xhr.send(params);
       } else {
-        var voted = document.querySelector(".ratings[data-id='" + itemId + "']");
-        voted.querySelector('.votes').innerHTML = 'Du har allerede afgivet en bedømmelse - vend tilbage senere.';
+        console.log('Blocked by cookie');
+        sum.innerHTML = 'Du har allerede afgivet en bedømmelse - vend tilbage senere.';
       }
     },
     sendMsg: function () {
@@ -218,12 +219,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (this.readyState == 4) {
           if (this.status == 200) {
             console.log(this.responseText);
-            //if (this.responseText !== '') {
             messages.classList.remove('alert-danger', 'alert-info');
             messages.classList.add('alert', 'alert-success');
             messages.innerHTML = this.responseText;
-            //}
-          } else if (this.status !== 200) {
+          } else {
             messages.classList.remove('alert-success', 'alert-info');
             messages.classList.add('alert', 'alert-danger');
             messages.innerHTML = this.responseText;
@@ -467,7 +466,6 @@ document.addEventListener("DOMContentLoaded", function () {
   NEL.setRatings();
   NEL.scroll();
 
-
   // Click events
   if (toggle) {
     toggle.addEventListener('click', function () {
@@ -494,7 +492,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
-
 
   if (btnSearch) {
     // Search assignments event
@@ -576,54 +573,51 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   if (assignmentCategory) {
+    // Sort by category
     assignmentCategory.onchange = function (e) {
       NEL.sortAssignments(e);
       NEL.trackThis("Sort");
     };
   }
 
-  // stars.forEach(function (star) {
-  //   // Rating animations
-  //   star.addEventListener("mouseover", function (e) {
-  //     var siblings = NEL.getSiblings(star);
-  //     star.classList.add('full');
-  //   });
-  //   star.addEventListener("mouseout", function (e) {
-  //     this.classList.remove('full');
-  //   });
-  // });
-
-  document.addEventListener("mouseover", function(e) {
+  document.addEventListener("mouseover", function (e) {
     // Rating animation
     for (var target = e.target; target && target != this; target = target.parentNode) {
       if (target.matches('.star')) {
-          var star = NEL.getClosest(e.target, '.star');
-          var siblings = NEL.getSiblings(star);
+        var star = NEL.getClosest(e.target, '.star');
+        var siblings = NEL.getSiblings(star);
         star.classList.add('full');
-        break;
       }
     }
   }, false);
-  
-  document.addEventListener("mouseout", function({ target }) {
+
+  document.addEventListener("mouseout", function (e) {
     // Rating animation
-      if (target.matches('.star')) {
-        target.classList.remove('full');
-      }
+    var target = e.target.parentNode;
+    if (target.matches('.star')) {
+      target.classList.remove('full');
+    }
   }, false);
 
-  stars.forEach(function (star) {
-    // Rate
-    star.addEventListener("click", function (e) {
-      var rating = NEL.getClosest(star, '.ratings');
-      var itemId = rating.getAttribute('data-id');
-      var vote = star.getAttribute('data-vote');
-      if (itemId && vote) {
-        NEL.rate(itemId, vote);
-        NEL.trackThis("Rated");
+  document.addEventListener("click", function (e) {
+    for (var target = e.target; target && target != this; target = target.parentNode) {
+      // Modal with animation
+      if (target.matches('[data-target*="animation"]')) {
+        NEL.trackThis('Watching 3D animation');
       }
-    });
-  });
+
+      if (target.matches('.star')) {
+        // Rate function
+        var rating = NEL.getClosest(target, '.ratings');
+        var itemId = rating.getAttribute('data-id');
+        var vote = target.getAttribute('data-vote');
+        if (itemId && vote) {
+          NEL.rate(itemId, vote, e);
+          NEL.trackThis("Rated");
+        }
+      }
+    }
+  }, false);
 
   Array.prototype.forEach.call(contactFormModal, function (contactModal) {
     // Load Captcha when modal is opened
@@ -634,17 +628,6 @@ document.addEventListener("DOMContentLoaded", function () {
       NEL.clearInput();
     });
   });
-
-
-    document.addEventListener("click", function(e) {
-      // Setting event handler on dynamically created content:
-      for (var target = e.target; target && target != this; target = target.parentNode) {
-        if (target.matches('[data-target*="animation"]')) {
-          NEL.trackThis('Watching 3D animation');
-          break;
-        }
-      }
-    }, false);
 
   if (stats) {
     NEL.getGitHubStats();
