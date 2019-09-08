@@ -604,23 +604,14 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   }, false);
-  document.addEventListener("mouseout", function(e) {
+  
+  document.addEventListener("mouseout", function({ target }) {
     // Rating animation
-
-    for (var target = e.target; target && target != this; target = target.parentNode) {
       if (target.matches('.star')) {
-        var star = target.dataset.vote;
-        var ex =  NEL.getSiblings(target);
-        //console.log(ex);
-        // if (target.dataset.vote === star) {
-        //   star.classList.remove('full');
-        // }
-
-
-        //e.target.classList.remove('full');
+        target.classList.remove('full');
       }
-    }
   }, false);
+
   stars.forEach(function (star) {
     // Rate
     star.addEventListener("click", function (e) {
