@@ -351,6 +351,19 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       return siblings;
     },
+    getNextSiblings: function (elem, filter) {
+      // this will start from the current element and get all of
+      // the next siblings
+      var sibs = [];
+      var matches;
+      // Double paranthesis?
+      while ((elem = elem.nextSibling)) {
+        if (matches(elem, filter)) {
+          sibs.push(elem);
+        }
+      }
+      return sibs;
+    },
     getClosest: function (elem, selector) {
       // Traverse upwards until first match is found (.closest()):
       // Element.matches() polyfill
@@ -595,7 +608,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Rating animation
     var target = e.target.parentNode;
     if (target.matches('.star')) {
+      // Check this!
       target.classList.remove('full');
+      var nextSiblings = NEL.getNextSiblings('.star', target);
+      nextSiblings.classList.remove('full');
     }
   }, false);
 
