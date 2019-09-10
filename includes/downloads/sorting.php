@@ -14,9 +14,10 @@ if (isset($_POST['column']) && isset($_POST['sortOrder']) && isset($_POST['categ
     $category = filter_var($category, FILTER_SANITIZE_STRING);
     $category = filter_var($category, FILTER_SANITIZE_SPECIAL_CHARS);
 
-    if ('1' == $category) {
+
+    if ($category == '1') {
         $where = "WHERE s.category <> '2'";
-    } elseif ('2' == $category) {
+    } elseif ($category == '2') {
         $where = "WHERE s.category <> '1'";
     } else {
         $where = "WHERE s.category <> '1' AND s.category <> '2'";

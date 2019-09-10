@@ -1,6 +1,10 @@
 'use strict';
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Matches polyfill:
+  if (!Element.prototype.matches) {
+    Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+  }
   // Search
   var search = document.getElementById('search');
   var clearSearch = document.getElementById('clearSearch');
@@ -148,6 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
       };
+      console.log(params);
       xhr.send(params);
     },
     setRatings: function () {
@@ -159,6 +164,10 @@ document.addEventListener("DOMContentLoaded", function () {
         var bg = ratings[i].querySelector('.bg');
         bg.style.width = 0;
         bg.style.width = average + '%';
+        var stars = bg.querySelectorAll('.star');
+        Array.prototype.forEach.call(stars, function (star) {
+          star.classList.remove('full');
+        });
       }
     },
     rate: function (itemId, vote, e) {
@@ -210,8 +219,6 @@ document.addEventListener("DOMContentLoaded", function () {
       messages.innerHTML = '<div class="p-2 mb-4 alert alert-info">Vent venligst...</div>';
       var url = 'includes/mail/mail_ajax.php';
       var formData = NEL.serializeForm(contactform);
-
-      // Return stripped input to search field
       var xhr = new XMLHttpRequest();
       xhr.open('POST', url, true);
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -351,41 +358,12 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       return siblings;
     },
-    getNextSiblings: function (elem, filter) {
-      // this will start from the current element and get all of
-      // the next siblings
-      var sibs = [];
-      var matches;
-      // Double paranthesis?
-      while ((elem = elem.nextSibling)) {
-        if (matches(elem, filter)) {
-          sibs.push(elem);
-        }
-      }
-      return sibs;
-    },
     getClosest: function (elem, selector) {
       // Traverse upwards until first match is found (.closest()):
-      // Element.matches() polyfill
-      if (!Element.prototype.matches) {
-        Element.prototype.matches =
-          Element.prototype.matchesSelector ||
-          Element.prototype.mozMatchesSelector ||
-          Element.prototype.msMatchesSelector ||
-          Element.prototype.oMatchesSelector ||
-          Element.prototype.webkitMatchesSelector ||
-          function (s) {
-            var matches = (this.document || this.ownerDocument).querySelectorAll(s),
-              i = matches.length;
-            while (--i >= 0 && matches.item(i) !== this) {}
-            return i > -1;
-          };
-      }
-      // Get closest match
-      for (; elem && elem !== document; elem = elem.parentNode) {
+      while (elem !== document.body) {
+        elem = elem.parentElement;
         if (elem.matches(selector)) return elem;
       }
-      return null;
     },
     strip_html_tags: function (str) {
       // Strip html tags
@@ -608,10 +586,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // Rating animation
     var target = e.target.parentNode;
     if (target.matches('.star')) {
-      // Check this!
       target.classList.remove('full');
-      var nextSiblings = NEL.getNextSiblings('.star', target);
-      nextSiblings.classList.remove('full');
+      var nextSiblings = target.nextElementSibling;
+      while (nextSiblings) {
+        nextSiblings.classList.remove('full');
+        nextSiblings = nextSiblings.nextElementSibling;
+      }
     }
   }, false);
 
