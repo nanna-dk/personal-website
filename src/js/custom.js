@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // assignments
   var assignments = document.getElementById('assignments');
   var allAssignments = document.getElementById('defaultAssignments');
-  var searchedAsssignments = document.getElementById('searchAssignments');
   // sorting
   var sortHeader = document.querySelectorAll('.sorting');
   var assignmentCategory = document.getElementById('categories');
@@ -47,18 +46,41 @@ document.addEventListener("DOMContentLoaded", function () {
       canvas.classList.toggle('open');
       scroller.classList.toggle('d-none');
     },
+    allAssignments: function () {
+      // Get all assignments unfiltered
+      var url = 'includes/downloads/allAssignments.php';
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4) {
+          if (this.status == 200) {
+            //console.log(this.responseText);
+            allAssignments.innerHTML = '';
+            allAssignments.innerHTML = this.responseText;
+            allAssignments.classList.add('show');
+            NEL.clearErrors();
+            // Append ?q=query to url for tracking purposes
+            NEL.addParams('q', '');
+            NEL.setRatings();
+          } else {
+            allAssignments.innerHTML = '<div class="alert alert-danger" role="alert">S&oslash;gning kunne ikke udf&oslash;res - pr&oslash;v igen senere.</div>';
+            allAssignments.classList.add('show');
+            console.log(this.responseText);
+          }
+        }
+      };
+      xhr.send(null);
+
+    },
     searchDb: function () {
       // Search assignments
       var url = 'includes/search/searchAssignments.php'; //searchpdf.php
       var q = search.value;
       q = NEL.strip_html_tags(q);
       if (!q) {
-        searchedAsssignments.innerHTML = '';
-        allAssignments.classList.add('fadeIn');
         search.classList.add('is-invalid');
       } else {
-        // Return stripped input to search field
-        q = NEL.strip_html_tags(q);
         var data = {
           search: q
         };
@@ -73,17 +95,17 @@ document.addEventListener("DOMContentLoaded", function () {
           if (this.readyState == 4) {
             if (this.status == 200) {
               //console.log(this.responseText);
-              allAssignments.style.display = 'none';
+              allAssignments.innerHTML = '';
               NEL.clearErrors();
-              searchedAsssignments.innerHTML = this.responseText;
-              searchedAsssignments.classList.add('show');
+              allAssignments.innerHTML = this.responseText;
+              allAssignments.classList.add('show');
               // Append ?q=query to url for tracking purposes
               NEL.addParams('q', encodeURIComponent(q));
               NEL.setRatings();
               return false;
             } else {
-              searchedAsssignments.innerHTML = 'S&oslash;gning kunne ikke udf&oslash;res - pr&oslash;v igen senere.';
-              searchedAsssignments.classList.add('show');
+              allAssignments.innerHTML = 'S&oslash;gning kunne ikke udf&oslash;res - pr&oslash;v igen senere.';
+              allAssignments.classList.add('show');
               console.log(this.responseText);
             }
           }
@@ -93,6 +115,8 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     sortAssignments: function (e) {
       // Sort assognments
+      var q = search.value;
+      q = NEL.strip_html_tags(q);
       var sortOrder, getID, name, order, isAnchor;
       var target = e.currentTarget;
       if (target.classList.contains('nav-link')) {
@@ -107,7 +131,8 @@ document.addEventListener("DOMContentLoaded", function () {
       var data = {
         'column': name || 'clicks',
         'sortOrder': order || 'desc',
-        'category': cat
+        'category': cat,
+        'search': q || ''
       };
       // Serialize an array of data or a set of key/values into a query string
       var params = Object.keys(data).map(function (k) {
@@ -143,16 +168,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 target.classList.add('asc');
               }
             }
+            allAssignments.innerHTML = '';
             allAssignments.innerHTML = this.responseText;
-            allAssignments.classList.add('fadeIn');
+            allAssignments.classList.add('show');
             // Update Ratings
             NEL.setRatings();
           } else {
+            allAssignments.innerHTML = 'Teknisk fejl - prøv igen senere.';
             console.log(this.responseText);
           }
         }
       };
-      console.log(params);
       xhr.send(params);
     },
     setRatings: function () {
@@ -204,6 +230,11 @@ document.addEventListener("DOMContentLoaded", function () {
               var suffix = (data.votes == 1) ? "stemme" : "stemmer";
               sum.innerHTML = data.votes + " " + suffix;
               NEL.trackThis("Rated assignment no. " + itemId + " with " + vote);
+              // After voting, remove obsolete selected stars:
+              var stars = rated.querySelectorAll('.star');
+              Array.prototype.forEach.call(stars, function (star) {
+                star.classList.remove('full');
+              });
             } else {
               console.log(this.responseText);
             }
@@ -212,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.send(params);
       } else {
         console.log('Blocked by cookie');
-        sum.innerHTML = 'Du har allerede afgivet en bedømmelse - vend tilbage senere.';
+        sum.innerHTML = '<div class="alert alert-warning" role="alert">Du har allerede afgivet en bedømmelse - vend tilbage senere.</div>';
       }
     },
     sendMsg: function () {
@@ -487,7 +518,6 @@ document.addEventListener("DOMContentLoaded", function () {
   if (btnSearch) {
     // Search assignments event
     btnSearch.addEventListener('click', function (e) {
-      e.preventDefault();
       NEL.trackThis("Search");
       NEL.searchDb();
     }, false);
@@ -496,13 +526,12 @@ document.addEventListener("DOMContentLoaded", function () {
   if (clearSearch) {
     // Clear search field
     clearSearch.addEventListener('click', function (e) {
-      search.value = '';
-      searchedAsssignments.innerHTML = '';
-      allAssignments.style.display = 'block';
       NEL.clearErrors();
       // Remove url params
       NEL.addParams('q', '');
       NEL.trackThis("Clear button");
+      search.value = '';
+      NEL.allAssignments();
     }, false);
   }
 
@@ -574,7 +603,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener("mouseover", function (e) {
     // Rating animation
     for (var target = e.target; target && target != this; target = target.parentNode) {
-      if (target.matches('.star')) {
+      if (target.closest('.star')) {
         var star = NEL.getClosest(e.target, '.star');
         var siblings = NEL.getSiblings(star);
         star.classList.add('full');
