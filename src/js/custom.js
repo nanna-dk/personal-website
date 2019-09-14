@@ -1,9 +1,21 @@
 'use strict';
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Matches polyfill:
+  // matches() polyfill:
   if (!Element.prototype.matches) {
     Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+  }
+
+  // closest() polyfill:
+  if (!Element.prototype.closest) {
+    Element.prototype.closest = function (s) {
+      var el = this;
+      do {
+        if (el.matches(s)) return el;
+        el = el.parentElement || el.parentNode;
+      } while (el !== null && el.nodeType === 1);
+      return null;
+    };
   }
   // Search
   var search = document.getElementById('search');
@@ -15,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var messages = document.querySelector('.feedback');
   // assignments
   var assignments = document.getElementById('assignments');
-  var allAssignments = document.getElementById('defaultAssignments');
+  var allAssignments = document.getElementById('allAssignments');
   // sorting
   var sortHeader = document.querySelectorAll('.sorting');
   var assignmentCategory = document.getElementById('categories');
