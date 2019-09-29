@@ -401,6 +401,15 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       return siblings;
     },
+    getPreviousSiblings: function (elem, filter) {
+      // Get all previous siblings:
+      var sibs = [];
+      while ((elem = elem.previousSibling)) {
+        if (elem.nodeType === 3) continue; // text node
+        if (!filter || filter(elem)) sibs.push(elem);
+      }
+      return sibs;
+    },
     getClosest: function (elem, selector) {
       // Traverse upwards until first match is found (.closest()):
       while (elem !== document.body) {
@@ -616,22 +625,26 @@ document.addEventListener("DOMContentLoaded", function () {
     // Rating animation
     for (var target = e.target; target && target != this; target = target.parentNode) {
       if (target.closest('.star')) {
-        var star = NEL.getClosest(e.target, '.star');
-        var siblings = NEL.getSiblings(star);
-        star.classList.add('full');
+        var stars = target.closest('.star');
+        var siblings = NEL.getPreviousSiblings(stars);
+        Array.prototype.forEach.call(siblings, function (sibling) {
+          sibling.classList.add('full');
+        });
+        target.closest('.star').classList.add('full');
       }
     }
   }, false);
 
   document.addEventListener("mouseout", function (e) {
-    // Rating animation
-    var target = e.target.parentNode;
-    if (target.matches('.star')) {
-      target.classList.remove('full');
-      var nextSiblings = target.nextElementSibling;
-      while (nextSiblings) {
-        nextSiblings.classList.remove('full');
-        nextSiblings = nextSiblings.nextElementSibling;
+    for (var target = e.target; target && target != this; target = target.parentNode) {
+      // Rating animation
+      if (target.matches('.star')) {
+        target.classList.remove('full');
+        var nextSiblings = target.nextElementSibling;
+        while (nextSiblings) {
+          nextSiblings.classList.remove('full');
+          nextSiblings = nextSiblings.nextElementSibling;
+        }
       }
     }
   }, false);
