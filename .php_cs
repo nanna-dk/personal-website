@@ -1,9 +1,6 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    // ->notPath('bootstrap/cache')
-    // ->notPath('storage')
-    // ->notPath('vendor')
     ->in(__DIR__)
     ->name('*.php')
     ->notName('*.blade.php')
