@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var toggle = document.querySelector('[data-toggle="offcanvas"]');
   // geolocation
   var geo = document.getElementById('geo');
-  var getCoords = document.getElementById('#generateCoords');
+  var getCoords = document.getElementById('generateCoords');
   // Statistik
   var stats = document.getElementById('gitHubStats');
   // Modals
@@ -261,25 +261,53 @@ document.addEventListener("DOMContentLoaded", function () {
     sendMsg: function () {
       messages.innerHTML = '<div class="p-2 mb-4 alert alert-info">Vent venligst...</div>';
       var url = 'includes/mail/mail_ajax.php';
-      var formData = NEL.serializeForm(contactform);
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', url, true);
-      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      xhr.onreadystatechange = function () {
-        if (this.readyState == 4) {
-          if (this.status == 200) {
-            console.log(this.responseText);
-            messages.classList.remove('alert-danger', 'alert-info');
-            messages.classList.add('alert', 'alert-success');
-            messages.innerHTML = this.responseText;
-          } else {
-            messages.classList.remove('alert-success', 'alert-info');
-            messages.classList.add('alert', 'alert-danger');
-            messages.innerHTML = this.responseText;
+      var data, params;
+      grecaptcha.ready(function () {
+        grecaptcha.execute(onReCaptchaLoad, {
+            action: 'homepage'
+          })
+          .then(function (token) {
+            //console.log(token);
+            //contactform.append('<input type="hidden" value="'+captcha+'" id="g-recaptcha-response" name="g-recaptcha-response">');
+            document.getElementById('g-recaptcha-response').value = token;
+            data = {
+              name: document.getElementById('name').value,
+              email: document.getElementById('email').value,
+              message: document.getElementById('msg').value,
+              recaptcha: grecaptcha.getResponse()
+            };
+           params = Object.keys(data).map(function (k) {
+              return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+            }).join('&');
+            console.log(params);
+            // var formData = NEL.serializeForm(contactform);
+            // formData.append("g-recaptcha-response", captcha);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function () {
+              if (this.readyState == 4) {
+                if (this.status == 200) {
+                  //console.log(this.responseText);
+                  messages.classList.remove('alert-danger', 'alert-info');
+                  messages.classList.add('alert', 'alert-success');
+                  messages.innerHTML = this.responseText;
+                } else {
+                  messages.classList.remove('alert-success', 'alert-info');
+                  messages.classList.add('alert', 'alert-danger');
+                  messages.innerHTML = this.responseText;
+                }
+              }
+            };
+            xhr.send(params);
           }
-        }
-      };
-      xhr.send(formData);
+        );
+      });
+
+
+
+
     },
     clearInput: function () {
       // Clear form fields
@@ -669,16 +697,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }, false);
 
-  Array.prototype.forEach.call(contactFormModal, function (contactModal) {
-    // Load Captcha when modal is opened
-    contactModal.addEventListener("click", function () {
-      messages.innerHTML = '';
-      messages.classList.remove('alert', 'alert-danger', 'alert-success', 'alert-info');
-      NEL.getScript('https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad');
-      NEL.clearInput();
-    });
-  });
-
   if (stats) {
     NEL.getGitHubStats();
   }
@@ -688,21 +706,41 @@ document.addEventListener("DOMContentLoaded", function () {
     NEL.scrollIndicator();
   });
 
+  Array.prototype.forEach.call(contactFormModal, function (contactModal) {
+    // Load Captcha when modal is opened
+    contactModal.addEventListener("click", function () {
+      messages.innerHTML = '';
+      messages.classList.remove('alert', 'alert-danger', 'alert-success', 'alert-info');
+      //NEL.getScript('https://www.google.com/recaptcha/api.js?render=6LefycAUAAAAADYmsKae8Auell26Cv0dpiVfy6pg');
+      NEL.getScript('https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad');
+      NEL.clearInput();
+    });
+  });
+
 }, false);
+
+// var captchaContainer = null;
+// var onReCaptchaLoad = function () {
+//   var captchaContainer = grecaptcha.render('recaptcha', {
+//     'sitekey': '6LefycAUAAAAADYmsKae8Auell26Cv0dpiVfy6pg',
+//     'badge': 'inline',
+//     'size': 'invisible',
+//   });
+// };
 
 var myCaptcha = null;
 var onReCaptchaLoad = function () {
   if (myCaptcha === null) {
     myCaptcha = grecaptcha.render('recaptcha', {
-      sitekey: '6LdXbXcUAAAAALIJ58R3GYrXGr0vgz6eS_SXuWcS',
-      callback: function (response) {
-        //console.log(grecaptcha.getResponse(myCaptcha));
-      }
+      'sitekey': '6LefycAUAAAAADYmsKae8Auell26Cv0dpiVfy6pg',
+      'size': 'invisible',
+      callback: onReCaptchaLoad
     });
   } else {
     grecaptcha.reset(myCaptcha);
   }
 };
+
 
 // Start service worker
 // if ('serviceWorker' in navigator && (window.location.protocol === 'https:')) {
