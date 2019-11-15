@@ -88,21 +88,24 @@ function countDownloads() {
 }
 
 function displayFilesize($id) {
-    include realpath(__DIR__.'/../db.php');
-    $sql = 'SELECT url FROM '.$DBtable.' WHERE id = :id';
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
-    if ($stmt->rowCount() > 0) {
-        $result = $stmt->fetchAll();
-        foreach ($result as $row) {
-            $file = $row['url'];
+  include realpath(__DIR__.'/../db.php');
+  $sql = 'SELECT url FROM '.$DBtable.' WHERE id = :id';
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+  $stmt->execute();
+  if ($stmt->rowCount() > 0) {
+      $result = $stmt->fetchAll();
+      foreach ($result as $row) {
+          $url = $row['url'];
+          $file = $global_path.$url;
+          if (file_exists($file) || (file_exists($file) && filesize($file) < 5000)) {
             $filesize = filesize($file);
             $filesize = round($filesize / 1024 / 1024, 1); // megabytes with 1 digit.
             echo "$filesize MB";
         }
-    }
-    $stmt = null;
-    $pdo = null;
+      }
+  }
+  $stmt = null;
+  $pdo = null;
 }
 ?>
