@@ -16,19 +16,22 @@
   // If used in a search - mark search words
   if (isset($_POST['search'])) {
       $search = $_POST['search'];
-      if (!empty($search)) {
-      $title = preg_replace("/($search)/i", '<mark>$1</mark>', $title);
-      $desc = preg_replace("/($search)/i", '<mark>$1</mark>', $desc);
-    }
+      if (! empty($search)) {
+          $title = preg_replace("/($search)/i", '<mark>$1</mark>', $title);
+          $desc = preg_replace("/($search)/i", '<mark>$1</mark>', $desc);
+      }
   }
 
   $content = $row['content'];
   $url = $row['url'];
+
   // File size:
   $file = $global_path.$url;
+  $filesize = '';
   if (file_exists($file) || (file_exists($file) && filesize($file) < 5000)) {
     $filesize = filesize($file);
     $filesize = round($filesize / 1024, 1); // kb with 1 digit.
+    $filesize = 'Størrelse: $filesize';
   }
   $clicks = number_format($row['clicks'], 0, '', '.');
   $dates = (date('d. m. Y', strtotime($row['dates'])));
@@ -54,6 +57,6 @@
   echo '</div>';
   // Rating end
   echo '</div>';
-  echo '<div class="card-footer"><div class="footer-left">Oprettet: '.$dates.'</div><div class="footer-right">Downloads: '.$clicks.'</div></div>';
+  echo '<div class="card-footer"><div class="footer-left">Oprettet: '.$dates.'</div><div class="footer-right">Downloads: '.$clicks.'</div><div class="footer-right">'.$filesize.'</div></div>';
   echo '</div>';
 ?>
