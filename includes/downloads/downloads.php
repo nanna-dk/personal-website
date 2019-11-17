@@ -13,7 +13,8 @@ if (0 !== (int) $_GET['id']) {
     if ($stmt->rowCount() > 0) {
         $result = $stmt->fetchAll();
         foreach ($result as $row) {
-            header('Location: '.$row['url']);
+          $location = $siteUrl.'/opgaver/'.$row['url'];
+          header('location: ' .$location);
         }
 
         // Update counter by one and add a timestamp (plus 1 hour to get correct time zone on remote db)
