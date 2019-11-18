@@ -17,6 +17,7 @@ var gulp = require('gulp'),
   jsStylish = require('jshint-stylish'),
   svgmin = require('gulp-svgmin'),
   nunjucksRender = require('gulp-nunjucks-render'),
+  versionNumber = require('gulp-version-number'),
   // Get data from file
   pkg = require('./package.json');
 
@@ -48,6 +49,14 @@ var res = {
   customJs: [paths.src + '/js/custom.js'],
   cssSrc: [paths.src + '/scss/custom.scss'],
   minImg: paths.src + '/img/*.svg'
+};
+
+var versionConfig = {
+  'value': '%TS%',
+  'append': {
+    'key': 'v',
+    'to': ['css', 'js'],
+  },
 };
 
 function serve(done) {
@@ -127,6 +136,7 @@ function renderHtml() {
       author: pkg.author
     }
   }))
+  .pipe(versionNumber(versionConfig))
   .pipe(htmlmin({
     removeComments: true,
     collapseWhitespace: true,
