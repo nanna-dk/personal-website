@@ -27,7 +27,6 @@
 
   // File size:
   $file = $global_path.$url;
-  $filesize = '';
   if (file_exists($file) || (file_exists($file) && filesize($file) < 5000)) {
     $filesize = filesize($file);
     $filesize = round($filesize / 1024, 1); // kb with 1 digit.
