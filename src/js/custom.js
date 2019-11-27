@@ -711,22 +711,12 @@ document.addEventListener("DOMContentLoaded", function () {
     contactModal.addEventListener("click", function () {
       messages.innerHTML = '';
       messages.classList.remove('alert', 'alert-danger', 'alert-success', 'alert-info');
-      //NEL.getScript('https://www.google.com/recaptcha/api.js?render=6LefycAUAAAAADYmsKae8Auell26Cv0dpiVfy6pg');
       NEL.getScript('https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad');
       NEL.clearInput();
     });
   });
 
 }, false);
-
-// var captchaContainer = null;
-// var onReCaptchaLoad = function () {
-//   var captchaContainer = grecaptcha.render('recaptcha', {
-//     'sitekey': '6LefycAUAAAAADYmsKae8Auell26Cv0dpiVfy6pg',
-//     'badge': 'inline',
-//     'size': 'invisible',
-//   });
-// };
 
 var myCaptcha = null;
 var onReCaptchaLoad = function () {
