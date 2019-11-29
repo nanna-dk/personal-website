@@ -267,8 +267,6 @@ document.addEventListener("DOMContentLoaded", function () {
             action: 'homepage'
           })
           .then(function (token) {
-            //console.log(token);
-            //contactform.append('<input type="hidden" value="'+captcha+'" id="g-recaptcha-response" name="g-recaptcha-response">');
             document.getElementById('g-recaptcha-response').value = token;
             data = {
               name: document.getElementById('name').value,
@@ -276,13 +274,10 @@ document.addEventListener("DOMContentLoaded", function () {
               message: document.getElementById('msg').value,
               recaptcha: grecaptcha.getResponse()
             };
-           params = Object.keys(data).map(function (k) {
+            params = Object.keys(data).map(function (k) {
               return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
             }).join('&');
-            console.log(params);
-            // var formData = NEL.serializeForm(contactform);
-            // formData.append("g-recaptcha-response", captcha);
-
+            //console.log(params);
             var xhr = new XMLHttpRequest();
             xhr.open('POST', url, true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -293,6 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   messages.classList.remove('alert-danger', 'alert-info');
                   messages.classList.add('alert', 'alert-success');
                   messages.innerHTML = this.responseText;
+                  sendMsg.disabled = true;
                 } else {
                   messages.classList.remove('alert-success', 'alert-info');
                   messages.classList.add('alert', 'alert-danger');
@@ -301,17 +297,13 @@ document.addEventListener("DOMContentLoaded", function () {
               }
             };
             xhr.send(params);
-          }
-        );
+          });
       });
-
-
-
-
     },
     clearInput: function () {
       // Clear form fields
       contactform.reset();
+      sendMsg.disabled = false;
       if (window.grecaptcha) {
         grecaptcha.reset();
       }
@@ -319,6 +311,7 @@ document.addEventListener("DOMContentLoaded", function () {
     clearErrors: function () {
       // Clear form errors
       search.classList.remove('is-invalid');
+      sendMsg.disabled = false;
     },
     trackThis: function (text) {
       // Google Analytics event tracking
@@ -597,6 +590,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Send message
     sendMsg.addEventListener('click', function () {
       NEL.sendMsg();
+    }, false);
+
+    contactform.addEventListener("submit", function (e) {
+      e.preventDefault();
+      sendMsg.disabled = true;
     }, false);
   }
 

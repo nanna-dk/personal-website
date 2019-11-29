@@ -2,6 +2,7 @@
 
 // If the form was submitted
 include_once realpath(__DIR__.'/../db.php');
+include_once realpath(__DIR__.'/../functions.php');
 if ('POST' == $_SERVER['REQUEST_METHOD']) {
     //error_reporting(E_ALL);
     //var_dump($_POST);
@@ -41,7 +42,7 @@ if ('POST' == $_SERVER['REQUEST_METHOD']) {
                 exit;
             }
             $recipient = $adminMail;
-            $subject = "Besked fra $name";
+            $subject = siteUrl() . ": Besked fra $name";
             $body = '<p><strong>Navn:</strong> '.$name.'</p>';
             $body .= '<p><strong>E-mail:</strong> '.$email.'</p>';
             $body .= '<p><strong>Dato/tid:</strong> '.$time.'</p>';
