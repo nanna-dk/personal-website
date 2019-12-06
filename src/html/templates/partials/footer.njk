@@ -20,7 +20,7 @@
       <div class="col-xs-12 col-md-6 text-lg-right text-xs-center mt-3 mt-sm-1">
         <p class="copyright-text">Sidst opdateret: <time datetime="<?php echo date(" Y-m-d " , getlastmod()) ?>">
             <?php echo strftime( "%d. %m. %Y", getlastmod() ); ?></time> <br> Copyright ©
-          <?php echo date("Y"); ?> <a href="admin.php" rel="noopener">Nanna Ellegaard</a></p>
+          <?php echo date("Y"); ?> <span itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="admin.php" rel="author" itemprop="url"><span itemprop="name">Nanna Ellegaard</span></a></span></p>
       </div>
     </div>
   </div>

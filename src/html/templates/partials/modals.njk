@@ -46,11 +46,13 @@
         </button>
       </div>
       <div class="modal-body">
-        <picture>
-          <source srcset="img/it-cover.webp" type="image/webp">
-          <source srcset="img/it-cover.jpg" type="image/jpeg">
+        <picture itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <source itemprop="url contentUrl" srcset="img/it-cover.webp" type="image/webp">
+          <source itemprop="url contentUrl" srcset="img/it-cover.jpg" type="image/jpeg">
           <img src="img/it-cover.jpg" alt="Cover" width="600" height="450" loading="lazy" class="img-fluid">
-      </picture>
+          <meta itemprop="width" content="600">
+          <meta itemprop="height" content="450">
+        </picture>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Luk</button>
@@ -70,10 +72,16 @@
         </button>
       </div>
       <div class="modal-body text-center">
-        <div class="embed-responsive embed-responsive-16by9 video-wrapper">
+        <div class="embed-responsive embed-responsive-16by9 video-wrapper" itemprop="video" itemscope itemtype="https://schema.org/VideoObject">
           <video class="embed-responsive-item video-style" poster="img/3d-modellering.jpg" controls playsinline>
-            <source src="includes/downloads/downloads.php?id=2">
+            <source itemprop="contentUrl" src="includes/downloads/downloads.php?id=2">
+            I’m sorry, your browser doesn’t support HTML5 video.
           </video>
+          <meta itemprop="name" content="3D modellering">
+          <meta itemprop="description" content="Return of the Mac - en animation.">
+          <meta itemprop="duration" content="PT1M44S">
+          <meta itemprop="uploadDate" content="2003-01-17T15:16:09+01:00">
+          <meta itemprop="thumbnailUrl" content="img/3d-modellering.jpg">
         </div>
         Copyright © 2003 Nanna Ellegaard og Allan Lysholt
       </div>
