@@ -65,15 +65,13 @@ function getCloud($data = [], $minFontSize = 12, $maxFontSize = 22, $totalOutput
     $cloudTags = [];
     0 == $spread && $spread = 1;
     $max = 1; // or default 0
-
     foreach ($data as $tag => $count) {
         if ($count > $max) {
             $size = $minFontSize + ($count - $minimumCount) * ($maxFontSize - $minFontSize) / $spread;
             $tag = strtolower($tag);
-            $cloudTags[] = '<a style="font-size: '.floor($size).'px'.'" class="tags" data-tag="'.$tag.'" href="#" title="\''.$tag.'\' er fundet '.$count.' gange">'.htmlentities(stripslashes($tag)).'</a>';
+            $cloudTags[] = '<a rel="category tag" style="font-size: '.floor($size).'px'.'" class="tags" data-tag="'.$tag.'" href="#" title="\''.$tag.'\' er fundet '.$count.' gange">'.htmlentities(stripslashes($tag)).'</a>';
         }
     }
-
     return join("\n", $cloudTags)."\n";
 }
 
@@ -81,5 +79,5 @@ function getCloud($data = [], $minFontSize = 12, $maxFontSize = 22, $totalOutput
 $stmt = null;
 $pdo = null;
 
-echo getCloud($freqData);
+echo '<div itemscope itemtype="http://schema.org/CreativeWork">' . getCloud($freqData) . '</div>';
 ?>
