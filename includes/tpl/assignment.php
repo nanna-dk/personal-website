@@ -45,7 +45,7 @@
   echo '<span class="bg"></span>';
   echo '<span class="stars">';
   for ($i = 1; $i <= 5; ++$i):
-      echo '<span class="star" data-vote="'.$i.'" title="'.$i.'/5">
+      echo '<span class="star" data-vote="'.$i.'" title="Klik for at give '.$i.' ud af 5 stemmer">
           <svg role="presentation"><use xlink:href="dist/img/icons.svg#icon-star"></use></svg>
         </span>';
   endfor;
