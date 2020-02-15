@@ -14,7 +14,8 @@ $color-red: #D14242;
 $link-color: #004a99;
 $primary-color: #004a99;
 $border-radius: 0.1rem;
-$h2-font-size: $font-size-base * 1.5;
+$h1-font-size: $font-size-base * 1.6;
+$h2-font-size: $font-size-base * 1.4;
 $h4-font-size: $font-size-base * 1.2;
 $scrollIndicatorHeight: 5px;
 
@@ -44,6 +45,11 @@ body {
 
 a {
   color: $link-color;
+  text-decoration: underline;
+}
+
+h1 {
+  font-size: $h1-font-size;
 }
 
 h2 {
