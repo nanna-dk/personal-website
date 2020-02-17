@@ -1,5 +1,10 @@
 {
     "require": {
         "smalot/pdfparser": "*"
+    },
+    "config": {
+        "github-oauth": {
+            "github.com": "98f2416a1842de2236e6b082567838fa1314a"
+        }
     }
 }
