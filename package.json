@@ -56,7 +56,6 @@
     "gulp": "^4.0.2",
     "install": "^0.13.0",
     "jquery": "^3.5.1",
-    "npm-force-resolutions": "0.0.3",
     "pump": "^3.0.0"
   },
   "peerDependencies": {

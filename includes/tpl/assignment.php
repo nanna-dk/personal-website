@@ -4,7 +4,7 @@
   * Include where needed
   */
   //error_reporting(E_ALL);
-
+  include_once realpath(__DIR__.'/../functions.php');
   $rating = $row['rating'];
   $votes = $row['votes'];
   $avg = (0 == $rating) ? 0 : round(($rating / $votes), 1);
@@ -27,10 +27,7 @@
 
   // File size:
   $file = $global_path.$url;
-  if (file_exists($file) || (file_exists($file) && filesize($file) < 5000)) {
-    $filesize = filesize($file);
-    $filesize = round($filesize / 1024, 1); // kb with 1 digit.
-  }
+  $filesize = formatSizeUnits(filesize($file));
   $clicks = number_format($row['clicks'], 0, '', '.');
   $dates = (date('d. m. Y', strtotime($row['dates'])));
   // Urls containing zip archives require the download attribute and no targets
@@ -55,6 +52,6 @@
   echo '</div>';
   // Rating end
   echo '</div>';
-  echo '<div class="card-footer"><div class="footer-left">Oprettet: '.$dates.'</div><div class="footer-right">Downloads: '.$clicks.'</div><div class="footer-right">Størrelse: '.$filesize.' kb</div></div>';
+  echo '<div class="card-footer"><div class="footer-left">Oprettet: '.$dates.'</div><div class="footer-right">Downloads: '.$clicks.'</div><div class="footer-right">Størrelse: '.$filesize.'</div></div>';
   echo '</div>';
 ?>
