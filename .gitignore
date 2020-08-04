@@ -16,6 +16,7 @@ docs/.jekyll-metadata
 *.swp
 *.vi
 *.zip
+*.sh
 *~
 
 # OS or Editor folders
