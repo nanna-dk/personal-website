@@ -34,7 +34,7 @@
   $dl_tag = (7 == $id) ? 'download' : '';
   $blank_tag = (7 == $id) ? '' : 'target="_blank" rel="noopener"';
   echo '<div class="card">';
-  echo '<h4 class="card-header"><span class="count">'.$counter.'.</span> <a href="includes/downloads/downloads.php?id='.$id.'" '.$blank_tag.' title="Se '.$title.'" '.$dl_tag.'>'.$title.'</a></h4>';
+  echo '<h3 class="card-header"><span class="count">'.$counter.'.</span> <a href="includes/downloads/downloads.php?id='.$id.'" '.$blank_tag.' title="Se '.$title.'" '.$dl_tag.'>'.$title.'</a></h3>';
   echo '<div class="card-body"><p class="card-text">'.$desc.'</p>';
   // Rating start
   echo '<div class="ratings" data-id="'.$id.'" data-avg="'.$avg.'">';
