@@ -52,6 +52,6 @@
   echo '</div>';
   // Rating end
   echo '</div>';
-  echo '<div class="card-footer"><div class="footer-left">Oprettet: '.$dates.'</div><div class="footer-right">Downloads: '.$clicks.'</div><div class="footer-right">Størrelse: '.$filesize.'</div></div>';
+  echo '<div class="card-footer"><div class="row"><div class="col-sm-4">Oprettet: '.$dates.'</div><div class="col-sm-4">Downloads: '.$clicks.'</div><div class="col-sm-4">Størrelse: '.$filesize.'</div></div></div>';
   echo '</div>';
 ?>

@@ -320,18 +320,6 @@ svg {
     &:last-child {
       border-radius: 0 0 calc(.15rem - 1px) calc(.15rem - 1px);
     }
-
-    .footer-left {
-      float: left;
-    }
-
-    .footer-right {
-      float: right;
-
-      &+.footer-right {
-        margin-right: 0.75rem;
-      }
-    }
     color: $gray-700;
   }
 
@@ -491,8 +479,7 @@ section {
     }
 
     &.full {
-      background: #598000;
-      //background: #f4bb2f;
+      background: #f4bb2f;
     }
   }
 }
