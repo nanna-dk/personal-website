@@ -24,9 +24,15 @@ if (isset($_POST['submit'])) {
 
     //If $row is FALSE.
     if (false === $user) {
-        //Could not find a user with that username!
-        //PS: You might want to handle this error in a more user-friendly manner!
-        die('Incorrect username / password combination!');
+        //Could not find a user with that username
+        echo '<div class="container">', PHP_EOL,
+        '<div class="card">', PHP_EOL,
+          '<div class="card-body">', PHP_EOL,
+            '<div class="alert alert-danger" role="alert">Brugernavn eller adgangskode er ikke korrekt. Prøv igen.</div>', PHP_EOL,
+          '</div>', PHP_EOL,
+        '</div>', PHP_EOL,
+      '</div>', PHP_EOL;
+        require 'admin-login.php';
     } else {
         //User account found. Check to see if the given password matches the
         //password hash that we stored in our users table.
@@ -34,40 +40,14 @@ if (isset($_POST['submit'])) {
 
         //If $validPassword is TRUE, the login has been successful.
         if ($validPassword) {
-            include('admin-content.php');
-            //exit;
+            require_once 'admin-content.php';
         } else {
             //$validPassword was FALSE. Passwords do not match.
             die('Incorrect username / password combination!');
         }
     }
 } else {
-echo '<div class="container px-3">', PHP_EOL,
-    '<div class="card">', PHP_EOL,
-      '<div class="card-body">', PHP_EOL,
-      '<h5 class="card-title">Indtast login</h5>', PHP_EOL,
-        '<form action="" method="post" class="mt-sm-4">', PHP_EOL,
-          '<div class="form-group row">', PHP_EOL,
-            '<label for="username" class="col-sm-3 col-form-label">Brugernavn</label>', PHP_EOL,
-            '<div class="col-sm-9">', PHP_EOL,
-              '<input type="text" class="form-control" id="username" name="username" placeholder="Brugernavn" autofocus required>', PHP_EOL,
-            '</div>', PHP_EOL,
-          '</div>', PHP_EOL,
-          '<div class="form-group row">', PHP_EOL,
-            '<label for="password" class="col-sm-3 col-form-label">Adgangskode</label>', PHP_EOL,
-            '<div class="col-sm-9">', PHP_EOL,
-              '<input type="password" class="form-control" id="password" name="password" placeholder="Password" required>', PHP_EOL,
-            '</div>', PHP_EOL,
-          '</div>', PHP_EOL,
-          '<div class="form-group row">', PHP_EOL,
-            '<div class="col-sm-9">', PHP_EOL,
-              '<button type="submit" name="submit" class="btn btn-primary mb-2">Send</button>', PHP_EOL,
-            '</div>', PHP_EOL,
-          '</div>', PHP_EOL,
-        '</form>', PHP_EOL,
-      '</div>', PHP_EOL,
-    '</div>', PHP_EOL,
-  '</div>', PHP_EOL;
+    require 'admin-login.php';
 }
 ?>
 {% endblock %}
