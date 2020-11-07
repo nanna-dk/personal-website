@@ -7,11 +7,10 @@
 {% block content %}
 
 <?php
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 include realpath(__DIR__.'/includes/db.php');
 
 if (isset($_POST['submit'])) {
-    //Retrieve the field values from our login form.
     $username = ! empty($_POST['username']) ? trim($_POST['username']) : null;
     $passwordAttempt = ! empty($_POST['password']) ? trim($_POST['password']) : null;
 
@@ -28,7 +27,7 @@ if (isset($_POST['submit'])) {
         echo '<div class="container">', PHP_EOL,
         '<div class="card">', PHP_EOL,
           '<div class="card-body">', PHP_EOL,
-            '<div class="alert alert-danger" role="alert">Brugernavn eller adgangskode er ikke korrekt. Prøv igen.</div>', PHP_EOL,
+            '<div class="alert alert-danger" role="alert">Brugernavn er ikke korrekt. Prøv igen.</div>', PHP_EOL,
           '</div>', PHP_EOL,
         '</div>', PHP_EOL,
       '</div>', PHP_EOL;
@@ -43,7 +42,14 @@ if (isset($_POST['submit'])) {
             require_once 'admin-content.php';
         } else {
             //$validPassword was FALSE. Passwords do not match.
-            die('Incorrect username / password combination!');
+            echo '<div class="container">', PHP_EOL,
+            '<div class="card">', PHP_EOL,
+              '<div class="card-body">', PHP_EOL,
+                '<div class="alert alert-danger" role="alert">Brugernavn og/eller adgangskode er ikke korrekt. Prøv igen.</div>', PHP_EOL,
+              '</div>', PHP_EOL,
+            '</div>', PHP_EOL,
+          '</div>', PHP_EOL;
+            require 'admin-login.php';
         }
     }
 } else {
