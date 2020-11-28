@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function () {
       xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
           if (this.status == 200) {
-            console.log(this.responseText);
+            //console.log(this.responseText);
             var data = JSON.parse(this.responseText);
             var newData = data.reduce((acc, el) => {
               var date = el.commit.committer.date;

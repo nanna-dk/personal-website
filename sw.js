@@ -19,7 +19,8 @@ const PRECACHE_URLS = [
       'img/icons/mstile-150x150.png',
       'img/3d-modellering.jpg',
       'img/it-cover.jpg',
-      'favicon.ico'
+      'favicon.ico',
+      'admin.php'
     ];
 
 // The install handler takes care of precaching the resources we always need.

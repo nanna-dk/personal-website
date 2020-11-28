@@ -110,7 +110,7 @@ function scripts() {
   return gulp
     .src(arrays, { sourcemaps: true })
     .pipe(plumber())
-    .pipe(concat("script.min.js"))
+    .pipe(concat("bootstrap.min.js"))
     .pipe(babel())
     .pipe(uglify())
     .pipe(gulp.dest(paths.minJs, { sourcemaps: '.' }))
