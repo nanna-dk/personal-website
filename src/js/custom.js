@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function () {
       xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
           if (this.status == 200) {
-            console.log(this.responseText);
+            //console.log(this.responseText);
             var data = JSON.parse(this.responseText);
             var newData = data.reduce((acc, el) => {
               var date = el.commit.committer.date;
@@ -696,7 +696,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }, false);
 
   if (stats) {
-    NEL.getGitHubStats();
+      NEL.getGitHubStats();
   }
 
   window.addEventListener('scroll', function () {
@@ -731,14 +731,14 @@ var onReCaptchaLoad = function () {
 
 
 // Start service worker
-if ('serviceWorker' in navigator && (window.location.protocol === 'https:')) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('sw.js').then(function (registration) {
-      // Registration was successful
-      //console.log('Service Worker registration successful with scope: ', registration.scope);
-    }, function (err) {
-      // registration failed :(
-      console.log('Service Worker registration failed: ', err);
-    });
-  });
-}
+// if ('serviceWorker' in navigator && (window.location.protocol === 'https:')) {
+//   window.addEventListener('load', function () {
+//     navigator.serviceWorker.register('sw.js').then(function (registration) {
+//       // Registration was successful
+//       //console.log('Service Worker registration successful with scope: ', registration.scope);
+//     }, function (err) {
+//       // registration failed :(
+//       console.log('Service Worker registration failed: ', err);
+//     });
+//   });
+// }
