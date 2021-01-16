@@ -94,6 +94,7 @@ h1 {
 
 h2 {
   font-size: $h2-font-size;
+  margin-bottom: 1rem;
 }
 
 h4 {
@@ -242,7 +243,7 @@ svg {
         display: block;
         line-height: 1.2rem;
 
-        a {
+        a, span {
           color: $body-color;
           position: relative;
           font-size: 14px;
@@ -271,17 +272,13 @@ svg {
             color: lighten($gray-700, 10%);
             text-decoration: none;
           }
-
-          &.no-event {
-            color: $body-color;
-          }
         }
       }
     }
 
     &:hover {
       .company {
-        a {
+        a, span {
           &::before {
             background: $color-red;
           }
