@@ -30,7 +30,7 @@
     "@babel/core": "^7.13.10",
     "@babel/plugin-proposal-object-rest-spread": "^7.13.8",
     "@babel/preset-env": "^7.13.10",
-    "babel-plugin-transform-es2015-modules-strip": "^0.1.1",
+    "babel-plugin-transform-es2015-modules-strip": "^0.1.2",
     "babel-preset-env": "^1.7.0",
     "browser-sync": "^2.26.14",
     "gulp-autoprefixer": "^7.0.1",
